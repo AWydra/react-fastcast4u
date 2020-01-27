@@ -1,19 +1,20 @@
 import React from 'react';
-import styled from 'styled-components';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import GlobalStyle from 'theme/GlobalStyle';
 
-const Button = styled.button`
-  background-color: magenta;
-  margin: 0 0 0 9px;
-`;
+import Home from 'views/Home';
+import NotFound from 'views/NotFound';
 
 function Root() {
   return (
-    <>
+    <Router>
       <GlobalStyle />
       <h1>Hello World!</h1>
-      <Button>Click me!</Button>
-    </>
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route component={NotFound} />
+      </Switch>
+    </Router>
   );
 }
 
