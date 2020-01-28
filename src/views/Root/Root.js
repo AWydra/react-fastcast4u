@@ -1,14 +1,13 @@
 import React, { useEffect } from 'react';
-import { Router, Switch, Route } from 'react-router-dom';
-import GlobalStyle from 'theme/GlobalStyle';
+import { Router } from 'react-router-dom';
 import history from 'services/history';
+import MainRoutes from 'routes/MainRoutes';
+
 import ReactGA from 'utils/analytics';
 import { hotjar } from 'react-hotjar';
-
-import Home from 'views/Home';
-import NotFound from 'views/NotFound';
-
 import tawkto from 'react-tawkto';
+
+import MainTemplate from 'templates/MainTemplate';
 
 const Root = () => {
   // Tawk.to
@@ -33,12 +32,9 @@ const Root = () => {
 
   return (
     <Router history={history}>
-      <GlobalStyle />
-      <h1>Hello World!</h1>
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route component={NotFound} />
-      </Switch>
+      <MainTemplate>
+        <MainRoutes />
+      </MainTemplate>
     </Router>
   );
 };
