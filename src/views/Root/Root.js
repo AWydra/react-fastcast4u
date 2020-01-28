@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Router, Switch, Route } from 'react-router-dom';
 import GlobalStyle from 'theme/GlobalStyle';
+import history from 'services/history';
+import ReactGA from 'utils/analytics';
 
 import Home from 'views/Home';
 import NotFound from 'views/NotFound';
@@ -13,8 +15,19 @@ const Root = () => {
     tawkto.init('55fb4794e1ea4c1012fe49df', () => console.log('Tawk.to ready'));
   }, []);
 
+  // Google Analytics
+  useEffect(() => {
+    ReactGA.pageview(window.location.pathname);
+
+    history.listen(location => {
+      ReactGA.set({ page: location.pathname }); // Update the user's current page
+      ReactGA.pageview(location.pathname); // Record a pageview for the given page
+      console.log(location.pathname);
+    });
+  }, []);
+
   return (
-    <Router>
+    <Router history={history}>
       <GlobalStyle />
       <h1>Hello World!</h1>
       <Switch>
