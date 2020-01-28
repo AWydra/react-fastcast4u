@@ -8856,6 +8856,11 @@ react-ga@^2.7.0:
   resolved "https://registry.yarnpkg.com/react-ga/-/react-ga-2.7.0.tgz#24328f157f31e8cffbf4de74a3396536679d8d7c"
   integrity sha512-AjC7UOZMvygrWTc2hKxTDvlMXEtbmA0IgJjmkhgmQQ3RkXrWR11xEagLGFGaNyaPnmg24oaIiaNPnEoftUhfXA==
 
+react-hotjar@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/react-hotjar/-/react-hotjar-2.1.0.tgz#8e58946ae0937d3587e914c92222be548065e484"
+  integrity sha512-anMvQBrI1gDyl1zUpyLR2ADqV0mSAWXNUifZdthH5zd4gIlHY+gZIdCJUOmlJRRCQl7fXv4mJd6d9abMbtSuuw==
+
 react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.4:
   version "16.12.0"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.12.0.tgz#2cc0fe0fba742d97fd527c42a13bec4eeb06241c"

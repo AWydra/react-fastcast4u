@@ -3,6 +3,7 @@ import { Router, Switch, Route } from 'react-router-dom';
 import GlobalStyle from 'theme/GlobalStyle';
 import history from 'services/history';
 import ReactGA from 'utils/analytics';
+import { hotjar } from 'react-hotjar';
 
 import Home from 'views/Home';
 import NotFound from 'views/NotFound';
@@ -22,8 +23,12 @@ const Root = () => {
     history.listen(location => {
       ReactGA.set({ page: location.pathname }); // Update the user's current page
       ReactGA.pageview(location.pathname); // Record a pageview for the given page
-      console.log(location.pathname);
     });
+  }, []);
+
+  // Hotjar
+  useEffect(() => {
+    hotjar.initialize(95081, 6);
   }, []);
 
   return (
