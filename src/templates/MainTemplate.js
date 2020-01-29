@@ -5,6 +5,7 @@ import { CssBaseline, NoSsr } from '@material-ui/core/';
 import { ThemeProvider, StylesProvider } from '@material-ui/core/styles';
 import theme from 'theme/mainTheme';
 import GlobalStyle from 'theme/GlobalStyle';
+import Header from 'components/organisms/Header';
 
 const MainTemplate = ({ children }) => (
   <NoSsr>
@@ -12,7 +13,7 @@ const MainTemplate = ({ children }) => (
       <StylesProvider injectFirst>
         <CssBaseline />
         <GlobalStyle />
-        <h1>Hello World!</h1>
+        <Header />
         {children}
       </StylesProvider>
     </ThemeProvider>
