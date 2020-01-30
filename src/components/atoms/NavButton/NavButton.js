@@ -5,7 +5,7 @@ import { Button, useMediaQuery } from '@material-ui/core';
 import theme from 'theme/mainTheme';
 
 const NavButton = styled(({ children, ...other }) => {
-  const matches = useMediaQuery('(min-width:600px)');
+  const matches = useMediaQuery(`(min-width:${theme.breakpoints.values.md}px)`);
   return (
     <Button
       color="primary"
