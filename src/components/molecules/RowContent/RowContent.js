@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Button } from '@material-ui/core';
-import Text from 'components/atoms/Text';
+import Text from 'components/atoms/Text/Text';
 import theme from 'theme/mainTheme';
 
 const StyledContainer = styled.div`

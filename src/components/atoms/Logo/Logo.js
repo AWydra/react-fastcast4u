@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { ButtonBase } from '@material-ui/core';
-import Image from 'components/atoms/Image';
+import Image from 'components/atoms/Image/Image';
 import LogoFile from 'assets/img/logo.png';
 import theme from 'theme/mainTheme';
 

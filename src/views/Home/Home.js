@@ -3,10 +3,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Button, Divider } from '@material-ui/core';
-import Text from 'components/atoms/Text';
+import Text from 'components/atoms/Text/Text';
 import RocketIcon from 'assets/svg/RocketIcon';
-import FullContainer from 'components/atoms/FullContainer';
-import RowSection from 'components/organisms/RowSection';
+import FullContainer from 'components/atoms/FullContainer/FullContainer';
+import RowSection from 'components/organisms/RowSection/RowSection';
 import theme from 'theme/mainTheme';
 
 const sections = [

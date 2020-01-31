@@ -3,8 +3,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Grid, Box } from '@material-ui/core';
-import RowContent from 'components/molecules/RowContent';
-import Image from 'components/atoms/Image';
+import RowContent from 'components/molecules/RowContent/RowContent';
+import Image from 'components/atoms/Image/Image';
 import theme from 'theme/mainTheme';
 
 const StyledContainer = styled(Grid)`

@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { AppBar, Toolbar } from '@material-ui/core';
-import Logo from 'components/atoms/Logo';
-import NavButton from 'components/atoms/NavButton';
+import Logo from 'components/atoms/Logo/Logo';
+import NavButton from 'components/atoms/NavButton/NavButton';
 import theme from 'theme/mainTheme';
 
 const StyledAppBar = styled(AppBar)`
