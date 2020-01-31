@@ -21,14 +21,12 @@ const StyledToolbar = styled(Toolbar)`
 
 const Header = () => {
   return (
-    <div>
-      <StyledAppBar color="default" position="static">
-        <StyledToolbar>
-          <Logo to="/" />
-          <NavButton to="/login">Login</NavButton>
-        </StyledToolbar>
-      </StyledAppBar>
-    </div>
+    <StyledAppBar color="default" position="static">
+      <StyledToolbar>
+        <Logo to="/" />
+        <NavButton to="/login">Login</NavButton>
+      </StyledToolbar>
+    </StyledAppBar>
   );
 };
 

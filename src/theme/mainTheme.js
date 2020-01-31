@@ -1,4 +1,4 @@
-import { createMuiTheme } from '@material-ui/core/styles';
+import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
 
 const mainTheme = createMuiTheme({
   breakpoints: {
@@ -20,4 +20,4 @@ const mainTheme = createMuiTheme({
   },
 });
 
-export default mainTheme;
+export default responsiveFontSizes(mainTheme);
