@@ -2,11 +2,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { Button, Divider } from '@material-ui/core';
+import { Button, Divider, Container } from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
 import RocketIcon from 'assets/svg/RocketIcon';
 import FullContainer from 'components/atoms/FullContainer/FullContainer';
 import RowSection from 'components/organisms/RowSection/RowSection';
+import Accordion from 'components/organisms/Accordion/Accordion';
 import theme from 'theme/mainTheme';
 
 const sections = [
@@ -37,6 +38,29 @@ const sections = [
     content: 'Add your radio stream to Alexa',
     btn: 'Start Now',
     link: '/link',
+  },
+];
+
+const accordion = [
+  {
+    heading: 'How to start streaming online?',
+    content:
+      'With FastCast4u you can start streaming online in 3 minutes. Sign in, create a package and your Radio Server will be set up automatically, just upload music, broadcasts or shows or connect a live DJ from your computer.',
+  },
+  {
+    heading: 'Earn on streaming online',
+    content:
+      'SHOUTcast Radio Servers come with TargetSpot Stream Monetization program. You can also make money online by placing ad banners on your Web Player Page and activating Admob Ads on Mobile Apps. Lastly, your radio station can rely on Donates from satisfied listeners.',
+  },
+  {
+    heading: 'Web Player Page & Radio Player',
+    content:
+      'Web Player Page will automatically go online with your Radio Server. You don’t need web hosting, complicated website builders or domains - just customize the page and share with your listeners. The customize Radio Player is also available as an embed widget for websites.',
+  },
+  {
+    heading: 'Mobile Apps',
+    content:
+      'Mobile App for Android, iPhone & iPad features a Player for Online Radio and Live TV/Video streams. Your social media and website can be available in a built-in WebView. Using an Online App Creator you get a customized App with your own branding, artwork and theme.',
   },
 ];
 
@@ -71,9 +95,8 @@ const Home = () => {
       </FullContainer>
       <FullContainer maxWidth="xl">
         {sections.map(({ img, heading, content, btn, link }, i) => (
-          <>
+          <React.Fragment key={i}>
             <RowSection
-              key={i}
               img={img}
               heading={heading}
               content={content}
@@ -82,9 +105,15 @@ const Home = () => {
               reverse={i % 2 === 1}
             />
             {i + 1 < sections.length && <Divider variant="middle" />}
-          </>
+          </React.Fragment>
         ))}
       </FullContainer>
+      <Container maxWidth="xl">
+        <Text component="h2" variant="h3" mt={4} mb={6} align="center" fontWeight={500}>
+          Frequently Asked Questions
+        </Text>
+        <Accordion data={accordion} />
+      </Container>
     </>
   );
 };
