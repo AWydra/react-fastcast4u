@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { CssBaseline, NoSsr } from '@material-ui/core/';
+import { CssBaseline, NoSsr, Box } from '@material-ui/core/';
 import { ThemeProvider, StylesProvider } from '@material-ui/core/styles';
 import theme from 'theme/mainTheme';
 import GlobalStyle from 'theme/GlobalStyle';
 import Header from 'components/organisms/Header/Header';
+import Footer from 'components/organisms/Footer/Footer';
 
 const MainTemplate = ({ children }) => (
   <NoSsr>
@@ -14,7 +15,8 @@ const MainTemplate = ({ children }) => (
         <CssBaseline />
         <GlobalStyle />
         <Header />
-        {children}
+        <Box mb={8}>{children}</Box>
+        <Footer />
       </StylesProvider>
     </ThemeProvider>
   </NoSsr>
