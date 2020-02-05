@@ -18,6 +18,9 @@ const footerTheme = createMuiTheme({
     secondary: {
       main: 'hsl(350, 65%, 46%);',
     },
+    text: {
+      secondary: 'hsla(0, 0%, 100%, 0.4);',
+    },
   },
 });
 
