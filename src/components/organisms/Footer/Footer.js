@@ -1,12 +1,13 @@
 import React from 'react';
-import styled from 'styled-components';
 import { Container, ThemeProvider } from '@material-ui/core';
+import FooterContainer from 'components/atoms/FooterContaier/FooterContainer';
 import FooterWidget from 'components/molecules/FooterWidget/FooterWidget';
+import FooterLinks from 'components/molecules/FooterLinks/FooterLinks';
 import theme from 'theme/footerTheme';
 
 const data = [
   {
-    title: 'PRODUCT & SERVICES',
+    title: 'PRODUCT &\xa0SERVICES',
     content: [
       { heading: 'Radio Server', href: '/link1' },
       { heading: 'Mobile App', href: '/link2' },
@@ -41,19 +42,12 @@ const data = [
   },
 ];
 
-const FooterContainer = styled(Container)`
-  margin-top: auto;
-  padding: 0;
-  padding: ${theme.spacing(6)}px 0;
-  background-color: ${theme.palette.grey[900]};
-  color: white;
-`;
-
 const Footer = () => (
   <ThemeProvider theme={theme}>
-    <FooterContainer maxWidth={false}>
+    <FooterContainer maxWidth={false} p={0}>
       <Container maxWidth="xl">
         <FooterWidget data={data} />
+        <FooterLinks />
       </Container>
     </FooterContainer>
   </ThemeProvider>
