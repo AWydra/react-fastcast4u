@@ -36,7 +36,7 @@ const FooterWidget = ({ data }) => (
           <List>
             {items.content.map((item, ii) => (
               <StyledListItem key={ii}>
-                <NavLink to="/asd" py={0.75} px={1}>
+                <NavLink to={item.href} external={item.external} py={0.75} px={1}>
                   {item.heading}
                 </NavLink>
                 <br />

@@ -17,14 +17,33 @@ const NavButton = styled(ButtonBase)`
   }
 `;
 
-const NavLink = ({ children, ...props }) => (
-  <NavButton component={Link} focusRipple {...props}>
-    {children}
-  </NavButton>
-);
+const NavLink = ({ children, external, to, ...props }) => {
+  const commonProps = {
+    focusRipple: true,
+    centerRipple: true,
+    ...props,
+  };
+
+  console.log(commonProps);
+  return external ? (
+    <NavButton component="a" href={to} target="_blank" rel="noreferrer" {...commonProps}>
+      {children}
+    </NavButton>
+  ) : (
+    <NavButton component={Link} to={to} {...commonProps}>
+      {children}
+    </NavButton>
+  );
+};
 
 NavLink.propTypes = {
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.string]).isRequired,
+  external: PropTypes.bool,
+  to: PropTypes.string.isRequired,
+};
+
+NavLink.defaultProps = {
+  external: false,
 };
 
 export default NavLink;
