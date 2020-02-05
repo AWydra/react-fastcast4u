@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Router } from 'react-router-dom';
 import history from 'services/history';
-import MainRoutes from 'routes/MainRoutes';
+import Routes from 'routes';
 
 import ReactGA from 'utils/analytics';
 import { hotjar } from 'react-hotjar';
@@ -34,7 +34,7 @@ const Root = () => {
   return (
     <Router history={history}>
       <MainTemplate>
-        <MainRoutes />
+        <Routes />
       </MainTemplate>
     </Router>
   );
