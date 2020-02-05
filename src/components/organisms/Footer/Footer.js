@@ -9,35 +9,43 @@ const data = [
   {
     title: 'PRODUCT &\xa0SERVICES',
     content: [
-      { heading: 'Radio Server', href: '/link1' },
-      { heading: 'Mobile App', href: '/link2' },
-      { heading: 'Radio Player', href: '/link2' },
-      { heading: 'Alexa Radio Skill', href: '/link2' },
+      { heading: 'Radio Server', href: '/order' },
+      { heading: 'Mobile App', href: '/app' },
+      { heading: 'Radio Player', href: '/customize' },
+      { heading: 'Alexa Radio Skill', href: '/alexa-skill' },
     ],
   },
   {
     title: 'RESOURCES',
     content: [
-      { heading: 'Radio Directory', href: '/link1' },
-      { heading: 'Tutorials', href: '/link2' },
-      { heading: 'FAQ', href: '/link2' },
-      { heading: 'Server Uptime', href: '/link2' },
+      { heading: 'Radio Directory', href: '/radio-directory' },
+      { heading: 'Tutorials', href: '/help' },
+      { heading: 'FAQ', href: '/faq' },
+      {
+        heading: 'Server Uptime',
+        href: 'https://billing.fastcast4u.com/serverstatus.php',
+        external: true,
+      },
     ],
   },
   {
     title: 'SUPPORT',
     content: [
-      { heading: 'LiveChat', href: '/link1' },
-      { heading: 'Call', href: '/link2' },
-      { heading: 'Message us', href: '/link2' },
-      { heading: 'Client Area', href: '/link2' },
+      { heading: 'LiveChat', href: '/chat' }, // Tawk.to API
+      { heading: 'Call', href: '/contact' },
+      { heading: 'Message us', href: '/ticket' },
+      { heading: 'Client Area', href: '/login' },
     ],
   },
   {
     title: 'SOCIAL',
     content: [
-      { heading: 'Facebook', href: '/link1' },
-      { heading: 'YouTube', href: '/link2' },
+      { heading: 'Facebook', href: '//www.facebook.com/freeshoutcast/', external: true },
+      {
+        heading: 'YouTube',
+        href: 'https://www.youtube.com/user/FastCast4u/videos/',
+        external: true,
+      },
     ],
   },
 ];
