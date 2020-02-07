@@ -2,7 +2,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Container } from '@material-ui/core';
-import theme from 'theme/mainTheme';
 
 const FullContainer = styled(({ center, children, ...props }) => (
   <Container component="section" {...props}>
@@ -20,11 +19,6 @@ const FullContainer = styled(({ center, children, ...props }) => (
     align-items: center;
     flex-direction: column;
   `}
-
-  ${theme.breakpoints.down('md')} {
-    padding: 0;
-    order: unset;
-  }
 `;
 
 export default FullContainer;
