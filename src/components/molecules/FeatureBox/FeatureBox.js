@@ -19,6 +19,9 @@ const useStyles = makeStyles(() => ({
   content: {
     paddingLeft: 0,
     flexGrow: 1,
+    '&:last-child': {
+      paddingBottom: theme.spacing(2.2),
+    },
   },
 }));
 
