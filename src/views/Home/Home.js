@@ -1,14 +1,11 @@
-// @ts-nocheck
 import React from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import { Button, Divider, Container } from '@material-ui/core';
+import { Divider, Container } from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
 import RocketIcon from 'assets/svg/RocketIcon';
+import CTAButton from 'components/atoms/CTAButton/CTAButton';
 import FullContainer from 'components/atoms/FullContainer/FullContainer';
 import RowSection from 'components/organisms/RowSection/RowSection';
 import Accordion from 'components/organisms/Accordion/Accordion';
-import theme from 'theme/mainTheme';
 
 const sections = [
   {
@@ -16,28 +13,28 @@ const sections = [
     heading: 'Start Streaming Online in 3 minutes',
     content: 'Complete Radio Server Package',
     btn: 'Start Now',
-    link: '/link',
+    link: '/order',
   },
   {
     img: 'https://fastcast4u.com/images/app/IPadIP.png',
     heading: 'Mobile App',
     content: 'Create Your Own Application for Android &\xa0Apple iOS',
     btn: 'Start Now',
-    link: '/link',
+    link: '/order',
   },
   {
     img: 'https://fastcast4u.com/images/landing/wpdev1.png',
     heading: 'WebPlayer Page',
     content: 'Customizable Radio Player for listeners',
     btn: 'Start Now',
-    link: '/link',
+    link: '/order',
   },
   {
     img: 'https://fastcast4u.com/images/landing/alexa.png',
     heading: 'Alexa Radio Skill',
     content: 'Add your radio stream to Alexa',
     btn: 'Start Now',
-    link: '/link',
+    link: '/order',
   },
 ];
 
@@ -64,17 +61,6 @@ const accordion = [
   },
 ];
 
-const StyledButton = styled(Button)`
-  margin-top: ${theme.spacing(4)}px;
-  padding: 0 ${theme.spacing(4)}px;
-
-  .MuiButton-label {
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 3;
-  }
-`;
-
 const Home = () => {
   return (
     <>
@@ -82,16 +68,9 @@ const Home = () => {
         <Text component="h1" variant="h2" px={2} fontWeight={700} align="center" gutterBottom>
           Create Your Own Internet Radio Station
         </Text>
-        <StyledButton
-          component={Link}
-          to="/asdasd"
-          variant="contained"
-          color="primary"
-          size="large"
-          endIcon={<RocketIcon />}
-        >
-          Start Now
-        </StyledButton>
+        <CTAButton to="/order" endIcon={<RocketIcon />} mt={4}>
+          START NOW
+        </CTAButton>
       </FullContainer>
       <FullContainer maxWidth="xl">
         {sections.map(({ img, heading, content, btn, link }, i) => (
