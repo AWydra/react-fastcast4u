@@ -9,7 +9,7 @@ const FullContainer = styled(({ center, children, ...props }) => (
   </Container>
 ))`
   width: 100%;
-  min-height: 80vh;
+  min-height: 70vh;
 
   ${({ center }) =>
     center &&
