@@ -5,19 +5,26 @@ import styled from 'styled-components';
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardActionArea, CardContent, Divider } from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
+import theme from 'theme/mainTheme';
 
 const GridContainer = styled.div`
   display: grid;
   height: 100%;
-  grid-template-columns: 1fr ${({ pricing }) => pricing && '125px'};
+  grid-template-columns: 1fr ${({ price }) => price && '125px'};
+
+  ${theme.breakpoints.down('xs')} {
+    grid-template-columns: 1fr ${({ price }) => price && 'auto'};
+  }
 `;
 
 const Price = styled.div`
-  font-family: 'Roboto', sans-serif;
+  font-family: ${theme.typography.fontFamily};
   font-size: 40px;
+  text-align: center;
 `;
 
 const PriceUnit = styled.span`
+  margin-left: -7px;
   display: inline-block;
   vertical-align: top;
   font-size: 28px;
@@ -49,24 +56,27 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
   },
   pricing: {
-    minWidth: 125,
     paddingLeft: 8,
     paddingRight: 8,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: theme.palette.grey[100],
-    borderLeft: `solid 2px ${theme.palette.grey[300]}`,
+    borderLeft: price => price && `solid 2px ${theme.palette.grey[300]}`,
+    [theme.breakpoints.down('xs')]: {
+      paddingLeft: price => price && theme.spacing(2),
+      paddingRight: price => price && theme.spacing(2),
+    },
   },
 }));
 
-const ProductBox = ({ pricing, isActive }) => {
-  const classes = useStyles(isActive);
+const ProductBox = ({ price, isActive }) => {
+  const classes = useStyles(isActive, price);
 
   return (
     <Card className={classes.root} onClick={() => console.log('clicked!')}>
       <CardActionArea className={classes.actionArea}>
-        <GridContainer pricing={pricing}>
+        <GridContainer price={price}>
           <CardContent className={classes.content}>
             <Text gutterBottom variant="h5" component="h4">
               Everest Cast
@@ -78,12 +88,18 @@ const ProductBox = ({ pricing, isActive }) => {
               can switch between SHOUTcast and IceCast Radio Servers
             </Text>
           </CardContent>
-          {pricing && (
+          {price && (
             <CardContent className={classes.pricing}>
               <Price>
-                <PriceUnit>$</PriceUnit>
-                20
-                <PriceCycle>monthly</PriceCycle>
+                {!!price.value && <PriceUnit>{price.unit}</PriceUnit>}
+                {price.value ? (
+                  price.value
+                ) : (
+                  <Text component="p" variant="h4">
+                    FREE
+                  </Text>
+                )}
+                {!!price.value && <PriceCycle>monthly</PriceCycle>}
               </Price>
             </CardContent>
           )}
@@ -94,12 +110,15 @@ const ProductBox = ({ pricing, isActive }) => {
 };
 
 ProductBox.propTypes = {
-  pricing: PropTypes.bool,
+  price: PropTypes.shape({
+    unit: PropTypes.string,
+    value: PropTypes.oneOfType(PropTypes.number, PropTypes.string).isRequired,
+  }),
   isActive: PropTypes.bool.isRequired,
 };
 
 ProductBox.defaultProps = {
-  pricing: false,
+  price: false,
 };
 
 export default ProductBox;
