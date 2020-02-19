@@ -65,7 +65,7 @@ const Home = () => {
   return (
     <>
       <FullContainer center maxWidth="xl">
-        <Text component="h1" variant="h2" px={2} fontWeight={700} align="center" gutterBottom>
+        <Text component="h1" variant="h2" px={2} fontWeight={500} align="center" gutterBottom>
           Create Your Own Internet Radio Station
         </Text>
         <CTAButton to="/order" endIcon={<RocketIcon />} mt={4}>

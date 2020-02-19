@@ -18,6 +18,9 @@ const mainTheme = createMuiTheme({
       main: 'hsl(350, 65%, 46%);',
     },
   },
+  typography: {
+    fontFamily: 'Poppins, sans-serif',
+  },
 });
 
 export default responsiveFontSizes(mainTheme);

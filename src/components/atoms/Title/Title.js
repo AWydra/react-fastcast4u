@@ -8,12 +8,6 @@ const PageTitle = styled(Text)`
   text-align: center;
   line-height: 1.5;
 
-  ${theme.breakpoints.up('sm')} {
-  }
-
-  ${theme.breakpoints.up('md')} {
-  }
-
   ${theme.breakpoints.up('lg')} {
     font-size: ${theme.typography.pxToRem(34)};
   }

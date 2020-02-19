@@ -1,16 +1,10 @@
-import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
+import mainTheme from 'theme/mainTheme';
 
 const footerTheme = createMuiTheme({
-  breakpoints: {
-    values: {
-      xs: 0,
-      sm: 576,
-      md: 768,
-      lg: 992,
-      xl: 1280,
-    },
-  },
+  ...mainTheme,
   palette: {
+    ...mainTheme.palette,
     type: 'dark',
     primary: {
       main: 'hsl(204, 63%, 49%)',
@@ -24,4 +18,4 @@ const footerTheme = createMuiTheme({
   },
 });
 
-export default responsiveFontSizes(footerTheme);
+export default footerTheme;
