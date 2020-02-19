@@ -32,7 +32,7 @@ const FeatureBox = ({ icon, heading, description }) => {
     <Card className={classes.root}>
       <CardContent className={classes.icon}>{icon}</CardContent>
       <CardContent className={classes.content}>
-        <Text component="h4" variant="h6">
+        <Text component="h4" variant="h6" fontSize="1.125rem">
           {heading}
         </Text>
         <Text variant="subtitle2" color="textSecondary">

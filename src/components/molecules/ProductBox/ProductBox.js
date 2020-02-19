@@ -82,7 +82,7 @@ const ProductBox = ({ price, isActive }) => {
       <CardActionArea className={classes.actionArea}>
         <GridContainer price={price}>
           <CardContent className={classes.content}>
-            <Text gutterBottom variant="h5" component="h4">
+            <Text gutterBottom variant="h6" component="h4" fontWeight={600}>
               Everest Cast
             </Text>
             <Divider />

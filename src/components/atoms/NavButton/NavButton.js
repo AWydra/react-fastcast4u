@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Button, useMediaQuery } from '@material-ui/core';
 import theme from 'theme/mainTheme';
 
-const NavButton = styled(({ children, ...other }) => {
+const NavButton = styled(({ ...props }) => {
   const matches = useMediaQuery(`(min-width:${theme.breakpoints.values.md}px)`);
   return (
     <Button
@@ -12,12 +12,10 @@ const NavButton = styled(({ children, ...other }) => {
       variant="contained"
       size={matches ? 'large' : 'small'}
       component={Link}
-      {...other}
-    >
-      {children}
-    </Button>
+      {...props}
+    />
   );
 })`
-  font-weight: ${theme.typography.fontWeightBold};
+  font-weight: 600;
 `;
 export default NavButton;
