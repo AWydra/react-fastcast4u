@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
     '& > span': {
       display: 'flex',
       alignItems: 'center',
-      color: theme.palette.grey[800],
+      color: theme.palette.type !== 'dark' && theme.palette.grey[800],
       fontSize: 14,
       fontWeight: 600,
       textTransform: 'uppercase',

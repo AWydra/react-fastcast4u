@@ -61,8 +61,12 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: theme.palette.grey[100],
-    borderLeft: price => price && `solid 2px ${theme.palette.grey[300]}`,
+    backgroundColor: theme.palette.type !== 'dark' && theme.palette.grey[100],
+    borderLeft: price =>
+      price &&
+      `solid 2px ${
+        theme.palette.type !== 'dark' ? theme.palette.grey[300] : theme.palette.grey[700]
+      }`,
     [theme.breakpoints.down('xs')]: {
       paddingLeft: price => price && theme.spacing(2),
       paddingRight: price => price && theme.spacing(2),

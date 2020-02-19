@@ -16,18 +16,18 @@ const rows = [
 
 const useStyles = makeStyles(theme => ({
   row: {
-    backgroundColor: theme.palette.grey[100],
+    backgroundColor: theme.palette.type !== 'dark' && theme.palette.grey[100],
     '&:nth-child(2n)': {
       backgroundColor: 'transparent',
     },
   },
   cell: {
     padding: `${theme.spacing(1.25)}px 15px`,
-    color: theme.palette.grey[700],
+    color: theme.palette.type !== 'dark' && theme.palette.grey[700],
     fontSize: '1rem',
   },
   cellPrice: {
-    color: theme.palette.grey[900],
+    color: theme.palette.type !== 'dark' && theme.palette.grey[900],
     fontWeight: 600,
   },
 }));

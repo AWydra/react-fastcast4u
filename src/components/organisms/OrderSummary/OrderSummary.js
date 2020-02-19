@@ -30,13 +30,13 @@ const FormContainer = styled.div`
     `}
 `;
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(({ palette }) => ({
   heading: {
-    color: theme.palette.grey[800],
+    color: palette.type !== 'dark' && palette.grey[800],
     fontWeight: 600,
     fontSize: 20,
   },
-});
+}));
 
 const OrderSummary = () => {
   const classes = useStyles();
