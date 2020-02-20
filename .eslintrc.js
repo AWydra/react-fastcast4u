@@ -22,6 +22,7 @@ module.exports = {
     'react/jsx-props-no-spreading': 'off',
     'react/no-array-index-key': 'off',
     'no-shadow': 'off',
+    'no-nested-ternary': 'off',
   },
   settings: {
     'import/resolver': {
