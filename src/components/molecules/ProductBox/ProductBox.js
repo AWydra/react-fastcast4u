@@ -10,7 +10,7 @@ import theme from 'theme/mainTheme';
 const GridContainer = styled.div`
   display: grid;
   height: 100%;
-  grid-template-columns: 1fr ${({ price }) => price && '125px'};
+  grid-template-columns: 1fr ${({ price }) => price && '105px'};
 
   ${theme.breakpoints.down('xs')} {
     grid-template-columns: 1fr ${({ price }) => price && 'auto'};
@@ -42,11 +42,14 @@ const PriceCycle = styled.div`
 
 const useStyles = makeStyles(theme => ({
   root: isActive => ({
-    maxWidth: 500,
     boxShadow: isActive ? `0 0 8px 1px ${theme.palette.primary.main}` : 'unset',
-    border: isActive
-      ? `solid 3px ${theme.palette.primary.main}`
-      : `solid 3px ${theme.palette.grey[300]}`,
+    border: `solid 3px ${
+      isActive
+        ? theme.palette.primary.main
+        : theme.palette.type !== 'dark'
+        ? theme.palette.grey[300]
+        : theme.palette.grey[700]
+    }`,
   }),
   actionArea: {
     height: '100%',
@@ -56,20 +59,16 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
   },
   pricing: {
-    paddingLeft: 8,
-    paddingRight: 8,
+    padding: theme.spacing(2.5, 1),
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: theme.palette.type !== 'dark' && theme.palette.grey[100],
-    borderLeft: price =>
-      price &&
-      `solid 2px ${
-        theme.palette.type !== 'dark' ? theme.palette.grey[300] : theme.palette.grey[700]
-      }`,
+    borderLeft: `solid 2px ${
+      theme.palette.type !== 'dark' ? theme.palette.grey[300] : theme.palette.grey[700]
+    }`,
     [theme.breakpoints.down('xs')]: {
-      paddingLeft: price => price && theme.spacing(2),
-      paddingRight: price => price && theme.spacing(2),
+      padding: theme.spacing(2.5, 2),
     },
   },
 }));
@@ -88,22 +87,21 @@ const ProductBox = ({ price, isActive }) => {
             <Divider />
             <Text variant="body2" color="textSecondary" component="p" mt={1}>
               New, evolving Radio Control Panel with a fresh user interface, advanced graphic AutoDJ
-              playlist scheduler, drag &amp; drop music manager and basic listener statistics. You
-              can switch between SHOUTcast and IceCast Radio Servers
+              playlist scheduler
+              {!price &&
+                ', drag & drop music manager and basic listener statistics. You can switch between SHOUTcast and IceCast Radio Servers'}
             </Text>
           </CardContent>
           {price && (
             <CardContent className={classes.pricing}>
               <Price>
-                {!!price.value && <PriceUnit>{price.unit}</PriceUnit>}
-                {price.value ? (
-                  price.value
-                ) : (
+                {price && <PriceUnit>$</PriceUnit>}
+                {price || (
                   <Text component="p" variant="h4">
                     FREE
                   </Text>
                 )}
-                {!!price.value && <PriceCycle>monthly</PriceCycle>}
+                {price && <PriceCycle>monthly</PriceCycle>}
               </Price>
             </CardContent>
           )}
@@ -114,15 +112,12 @@ const ProductBox = ({ price, isActive }) => {
 };
 
 ProductBox.propTypes = {
-  price: PropTypes.shape({
-    unit: PropTypes.string,
-    value: PropTypes.oneOfType(PropTypes.number, PropTypes.string).isRequired,
-  }),
+  price: PropTypes.number,
   isActive: PropTypes.bool.isRequired,
 };
 
 ProductBox.defaultProps = {
-  price: false,
+  price: 0,
 };
 
 export default ProductBox;
