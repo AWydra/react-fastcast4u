@@ -15,12 +15,12 @@ const FancyTitleContainer = styled.div`
 
 const useStyles = makeStyles(theme => ({
   text: {
-    margin: `${theme.spacing(4)}px 0`,
+    margin: `${theme.spacing(5)}px 0`,
     padding: `0 ${theme.spacing(2)}px`,
     display: 'inline-block',
     backgroundColor: theme.palette.background.default,
     textAlign: 'center',
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: 600,
   },
 }));
