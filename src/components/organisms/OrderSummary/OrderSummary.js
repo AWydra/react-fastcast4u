@@ -10,6 +10,8 @@ import Text from 'components/atoms/Text/Text';
 import theme from 'theme/mainTheme';
 
 const SummaryContainer = styled.div`
+  position: sticky;
+  top: ${theme.spacing(5)}px;
   border: solid 1px ${theme.palette.grey[400]};
   border-radius: ${theme.shape.borderRadius}px;
 `;
@@ -60,7 +62,12 @@ const OrderSummary = () => {
           </Text>
         </SummaryPrice>
         <Divider />
-        <Promocode />
+        <Promocode
+          onSubmit={ev => {
+            ev.preventDefault();
+            console.log('Promocode sent!');
+          }}
+        />
       </FormContainer>
       <Divider />
       <FormContainer flexEnd>
