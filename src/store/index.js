@@ -1,6 +1,6 @@
 import { createStore, combineReducers } from 'redux';
 import orderReducer from 'reducers/orderReducer';
-import orderActions from 'actions/orderActions';
+// import orderActions from 'actions/orderActions';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 const rootReducer = combineReducers({
@@ -8,7 +8,5 @@ const rootReducer = combineReducers({
 });
 
 const store = createStore(rootReducer, composeWithDevTools());
-
-store.dispatch(orderActions.add('AdMob'));
 
 export default store;

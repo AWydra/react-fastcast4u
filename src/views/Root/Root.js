@@ -1,4 +1,7 @@
+// @ts-nocheck
 import React, { useEffect } from 'react';
+import { Provider } from 'react-redux';
+import store from 'store';
 import { Router } from 'react-router-dom';
 import history from 'services/history';
 import Routes from 'routes/mainRoutes';
@@ -32,11 +35,13 @@ const Root = () => {
   }, []);
 
   return (
-    <Router history={history}>
-      <MainTemplate>
-        <Routes />
-      </MainTemplate>
-    </Router>
+    <Provider store={store}>
+      <Router history={history}>
+        <MainTemplate>
+          <Routes />
+        </MainTemplate>
+      </Router>
+    </Provider>
   );
 };
 

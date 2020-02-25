@@ -1,13 +1,16 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import actions from 'actions/orderActions';
+
 import { makeStyles, Container, Grid } from '@material-ui/core';
-import PackageBox from 'components/molecules/ProductBox/ProductBox';
-import OrderSummary from 'components/organisms/OrderSummary/OrderSummary';
-import Stepper from 'components/organisms/Stepper/Stepper';
-import FancyTitle from 'components/atoms/FancyTitle/FancyTitle';
-import PackageGrid from 'templates/PackageGrid';
-import IconListSection from 'components/organisms/IconListSection/IconListSection';
-import IconList from 'components/molecules/IconList/IconList';
 import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded';
+import FancyTitle from 'components/atoms/FancyTitle/FancyTitle';
+import IconList from 'components/molecules/IconList/IconList';
+import PackageBox from 'components/molecules/ProductBox/ProductBox';
+import Stepper from 'components/organisms/Stepper/Stepper';
+import OrderSummary from 'components/organisms/OrderSummary/OrderSummary';
+import IconListSection from 'components/organisms/IconListSection/IconListSection';
+import PackageGrid from 'templates/PackageGrid';
 
 const data = [
   {
@@ -61,7 +64,8 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const OrderPackage = () => {
+const OrderPackage = ({ order, setCycle }) => {
+  console.log(order);
   const classes = useStyles();
   return (
     <Container className={classes.root}>
@@ -97,11 +101,21 @@ const OrderPackage = () => {
           </PackageGrid>
         </Grid>
         <Grid item className={classes.summary}>
-          <OrderSummary />
+          <OrderSummary order={order} setCycle={setCycle} />
         </Grid>
       </Grid>
     </Container>
   );
 };
 
-export default OrderPackage;
+const mapStateToProps = ({ order }) => ({
+  order,
+});
+
+const mapDispatchToProps = dispatch => ({
+  setCycle: cycle => {
+    dispatch(actions.setCycle(cycle));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(OrderPackage);
