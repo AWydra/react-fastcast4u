@@ -46,11 +46,9 @@ const FormGroup = styled.div`
   align-items: center;
 `;
 
-const BillingCycle = () => {
-  const [value, setValue] = React.useState('monthly');
-
-  const handleChange = event => {
-    setValue(event.target.value);
+const BillingCycle = ({ cycle, setCycle }) => {
+  const handleChange = ({ target }) => {
+    setCycle(target.value);
   };
 
   const classes = useStyles();
@@ -64,7 +62,7 @@ const BillingCycle = () => {
         className={classes.group}
         aria-label="Billing cycle"
         name="cycle"
-        value={value}
+        value={cycle}
         onChange={handleChange}
       >
         <FormGroup>
@@ -78,7 +76,7 @@ const BillingCycle = () => {
         <FormGroup>
           <FormControlLabel
             className={classes.label}
-            value="12m"
+            value="annually"
             control={<Radio className={classes.radio} color="primary" />}
             label={
               <>
@@ -97,7 +95,7 @@ const BillingCycle = () => {
         <FormGroup>
           <FormControlLabel
             className={classes.label}
-            value="24m"
+            value="biennially"
             control={<Radio className={classes.radio} color="primary" />}
             label={
               <>

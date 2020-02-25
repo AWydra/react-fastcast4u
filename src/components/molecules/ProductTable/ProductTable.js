@@ -2,18 +2,6 @@ import React from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableRow } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-function createData(name, price) {
-  return { name, price };
-}
-
-const rows = [
-  createData('Radio Server - Everest Cast', 9.0),
-  createData('Radio Promotion Package', 5),
-  createData('Mobile App Android & Apple iOS', 10),
-  createData('AdMob monetization', 0),
-  createData('Push notifications', 0),
-];
-
 const useStyles = makeStyles(theme => ({
   row: {
     backgroundColor: theme.palette.type !== 'dark' && theme.palette.grey[100],
@@ -32,23 +20,27 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ProductTable = () => {
+const ProductTable = ({ order }) => {
+  console.log('ProductTable', order);
   const classes = useStyles();
 
   return (
     <TableContainer>
       <Table aria-label="Summary Table">
         <TableBody>
-          {rows.map(row => (
-            <TableRow key={row.name} className={classes.row}>
-              <TableCell component="th" scope="row" className={classes.cell}>
-                {row.name}
-              </TableCell>
-              <TableCell align="right" className={`${classes.cell} ${classes.cellPrice}`}>
-                ${row.price}.00
-              </TableCell>
-            </TableRow>
-          ))}
+          {order.products
+            .filter(product => product.active)
+            .map(product => (
+              <TableRow key={product.id} className={classes.row}>
+                <TableCell component="th" scope="row" className={classes.cell}>
+                  {product.name}
+                </TableCell>
+                <TableCell align="right" className={`${classes.cell} ${classes.cellPrice}`}>
+                  {order.currency}
+                  {product[order.cycle].regular}
+                </TableCell>
+              </TableRow>
+            ))}
         </TableBody>
       </Table>
     </TableContainer>
