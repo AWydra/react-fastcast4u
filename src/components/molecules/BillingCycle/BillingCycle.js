@@ -1,4 +1,7 @@
+// @ts-nocheck
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import orderActions from 'actions/orderActions';
 import styled from 'styled-components';
 import { Radio, RadioGroup, FormControlLabel, Chip } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -46,9 +49,12 @@ const FormGroup = styled.div`
   align-items: center;
 `;
 
-const BillingCycle = ({ cycle, setCycle }) => {
+const BillingCycle = () => {
+  const cycle = useSelector(state => state.order.cycle);
+  const dispatch = useDispatch();
+
   const handleChange = ({ target }) => {
-    setCycle(target.value);
+    dispatch(orderActions.setCycle(target.value));
   };
 
   const classes = useStyles();

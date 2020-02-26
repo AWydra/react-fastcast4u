@@ -88,6 +88,7 @@ const initialState = {
       monthly: '5.00',
       annually: '60.00',
       biennially: '120.00',
+      active: true,
     },
     {
       id: '2094',
@@ -97,6 +98,7 @@ const initialState = {
       monthly: '5.00',
       annually: '60.00',
       biennially: '120.00',
+      active: true,
     },
   ],
 };

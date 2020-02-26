@@ -1,6 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import actions from 'actions/orderActions';
 
 import { makeStyles, Container, Grid } from '@material-ui/core';
 import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded';
@@ -64,8 +62,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const OrderPackage = ({ order, setCycle }) => {
-  console.log(order);
+const OrderPackage = () => {
   const classes = useStyles();
   return (
     <Container className={classes.root}>
@@ -101,21 +98,11 @@ const OrderPackage = ({ order, setCycle }) => {
           </PackageGrid>
         </Grid>
         <Grid item className={classes.summary}>
-          <OrderSummary order={order} setCycle={setCycle} />
+          <OrderSummary />
         </Grid>
       </Grid>
     </Container>
   );
 };
 
-const mapStateToProps = ({ order }) => ({
-  order,
-});
-
-const mapDispatchToProps = dispatch => ({
-  setCycle: cycle => {
-    dispatch(actions.setCycle(cycle));
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(OrderPackage);
+export default OrderPackage;

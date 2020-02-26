@@ -40,8 +40,7 @@ const useStyles = makeStyles(({ palette }) => ({
   },
 }));
 
-const OrderSummary = ({ order, setCycle }) => {
-  console.log('setCycle', setCycle);
+const OrderSummary = () => {
   const classes = useStyles();
 
   return (
@@ -50,9 +49,9 @@ const OrderSummary = ({ order, setCycle }) => {
         ORDER SUMMARY
       </Text>
       <Divider />
-      <ProductTable order={order} />
+      <ProductTable />
       <FormContainer>
-        <BillingCycle cycle={order.cycle} setCycle={setCycle} />
+        <BillingCycle />
         <Divider />
         <SummaryPrice>
           <Text component="h5" variant="h6" fontSize={28} fontWeight={600}>

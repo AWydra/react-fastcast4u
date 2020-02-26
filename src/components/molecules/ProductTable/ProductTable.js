@@ -1,4 +1,6 @@
+// @ts-nocheck
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Table, TableBody, TableCell, TableContainer, TableRow } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -20,15 +22,15 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ProductTable = ({ order }) => {
-  console.log('ProductTable', order);
+const ProductTable = () => {
+  const { products, addons, currency, cycle } = useSelector(state => state.order);
   const classes = useStyles();
 
   return (
     <TableContainer>
       <Table aria-label="Summary Table">
         <TableBody>
-          {order.products
+          {products
             .filter(product => product.active)
             .map(product => (
               <TableRow key={product.id} className={classes.row}>
@@ -36,8 +38,21 @@ const ProductTable = ({ order }) => {
                   {product.name}
                 </TableCell>
                 <TableCell align="right" className={`${classes.cell} ${classes.cellPrice}`}>
-                  {order.currency}
-                  {product[order.cycle].regular}
+                  {currency}
+                  {product[cycle].regular}
+                </TableCell>
+              </TableRow>
+            ))}
+          {addons
+            .filter(addon => addon.active)
+            .map(addon => (
+              <TableRow key={addon.id} className={classes.row}>
+                <TableCell component="th" scope="row" className={classes.cell}>
+                  {addon.name}
+                </TableCell>
+                <TableCell align="right" className={`${classes.cell} ${classes.cellPrice}`}>
+                  {currency}
+                  {addon[cycle]}
                 </TableCell>
               </TableRow>
             ))}
