@@ -23,39 +23,33 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const ProductTable = () => {
-  const { products, addons, currency, cycle } = useSelector(state => state.order);
+  const { activeProduct, activeAddons, currency, cycle } = useSelector(state => state.order);
   const classes = useStyles();
 
   return (
     <TableContainer>
       <Table aria-label="Summary Table">
         <TableBody>
-          {products
-            .filter(product => product.active)
-            .map(product => (
-              <TableRow key={product.id} className={classes.row}>
-                <TableCell component="th" scope="row" className={classes.cell}>
-                  {product.name}
-                </TableCell>
-                <TableCell align="right" className={`${classes.cell} ${classes.cellPrice}`}>
-                  {currency}
-                  {product[cycle].regular}
-                </TableCell>
-              </TableRow>
-            ))}
-          {addons
-            .filter(addon => addon.active)
-            .map(addon => (
-              <TableRow key={addon.id} className={classes.row}>
-                <TableCell component="th" scope="row" className={classes.cell}>
-                  {addon.name}
-                </TableCell>
-                <TableCell align="right" className={`${classes.cell} ${classes.cellPrice}`}>
-                  {currency}
-                  {addon[cycle]}
-                </TableCell>
-              </TableRow>
-            ))}
+          <TableRow key={activeProduct.id} className={classes.row}>
+            <TableCell component="th" scope="row" className={classes.cell}>
+              Radio Server - {activeProduct.name}
+            </TableCell>
+            <TableCell align="right" className={`${classes.cell} ${classes.cellPrice}`}>
+              {currency}
+              {activeProduct[cycle].regular}
+            </TableCell>
+          </TableRow>
+          {activeAddons.map(addon => (
+            <TableRow key={addon.id} className={classes.row}>
+              <TableCell component="th" scope="row" className={classes.cell}>
+                {addon.name}
+              </TableCell>
+              <TableCell align="right" className={`${classes.cell} ${classes.cellPrice}`}>
+                {currency}
+                {addon[cycle]}
+              </TableCell>
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
     </TableContainer>
