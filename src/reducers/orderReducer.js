@@ -1,6 +1,29 @@
 const initialState = {
   currency: '$',
   cycle: 'monthly',
+  activeProduct: {
+    id: '2022',
+    plan: {
+      regular: '515',
+      premium: '516',
+    },
+    name: 'Everest Cast',
+    description:
+      'New, evolving Radio Control Panel with a fresh user interface, advanced graphic AutoDJ playlist scheduler, drag & drop music manager and basic listener statistics. You can switch between SHOUTcast and IceCast Radio Servers',
+    monthly: {
+      regular: '9.00',
+      premium: '19.00',
+    },
+    annually: {
+      regular: '108.00',
+      premium: '228.00',
+    },
+    biennially: {
+      regular: '216.00',
+      premium: '456.00',
+    },
+  },
+  activeAddons: [],
   products: [
     {
       id: '2022',
@@ -23,7 +46,6 @@ const initialState = {
         regular: '216.00',
         premium: '456.00',
       },
-      active: true,
     },
     {
       id: '2040',
@@ -35,16 +57,16 @@ const initialState = {
       description:
         'Radio Server Control Panel trusted by thousands of Online Stations worldwide with a basic AutoDJ playlist management and advanced listener reports. By default set up with SHOUTcast Server',
       monthly: {
-        regular: '9.00',
-        premium: '19.00',
+        regular: '18.00',
+        premium: '36.00',
       },
       annually: {
-        regular: '108.00',
-        premium: '228.00',
+        regular: '216.00',
+        premium: '446.00',
       },
       biennially: {
-        regular: '216.00',
-        premium: '456.00',
+        regular: '432.00',
+        premium: '912.00',
       },
     },
   ],
@@ -88,7 +110,6 @@ const initialState = {
       monthly: '5.00',
       annually: '60.00',
       biennially: '120.00',
-      active: true,
     },
     {
       id: '2094',
@@ -98,17 +119,24 @@ const initialState = {
       monthly: '5.00',
       annually: '60.00',
       biennially: '120.00',
-      active: true,
     },
   ],
 };
 
 const orderReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'ADD_PRODUCT':
+    case 'TOGGLE_PRODUCT':
       return {
         ...state,
-        products: [...state.products, action.payload],
+        activeProduct: action.payload,
+      };
+    case 'TOGGLE_ADDON':
+      const isInArray = [...state.activeAddons].filter(el => el.id === action.payload.id).length;
+      return {
+        ...state,
+        activeAddons: isInArray
+          ? [...state.activeAddons].filter(el => el.id !== action.payload.id)
+          : [...state.activeAddons, action.payload],
       };
     case 'SET_CYCLE':
       return {
