@@ -1,5 +1,6 @@
 // @ts-nocheck
 import React from 'react';
+import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { Divider, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -41,6 +42,9 @@ const useStyles = makeStyles(({ palette }) => ({
 }));
 
 const OrderSummary = () => {
+  const { activeProduct, activeAddons, cycle, currency } = useSelector(state => state.order);
+  const productPrice = activeProduct[cycle].regular * 1;
+  const addonsPrice = activeAddons.reduce((acc, el) => acc + el[cycle] * 1, 0);
   const classes = useStyles();
 
   return (
@@ -58,7 +62,8 @@ const OrderSummary = () => {
             Total Price:
           </Text>
           <Text component="h5" variant="h6" fontSize={28} fontWeight={600}>
-            $123
+            {currency}
+            {productPrice + addonsPrice}
           </Text>
         </SummaryPrice>
         <Divider />
