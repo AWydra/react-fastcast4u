@@ -1,4 +1,6 @@
+// @ts-nocheck
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 import { makeStyles, Container, Grid } from '@material-ui/core';
 import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded';
@@ -63,7 +65,11 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const OrderPackage = () => {
+  const { products, addons } = useSelector(state => state.order);
+  console.log(products);
+
   const classes = useStyles();
+
   return (
     <Container className={classes.root}>
       <Grid container>
@@ -84,17 +90,17 @@ const OrderPackage = () => {
             Select Control Panel
           </FancyTitle>
           <PackageGrid>
-            <PackageBox isActive />
-            <PackageBox isActive={false} />
+            {products.map(product => (
+              <PackageBox key={product.id} data={product} type="product" showPrice={false} />
+            ))}
           </PackageGrid>
           <FancyTitle component="h3" variant="h4">
             Select Addons
           </FancyTitle>
           <PackageGrid>
-            <PackageBox price={10} isActive />
-            <PackageBox price={10} isActive={false} />
-            <PackageBox price={10} isActive={false} />
-            <PackageBox price={10} isActive={false} />
+            {addons.map(addon => (
+              <PackageBox key={addon.id} data={addon} type="addon" showPrice />
+            ))}
           </PackageGrid>
         </Grid>
         <Grid item className={classes.summary}>

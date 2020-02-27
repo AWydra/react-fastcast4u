@@ -23,6 +23,8 @@ module.exports = {
     'react/no-array-index-key': 'off',
     'no-shadow': 'off',
     'no-nested-ternary': 'off',
+    'no-unused-expressions': 'off',
+    'no-case-declarations': 'off',
   },
   settings: {
     'import/resolver': {
