@@ -1,6 +1,8 @@
 // @ts-nocheck
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
+import orderActions from 'actions/orderActions';
 import styled from 'styled-components';
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardActionArea, CardContent, Divider } from '@material-ui/core';
@@ -10,10 +12,10 @@ import theme from 'theme/mainTheme';
 const GridContainer = styled.div`
   display: grid;
   height: 100%;
-  grid-template-columns: 1fr ${({ price }) => price && '105px'};
+  grid-template-columns: 1fr ${({ showPrice }) => showPrice && '105px'};
 
   ${theme.breakpoints.down('xs')} {
-    grid-template-columns: 1fr ${({ price }) => price && 'auto'};
+    grid-template-columns: 1fr ${({ showPrice }) => showPrice && 'auto'};
   }
 `;
 
@@ -64,6 +66,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: theme.palette.type !== 'dark' && theme.palette.grey[100],
+    transition: 'unset',
     borderLeft: `solid 2px ${
       theme.palette.type !== 'dark' ? theme.palette.grey[300] : theme.palette.grey[700]
     }`,
@@ -73,26 +76,39 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ProductBox = ({ price, isActive }) => {
-  const classes = useStyles(isActive, price);
+const ProductBox = ({ data, type, showPrice }) => {
+  const dispatch = useDispatch();
+  const activeProduct = useSelector(state => state.order.activeProduct.id);
+  const activeAddons = useSelector(state => state.order.activeAddons.map(({ id }) => id));
+
+  const isActive =
+    type === 'product'
+      ? data.id === activeProduct
+      : activeAddons.filter(id => id === data.id).length;
+  const { name, description } = data;
+  const price = 12;
+  const classes = useStyles(isActive, showPrice);
+
+  const handleClick = () => {
+    type === 'product'
+      ? dispatch(orderActions.toggleProduct(data))
+      : dispatch(orderActions.toggleAddon(data));
+  };
 
   return (
-    <Card className={classes.root} onClick={() => console.log('clicked!')}>
+    <Card className={classes.root} onClick={handleClick}>
       <CardActionArea className={classes.actionArea}>
-        <GridContainer price={price}>
+        <GridContainer showPrice={showPrice}>
           <CardContent className={classes.content}>
             <Text gutterBottom variant="h6" component="h4" fontWeight={600}>
-              Everest Cast
+              {name}
             </Text>
             <Divider />
             <Text variant="body2" color="textSecondary" component="p" mt={1}>
-              New, evolving Radio Control Panel with a fresh user interface, advanced graphic AutoDJ
-              playlist scheduler
-              {!price &&
-                ', drag & drop music manager and basic listener statistics. You can switch between SHOUTcast and IceCast Radio Servers'}
+              {description}
             </Text>
           </CardContent>
-          {price && (
+          {showPrice && (
             <CardContent className={classes.pricing}>
               <Price>
                 {price && <PriceUnit>$</PriceUnit>}
@@ -112,12 +128,15 @@ const ProductBox = ({ price, isActive }) => {
 };
 
 ProductBox.propTypes = {
-  price: PropTypes.number,
-  isActive: PropTypes.bool.isRequired,
+  showPrice: PropTypes.bool.isRequired,
+  data: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+  }).isRequired,
+  type: PropTypes.string.isRequired,
 };
 
-ProductBox.defaultProps = {
-  price: 0,
-};
+ProductBox.defaultProps = {};
 
 export default ProductBox;
