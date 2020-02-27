@@ -44,6 +44,7 @@ const PriceCycle = styled.div`
 
 const useStyles = makeStyles(theme => ({
   root: isActive => ({
+    height: '100%',
     boxShadow: isActive ? `0 0 8px 1px ${theme.palette.primary.main}` : 'unset',
     border: `solid 3px ${
       isActive
@@ -52,6 +53,7 @@ const useStyles = makeStyles(theme => ({
         ? theme.palette.grey[300]
         : theme.palette.grey[700]
     }`,
+    transition: 'unset',
   }),
   actionArea: {
     height: '100%',
@@ -79,12 +81,12 @@ const useStyles = makeStyles(theme => ({
 const ProductBox = ({ data, type, showPrice }) => {
   const dispatch = useDispatch();
   const activeProduct = useSelector(state => state.order.activeProduct.id);
-  const activeAddons = useSelector(state => state.order.activeAddons.map(({ id }) => id));
+  const activeAddons = useSelector(state => state.order.activeAddons);
 
   const isActive =
     type === 'product'
       ? data.id === activeProduct
-      : activeAddons.filter(id => id === data.id).length;
+      : activeAddons.filter(({ id }) => id === data.id).length;
   const { name, description } = data;
   const price = 12;
   const classes = useStyles(isActive, showPrice);

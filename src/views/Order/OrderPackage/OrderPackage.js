@@ -65,8 +65,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const OrderPackage = () => {
-  const { products, addons } = useSelector(state => state.order);
-  console.log(products);
+  const products = useSelector(state => state.order.products);
+  const addons = useSelector(state => state.order.addons);
 
   const classes = useStyles();
 
