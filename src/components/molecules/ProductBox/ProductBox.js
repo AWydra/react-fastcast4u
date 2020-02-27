@@ -45,12 +45,12 @@ const PriceCycle = styled.div`
 const useStyles = makeStyles(theme => ({
   root: isActive => ({
     height: '100%',
-    boxShadow: isActive ? `0 0 8px 1px ${theme.palette.primary.main}` : 'unset',
-    border: `solid 3px ${
+    boxShadow: isActive ? `0px 0 0px 2px ${theme.palette.primary.main}` : 'unset',
+    border: `solid 1px ${
       isActive
         ? theme.palette.primary.main
         : theme.palette.type !== 'dark'
-        ? theme.palette.grey[300]
+        ? theme.palette.grey[400]
         : theme.palette.grey[700]
     }`,
     transition: 'unset',
@@ -69,8 +69,8 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     backgroundColor: theme.palette.type !== 'dark' && theme.palette.grey[100],
     transition: 'unset',
-    borderLeft: `solid 2px ${
-      theme.palette.type !== 'dark' ? theme.palette.grey[300] : theme.palette.grey[700]
+    borderLeft: `solid 1px ${
+      theme.palette.type !== 'dark' ? theme.palette.grey[400] : theme.palette.grey[700]
     }`,
     [theme.breakpoints.down('xs')]: {
       padding: theme.spacing(2.5, 2),
