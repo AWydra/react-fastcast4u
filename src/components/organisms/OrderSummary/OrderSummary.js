@@ -1,11 +1,11 @@
 // @ts-nocheck
 import React from 'react';
-import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { Divider, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ProductTable from 'components/molecules/ProductTable/ProductTable';
 import BillingCycle from 'components/molecules/BillingCycle/BillingCycle';
+import SummaryPrice from 'components/molecules/SummaryPrice/SummaryPrice';
 import Promocode from 'components/molecules/Promocode/Promocode';
 import Text from 'components/atoms/Text/Text';
 import theme from 'theme/mainTheme';
@@ -15,12 +15,10 @@ const SummaryContainer = styled.div`
   top: ${theme.spacing(5)}px;
   border: solid 1px ${theme.palette.grey[400]};
   border-radius: ${theme.shape.borderRadius}px;
-`;
 
-const SummaryPrice = styled.div`
-  margin: ${theme.spacing(1)}px 0;
-  display: flex;
-  justify-content: space-between;
+  ${theme.breakpoints.down('sm')} {
+    margin-top: ${theme.spacing(5)}px;
+  }
 `;
 
 const FormContainer = styled.div`
@@ -42,9 +40,6 @@ const useStyles = makeStyles(({ palette }) => ({
 }));
 
 const OrderSummary = () => {
-  const { activeProduct, activeAddons, cycle, currency } = useSelector(state => state.order);
-  const productPrice = activeProduct[cycle].regular * 1;
-  const addonsPrice = activeAddons.reduce((acc, el) => acc + el[cycle] * 1, 0);
   const classes = useStyles();
 
   return (
@@ -57,15 +52,7 @@ const OrderSummary = () => {
       <FormContainer>
         <BillingCycle />
         <Divider />
-        <SummaryPrice>
-          <Text component="h5" variant="h6" fontSize={28} fontWeight={600}>
-            Total Price:
-          </Text>
-          <Text component="h5" variant="h6" fontSize={28} fontWeight={600}>
-            {currency}
-            {productPrice + addonsPrice}
-          </Text>
-        </SummaryPrice>
+        <SummaryPrice />
         <Divider />
         <Promocode
           onSubmit={ev => {
