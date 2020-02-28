@@ -1,8 +1,6 @@
 // @ts-nocheck
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useSelector, useDispatch } from 'react-redux';
-import orderActions from 'actions/orderActions';
 import styled from 'styled-components';
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardActionArea, CardContent, Divider } from '@material-ui/core';
@@ -78,27 +76,13 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ProductBox = ({ data, type, showPrice }) => {
-  const dispatch = useDispatch();
-  const activeProduct = useSelector(state => state.order.activeProduct.id);
-  const activeAddons = useSelector(state => state.order.activeAddons);
-
-  const isActive =
-    type === 'product'
-      ? data.id === activeProduct
-      : activeAddons.filter(({ id }) => id === data.id).length;
+const ProductBox = ({ data, isActive, showPrice, onClick }) => {
   const { name, description } = data;
   const price = 12;
   const classes = useStyles(isActive, showPrice);
 
-  const handleClick = () => {
-    type === 'product'
-      ? dispatch(orderActions.toggleProduct(data))
-      : dispatch(orderActions.toggleAddon(data));
-  };
-
   return (
-    <Card className={classes.root} onClick={handleClick}>
+    <Card className={classes.root} onClick={onClick}>
       <CardActionArea className={classes.actionArea}>
         <GridContainer showPrice={showPrice}>
           <CardContent className={classes.content}>
@@ -136,7 +120,8 @@ ProductBox.propTypes = {
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
   }).isRequired,
-  type: PropTypes.string.isRequired,
+  isActive: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 ProductBox.defaultProps = {};
