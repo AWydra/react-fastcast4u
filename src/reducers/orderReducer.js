@@ -131,7 +131,7 @@ const orderReducer = (state = initialState, action) => {
         activeProduct: action.payload,
       };
     case 'TOGGLE_ADDON':
-      const isInArray = [...state.activeAddons].filter(el => el.id === action.payload.id).length;
+      const isInArray = [...state.activeAddons].find(el => el.id === action.payload.id);
       return {
         ...state,
         activeAddons: isInArray

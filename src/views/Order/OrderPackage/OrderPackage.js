@@ -6,7 +6,8 @@ import { makeStyles, Container, Grid } from '@material-ui/core';
 import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded';
 import FancyTitle from 'components/atoms/FancyTitle/FancyTitle';
 import IconList from 'components/molecules/IconList/IconList';
-import PackageBox from 'components/molecules/ProductBox/ProductBox';
+import ProductBox from 'components/molecules/PackageBox/ProductBox';
+import AddonBox from 'components/molecules/PackageBox/AddonBox';
 import Stepper from 'components/organisms/Stepper/Stepper';
 import OrderSummary from 'components/organisms/OrderSummary/OrderSummary';
 import IconListSection from 'components/organisms/IconListSection/IconListSection';
@@ -91,7 +92,7 @@ const OrderPackage = () => {
           </FancyTitle>
           <PackageGrid>
             {products.map(product => (
-              <PackageBox key={product.id} data={product} type="product" showPrice={false} />
+              <ProductBox key={product.id} data={product} showPrice={false} />
             ))}
           </PackageGrid>
           <FancyTitle component="h3" variant="h4">
@@ -99,7 +100,7 @@ const OrderPackage = () => {
           </FancyTitle>
           <PackageGrid>
             {addons.map(addon => (
-              <PackageBox key={addon.id} data={addon} type="addon" showPrice />
+              <AddonBox key={addon.id} data={addon} showPrice />
             ))}
           </PackageGrid>
         </Grid>
@@ -110,5 +111,7 @@ const OrderPackage = () => {
     </Container>
   );
 };
+
+// For better future: obj1.map((el, i) => ({...el, ...obj2[i]}))
 
 export default OrderPackage;
