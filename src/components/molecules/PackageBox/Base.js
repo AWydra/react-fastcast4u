@@ -76,9 +76,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ProductBox = ({ data, isActive, showPrice, onClick }) => {
+const ProductBox = ({ data, isActive, showPrice, cycle, onClick }) => {
   const { name, description } = data;
-  const price = 12;
+  const price = data[cycle] * 1;
   const classes = useStyles(isActive, showPrice);
 
   return (
@@ -97,13 +97,13 @@ const ProductBox = ({ data, isActive, showPrice, onClick }) => {
           {showPrice && (
             <CardContent className={classes.pricing}>
               <Price>
-                {price && <PriceUnit>$</PriceUnit>}
+                {!!price && <PriceUnit>$</PriceUnit>}
                 {price || (
                   <Text component="p" variant="h4">
                     FREE
                   </Text>
                 )}
-                {price && <PriceCycle>monthly</PriceCycle>}
+                <PriceCycle>{cycle}</PriceCycle>
               </Price>
             </CardContent>
           )}
@@ -121,9 +121,12 @@ ProductBox.propTypes = {
     description: PropTypes.string.isRequired,
   }).isRequired,
   isActive: PropTypes.bool.isRequired,
+  cycle: PropTypes.string,
   onClick: PropTypes.func.isRequired,
 };
 
-ProductBox.defaultProps = {};
+ProductBox.defaultProps = {
+  cycle: '',
+};
 
 export default ProductBox;

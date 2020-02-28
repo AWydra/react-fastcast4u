@@ -8,12 +8,13 @@ import Base from './Base';
 const AddonBox = ({ data }) => {
   const dispatch = useDispatch();
   const isActive = useSelector(state => state.order.activeAddons.find(({ id }) => id === data.id));
+  const cycle = useSelector(state => state.order.cycle);
 
   const handleClick = () => {
     dispatch(orderActions.toggleAddon(data));
   };
 
-  return <Base data={data} onClick={handleClick} isActive={!!isActive} showPrice />;
+  return <Base data={data} onClick={handleClick} isActive={!!isActive} cycle={cycle} showPrice />;
 };
 
 AddonBox.propTypes = {
