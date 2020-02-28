@@ -13,8 +13,8 @@ const setCycle = item => ({
   payload: item,
 });
 
-const resetProducts = item => ({
-  type: 'RESET_PRODUCTS',
+const setPlan = item => ({
+  type: 'SET_PLAN',
   payload: item,
 });
 
@@ -22,5 +22,5 @@ export default {
   toggleProduct,
   toggleAddon,
   setCycle,
-  resetProducts,
+  setPlan,
 };

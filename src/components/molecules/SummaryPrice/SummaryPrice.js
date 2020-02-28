@@ -14,9 +14,9 @@ const useStyles = makeStyles(theme => ({
 
 const SummaryPrice = () => {
   const order = useSelector(state => state.order);
-  const { activeProduct, activeAddons, cycle, currency } = order;
+  const { activeProduct, activeAddons, cycle, currency, plan } = order;
 
-  const productPrice = activeProduct[cycle].regular * 1;
+  const productPrice = activeProduct[cycle][plan] * 1;
   const addonsPrice = activeAddons.reduce((acc, el) => acc + el[cycle] * 1, 0);
   const classes = useStyles();
   return (

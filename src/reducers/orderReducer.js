@@ -1,6 +1,7 @@
 const initialState = {
   currency: '$',
   cycle: 'monthly',
+  plan: 'regular',
   activeProduct: {
     id: '2022',
     plan: {
@@ -143,10 +144,10 @@ const orderReducer = (state = initialState, action) => {
         ...state,
         cycle: action.payload,
       };
-    case 'RESET_PRODUCTS':
+    case 'SET_PLAN':
       return {
         ...state,
-        products: [],
+        plan: action.payload,
       };
     default:
       return state;

@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const ProductTable = () => {
-  const { activeProduct, activeAddons, currency, cycle } = useSelector(state => state.order);
+  const { activeProduct, activeAddons, currency, cycle, plan } = useSelector(state => state.order);
   const classes = useStyles();
 
   return (
@@ -32,11 +32,11 @@ const ProductTable = () => {
         <TableBody>
           <TableRow key={activeProduct.id} className={classes.row}>
             <TableCell component="th" scope="row" className={classes.cell}>
-              Radio Server - {activeProduct.name}
+              Radio Server - {activeProduct.name} {plan === 'premium' && ' (320kbps)'}
             </TableCell>
             <TableCell align="right" className={`${classes.cell} ${classes.cellPrice}`}>
               {currency}
-              {activeProduct[cycle].regular}
+              {activeProduct[cycle][plan]}
             </TableCell>
           </TableRow>
           {activeAddons.map(addon => (

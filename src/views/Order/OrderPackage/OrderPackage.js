@@ -98,7 +98,7 @@ const OrderPackage = () => {
           <FancyTitle component="h3" variant="h4">
             Select Addons
           </FancyTitle>
-          <PackageGrid>
+          <PackageGrid addons>
             {addons.map(addon => (
               <AddonBox key={addon.id} data={addon} showPrice />
             ))}
