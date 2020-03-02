@@ -81,27 +81,27 @@ const initialState = {
       monthly: '10.00',
       annually: '120.00',
       biennially: '240.00',
-      children: [
-        {
-          id: '2064',
-          name: 'AdMob monetization',
-          description: 'Monetize your stream by displaying AdMob Ads in your Mobile App',
-          relid: '41',
-          monthly: '0.00',
-          annually: '0.00',
-          biennially: '0.00',
-        },
-        {
-          id: '2070',
-          name: 'Push notifications',
-          description:
-            'Improve interaction with your listeners by sending notifications through the App',
-          relid: '42',
-          monthly: '0.00',
-          annually: '0.00',
-          biennially: '0.00',
-        },
-      ],
+    },
+    {
+      id: '2064',
+      name: 'AdMob monetization',
+      description: 'Monetize your stream by displaying AdMob Ads in your Mobile App',
+      relid: '41',
+      monthly: '0.00',
+      annually: '0.00',
+      biennially: '0.00',
+      parent: '2052',
+    },
+    {
+      id: '2070',
+      name: 'Push notifications',
+      description:
+        'Improve interaction with your listeners by sending notifications through the App',
+      relid: '42',
+      monthly: '0.00',
+      annually: '0.00',
+      biennially: '0.00',
+      parent: '2052',
     },
     {
       id: '2079',
@@ -132,12 +132,19 @@ const orderReducer = (state = initialState, action) => {
         activeProduct: action.payload,
       };
     case 'TOGGLE_ADDON':
-      const isInArray = [...state.activeAddons].find(el => el.id === action.payload.id);
+      const isInArray = [...state.activeAddons].find(({ id }) => id === action.payload.id);
+      const activeAddons = isInArray
+        ? [...state.activeAddons].filter(({ id }) => id !== action.payload.id)
+        : [...state.activeAddons, action.payload];
+
       return {
         ...state,
-        activeAddons: isInArray
-          ? [...state.activeAddons].filter(el => el.id !== action.payload.id)
-          : [...state.activeAddons, action.payload],
+        activeAddons,
+      };
+    case 'REMOVE_ADDON':
+      return {
+        ...state,
+        activeAddons: [...state.activeAddons].filter(({ id }) => id !== action.payload),
       };
     case 'SET_CYCLE':
       return {
