@@ -17,13 +17,12 @@ const PremiumBox = () => {
   const dispatch = useDispatch();
   const plan = useSelector(state => state.order.plan);
   const isActive = plan === 'premium';
-  const cycle = useSelector(state => state.order.cycle);
 
   const handleClick = () => {
     dispatch(orderActions.setPlan(plan === 'regular' ? 'premium' : 'regular'));
   };
 
-  return <Base data={data} onClick={handleClick} isActive={isActive} cycle={cycle} showPrice />;
+  return <Base data={data} onClick={handleClick} isActive={isActive} showPrice />;
 };
 
 export default PremiumBox;

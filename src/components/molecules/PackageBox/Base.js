@@ -1,6 +1,7 @@
 // @ts-nocheck
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardActionArea, CardContent, Divider } from '@material-ui/core';
@@ -76,7 +77,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ProductBox = ({ data, isActive, showPrice, cycle, onClick }) => {
+const ProductBox = ({ data, isActive, showPrice, onClick }) => {
+  const cycle = useSelector(state => state.order.cycle);
+  const currency = useSelector(state => state.order.currency);
   const { name, description } = data;
   const price = data[cycle] * 1;
   const classes = useStyles(isActive, showPrice);
@@ -97,12 +100,17 @@ const ProductBox = ({ data, isActive, showPrice, cycle, onClick }) => {
           {showPrice && (
             <CardContent className={classes.pricing}>
               <Price>
-                {!!price && <PriceUnit>$</PriceUnit>}
+                {!!price && (
+                  <PriceUnit component="p" variant="h4">
+                    {currency}
+                  </PriceUnit>
+                )}
                 {price || (
-                  <Text component="p" variant="h4">
+                  <Text component="span" variant="h4">
                     FREE
                   </Text>
                 )}
+
                 <PriceCycle>{cycle}</PriceCycle>
               </Price>
             </CardContent>
@@ -121,12 +129,7 @@ ProductBox.propTypes = {
     description: PropTypes.string.isRequired,
   }).isRequired,
   isActive: PropTypes.bool.isRequired,
-  cycle: PropTypes.string,
   onClick: PropTypes.func.isRequired,
-};
-
-ProductBox.defaultProps = {
-  cycle: '',
 };
 
 export default ProductBox;
