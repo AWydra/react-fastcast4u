@@ -13,6 +13,7 @@ import theme from 'theme/mainTheme';
 const SummaryContainer = styled.div`
   position: sticky;
   top: ${theme.spacing(5)}px;
+  background-color: ${theme.palette.background.paper};
   border: solid 1px ${theme.palette.grey[400]};
   border-radius: ${theme.shape.borderRadius}px;
 
@@ -57,7 +58,6 @@ const OrderSummary = () => {
         <Promocode
           onSubmit={ev => {
             ev.preventDefault();
-            console.log('Promocode sent!');
           }}
         />
       </FormContainer>
