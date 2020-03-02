@@ -8,6 +8,11 @@ const toggleAddon = item => ({
   payload: item,
 });
 
+const removeAddon = id => ({
+  type: 'REMOVE_ADDON',
+  payload: id,
+});
+
 const setCycle = item => ({
   type: 'SET_CYCLE',
   payload: item,
@@ -21,6 +26,7 @@ const setPlan = item => ({
 export default {
   toggleProduct,
   toggleAddon,
+  removeAddon,
   setCycle,
   setPlan,
 };

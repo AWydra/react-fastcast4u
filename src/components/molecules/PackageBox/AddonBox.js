@@ -5,16 +5,34 @@ import { useSelector, useDispatch } from 'react-redux';
 import orderActions from 'actions/orderActions';
 import Base from './Base';
 
+const Hide = ({ data, children }) => {
+  const dispatch = useDispatch();
+  const parentId = data.parent;
+  const activeParent = useSelector(state =>
+    state.order.activeAddons.find(({ id }) => id === parentId),
+  );
+
+  if (parentId && !activeParent) {
+    dispatch(orderActions.removeAddon(data.id));
+  }
+
+  if (!parentId || activeParent) return children;
+  return null;
+};
+
 const AddonBox = ({ data }) => {
   const dispatch = useDispatch();
   const isActive = useSelector(state => state.order.activeAddons.find(({ id }) => id === data.id));
-  const cycle = useSelector(state => state.order.cycle);
 
   const handleClick = () => {
     dispatch(orderActions.toggleAddon(data));
   };
 
-  return <Base data={data} onClick={handleClick} isActive={!!isActive} cycle={cycle} showPrice />;
+  return (
+    <Hide data={data}>
+      <Base data={data} onClick={handleClick} isActive={!!isActive} showPrice />
+    </Hide>
+  );
 };
 
 AddonBox.propTypes = {
