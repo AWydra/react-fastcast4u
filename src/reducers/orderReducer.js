@@ -2,28 +2,7 @@ const initialState = {
   currency: '$',
   cycle: 'monthly',
   plan: 'regular',
-  activeProduct: {
-    id: '2022',
-    plan: {
-      regular: '515',
-      premium: '516',
-    },
-    name: 'Everest Cast',
-    description:
-      'New, evolving Radio Control Panel with a fresh user interface, advanced graphic AutoDJ playlist scheduler, drag & drop music manager and basic listener statistics. You can switch between SHOUTcast and IceCast Radio Servers',
-    monthly: {
-      regular: '9.00',
-      premium: '19.00',
-    },
-    annually: {
-      regular: '108.00',
-      premium: '228.00',
-    },
-    biennially: {
-      regular: '216.00',
-      premium: '456.00',
-    },
-  },
+  activeProduct: '2022',
   activeAddons: [],
   products: [
     {
@@ -132,9 +111,9 @@ const orderReducer = (state = initialState, action) => {
         activeProduct: action.payload,
       };
     case 'TOGGLE_ADDON':
-      const isInArray = [...state.activeAddons].find(({ id }) => id === action.payload.id);
+      const isInArray = state.activeAddons.includes(action.payload);
       const activeAddons = isInArray
-        ? [...state.activeAddons].filter(({ id }) => id !== action.payload.id)
+        ? state.activeAddons.filter(id => id !== action.payload)
         : [...state.activeAddons, action.payload];
 
       return {
@@ -144,7 +123,7 @@ const orderReducer = (state = initialState, action) => {
     case 'REMOVE_ADDON':
       return {
         ...state,
-        activeAddons: [...state.activeAddons].filter(({ id }) => id !== action.payload),
+        activeAddons: state.activeAddons.filter(id => id !== action.payload),
       };
     case 'SET_CYCLE':
       return {

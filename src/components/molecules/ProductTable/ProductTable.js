@@ -23,33 +23,39 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const ProductTable = () => {
-  const { activeProduct, activeAddons, currency, cycle, plan } = useSelector(state => state.order);
+  const { products, activeProduct, addons, activeAddons, currency, cycle, plan } = useSelector(
+    state => state.order,
+  );
+  const activeProductObject = products.find(({ id }) => id === activeProduct);
   const classes = useStyles();
 
   return (
     <TableContainer>
       <Table aria-label="Summary Table">
         <TableBody>
-          <TableRow key={activeProduct.id} className={classes.row}>
+          <TableRow className={classes.row}>
             <TableCell component="th" scope="row" className={classes.cell}>
-              Radio Server - {activeProduct.name} {plan === 'premium' && ' (320kbps)'}
+              Radio Server - {activeProductObject.name} {plan === 'premium' && ' (320kbps)'}
             </TableCell>
             <TableCell align="right" className={`${classes.cell} ${classes.cellPrice}`}>
               {currency}
-              {activeProduct[cycle][plan]}
+              {activeProductObject[cycle][plan]}
             </TableCell>
           </TableRow>
-          {activeAddons.map(addon => (
-            <TableRow key={addon.id} className={classes.row}>
-              <TableCell component="th" scope="row" className={classes.cell}>
-                {addon.name}
-              </TableCell>
-              <TableCell align="right" className={`${classes.cell} ${classes.cellPrice}`}>
-                {currency}
-                {addon[cycle]}
-              </TableCell>
-            </TableRow>
-          ))}
+          {activeAddons.map(addonId => {
+            const addon = addons.find(el => el.id === addonId);
+            return (
+              <TableRow key={addon.id} className={classes.row}>
+                <TableCell component="th" scope="row" className={classes.cell}>
+                  {addon.name}
+                </TableCell>
+                <TableCell align="right" className={`${classes.cell} ${classes.cellPrice}`}>
+                  {currency}
+                  {addon[cycle]}
+                </TableCell>
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
     </TableContainer>

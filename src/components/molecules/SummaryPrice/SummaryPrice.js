@@ -14,10 +14,12 @@ const useStyles = makeStyles(theme => ({
 
 const SummaryPrice = () => {
   const order = useSelector(state => state.order);
-  const { activeProduct, activeAddons, cycle, currency, plan } = order;
+  const { products, activeProduct, addons, activeAddons, cycle, currency, plan } = order;
 
-  const productPrice = activeProduct[cycle][plan] * 1;
-  const addonsPrice = activeAddons.reduce((acc, el) => acc + el[cycle] * 1, 0);
+  const productPrice = Number(products.find(({ id }) => id === activeProduct)[cycle][plan]);
+  const addonsPrice = activeAddons
+    .map(addonId => addons.find(el => el.id === addonId))
+    .reduce((acc, el) => acc + el[cycle] * 1, 0);
   const classes = useStyles();
   return (
     <div className={classes.root}>
