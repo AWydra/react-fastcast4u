@@ -5,10 +5,12 @@
   "dependencies": {
     "@material-ui/core": "^4.9.0",
     "@material-ui/icons": "^4.5.1",
+    "@material-ui/lab": "^4.0.0-alpha.45",
     "@material-ui/system": "^4.7.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "axios": "^0.19.2",
     "clsx": "^1.1.0",
     "history": "^4.10.1",
     "prop-types": "^15.7.2",
@@ -22,6 +24,7 @@
     "react-tawkto": "^1.0.1",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
+    "redux-thunk": "^2.3.0",
     "styled-components": "^5.0.0"
   },
   "scripts": {
@@ -58,6 +61,7 @@
     "lint-staged": "^10.0.2",
     "prettier": "^1.19.1"
   },
+  "proxy": "https://fastcast4u.com",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
