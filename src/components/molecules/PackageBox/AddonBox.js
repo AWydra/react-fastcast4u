@@ -8,9 +8,7 @@ import Base from './Base';
 const Hide = ({ data, children }) => {
   const dispatch = useDispatch();
   const parentId = data.parent;
-  const activeParent = useSelector(state =>
-    state.order.activeAddons.find(({ id }) => id === parentId),
-  );
+  const activeParent = useSelector(state => state.order.activeAddons.includes(parentId));
 
   if (parentId && !activeParent) {
     dispatch(orderActions.removeAddon(data.id));
@@ -22,15 +20,16 @@ const Hide = ({ data, children }) => {
 
 const AddonBox = ({ data }) => {
   const dispatch = useDispatch();
-  const isActive = useSelector(state => state.order.activeAddons.find(({ id }) => id === data.id));
+  const cycle = useSelector(state => state.order.cycle);
+  const isActive = useSelector(state => state.order.activeAddons.find(id => id === data.id));
 
   const handleClick = () => {
-    dispatch(orderActions.toggleAddon(data));
+    dispatch(orderActions.toggleAddon(data.id));
   };
 
   return (
     <Hide data={data}>
-      <Base data={data} onClick={handleClick} isActive={!!isActive} showPrice />
+      <Base data={data} onClick={handleClick} isActive={!!isActive} cycle={cycle} showPrice />
     </Hide>
   );
 };

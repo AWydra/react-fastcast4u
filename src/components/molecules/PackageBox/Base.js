@@ -77,11 +77,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ProductBox = ({ data, isActive, showPrice, onClick }) => {
-  const cycle = useSelector(state => state.order.cycle);
+const ProductBox = ({ data, cycle, isActive, showPrice, onClick }) => {
   const currency = useSelector(state => state.order.currency);
   const { name, description } = data;
-  const price = data[cycle] * 1;
+  const price = showPrice && data[cycle] * 1;
   const classes = useStyles(isActive, showPrice);
 
   return (
@@ -128,8 +127,13 @@ ProductBox.propTypes = {
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
   }).isRequired,
+  cycle: PropTypes.string,
   isActive: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
+};
+
+ProductBox.defaultProps = {
+  cycle: '',
 };
 
 export default ProductBox;

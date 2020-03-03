@@ -7,12 +7,12 @@ import Base from './Base';
 
 const ProductBox = ({ data }) => {
   const dispatch = useDispatch();
-  const activeProduct = useSelector(state => state.order.activeProduct.id);
+  const activeProduct = useSelector(state => state.order.activeProduct);
 
   const isActive = data.id === activeProduct;
 
   const handleClick = () => {
-    dispatch(orderActions.toggleProduct(data));
+    dispatch(orderActions.toggleProduct(data.id));
   };
 
   return <Base data={data} onClick={handleClick} isActive={isActive} showPrice={false} />;

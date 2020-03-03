@@ -15,6 +15,7 @@ const data = {
 
 const PremiumBox = () => {
   const dispatch = useDispatch();
+  const cycle = useSelector(state => state.order.cycle);
   const plan = useSelector(state => state.order.plan);
   const isActive = plan === 'premium';
 
@@ -22,7 +23,7 @@ const PremiumBox = () => {
     dispatch(orderActions.setPlan(plan === 'regular' ? 'premium' : 'regular'));
   };
 
-  return <Base data={data} onClick={handleClick} isActive={isActive} showPrice />;
+  return <Base data={data} onClick={handleClick} isActive={isActive} cycle={cycle} showPrice />;
 };
 
 export default PremiumBox;
