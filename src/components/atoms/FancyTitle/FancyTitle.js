@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { makeStyles } from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
 import dottedImg from 'assets/img/dotted.png';
+import theme from 'theme/mainTheme';
 
 const FancyTitleContainer = styled.div`
   display: flex;
@@ -11,6 +12,10 @@ const FancyTitleContainer = styled.div`
   background-image: url(${dottedImg});
   background-position: center;
   background-repeat: repeat-x;
+
+  ${theme.breakpoints.down('sm')} {
+    margin: 0 -15px;
+  }
 `;
 
 const useStyles = makeStyles(theme => ({
