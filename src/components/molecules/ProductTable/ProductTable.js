@@ -3,6 +3,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Table, TableBody, TableCell, TableContainer, TableRow } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 const useStyles = makeStyles(theme => ({
   row: {
@@ -23,9 +24,16 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const ProductTable = () => {
-  const { products, activeProduct, addons, activeAddons, currency, cycle, plan } = useSelector(
-    state => state.order,
-  );
+  const {
+    products,
+    activeProduct,
+    addons,
+    activeAddons,
+    currency,
+    cycle,
+    plan,
+    loading,
+  } = useSelector(state => state.order);
   const activeProductObject = products.find(({ id }) => id === activeProduct);
   const classes = useStyles();
 
@@ -34,13 +42,21 @@ const ProductTable = () => {
       <Table aria-label="Summary Table">
         <TableBody>
           <TableRow className={classes.row}>
-            <TableCell component="th" scope="row" className={classes.cell}>
-              Radio Server - {activeProductObject.name} {plan === 'premium' && ' (320kbps)'}
-            </TableCell>
-            <TableCell align="right" className={`${classes.cell} ${classes.cellPrice}`}>
-              {currency}
-              {activeProductObject[cycle][plan]}
-            </TableCell>
+            {loading ? (
+              <TableCell component="th" colSpan={2} className={classes.cell}>
+                <Skeleton animation="wave" height={22} width="100%" />
+              </TableCell>
+            ) : (
+              <>
+                <TableCell component="th" scope="row" className={classes.cell}>
+                  Radio Server - {activeProductObject.name} {plan === 'premium' && ' (320kbps)'}
+                </TableCell>
+                <TableCell align="right" className={`${classes.cell} ${classes.cellPrice}`}>
+                  {currency}
+                  {activeProductObject[cycle][plan]}
+                </TableCell>
+              </>
+            )}
           </TableRow>
           {activeAddons.map(addonId => {
             const addon = addons.find(el => el.id === addonId);

@@ -1,5 +1,6 @@
 // @ts-nocheck
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { Divider, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -74,7 +75,7 @@ const OrderSummary = () => {
       </FormContainer>
       <Divider />
       <FormContainer flexEnd>
-        <Button variant="contained" color="primary" size="large">
+        <Button component={Link} to="/order/login" variant="contained" color="primary" size="large">
           CONTINUE
         </Button>
       </FormContainer>
