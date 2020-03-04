@@ -67,11 +67,7 @@ const OrderSummary = () => {
           <SummaryPrice />
         </SummaryPriceContainer>
         <Divider />
-        <Promocode
-          onSubmit={ev => {
-            ev.preventDefault();
-          }}
-        />
+        <Promocode />
       </FormContainer>
       <Divider />
       <FormContainer flexEnd>
