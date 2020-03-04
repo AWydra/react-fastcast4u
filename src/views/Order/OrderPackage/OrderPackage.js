@@ -1,6 +1,7 @@
 // @ts-nocheck
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import orderService from 'services/order';
 
 import { makeStyles, Container, Grid } from '@material-ui/core';
 import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded';
@@ -68,8 +69,13 @@ const useStyles = makeStyles(theme => ({
 const OrderPackage = () => {
   const products = useSelector(state => state.order.products);
   const addons = useSelector(state => state.order.addons);
+  const loading = useSelector(state => state.order.loading);
+  const dispatch = useDispatch();
 
   const classes = useStyles();
+
+  // If products array isn't empty, don't fetch
+  !products.length && dispatch(orderService.getPricing());
 
   return (
     <Container className={classes.root}>
@@ -90,7 +96,7 @@ const OrderPackage = () => {
           <FancyTitle component="h3" variant="h4">
             Select Control Panel
           </FancyTitle>
-          <PackageGrid>
+          <PackageGrid loading={loading}>
             {products.map(product => (
               <ProductBox key={product.id} data={product} showPrice={false} />
             ))}
@@ -98,7 +104,7 @@ const OrderPackage = () => {
           <FancyTitle component="h3" variant="h4">
             Select Addons
           </FancyTitle>
-          <PackageGrid addons>
+          <PackageGrid addons loading={loading}>
             {addons.map(addon => (
               <AddonBox key={addon.id} data={addon} showPrice />
             ))}
@@ -111,7 +117,5 @@ const OrderPackage = () => {
     </Container>
   );
 };
-
-// For better future: obj1.map((el, i) => ({...el, ...obj2[i]}))
 
 export default OrderPackage;
