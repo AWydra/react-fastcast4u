@@ -76,7 +76,7 @@ const Promocode = () => {
       <div className={classes.inputContainer}>
         <TextField
           id="promocode-input"
-          error={invalid}
+          error={!!invalid}
           helperText={invalid}
           className={classes.input}
           value={promocode}

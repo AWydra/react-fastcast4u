@@ -9,9 +9,9 @@ const StyledContainer = styled.div`
   padding: 0 15px;
 `;
 
-const HeadingBlock = ({ title, subtitle }) => (
+const HeadingBlock = ({ title, subtitle, ...props }) => (
   <StyledContainer>
-    <Title>{title}</Title>
+    <Title {...props}>{title}</Title>
     {subtitle && <SubTitle>{subtitle}</SubTitle>}
   </StyledContainer>
 );
