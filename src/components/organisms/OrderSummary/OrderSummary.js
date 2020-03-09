@@ -10,12 +10,13 @@ import SummaryPrice from 'components/molecules/SummaryPrice/SummaryPrice';
 import Promocode from 'components/molecules/Promocode/Promocode';
 import Text from 'components/atoms/Text/Text';
 import theme from 'theme/mainTheme';
+import themeUtils from 'utils/theme';
 
 const SummaryContainer = styled.div`
   position: sticky;
   top: ${theme.spacing(5)}px;
   background-color: ${theme.palette.background.paper};
-  border: solid 1px ${theme.palette.grey[400]};
+  border: solid 1px ${themeUtils.modeSwitch(theme.palette.grey[400], theme.palette.grey[700])};
   border-radius: ${theme.shape.borderRadius}px;
 
   ${theme.breakpoints.down('sm')} {

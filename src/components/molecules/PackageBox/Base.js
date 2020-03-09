@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardActionArea, CardContent, Divider } from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
 import theme from 'theme/mainTheme';
+import themeUtils from 'utils/theme';
 
 const GridContainer = styled.div`
   display: grid;
@@ -48,9 +49,7 @@ const useStyles = makeStyles(theme => ({
     border: `solid 1px ${
       isActive
         ? theme.palette.primary.main
-        : theme.palette.type !== 'dark'
-        ? theme.palette.grey[400]
-        : theme.palette.grey[700]
+        : themeUtils.modeSwitch(theme.palette.grey[400], theme.palette.grey[700])
     }`,
     transition: 'unset',
   }),
