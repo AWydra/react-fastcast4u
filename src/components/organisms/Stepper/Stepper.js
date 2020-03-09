@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
-import { Stepper, Step, StepLabel, StepConnector } from '@material-ui/core';
+import { Box, Stepper, Step, StepLabel, StepConnector } from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
 
 const ColorlibConnector = withStyles(theme => ({
@@ -72,11 +72,11 @@ const useStyles = makeStyles({
   },
 });
 
-const CustomizedSteppers = ({ steps, activeStep }) => {
+const CustomizedSteppers = ({ steps, activeStep, ...props }) => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <Box className={classes.root} {...props}>
       <Stepper
         className={classes.stepper}
         alternativeLabel
@@ -89,7 +89,7 @@ const CustomizedSteppers = ({ steps, activeStep }) => {
           </Step>
         ))}
       </Stepper>
-    </div>
+    </Box>
   );
 };
 
