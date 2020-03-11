@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { TextField, Button, CircularProgress } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import Text from 'components/atoms/Text/Text';
+import Label from 'components/atoms/Label/Label';
 
 const PromocodeContainer = styled.form`
   padding: 10px 0;
@@ -14,12 +14,6 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(1),
     display: 'flex',
     alignItems: 'start',
-  },
-  label: {
-    width: '100%',
-    margin: 0,
-    marginRight: theme.spacing(2),
-    alignItems: 'flex-start',
   },
   input: {
     margin: theme.spacing(0, 2, 0, 0),
@@ -62,17 +56,7 @@ const Promocode = () => {
 
   return (
     <PromocodeContainer onSubmit={handleSubmit}>
-      <Text
-        className={classes.label}
-        component="label"
-        variant="h6"
-        fontSize={16}
-        fontWeight={600}
-        my={1}
-        htmlFor="promocode-input"
-      >
-        Promocode:
-      </Text>
+      <Label htmlFor="promocode-input">Promocode:</Label>
       <div className={classes.inputContainer}>
         <TextField
           id="promocode-input"
