@@ -21,6 +21,7 @@ module.exports = {
     'no-console': 'warn',
     'react/jsx-props-no-spreading': 'off',
     'react/no-array-index-key': 'off',
+    'react/forbid-prop-types': 'off',
     'no-shadow': 'off',
     'no-nested-ternary': 'off',
     'no-unused-expressions': 'off',
