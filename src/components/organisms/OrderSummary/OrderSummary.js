@@ -72,7 +72,7 @@ const OrderSummary = () => {
       </FormContainer>
       <Divider />
       <FormContainer flexEnd>
-        <Button component={Link} to="/order/login" variant="contained" color="primary" size="large">
+        <Button component={Link} to="/order/login" variant="contained" color="primary">
           CONTINUE
         </Button>
       </FormContainer>

@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
 
 const BtnContainer = styled.div`
   width: 100%;
-  margin-top: 20px;
+  margin: 20px 0 0;
   display: flex;
   justify-content: space-between;
 `;
@@ -97,7 +97,13 @@ const LoginForm = () => {
         >
           BACK
         </Button>
-        <Button variant="contained" color="primary" type="submit">
+        <Button
+          component={Link}
+          to="/order/payment"
+          variant="contained"
+          color="primary"
+          type="submit"
+        >
           CONTINUE
         </Button>
       </BtnContainer>

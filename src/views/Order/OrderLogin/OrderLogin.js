@@ -20,7 +20,7 @@ const OrderLogin = () => {
           mb={6}
         />
       )}
-      <ColumnForm onSubmit={() => console.log('Form sent')}>
+      <ColumnForm>
         <BoxTitle variant="h5" component="h1" mb={2}>
           Create Account or Sign In
         </BoxTitle>
