@@ -7,6 +7,7 @@ const FormikInput = ({ formik, name, error, ...props }) => {
 
   return (
     <TextField
+      variant="outlined"
       error={!!errorName}
       name={name}
       onChange={formik.handleChange}
@@ -14,6 +15,7 @@ const FormikInput = ({ formik, name, error, ...props }) => {
       value={formik.values[name]}
       fullWidth
       helperText={errorName}
+      margin="dense"
       {...props}
     />
   );
