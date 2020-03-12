@@ -2,15 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Text from 'components/atoms/Text/Text';
+import themeUtils from 'utils/theme';
 
 const useStyles = makeStyles(theme => ({
   title: {
-    // fontSize: '2rem',
     textAlign: 'center',
     fontWeight: 700,
   },
   color: {
-    color: theme.palette.primary.main,
+    color: themeUtils.modeSwitch(theme.palette.primary.main, theme.palette.primary.light),
   },
 }));
 
