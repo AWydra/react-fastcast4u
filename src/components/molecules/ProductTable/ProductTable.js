@@ -16,6 +16,9 @@ const useStyles = makeStyles(theme => ({
     padding: `${theme.spacing(1.25)}px 15px`,
     color: theme.palette.type !== 'dark' && theme.palette.grey[700],
     fontSize: '1rem',
+    '&:first-child': {
+      paddingRight: 0,
+    },
   },
   cellPrice: {
     color: theme.palette.type !== 'dark' && theme.palette.grey[900],
@@ -24,16 +27,14 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const ProductTable = () => {
-  const {
-    products,
-    activeProduct,
-    addons,
-    activeAddons,
-    currency,
-    cycle,
-    plan,
-    loading,
-  } = useSelector(state => state.order);
+  const products = useSelector(state => state.order.products);
+  const activeProduct = useSelector(state => state.order.activeProduct);
+  const addons = useSelector(state => state.order.addons);
+  const activeAddons = useSelector(state => state.order.activeAddons);
+  const currency = useSelector(state => state.order.currency);
+  const cycle = useSelector(state => state.order.cycle);
+  const plan = useSelector(state => state.order.plan);
+  const loading = useSelector(state => state.order.loading);
   const activeProductObject = products.find(({ id }) => id === activeProduct);
   const classes = useStyles();
 

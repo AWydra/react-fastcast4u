@@ -29,7 +29,7 @@ const OrderPayment = () => {
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
 
   return (
-    <FullContainer center>
+    <FullContainer center centerX>
       {matches && (
         <Stepper
           steps={['Create your Server Package', 'Create Account', 'Payment & Setup']}

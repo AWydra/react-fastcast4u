@@ -16,8 +16,11 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'start',
   },
   input: {
-    margin: theme.spacing(0, 2, 0, 0),
+    margin: theme.spacing(0, 1, 0, 0),
     paddingRight: theme.spacing(1),
+    '& > div': {
+      height: 42,
+    },
   },
   buttonProgress: {
     position: 'absolute',
