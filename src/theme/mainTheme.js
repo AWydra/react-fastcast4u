@@ -1,6 +1,4 @@
-import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
-
-const mainTheme = createMuiTheme({
+const mainTheme = {
   breakpoints: {
     values: {
       xs: 0,
@@ -21,6 +19,6 @@ const mainTheme = createMuiTheme({
   typography: {
     fontFamily: 'Poppins, sans-serif',
   },
-});
+};
 
-export default responsiveFontSizes(mainTheme);
+export default mainTheme;

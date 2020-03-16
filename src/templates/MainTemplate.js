@@ -1,26 +1,28 @@
+// @ts-nocheck
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import { CssBaseline, NoSsr, Box } from '@material-ui/core/';
-import { ThemeProvider, StylesProvider } from '@material-ui/core/styles';
-import theme from 'theme/mainTheme';
+import { StylesProvider } from '@material-ui/core/styles';
 import GlobalStyle from 'theme/GlobalStyle';
 import Header from 'components/organisms/Header/Header';
 import Footer from 'components/organisms/Footer/Footer';
+import MainThemeProvider from 'theme/MainThemeProvider';
 
-const MainTemplate = ({ children }) => (
-  <NoSsr>
-    <ThemeProvider theme={theme}>
-      <StylesProvider injectFirst>
-        <CssBaseline />
-        <GlobalStyle />
-        <Header />
-        <Box mb={8}>{children}</Box>
-        <Footer />
-      </StylesProvider>
-    </ThemeProvider>
-  </NoSsr>
-);
+const MainTemplate = ({ children }) => {
+  return (
+    <NoSsr>
+      <MainThemeProvider>
+        <StylesProvider injectFirst>
+          <CssBaseline />
+          <GlobalStyle />
+          <Header />
+          <Box mb={8}>{children}</Box>
+          <Footer />
+        </StylesProvider>
+      </MainThemeProvider>
+    </NoSsr>
+  );
+};
 
 MainTemplate.propTypes = {
   children: PropTypes.element.isRequired,

@@ -1,5 +1,5 @@
 import { createMuiTheme } from '@material-ui/core/styles';
-import mainTheme from 'theme/mainTheme';
+import mainTheme from './mainTheme';
 
 const footerTheme = createMuiTheme({
   ...mainTheme,
@@ -10,10 +10,10 @@ const footerTheme = createMuiTheme({
       main: 'hsl(204, 63%, 49%)',
     },
     secondary: {
-      main: 'hsl(350, 65%, 46%);',
+      main: 'hsl(350, 65%, 46%)',
     },
     text: {
-      secondary: 'hsla(0, 0%, 100%, 0.4);',
+      secondary: 'hsla(0, 0%, 100%, 0.4)',
     },
   },
 });
