@@ -1,14 +1,16 @@
 // @ts-nocheck
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Grid, Box } from '@material-ui/core';
 import RowContent from 'components/molecules/RowContent/RowContent';
 import Image from 'components/atoms/Image/Image';
-import theme from 'theme/mainTheme';
 
 const StyledContainer = styled(Grid)`
-  padding: ${theme.spacing(4)}px 0;
+  ${({ theme }) =>
+    css`
+      padding: ${theme.spacing(4)}px 0;
+    `}
 `;
 
 const StyledGrid = styled(({ reverse, children, ...props }) => (
@@ -16,28 +18,30 @@ const StyledGrid = styled(({ reverse, children, ...props }) => (
     {children}
   </Box>
 ))`
-  img {
-    margin: 0 auto;
-    padding: 0 ${theme.spacing(8)}px;
-  }
+  ${({ theme }) => css`
+    img {
+      margin: 0 auto;
+      padding: 0 ${theme.spacing(8)}px;
+    }
 
-  ${({ reverse }) =>
-    reverse &&
-    `
+    ${({ reverse }) =>
+      reverse &&
+      `
     order: 1;
   `}
 
-  ${theme.breakpoints.down('md')} {
-    padding: 0 ${theme.spacing(8)}px;
-    order: unset;
-    img {
-      padding: 0;
+    ${theme.breakpoints.down('md')} {
+      padding: 0 ${theme.spacing(8)}px;
+      order: unset;
+      img {
+        padding: 0;
+      }
     }
-  }
 
-  ${theme.breakpoints.down('xs')} {
-    padding: 0 ${theme.spacing(4)}px;
-  }
+    ${theme.breakpoints.down('xs')} {
+      padding: 0 ${theme.spacing(4)}px;
+    }
+  `}
 `;
 
 const RowSection = ({ img, reverse, ...props }) => (

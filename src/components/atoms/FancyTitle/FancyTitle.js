@@ -1,21 +1,22 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { makeStyles } from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
 import dottedImg from 'assets/img/dotted.png';
-import theme from 'theme/mainTheme';
 
 const FancyTitleContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-basis: 100%;
-  background-image: url(${dottedImg});
-  background-position: center;
-  background-repeat: repeat-x;
+  ${({ theme }) => css`
+    display: flex;
+    justify-content: center;
+    flex-basis: 100%;
+    background-image: url(${dottedImg});
+    background-position: center;
+    background-repeat: repeat-x;
 
-  ${theme.breakpoints.down('sm')} {
-    margin: 0 -15px;
-  }
+    ${theme.breakpoints.down('sm')} {
+      margin: 0 -15px;
+    }
+  `}
 `;
 
 const useStyles = makeStyles(theme => ({

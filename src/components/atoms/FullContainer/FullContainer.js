@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Container } from '@material-ui/core';
 
 const FullContainer = styled(({ center, centerX, children, ...props }) => (
@@ -8,24 +8,30 @@ const FullContainer = styled(({ center, centerX, children, ...props }) => (
     {children}
   </Container>
 ))`
-  width: 100%;
-  min-height: 70vh;
+  ${({ theme }) => css`
+    width: 100%;
+    min-height: 70vh;
+
+    ${theme.breakpoints.down('sm')} {
+      justify-content: center;
+    }
+  `}
 
   ${({ center }) =>
     center &&
-    `
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  `}
+    css`
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    `}
 
   ${({ centerX }) =>
     centerX &&
-    `
-    justify-content: flex-start;
-    padding-top: 40px;
-  `}
+    css`
+      justify-content: flex-start;
+      padding-top: 40px;
+    `}
 `;
 
 export default FullContainer;

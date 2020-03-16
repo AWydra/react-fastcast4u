@@ -9,25 +9,28 @@ import BillingCycle from 'components/molecules/BillingCycle/BillingCycle';
 import SummaryPrice from 'components/molecules/SummaryPrice/SummaryPrice';
 import Promocode from 'components/molecules/Promocode/Promocode';
 import Text from 'components/atoms/Text/Text';
-import theme from 'theme/mainTheme';
-import themeUtils from 'utils/theme';
+import { modeSwitch } from 'utils/theme';
 
 const SummaryContainer = styled.div`
-  position: sticky;
-  top: ${theme.spacing(5)}px;
-  background-color: ${theme.palette.background.paper};
-  border: solid 1px ${themeUtils.modeSwitch(theme.palette.grey[400], theme.palette.grey[700])};
-  border-radius: ${theme.shape.borderRadius}px;
+  ${({ theme }) => css`
+    position: sticky;
+    top: ${theme.spacing(5)}px;
+    background-color: ${theme.palette.background.paper};
+    border: solid 1px ${modeSwitch(theme.palette.grey[400], theme.palette.grey[700])};
+    border-radius: ${theme.shape.borderRadius}px;
 
-  ${theme.breakpoints.down('sm')} {
-    margin-top: ${theme.spacing(5)}px;
-  }
+    ${theme.breakpoints.down('sm')} {
+      margin-top: ${theme.spacing(5)}px;
+    }
+  `}
 `;
 
 const SummaryPriceContainer = styled.div`
-  margin: ${theme.spacing(1, 0)};
-  display: flex;
-  justify-content: space-between;
+  ${({ theme }) => css`
+    margin: ${theme.spacing(1, 0)};
+    display: flex;
+    justify-content: space-between;
+  `}
 `;
 
 const FormContainer = styled.div`

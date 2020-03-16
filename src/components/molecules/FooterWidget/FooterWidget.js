@@ -1,14 +1,16 @@
 // @ts-nocheck
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Grid, List, Divider } from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
 import NavLink from 'components/atoms/NavLink/NavLink';
-import theme from 'theme/footerTheme';
 
 const StyledGrid = styled(Grid)`
-  padding: ${theme.spacing(6)}px 0 ${theme.spacing(4)}px;
+  ${({ theme }) =>
+    css`
+      padding: ${theme.spacing(6)}px 0 ${theme.spacing(4)}px;
+    `}
 `;
 
 const StyledListItem = styled.li`

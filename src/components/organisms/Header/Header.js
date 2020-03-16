@@ -1,29 +1,48 @@
+// @ts-nocheck
 import React from 'react';
-import styled from 'styled-components';
-import { AppBar, Toolbar } from '@material-ui/core';
+import { useSelector, useDispatch } from 'react-redux';
+import generalActions from 'actions/generalActions';
+
+import styled, { css } from 'styled-components';
+import { AppBar, Toolbar, IconButton } from '@material-ui/core';
 import Logo from 'components/atoms/Logo/Logo';
 import NavButton from 'components/atoms/NavButton/NavButton';
-import theme from 'theme/mainTheme';
+import Brightness4Icon from '@material-ui/icons/Brightness4';
+import Brightness7Icon from '@material-ui/icons/Brightness7';
 
 const StyledAppBar = styled(AppBar)`
-  padding: 0;
-  background-color: ${theme.palette.background.default};
+  ${({ theme }) => css`
+    padding: 0;
+    background-color: ${theme.palette.background.default};
+  `}
 `;
 
 const StyledToolbar = styled(Toolbar)`
-  justify-content: space-between;
+  ${({ theme }) => css`
+    justify-content: space-between;
 
-  ${theme.breakpoints.up('md')} {
-    min-height: ${theme.spacing(10)}px;
-    justify-content: flex-end;
-  }
+    ${theme.breakpoints.up('md')} {
+      min-height: ${theme.spacing(10)}px;
+      justify-content: flex-end;
+    }
+  `}
 `;
 
 const Header = () => {
+  const theme = useSelector(state => state.general.theme);
+  const dispatch = useDispatch();
+
+  const handleClick = () => {
+    dispatch(generalActions.toggleTheme());
+  };
+
   return (
     <StyledAppBar color="default" position="static">
       <StyledToolbar>
         <Logo to="/" />
+        <IconButton color="primary" onClick={handleClick}>
+          {theme === 'light' ? <Brightness4Icon /> : <Brightness7Icon />}
+        </IconButton>
         <NavButton to="/login">Login</NavButton>
       </StyledToolbar>
     </StyledAppBar>

@@ -2,27 +2,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardActionArea, CardContent, Divider } from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
-import theme from 'theme/mainTheme';
-import themeUtils from 'utils/theme';
+import { modeSwitch } from 'utils/theme';
 
 const GridContainer = styled.div`
-  display: grid;
-  height: 100%;
-  grid-template-columns: 1fr ${({ showPrice }) => showPrice && '105px'};
+  ${({ theme }) => css`
+    display: grid;
+    height: 100%;
+    grid-template-columns: 1fr ${({ showPrice }) => showPrice && '105px'};
 
-  ${theme.breakpoints.down('xs')} {
-    grid-template-columns: 1fr ${({ showPrice }) => showPrice && 'auto'};
-  }
+    ${theme.breakpoints.down('xs')} {
+      grid-template-columns: 1fr ${({ showPrice }) => showPrice && 'auto'};
+    }
+  `}
 `;
 
 const Price = styled.div`
-  font-family: ${theme.typography.fontFamily};
-  font-size: 40px;
-  text-align: center;
+  ${({ theme }) => css`
+    font-family: ${theme.typography.fontFamily};
+    font-size: 40px;
+    text-align: center;
+  `}
 `;
 
 const PriceUnit = styled.span`
@@ -49,7 +52,7 @@ const useStyles = makeStyles(theme => ({
     border: `solid 1px ${
       isActive
         ? theme.palette.primary.main
-        : themeUtils.modeSwitch(theme.palette.grey[400], theme.palette.grey[700])
+        : modeSwitch(theme.palette.grey[400], theme.palette.grey[700])
     }`,
     transition: 'unset',
   }),

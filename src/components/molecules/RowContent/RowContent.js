@@ -1,29 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Button } from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
-import theme from 'theme/mainTheme';
 
 const StyledContainer = styled.div`
-  width: 100%;
-  height: 100%;
-  display: inherit;
-  margin-top: ${theme.spacing(5)}px;
-  flex-direction: inherit;
-  justify-content: flex-start;
-  align-items: center;
-  text-align: center;
+  ${({ theme }) => css`
+    width: 100%;
+    height: 100%;
+    display: inherit;
+    margin-top: ${theme.spacing(5)}px;
+    flex-direction: inherit;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
 
-  ${theme.breakpoints.up('xl')} {
-    margin-top: ${theme.spacing(10)}px;
-  }
+    ${theme.breakpoints.up('xl')} {
+      margin-top: ${theme.spacing(10)}px;
+    }
 
-  ${theme.breakpoints.up('lg')} {
-    align-items: inherit;
-    text-align: inherit;
-  }
+    ${theme.breakpoints.up('lg')} {
+      align-items: inherit;
+      text-align: inherit;
+    }
+  `}
 `;
 
 const RowContent = ({ heading, content, btn, link }) => (

@@ -1,5 +1,9 @@
-import theme from 'theme/mainTheme';
+// @ts-nocheck
+import store from 'store';
 
-export const modeSwitch = (light, dark) => (theme.palette.type !== 'dark' ? light : dark);
+export const modeSwitch = (light, dark) => {
+  const state = store.getState();
+  return state.general.theme !== 'dark' ? light : dark;
+};
 
 export default { modeSwitch };

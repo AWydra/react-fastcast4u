@@ -1,18 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Text from 'components/atoms/Text/Text';
-import theme from 'theme/mainTheme';
 
 const StyledExpansionPanel = styled(ExpansionPanel)`
-  ${theme.palette.type !== 'dark' &&
-    `
+  ${({ theme }) =>
+    css`
+      ${theme.palette.type !== 'dark' &&
+        `
     border: solid 1px ${theme.palette.grey[300]};
     border-bottom: none;
     box-shadow: ${theme.shadows[4]}
   `}
+    `}
 `;
 
 const Accordion = ({ data }) => {

@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { Button, useMediaQuery } from '@material-ui/core';
-import theme from 'theme/mainTheme';
+import { Button, useMediaQuery, useTheme } from '@material-ui/core';
 
 const NavButton = styled(({ ...props }) => {
+  const theme = useTheme();
   const matches = useMediaQuery(`(min-width:${theme.breakpoints.values.md}px)`);
   return (
     <Button

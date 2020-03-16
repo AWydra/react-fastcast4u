@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import { Card, CardContent } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Text from 'components/atoms/Text/Text';
-import theme from 'theme/mainTheme';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
     height: '100%',
