@@ -1,15 +1,15 @@
+import React from 'react';
 import styled, { css } from 'styled-components';
-import { modeSwitch } from 'utils/theme';
+import { Paper } from '@material-ui/core';
 
-const ColumnForm = styled.div`
+const ColumnForm = styled(({ ...props }) => <Paper variant="outlined" {...props} />)`
   ${({ theme }) => css`
     width: 100%;
     max-width: 450px;
     padding: ${theme.spacing(2, 3)};
-    border: solid ${modeSwitch(theme.palette.grey[400], theme.palette.grey[700])} 1px;
-    border-radius: 4px;
-    background-color: ${theme.palette.background.paper};
-
+    position: relative;
+    overflow: hidden;
+    box-shadow: ${theme.shadows[5]};
     ${theme.breakpoints.up('md')} {
       padding: ${theme.spacing(3)}px;
     }

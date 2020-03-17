@@ -6,6 +6,7 @@ import ColumnForm from 'components/atoms/ColumnForm/ColumnForm';
 import BoxTitle from 'components/atoms/BoxTitle/BoxTitle';
 import Stepper from 'components/organisms/Stepper/Stepper';
 import LoginForm from 'components/organisms/OrderForms/LoginForm/LoginForm';
+import LoadingCover from 'components/molecules/LoadingCover/LoadingCover';
 
 const OrderLogin = () => {
   const theme = useTheme();
@@ -21,6 +22,7 @@ const OrderLogin = () => {
         />
       )}
       <ColumnForm>
+        <LoadingCover />
         <BoxTitle variant="h5" component="h1" mb={2}>
           Create Account or Sign In
         </BoxTitle>
