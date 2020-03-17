@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import FullContainer from 'components/atoms/FullContainer/FullContainer';
 import HeadingBlock from 'components/molecules/HeadingBlock/HeadingBlock';
 import Features from 'components/organisms/Features/Features';
 import CTAButton from 'components/atoms/CTAButton/CTAButton';
+import orderServices from 'services/order';
+import Alert from 'components/atoms/Alert/Alert';
 
 import RocketIcon from 'assets/svg/RocketIcon';
 import MicrophoneIcon from 'assets/svg/MicrophoneIcon';
@@ -51,17 +54,38 @@ const data = [
   },
 ];
 
-const Order = () => (
-  <FullContainer center maxWidth="xl">
-    <HeadingBlock
-      title="Build the Server Package that's right for you in 3 Easy Steps"
-      subtitle="We know what's important for streaming online so all Radio Servers come with:"
-    />
-    <Features data={data} />
-    <CTAButton to="order/package" mt={7} endIcon={<RocketIcon />}>
-      Start Now
-    </CTAButton>
-  </FullContainer>
-);
+const Order = () => {
+  const [disabled, setDisabled] = useState(false);
+  const [redirect, setRedirect] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleClick = async () => {
+    try {
+      setDisabled(true);
+      await orderServices.setStep1();
+      setRedirect(true);
+    } catch (err) {
+      setError(err.message);
+      setDisabled(false);
+    }
+  };
+
+  return (
+    <FullContainer center maxWidth="xl">
+      <HeadingBlock
+        title="Build the Server Package that's right for you in 3 Easy Steps"
+        subtitle="We know what's important for streaming online so all Radio Servers come with:"
+      />
+      <Features data={data} />
+      <CTAButton onClick={handleClick} mt={7} endIcon={<RocketIcon />} disabled={disabled}>
+        Start Now
+      </CTAButton>
+      {redirect && <Redirect to="order/package" />}
+      <Alert severity="error" open={!!error} onClose={() => setError('')}>
+        {error}
+      </Alert>
+    </FullContainer>
+  );
+};
 
 export default Order;
