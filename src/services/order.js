@@ -3,7 +3,7 @@ import axios from 'axios';
 const baseUrl = '/order/backend/api/';
 
 const setStep1 = async () => {
-  const request = await axios.get(`${baseUrl}steps1.php`);
+  const request = await axios.get(`${baseUrl}step1.php`);
   return request.data;
 };
 

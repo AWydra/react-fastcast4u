@@ -1,9 +1,10 @@
 // @ts-nocheck
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { TextField, Button, CircularProgress } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Label from 'components/atoms/Label/Label';
+import CTAButton from 'components/atoms/CTAButton/CTAButton';
 
 const PromocodeContainer = styled.form`
   padding: 10px 0;
@@ -74,7 +75,7 @@ const Promocode = () => {
           variant="outlined"
           fullWidth
         />
-        <Button
+        <CTAButton
           type="submit"
           variant="contained"
           color={active ? 'secondary' : 'primary'}
@@ -82,8 +83,7 @@ const Promocode = () => {
           disabled={loading}
         >
           {active ? 'Remove' : 'Apply'}
-          {loading && <CircularProgress size={30} className={classes.buttonProgress} />}
-        </Button>
+        </CTAButton>
       </div>
     </PromocodeContainer>
   );

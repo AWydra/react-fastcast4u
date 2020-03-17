@@ -1,4 +1,6 @@
+// @ts-nocheck
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Divider, Container } from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
 import RocketIcon from 'assets/svg/RocketIcon';
@@ -68,7 +70,7 @@ const Home = () => {
         <Text component="h1" variant="h2" px={2} fontWeight={500} align="center" gutterBottom>
           Create Your Own Internet Radio Station
         </Text>
-        <CTAButton to="/order" endIcon={<RocketIcon />} mt={4}>
+        <CTAButton component={Link} to="/order" xlarge endIcon={<RocketIcon />} mt={4}>
           START NOW
         </CTAButton>
       </FullContainer>

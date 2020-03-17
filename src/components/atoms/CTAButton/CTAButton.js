@@ -1,34 +1,58 @@
 // @ts-nocheck
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import styled, { css } from 'styled-components';
-import { Button } from '@material-ui/core';
+import styled from 'styled-components';
 import { spacing } from '@material-ui/system';
+import { Button, CircularProgress } from '@material-ui/core';
 
-const StyledButton = styled(Button)`
+import { makeStyles } from '@material-ui/core/styles';
+
+const ButtonContainer = styled.div`
   ${spacing}
-  ${({ theme }) => css`
-    ${theme.breakpoints.up('lg')} {
-      padding: 0 ${theme.spacing(4)}px;
-
-      .MuiButton-label {
-        font-size: 18px;
-        font-weight: 700;
-        line-height: 3;
-      }
-    }
-  `}
 `;
 
-const CTAButton = ({ children, ...props }) => (
-  <StyledButton component={Link} variant="contained" color="primary" size="large" {...props}>
-    {children}
-  </StyledButton>
-);
+const useStyles = makeStyles(theme => ({
+  button: xlarge =>
+    xlarge && {
+      position: 'relative',
+      [theme.breakpoints.up('lg')]: {
+        padding: theme.spacing(0, 4),
+
+        '& .MuiButton-label': {
+          fontSize: 18,
+          fontWeight: 700,
+          lineHeight: 3,
+        },
+      },
+    },
+  progress: {
+    position: 'absolute',
+  },
+}));
+
+const CTAButton = ({ disabled, onClick, children, xlarge, ...props }) => {
+  const classes = useStyles(xlarge);
+  return (
+    <ButtonContainer {...props}>
+      <Button className={classes.button} disabled={disabled} onClick={onClick} {...props}>
+        {children}
+        {disabled && <CircularProgress className={classes.progress} size={32} />}
+      </Button>
+    </ButtonContainer>
+  );
+};
 
 CTAButton.propTypes = {
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.string]).isRequired,
+  xlarge: PropTypes.bool,
+  disabled: PropTypes.bool,
+  onClick: PropTypes.func,
+};
+
+CTAButton.defaultProps = {
+  xlarge: false,
+  disabled: false,
+  onClick: null,
 };
 
 export default CTAButton;
