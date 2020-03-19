@@ -13,14 +13,12 @@ const getPricing = () => async dispatch => {
 };
 
 const setStep2 = async data => {
-  // TEMPORARY USE
-
-  // const request = await axios.get(`${baseUrl}step2.php`, {
-  //   params: {
-  //     ...data,
-  //   },
-  // });
   const request = await axios.get(`${baseUrl}step2.php?packageData=${JSON.stringify(data)}`);
+  return request.data;
+};
+
+const setStep3 = async data => {
+  const request = await axios.get(`${baseUrl}step3.php?accountData=${JSON.stringify(data)}`);
   return request.data;
 };
 
@@ -28,4 +26,5 @@ export default {
   getPricing,
   setStep1,
   setStep2,
+  setStep3,
 };

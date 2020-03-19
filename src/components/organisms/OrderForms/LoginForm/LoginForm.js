@@ -1,10 +1,14 @@
 // @ts-nocheck
-import React from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { Link, Redirect } from 'react-router-dom';
+import orderServices from 'services/order';
+
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { Button, FormControlLabel, Checkbox, makeStyles } from '@material-ui/core';
 import FormikInput from 'components/atoms/FormikInput/FormikInput';
+import Alert from 'components/atoms/Alert/Alert';
 
 const useStyles = makeStyles(theme => ({
   form: {
@@ -51,8 +55,10 @@ const validate = (values, badUsername) => {
   return errors;
 };
 
-const LoginForm = () => {
+const LoginForm = ({ setLoading }) => {
   const classes = useStyles();
+  const [error, setError] = useState('');
+  const [redirect, setRedirect] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -62,53 +68,60 @@ const LoginForm = () => {
       acceptedOffers: false,
     },
     validate,
-    onSubmit: values => {
-      console.log(values);
+    onSubmit: async values => {
+      setLoading(true);
+      try {
+        const data = {
+          email: values.email,
+          password: values.password,
+          username: values.otter,
+          emailmarketing: values.acceptedOffers,
+        };
+
+        await orderServices.setStep3(data);
+        setRedirect(true);
+      } catch (err) {
+        setError(err.response.data.errorMessage);
+        setLoading(false);
+      }
     },
   });
   return (
-    <form onSubmit={formik.handleSubmit} noValidate autoComplete="off" className={classes.form}>
-      <FormikInput formik={formik} label="Email" name="email" type="email" />
-      <FormikInput formik={formik} label="Password" name="password" type="password" />
-      <FormikInput
-        formik={formik}
-        label="Server Login Username"
-        name="otter"
-        // error="Username is already taken"
-      />
-      <FormControlLabel
-        control={
-          <Checkbox
-            color="primary"
-            name="acceptedOffers"
-            onChange={formik.handleChange}
-            checked={formik.values.acceptedOffers}
-          />
-        }
-        label="Receive Service related emails and offers"
-      />
-      <BtnContainer>
-        <Button
-          component={Link}
-          to="/order/package"
-          variant="contained"
-          color="primary"
-          type="submit"
-        >
-          BACK
-        </Button>
-        <Button
-          component={Link}
-          to="/order/payment"
-          variant="contained"
-          color="primary"
-          type="submit"
-        >
-          CONTINUE
-        </Button>
-      </BtnContainer>
-    </form>
+    <>
+      <form onSubmit={formik.handleSubmit} noValidate autoComplete="off" className={classes.form}>
+        <FormikInput formik={formik} label="Email" name="email" type="email" />
+        <FormikInput formik={formik} label="Password" name="password" type="password" />
+        <FormikInput formik={formik} label="Server Login Username" name="otter" />
+        <FormControlLabel
+          control={
+            <Checkbox
+              color="primary"
+              name="acceptedOffers"
+              onChange={formik.handleChange}
+              checked={formik.values.acceptedOffers}
+            />
+          }
+          label="Receive Service related emails and offers"
+        />
+        <BtnContainer>
+          <Button component={Link} to="/order/package" variant="contained" color="primary">
+            BACK
+          </Button>
+          <Button variant="contained" color="primary" type="submit">
+            CONTINUE
+          </Button>
+          {redirect && <Redirect push to="/order/payment" />}
+        </BtnContainer>
+      </form>
+      <Alert severity="error" open={!!error} onClose={() => setError('')}>
+        {error}
+      </Alert>
+    </>
   );
+};
+
+LoginForm.propTypes = {
+  setLoading: PropTypes.func.isRequired,
 };
 
 export default LoginForm;

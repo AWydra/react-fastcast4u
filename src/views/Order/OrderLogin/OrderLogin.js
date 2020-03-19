@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useMediaQuery } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 import FullContainer from 'components/atoms/FullContainer/FullContainer';
@@ -11,6 +11,7 @@ import LoadingCover from 'components/molecules/LoadingCover/LoadingCover';
 const OrderLogin = () => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
+  const [loading, setLoading] = useState(false);
 
   return (
     <FullContainer center centerX>
@@ -22,11 +23,11 @@ const OrderLogin = () => {
         />
       )}
       <ColumnForm>
-        <LoadingCover />
+        {loading && <LoadingCover />}
         <BoxTitle variant="h5" component="h1" mb={2}>
           Create Account or Sign In
         </BoxTitle>
-        <LoginForm />
+        <LoginForm setLoading={setLoading} />
       </ColumnForm>
     </FullContainer>
   );
