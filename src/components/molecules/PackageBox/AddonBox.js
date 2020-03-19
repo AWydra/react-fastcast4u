@@ -11,7 +11,7 @@ const Hide = ({ data, children }) => {
   const activeParent = useSelector(state => state.order.activeAddons.includes(parentId));
 
   if (parentId && !activeParent) {
-    dispatch(orderActions.removeAddon(data.id));
+    dispatch(orderActions.removeAddon(data.relid));
   }
 
   if (!parentId || activeParent) return children;
@@ -21,10 +21,10 @@ const Hide = ({ data, children }) => {
 const AddonBox = ({ data }) => {
   const dispatch = useDispatch();
   const cycle = useSelector(state => state.order.cycle);
-  const isActive = useSelector(state => state.order.activeAddons.find(id => id === data.id));
+  const isActive = useSelector(state => state.order.activeAddons.find(id => id === data.relid));
 
   const handleClick = () => {
-    dispatch(orderActions.toggleAddon(data.id));
+    dispatch(orderActions.toggleAddon(data.relid));
   };
 
   return (
@@ -36,7 +36,7 @@ const AddonBox = ({ data }) => {
 
 AddonBox.propTypes = {
   data: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    relid: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
   }).isRequired,

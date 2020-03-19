@@ -60,9 +60,9 @@ const ProductTable = () => {
             )}
           </TableRow>
           {activeAddons.map(addonId => {
-            const addon = addons.find(el => el.id === addonId);
+            const addon = addons.find(el => el.relid === addonId);
             return (
-              <TableRow key={addon.id} className={classes.row}>
+              <TableRow key={addon.relid} className={classes.row}>
                 <TableCell component="th" scope="row" className={classes.cell}>
                   {addon.name}
                 </TableCell>

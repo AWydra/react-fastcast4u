@@ -13,7 +13,7 @@ const SummaryPrice = () => {
   }
   const productPrice = Number(products.find(({ id }) => id === activeProduct)[cycle][plan]);
   const addonsPrice = activeAddons
-    .map(addonId => addons.find(el => el.id === addonId))
+    .map(addonId => addons.find(el => el.relid === addonId))
     .reduce((acc, el) => acc + el[cycle] * 1, 0);
   return (
     <Text component="h5" variant="h6" fontSize={28} fontWeight={600}>
