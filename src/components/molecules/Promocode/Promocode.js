@@ -1,5 +1,8 @@
 // @ts-nocheck
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import orderActions from 'actions/orderActions';
+
 import styled from 'styled-components';
 import { TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -33,16 +36,26 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Promocode = () => {
+  const reduxPromocode = useSelector(state => state.order.promocode);
+  const dispatch = useDispatch();
   const [promocode, setPromocode] = useState('');
   const [loading, setLoading] = useState(false);
   const [active, setActive] = useState(false);
   const [invalid, setInvalid] = useState('');
   const classes = useStyles();
 
+  useEffect(() => {
+    if (reduxPromocode) {
+      setActive(true);
+      setPromocode(reduxPromocode);
+    }
+  }, [reduxPromocode]);
+
   const handleChange = ev => {
     setPromocode(ev.target.value);
     setInvalid('');
   };
+
   const handleSubmit = ev => {
     ev.preventDefault();
     if (!promocode) {
@@ -52,6 +65,7 @@ const Promocode = () => {
     setLoading(true);
     setTimeout(() => {
       active && setPromocode('');
+      dispatch(orderActions.setPromocode(active ? '' : promocode));
       setLoading(false);
       setActive(!active);
       setInvalid('');

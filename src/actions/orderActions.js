@@ -23,10 +23,16 @@ const setPlan = item => ({
   payload: item,
 });
 
+const setPromocode = item => ({
+  type: 'SET_PROMOCODE',
+  payload: item,
+});
+
 export default {
   toggleProduct,
   toggleAddon,
   removeAddon,
   setCycle,
   setPlan,
+  setPromocode,
 };

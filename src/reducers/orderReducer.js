@@ -3,6 +3,7 @@ const initialState = {
   currency: '',
   cycle: 'monthly',
   plan: 'regular',
+  promocode: '',
   products: [],
   addons: [],
   activeProduct: '',
@@ -11,7 +12,7 @@ const initialState = {
 
 const orderReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'FETCH_SUCCESS':
+    case 'PRICING_FETCH_SUCCESS':
       return {
         ...state,
         loading: false,
@@ -49,6 +50,11 @@ const orderReducer = (state = initialState, action) => {
       return {
         ...state,
         plan: action.payload,
+      };
+    case 'SET_PROMOCODE':
+      return {
+        ...state,
+        promocode: action.payload,
       };
     default:
       return state;
