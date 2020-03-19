@@ -1,14 +1,18 @@
 // @ts-nocheck
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import orderServices from 'services/order';
+
 import styled, { css } from 'styled-components';
-import { Divider, Button } from '@material-ui/core';
+import { Divider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ProductTable from 'components/molecules/ProductTable/ProductTable';
 import BillingCycle from 'components/molecules/BillingCycle/BillingCycle';
 import SummaryPrice from 'components/molecules/SummaryPrice/SummaryPrice';
 import Promocode from 'components/molecules/Promocode/Promocode';
 import Text from 'components/atoms/Text/Text';
+import CTAButton from 'components/atoms/CTAButton/CTAButton';
 import { modeSwitch } from 'utils/theme';
 
 const SummaryContainer = styled.div`
@@ -52,7 +56,31 @@ const useStyles = makeStyles(({ palette }) => ({
 }));
 
 const OrderSummary = () => {
+  const order = useSelector(state => state.order);
+  const [redirect, setRedirect] = useState(false);
+  const [loading, setLoading] = useState(false);
   const classes = useStyles();
+
+  const handleClick = async () => {
+    setLoading(true);
+
+    const productID = order.products.find(({ id }) => id === order.activeProduct).plan[order.plan];
+
+    const packageData = {
+      product: productID,
+      addons: order.activeAddons.join(','),
+      billingcycle: order.cycle,
+      promocode: order.promocode,
+    };
+
+    try {
+      await orderServices.setStep2(packageData);
+    } catch (err) {
+      console.error(err.message);
+      setLoading(false);
+    }
+    setRedirect(true);
+  };
 
   return (
     <SummaryContainer>
@@ -75,9 +103,10 @@ const OrderSummary = () => {
       </FormContainer>
       <Divider />
       <FormContainer flexEnd>
-        <Button component={Link} to="/order/login" variant="contained" color="primary">
+        <CTAButton disabled={loading} onClick={handleClick} color="primary">
           CONTINUE
-        </Button>
+        </CTAButton>
+        {redirect && <Redirect push to="/order/login" />}
       </FormContainer>
     </SummaryContainer>
   );
