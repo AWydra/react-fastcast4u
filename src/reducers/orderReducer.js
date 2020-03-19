@@ -8,6 +8,10 @@ const initialState = {
   addons: [],
   activeProduct: '',
   activeAddons: [],
+  email: '',
+  password: '',
+  username: '',
+  acceptedOffers: false,
 };
 
 const orderReducer = (state = initialState, action) => {
@@ -55,6 +59,11 @@ const orderReducer = (state = initialState, action) => {
       return {
         ...state,
         promocode: action.payload,
+      };
+    case 'SET_CREDENTIALS':
+      return {
+        ...state,
+        ...action.payload,
       };
     default:
       return state;

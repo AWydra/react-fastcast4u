@@ -1,6 +1,7 @@
 // @ts-nocheck
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import orderServices from 'services/order';
 
@@ -9,6 +10,7 @@ import { useFormik } from 'formik';
 import { Button, FormControlLabel, Checkbox, makeStyles } from '@material-ui/core';
 import FormikInput from 'components/atoms/FormikInput/FormikInput';
 import Alert from 'components/atoms/Alert/Alert';
+import orderActions from 'actions/orderActions';
 
 const useStyles = makeStyles(theme => ({
   form: {
@@ -56,16 +58,18 @@ const validate = (values, badUsername) => {
 };
 
 const LoginForm = ({ setLoading }) => {
+  const { email, password, username, emailmarketing } = useSelector(state => state.order);
+  const dispatch = useDispatch();
   const classes = useStyles();
   const [error, setError] = useState('');
   const [redirect, setRedirect] = useState(false);
 
   const formik = useFormik({
     initialValues: {
-      email: '',
-      password: '',
-      otter: '',
-      acceptedOffers: false,
+      email,
+      password,
+      otter: username,
+      emailmarketing,
     },
     validate,
     onSubmit: async values => {
@@ -75,10 +79,11 @@ const LoginForm = ({ setLoading }) => {
           email: values.email,
           password: values.password,
           username: values.otter,
-          emailmarketing: values.acceptedOffers,
+          emailmarketing: values.emailmarketing,
         };
 
         await orderServices.setStep3(data);
+        dispatch(orderActions.setCredentials(data));
         setRedirect(true);
       } catch (err) {
         setError(err.response.data.errorMessage);
@@ -96,9 +101,9 @@ const LoginForm = ({ setLoading }) => {
           control={
             <Checkbox
               color="primary"
-              name="acceptedOffers"
+              name="emailmarketing"
               onChange={formik.handleChange}
-              checked={formik.values.acceptedOffers}
+              checked={formik.values.emailmarketing}
             />
           }
           label="Receive Service related emails and offers"

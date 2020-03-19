@@ -28,6 +28,11 @@ const setPromocode = item => ({
   payload: item,
 });
 
+const setCredentials = item => ({
+  type: 'SET_CREDENTIALS',
+  payload: item,
+});
+
 export default {
   toggleProduct,
   toggleAddon,
@@ -35,4 +40,5 @@ export default {
   setCycle,
   setPlan,
   setPromocode,
+  setCredentials,
 };
