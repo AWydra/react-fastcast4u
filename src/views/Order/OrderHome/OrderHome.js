@@ -77,7 +77,15 @@ const Order = () => {
         subtitle="We know what's important for streaming online so all Radio Servers come with:"
       />
       <Features data={data} />
-      <CTAButton xlarge onClick={handleClick} mt={7} endIcon={<RocketIcon />} disabled={disabled}>
+      <CTAButton
+        color="primary"
+        size="large"
+        xlarge
+        onClick={handleClick}
+        mt={7}
+        endIcon={<RocketIcon />}
+        disabled={disabled}
+      >
         Start Now
       </CTAButton>
       {redirect && <Redirect push to="order/package" />}

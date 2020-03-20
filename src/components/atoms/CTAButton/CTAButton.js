@@ -34,7 +34,13 @@ const CTAButton = ({ disabled, onClick, children, xlarge, ...props }) => {
   const classes = useStyles(xlarge);
   return (
     <ButtonContainer {...props}>
-      <Button className={classes.button} disabled={disabled} onClick={onClick} {...props}>
+      <Button
+        variant="contained"
+        className={classes.button}
+        disabled={disabled}
+        onClick={onClick}
+        {...props}
+      >
         {children}
         {disabled && <CircularProgress className={classes.progress} size={32} />}
       </Button>

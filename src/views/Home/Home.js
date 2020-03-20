@@ -70,7 +70,15 @@ const Home = () => {
         <Text component="h1" variant="h2" px={2} fontWeight={500} align="center" gutterBottom>
           Create Your Own Internet Radio Station
         </Text>
-        <CTAButton component={Link} to="/order" xlarge endIcon={<RocketIcon />} mt={4}>
+        <CTAButton
+          color="primary"
+          size="large"
+          component={Link}
+          to="/order"
+          xlarge
+          endIcon={<RocketIcon />}
+          mt={4}
+        >
           START NOW
         </CTAButton>
       </FullContainer>

@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
 
 const BtnContainer = styled.div`
   width: 100%;
-  margin: 20px 0 0;
+  margin: 12px 0 0;
   display: flex;
   justify-content: space-between;
 `;
