@@ -8,7 +8,6 @@ const ColumnForm = styled(({ ...props }) => <Paper variant="outlined" {...props}
     max-width: 450px;
     padding: ${theme.spacing(2, 3)};
     position: relative;
-    overflow: hidden;
     box-shadow: ${theme.shadows[5]};
     ${theme.breakpoints.up('md')} {
       padding: ${theme.spacing(3)}px;

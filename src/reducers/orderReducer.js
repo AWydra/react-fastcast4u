@@ -11,7 +11,7 @@ const initialState = {
   email: '',
   password: '',
   username: '',
-  acceptedOffers: false,
+  emailmarketing: false,
 };
 
 const orderReducer = (state = initialState, action) => {

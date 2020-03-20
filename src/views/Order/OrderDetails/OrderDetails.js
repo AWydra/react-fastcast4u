@@ -5,7 +5,7 @@ import FullContainer from 'components/atoms/FullContainer/FullContainer';
 import ColumnForm from 'components/atoms/ColumnForm/ColumnForm';
 import BoxTitle from 'components/atoms/BoxTitle/BoxTitle';
 import Stepper from 'components/organisms/Stepper/Stepper';
-import SetupForm from 'components/organisms/OrderForms/SetupForm/SetupForm';
+import DetailsForm from 'components/organisms/OrderForms/DetailsForm/DetailsForm';
 
 const OrderDetails = () => {
   const theme = useTheme();
@@ -24,7 +24,7 @@ const OrderDetails = () => {
         <BoxTitle variant="h5" component="h1" mb={2}>
           Account Details
         </BoxTitle>
-        <SetupForm />
+        <DetailsForm />
       </ColumnForm>
     </FullContainer>
   );

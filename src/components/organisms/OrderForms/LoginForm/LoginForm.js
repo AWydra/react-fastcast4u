@@ -86,7 +86,7 @@ const LoginForm = ({ setLoading }) => {
         dispatch(orderActions.setCredentials(data));
         setRedirect(true);
       } catch (err) {
-        setError(err.response.data.errorMessage);
+        setError(err.response.data.errorMessage || err.response.statusText);
         setLoading(false);
       }
     },
