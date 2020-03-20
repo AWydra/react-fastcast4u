@@ -9,6 +9,7 @@ import Routes from 'routes/mainRoutes';
 import ReactGA from 'utils/analytics';
 import { hotjar } from 'react-hotjar';
 import tawkto from 'react-tawkto';
+import { CookiesProvider } from 'react-cookie';
 
 import MainTemplate from 'templates/MainTemplate';
 
@@ -37,9 +38,11 @@ const Root = () => {
   return (
     <Provider store={store}>
       <Router history={history}>
-        <MainTemplate>
-          <Routes />
-        </MainTemplate>
+        <CookiesProvider>
+          <MainTemplate>
+            <Routes />
+          </MainTemplate>
+        </CookiesProvider>
       </Router>
     </Provider>
   );
