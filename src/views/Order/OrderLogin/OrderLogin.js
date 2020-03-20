@@ -1,17 +1,22 @@
-import React, { useState } from 'react';
-import { useMediaQuery } from '@material-ui/core';
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import React, { useState, lazy, Suspense } from 'react';
+import { Link, Backdrop, useMediaQuery } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 import FullContainer from 'components/atoms/FullContainer/FullContainer';
 import ColumnForm from 'components/atoms/ColumnForm/ColumnForm';
 import BoxTitle from 'components/atoms/BoxTitle/BoxTitle';
+import Text from 'components/atoms/Text/Text';
+import LoadingCover from 'components/molecules/LoadingCover/LoadingCover';
 import Stepper from 'components/organisms/Stepper/Stepper';
 import LoginForm from 'components/organisms/OrderForms/LoginForm/LoginForm';
-import LoadingCover from 'components/molecules/LoadingCover/LoadingCover';
+
+const TosModal = lazy(() => import('components/molecules/TosModal/TosModal'));
 
 const OrderLogin = () => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
   const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
 
   return (
     <FullContainer center centerX>
@@ -28,7 +33,16 @@ const OrderLogin = () => {
           Create Account or Sign In
         </BoxTitle>
         <LoginForm setLoading={setLoading} />
+        <Text component="p" variant="caption" align="center" mt={2.5}>
+          By clicking the ‘Continue’ button you accept the{' '}
+          <Link component="button" onClick={() => setOpen(true)}>
+            Terms Of Service
+          </Link>
+        </Text>
       </ColumnForm>
+      <Suspense fallback={<Backdrop open style={{ zIndex: 99999 }} />}>
+        {open && <TosModal open={open} onClose={() => setOpen(false)} />}
+      </Suspense>
     </FullContainer>
   );
 };
