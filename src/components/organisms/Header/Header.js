@@ -19,11 +19,10 @@ const StyledAppBar = styled(AppBar)`
 
 const StyledToolbar = styled(Toolbar)`
   ${({ theme }) => css`
-    justify-content: space-between;
+    justify-content: flex-end;
 
     ${theme.breakpoints.up('md')} {
       min-height: ${theme.spacing(10)}px;
-      justify-content: flex-end;
     }
   `}
 `;
@@ -39,7 +38,7 @@ const Header = () => {
   return (
     <StyledAppBar color="default" position="static">
       <StyledToolbar>
-        <Logo to="/" />
+        <Logo mr="auto" to="/" />
         <IconButton color="primary" onClick={handleClick}>
           {theme === 'light' ? <Brightness4Icon /> : <Brightness7Icon />}
         </IconButton>

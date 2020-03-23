@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { ButtonBase } from '@material-ui/core';
+import { spacing } from '@material-ui/system';
 import Image from 'components/atoms/Image/Image';
 import LogoFile from 'assets/img/logo.png';
 
@@ -17,6 +18,7 @@ const Logo = styled(({ ...other }) => <Image {...other} src={LogoFile} alt="Site
 `;
 
 const StyledButtonBase = styled(ButtonBase)`
+  ${spacing}
   ${({ theme }) => css`
     ${theme.breakpoints.up('md')} {
       position: absolute;
@@ -34,6 +36,7 @@ const LogoLink = ({ to, ...props }) => (
     to={to}
     centerRipple
     focusRipple
+    {...props}
   >
     <Logo {...props} />
   </StyledButtonBase>
