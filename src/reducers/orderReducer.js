@@ -1,3 +1,5 @@
+import produce from 'immer';
+
 const initialState = {
   loading: true,
   currency: '',
@@ -17,54 +19,52 @@ const initialState = {
 const orderReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'PRICING_FETCH_SUCCESS':
-      return {
-        ...state,
-        loading: false,
-        currency: action.payload.currency,
-        products: action.payload.products,
-        addons: action.payload.addons,
-        activeProduct: action.payload.products[0].id,
-      };
+      return produce(state, draftState => {
+        const { currency, products, addons } = action.payload;
+        draftState.loading = false;
+        draftState.currency = currency;
+        draftState.products = products;
+        draftState.addons = addons;
+        draftState.activeProduct = products[0].id;
+      });
     case 'TOGGLE_PRODUCT':
-      return {
-        ...state,
-        activeProduct: action.payload,
-      };
+      return produce(state, draftState => {
+        draftState.activeProduct = action.payload;
+      });
     case 'TOGGLE_ADDON':
-      const isInArray = state.activeAddons.includes(action.payload);
-      const activeAddons = isInArray
-        ? state.activeAddons.filter(id => id !== action.payload)
-        : [...state.activeAddons, action.payload];
-
-      return {
-        ...state,
-        activeAddons,
-      };
+      return produce(state, draftState => {
+        if (draftState.activeAddons.includes(action.payload)) {
+          const index = draftState.activeAddons.indexOf(action.payload);
+          draftState.activeAddons.splice(index, 1);
+        } else {
+          draftState.activeAddons.push(action.payload);
+        }
+      });
     case 'REMOVE_ADDON':
-      return {
-        ...state,
-        activeAddons: state.activeAddons.filter(id => id !== action.payload),
-      };
+      return produce(state, draftState => {
+        const index = draftState.activeAddons.indexOf(action.payload);
+        draftState.activeAddons.splice(index, 1);
+      });
     case 'SET_CYCLE':
-      return {
-        ...state,
-        cycle: action.payload,
-      };
+      return produce(state, draftState => {
+        draftState.cycle = action.payload;
+      });
     case 'SET_PLAN':
-      return {
-        ...state,
-        plan: action.payload,
-      };
+      return produce(state, draftState => {
+        draftState.plan = action.payload;
+      });
     case 'SET_PROMOCODE':
-      return {
-        ...state,
-        promocode: action.payload,
-      };
+      return produce(state, draftState => {
+        draftState.promocode = action.payload;
+      });
     case 'SET_CREDENTIALS':
-      return {
-        ...state,
-        ...action.payload,
-      };
+      return produce(state, draftState => {
+        const { email, password, username, emailmarketing } = action.payload;
+        draftState.email = email;
+        draftState.password = password;
+        draftState.username = username;
+        draftState.emailmarketing = emailmarketing;
+      });
     default:
       return state;
   }

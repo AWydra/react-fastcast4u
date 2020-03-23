@@ -29,6 +29,7 @@ module.exports = {
     'no-nested-ternary': 'off',
     'no-unused-expressions': 'off',
     'no-case-declarations': 'off',
+    'no-param-reassign': ['error', { props: false }],
   },
   settings: {
     'import/resolver': {
