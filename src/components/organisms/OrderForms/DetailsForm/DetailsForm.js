@@ -2,8 +2,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
+
 import styled from 'styled-components';
 import { useFormik } from 'formik';
+import * as Yup from 'yup';
 import { Button, FormControlLabel, Checkbox, makeStyles } from '@material-ui/core';
 import FormikInput from 'components/atoms/FormikInput/FormikInput';
 import PhoneInput from 'components/atoms/PhoneInput/PhoneInput';
@@ -25,23 +27,6 @@ const BtnContainer = styled.div`
   justify-content: ${({ flexEnd }) => (flexEnd ? 'flex-end' : 'space-between')};
 `;
 
-const validate = values => {
-  const errors = {};
-
-  if (!values.firstname) {
-    errors.firstname = 'Required';
-  } else if (values.firstname.length < 3) {
-    errors.firstname = 'Must be 3 characters or more';
-  }
-
-  if (!values.lastname) {
-    errors.lastname = 'Required';
-  } else if (values.lastname.length < 3) {
-    errors.lastname = 'Must be 3 characters or more';
-  }
-  return errors;
-};
-
 const DetailsForm = () => {
   const [cookies] = useCookies(['Fc4uOrder_Session']);
   const classes = useStyles();
@@ -55,7 +40,14 @@ const DetailsForm = () => {
       phone,
       smsmarketing: false,
     },
-    validate,
+    validationSchema: Yup.object({
+      firstname: Yup.string()
+        .min(3, 'Must be 3 characters or more')
+        .required('Required'),
+      lastname: Yup.string()
+        .min(3, 'Must be 3 characters or more')
+        .required('Required'),
+    }),
     onSubmit: values => {
       console.log(values);
     },

@@ -7,6 +7,7 @@ import orderServices from 'services/order';
 
 import styled from 'styled-components';
 import { useFormik } from 'formik';
+import * as Yup from 'yup';
 import { Button, FormControlLabel, Checkbox, makeStyles } from '@material-ui/core';
 import FormikInput from 'components/atoms/FormikInput/FormikInput';
 import Alert from 'components/atoms/Alert/Alert';
@@ -29,34 +30,6 @@ const BtnContainer = styled.div`
   justify-content: space-between;
 `;
 
-const validate = (values, badUsername) => {
-  const errors = {};
-
-  if (!values.email) {
-    errors.email = 'Required';
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = 'Invalid email address';
-  }
-  if (!values.password) {
-    errors.password = 'Required';
-  } else if (values.password.length < 3) {
-    errors.password = 'Must be 3 characters or more';
-  }
-
-  if (!values.otter) {
-    errors.otter = 'Required';
-  } else if (values.otter.length < 3) {
-    errors.otter = 'Must be 3 characters or more';
-  } else if (values.otter.length > 8) {
-    errors.otter = 'Must be 8 characters or less';
-  } else if (!/^[a-z0-9]{3,8}$/.test(values.otter)) {
-    errors.otter = 'Must contain only lowercase letters and numbers';
-  } else if (badUsername) {
-    errors.otter = 'Pomocy';
-  }
-  return errors;
-};
-
 const LoginForm = ({ setLoading }) => {
   const { email, password, username, emailmarketing } = useSelector(state => state.order);
   const dispatch = useDispatch();
@@ -71,7 +44,19 @@ const LoginForm = ({ setLoading }) => {
       otter: username,
       emailmarketing,
     },
-    validate,
+    validationSchema: Yup.object({
+      email: Yup.string()
+        .matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i, 'Invalid email address')
+        .required('Required'),
+      password: Yup.string()
+        .min(3, 'Must be 3 characters or more')
+        .required('Required'),
+      otter: Yup.string()
+        .min(3, 'Must be 3 characters or more')
+        .max(8, 'Must be 8 characters or less')
+        .matches(/^[a-z0-9]{3,8}$/, "Can't contain special characters")
+        .required('Required'),
+    }),
     onSubmit: async values => {
       setLoading(true);
       try {
