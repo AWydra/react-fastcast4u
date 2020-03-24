@@ -8,17 +8,11 @@ import Routes from 'routes/mainRoutes';
 
 import ReactGA from 'utils/analytics';
 import { hotjar } from 'react-hotjar';
-import tawkto from 'react-tawkto';
 import { CookiesProvider } from 'react-cookie';
 
 import MainTemplate from 'templates/MainTemplate';
 
 const Root = () => {
-  // Tawk.to
-  useEffect(() => {
-    tawkto.init('55fb4794e1ea4c1012fe49df', () => console.log('Tawk.to ready'));
-  }, []);
-
   // Google Analytics
   useEffect(() => {
     ReactGA.pageview(window.location.pathname);
