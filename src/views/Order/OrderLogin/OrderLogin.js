@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, lazy, Suspense } from 'react';
-import { Link, Backdrop, useMediaQuery } from '@material-ui/core';
+import { Link, CircularProgress, useMediaQuery } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 import FullContainer from 'components/atoms/FullContainer/FullContainer';
 import ColumnForm from 'components/atoms/ColumnForm/ColumnForm';
@@ -40,7 +40,7 @@ const OrderLogin = () => {
           </Link>
         </Text>
       </ColumnForm>
-      <Suspense fallback={<Backdrop open style={{ zIndex: 99999 }} />}>
+      <Suspense fallback={<CircularProgress style={{ marginTop: 32 }} />}>
         {open && <TosModal open={open} onClose={() => setOpen(false)} />}
       </Suspense>
     </FullContainer>
