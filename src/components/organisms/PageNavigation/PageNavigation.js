@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
@@ -30,9 +31,18 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+const normalizePathname = pathname => {
+  return `/${pathname.split('/')[1]}`;
+};
+
 const PageNavigation = () => {
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+  const { pathname } = useLocation();
+  const [value, setValue] = useState(normalizePathname(pathname));
+
+  useEffect(() => {
+    setValue(normalizePathname(pathname));
+  }, [pathname]);
 
   return (
     <BottomNavigation
@@ -44,27 +54,35 @@ const PageNavigation = () => {
       className={classes.root}
     >
       <BottomNavigationAction
+        component={Link}
+        to="/"
         className={classes.action}
         label="Home"
-        value="home"
+        value="/"
         icon={<HomeIcon />}
       />
       <BottomNavigationAction
+        component={Link}
+        to="/order"
         className={classes.action}
         label="Order"
-        value="order"
+        value="/order"
         icon={<ShoppingCartIcon />}
       />
       <BottomNavigationAction
+        component={Link}
+        to="/radio-directory"
         className={classes.action}
         label="Directory"
-        value="directory"
+        value="/radio-directory"
         icon={<RadioIcon />}
       />
       <BottomNavigationAction
+        component={Link}
+        to="/faq"
         className={classes.action}
         label="FAQ"
-        value="faq"
+        value="/faq"
         icon={<HelpIcon />}
       />
       <BottomNavigationAction
