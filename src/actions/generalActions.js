@@ -2,4 +2,9 @@ const toggleTheme = () => ({
   type: 'TOGGLE_THEME',
 });
 
-export default { toggleTheme };
+const setChat = chat => ({
+  type: 'SET_CHAT',
+  payload: chat,
+});
+
+export default { toggleTheme, setChat };

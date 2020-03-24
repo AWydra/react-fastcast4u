@@ -19,6 +19,10 @@ const mainTheme = {
   typography: {
     fontFamily: 'Poppins, sans-serif',
   },
+  zIndex: {
+    appBar: 1000000000,
+    modal: 1000000010,
+  },
 };
 
 export default mainTheme;
