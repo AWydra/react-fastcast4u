@@ -20,8 +20,7 @@ const mainTheme = {
     fontFamily: 'Poppins, sans-serif',
   },
   zIndex: {
-    appBar: 1000000000,
-    modal: 1000000010,
+    modal: 2000000010,
   },
 };
 

@@ -1,12 +1,14 @@
 // @ts-nocheck
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import generalActions from 'actions/generalActions';
 
 import { useMediaQuery, useTheme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import tawkto from 'utils/tawkto';
 
 import HomeIcon from '@material-ui/icons/Home';
 import HelpIcon from '@material-ui/icons/Help';
@@ -14,6 +16,29 @@ import ChatIcon from '@material-ui/icons/Chat';
 import RadioIcon from '@material-ui/icons/Radio';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { modeSwitch } from 'utils/theme';
+
+const navigationData = [
+  {
+    to: '/',
+    label: 'Home',
+    icon: <HomeIcon />,
+  },
+  {
+    to: '/order',
+    label: 'Order',
+    icon: <ShoppingCartIcon />,
+  },
+  {
+    to: '/radio-directory',
+    label: 'Directory',
+    icon: <RadioIcon />,
+  },
+  {
+    to: '/faq',
+    label: 'FAQ',
+    icon: <HelpIcon />,
+  },
+];
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -25,7 +50,7 @@ const useStyles = makeStyles(theme => ({
     borderTop: 'solid 2px',
     borderTopColor: modeSwitch(theme.palette.grey[300], theme.palette.grey[700]),
     boxShadow: theme.shadows[4],
-    zIndex: theme.zIndex.appBar,
+    zIndex: 2000000001,
   },
   action: {
     padding: theme.spacing(1, 0),
@@ -45,71 +70,69 @@ const PageNavigation = () => {
   const theme = useTheme();
   const classes = useStyles();
   const matches = useMediaQuery(theme.breakpoints.down('xs'));
-
-  const chat = useSelector(state => state.general.chat);
   const { pathname } = useLocation();
+  const [showMenu, setShowMenu] = useState(false);
   const [value, setValue] = useState(normalizePathname(pathname));
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (chat.onLoaded && matches) {
-      chat.hideWidget();
-      const firstChild = document.querySelector('#tawkchat-container > div:first-child');
-      firstChild && firstChild.remove();
-    }
-  }, [chat, matches]);
+    const matchResolution = () =>
+      window.matchMedia(`(max-width: ${theme.breakpoints.values.sm}px)`);
+    tawkto.init(
+      '55fb4794e1ea4c1012fe49df',
+      tawk => {
+        const mql = matchResolution();
+        mql.matches && tawk.hideWidget();
 
-  const toggleChat = () => {
-    if (chat.onLoaded) {
-      chat.toggle();
-      const container = document.querySelector('#tawkchat-container');
-      container && (container.style.zIndex = theme.zIndex.appBar + 1);
-    }
-  };
+        mql.addEventListener('change', ev => {
+          if (ev.matches) {
+            tawk.hideWidget();
+          } else {
+            tawk.showWidget();
+          }
+        });
+        return dispatch(generalActions.setChat(tawk));
+      },
+      [
+        {
+          ev: 'onChatMinimized',
+          fn: () => {
+            matchResolution().matches && setTimeout(window.Tawk_API.hideWidget, 0);
+            setShowMenu(true);
+          },
+        },
+      ],
+    );
+  }, [dispatch, theme]);
 
   useEffect(() => {
     setValue(normalizePathname(pathname));
   }, [pathname]);
 
+  const handleClick = () => {
+    window.Tawk_API.maximize();
+    setShowMenu(false);
+  };
+
   return (
-    matches && (
+    matches &&
+    showMenu && (
       <BottomNavigation value={value} showLabels className={classes.root}>
-        <BottomNavigationAction
-          component={Link}
-          to="/"
-          className={classes.action}
-          label="Home"
-          value="/"
-          icon={<HomeIcon />}
-        />
-        <BottomNavigationAction
-          component={Link}
-          to="/order"
-          className={classes.action}
-          label="Order"
-          value="/order"
-          icon={<ShoppingCartIcon />}
-        />
-        <BottomNavigationAction
-          component={Link}
-          to="/radio-directory"
-          className={classes.action}
-          label="Directory"
-          value="/radio-directory"
-          icon={<RadioIcon />}
-        />
-        <BottomNavigationAction
-          component={Link}
-          to="/faq"
-          className={classes.action}
-          label="FAQ"
-          value="/faq"
-          icon={<HelpIcon />}
-        />
+        {navigationData.map(({ to, ...props }) => (
+          <BottomNavigationAction
+            component={Link}
+            to={to}
+            className={classes.action}
+            value={to}
+            key={to}
+            {...props}
+          />
+        ))}
         <BottomNavigationAction
           className={classes.action}
           label="Chat"
           icon={<ChatIcon />}
-          onClick={toggleChat}
+          onClick={handleClick}
         />
       </BottomNavigation>
     )
