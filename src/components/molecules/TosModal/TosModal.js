@@ -18,10 +18,10 @@ const useStyles = makeStyles(theme => ({
   paper: {
     width: '100%',
     height: '100%',
-    margin: theme.spacing(4, 2, 6),
-    [theme.breakpoints.down('sm')]: {
-      marginBottom: theme.spacing(10),
-    },
+    margin: theme.spacing(4, 2),
+  },
+  title: {
+    padding: theme.spacing(1.5, 2),
   },
   content: {
     padding: theme.spacing(2),
@@ -61,7 +61,7 @@ const TosModal = ({ onClose, ...props }) => {
       PaperProps={{ className: classes.paper }}
       {...props}
     >
-      <DialogTitle>Terms of Service</DialogTitle>
+      <DialogTitle className={classes.title}>Terms of Service</DialogTitle>
       <DialogContent className={`${classes.content} ${!response && classes.loading}`} dividers>
         {!response && <CircularProgress size={100} />}
         <DialogContentText
