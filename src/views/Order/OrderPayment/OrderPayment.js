@@ -1,5 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, Redirect } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
+
 import styled from 'styled-components';
 import { Button, makeStyles, useMediaQuery } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
@@ -24,12 +26,21 @@ const ButtonContainer = styled.div`
 `;
 
 const OrderPayment = () => {
+  const [cookies] = useCookies(['Fc4uOrder_Session']);
+  const [redirect, setRedirect] = useState(false);
   const classes = useStyles();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
 
+  useEffect(() => {
+    if (!cookies.Fc4uOrder_Session) return setRedirect(true);
+    const { step } = cookies.Fc4uOrder_Session;
+    step < 3 && setRedirect(true);
+  }, [cookies.Fc4uOrder_Session]);
+
   return (
     <FullContainer center centerX>
+      {redirect && <Redirect to="/order/package" />}
       {matches && (
         <Stepper
           steps={['Create your Server Package', 'Create Account', 'Payment & Setup']}

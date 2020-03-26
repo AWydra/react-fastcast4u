@@ -1,7 +1,9 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState, lazy, Suspense } from 'react';
-import { Link, CircularProgress, useMediaQuery } from '@material-ui/core';
-import { useTheme } from '@material-ui/core/styles';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
+import { Redirect } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
+
+import { Link, CircularProgress, useMediaQuery, useTheme } from '@material-ui/core';
 import FullContainer from 'components/atoms/FullContainer/FullContainer';
 import ColumnForm from 'components/atoms/ColumnForm/ColumnForm';
 import BoxTitle from 'components/atoms/BoxTitle/BoxTitle';
@@ -13,13 +15,22 @@ import LoginForm from 'components/organisms/OrderForms/LoginForm/LoginForm';
 const TosModal = lazy(() => import('components/molecules/TosModal/TosModal'));
 
 const OrderLogin = () => {
+  const [cookies] = useCookies(['Fc4uOrder_Session']);
+  const [redirect, setRedirect] = useState(false);
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
 
+  useEffect(() => {
+    if (!cookies.Fc4uOrder_Session) return setRedirect(true);
+    const { step } = cookies.Fc4uOrder_Session;
+    step < 2 && setRedirect(true);
+  }, [cookies.Fc4uOrder_Session]);
+
   return (
     <FullContainer center centerX>
+      {redirect && <Redirect to="/order/package" />}
       {matches && (
         <Stepper
           steps={['Create your Server Package', 'Create Account', 'Payment & Setup']}
