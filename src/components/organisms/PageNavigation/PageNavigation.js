@@ -69,7 +69,7 @@ const normalizePathname = pathname => {
 const PageNavigation = () => {
   const theme = useTheme();
   const classes = useStyles();
-  const matches = useMediaQuery(theme.breakpoints.down('xs'));
+  const matches = useMediaQuery(theme.breakpoints.down('sm'));
   const { pathname } = useLocation();
   const [showMenu, setShowMenu] = useState(false);
   const [value, setValue] = useState(normalizePathname(pathname));
@@ -77,7 +77,7 @@ const PageNavigation = () => {
 
   useEffect(() => {
     const matchResolution = () =>
-      window.matchMedia(`(max-width: ${theme.breakpoints.values.sm}px)`);
+      window.matchMedia(`(max-width: ${theme.breakpoints.values.md}px)`);
     tawkto.init(
       '55fb4794e1ea4c1012fe49df',
       tawk => {
@@ -86,6 +86,7 @@ const PageNavigation = () => {
 
         mql.addEventListener('change', ev => {
           if (ev.matches) {
+            tawk.minimize();
             tawk.hideWidget();
           } else {
             tawk.showWidget();
