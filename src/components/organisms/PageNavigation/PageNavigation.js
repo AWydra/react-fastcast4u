@@ -4,10 +4,14 @@ import { Link, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import generalActions from 'actions/generalActions';
 
-import { useMediaQuery, useTheme } from '@material-ui/core';
+import styled, { css } from 'styled-components';
+import {
+  BottomNavigation,
+  BottomNavigationAction,
+  useMediaQuery,
+  useTheme,
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import BottomNavigation from '@material-ui/core/BottomNavigation';
-import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import tawkto from 'utils/tawkto';
 
 import HomeIcon from '@material-ui/icons/Home';
@@ -39,6 +43,14 @@ const navigationData = [
     icon: <HelpIcon />,
   },
 ];
+
+const StyledLabel = styled.div`
+  ${({ theme }) => css`
+    ${theme.breakpoints.down('sm')} AND (orientation: landscape) {
+      display: none;
+    }
+  `}
+`;
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -119,19 +131,20 @@ const PageNavigation = () => {
     matches &&
     showMenu && (
       <BottomNavigation value={value} showLabels className={classes.root}>
-        {navigationData.map(({ to, ...props }) => (
+        {navigationData.map(({ to, label, ...props }) => (
           <BottomNavigationAction
             component={Link}
             to={to}
             className={classes.action}
             value={to}
+            label={<StyledLabel>{label}</StyledLabel>}
             key={to}
             {...props}
           />
         ))}
         <BottomNavigationAction
           className={classes.action}
-          label="Chat"
+          label={<StyledLabel>Chat</StyledLabel>}
           icon={<ChatIcon />}
           onClick={handleClick}
         />
