@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
@@ -9,8 +10,8 @@ import LogoFile from 'assets/img/logo.png';
 
 const Logo = styled(({ ...other }) => <Image {...other} src={LogoFile} alt="Site logo" />)`
   ${({ theme }) => css`
-    width: 150px;
-    padding: 18px;
+    width: 140px;
+    padding: ${theme.spacing(2, 0)};
     ${theme.breakpoints.up('md')} {
       width: 300px;
     }
@@ -30,14 +31,7 @@ const StyledButtonBase = styled(ButtonBase)`
 `;
 
 const LogoLink = ({ to, ...props }) => (
-  <StyledButtonBase
-    // @ts-ignore
-    component={Link}
-    to={to}
-    centerRipple
-    focusRipple
-    {...props}
-  >
+  <StyledButtonBase component={Link} to={to} centerRipple focusRipple {...props}>
     <Logo {...props} />
   </StyledButtonBase>
 );
