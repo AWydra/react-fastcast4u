@@ -1,68 +1,92 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h1 align="center">
+  <a href="https://fastcast4u.com"><img src="https://fastcast4u.com/images/logo-dark.png" alt="FastCast4u Logo" width="200"></a>
+  <br>
+   react-fastcast4u
+  <br>
+</h1>
 
-## Available Scripts
+<h4 align="center">E-commerce <a href="https://fastcast4u.com" target="_blank">FastCast DWC-LLC</a> business site.</h4>
+<br>
+<p align="center">
+  <a href="https://webnew.fastcast4u.com">
+    <img src="https://i.ibb.co/xJhs8y2/localhost-3000-order-package-2.png"
+         alt="Screen Shot">
+  </a>
+</p>
 
-In the project directory, you can run:
+## Project Overview 🎉
 
-### `yarn start`
+E-commerce site created for one of the largest radio provider in the world. I used [Atomic Design](https://bradfrost.com/blog/post/atomic-web-design) for components architecture and Google's Material Design as a design language. When you first enter the page, you can see the company's offer or use the order wizard by clicking "Start Now" button. My goal is to create an application that is extremely easy to use and works partly offline.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## TODO ✅
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+- [ ] Optimize performance
+- [ ] Rewrite [App Creator](https://fastcast4u.com/public-app-creator) to React version
+- [ ] Rewrite [Online Radio Directory](https://fastcast4u.com/radio-directory) to React version
+- [ ] Write unit tests
+- [ ] Write Storybook documentation
+- [ ] Implement PWA
 
-### `yarn test`
+## Tech/framework used 🔧
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **JavaScript** (ES6+)
+- **ReactJS** with **Hooks** and **React-Router**
+- **Redux** with **Redux Thunk** and **immer**
+- **formik** with **yup**
+- **react-cookie**
+- **axios**
+- **React Google Analytics Module**
+- **react-hotjar**
+- **Material UI** framework
+- **styled-components**
+- **Husky** & **Lint-staged**
+- Tools: **CRA**, **Eslint**, **Prettier**
 
-### `yarn build`
+## Screenshots 📺
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<p align="center">
+    <img src="https://i.ibb.co/vvkJ1S5/webnew-fastcast4u-com.png" alt="Screen Shot">
+</p>
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+<p align="center">
+    <img src="https://i.ibb.co/52rx2g2/localhost-3000-order-package.png" alt="Screen Shot">
+</p>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<p align="center">
+    <img src="https://i.ibb.co/k5T0JZd/localhost-3000-order-package-1.png" alt="Screen Shot">
+</p>
 
-### `yarn eject`
+<p align="center">
+    <img src="https://i.ibb.co/NShMkmY/localhost-3000-order-2.png" alt="Screen Shot">
+</p>
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Code Example/Issues 🔍
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+If you have any issues, please let me know in the issues section or directly to [hello@awydra.pl](mailto:hello@awydra.pl)
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Requirements 🔨
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- **NodeJS** v8+
+- **Yarn** v1.17+
 
-## Learn More
+## Installation 💾
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. Clone this repository `git clone https://github.com/AWydra/react-fastcast4u.git`
+2. Install the dependencies by running `yarn`
+3. Start the project by running `yarn start`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+git clone https://github.com/AWydra/react-fastcast4u.git
+yarn
+yarn start
+```
 
-### Code Splitting
+## Credits 👏
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+Big thanks to [@Chmaruss](https://github.com/Chmaruss) from [YouTube](https://www.youtube.com/channel/UCFmXR9JohMyuXPya2OUkcjg). Thanks to him and his tutorials I am where I am today.
 
-### Analyzing the Bundle Size
+## Live 📍
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+<a href="https://webnew.fastcast4u.com/">https://webnew.fastcast4u.com/</a>
 
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+<br>
