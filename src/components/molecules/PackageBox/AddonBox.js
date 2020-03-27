@@ -8,13 +8,14 @@ import Base from './Base';
 const Hide = ({ data, children }) => {
   const dispatch = useDispatch();
   const parentId = data.parent;
-  const activeParent = useSelector(state => state.order.activeAddons.includes(parentId));
+  const isParentActive = useSelector(state => state.order.activeAddons.includes(parentId));
+  const isChildActive = useSelector(state => state.order.activeAddons.includes(data.relid));
 
-  if (parentId && !activeParent) {
+  if (parentId && isChildActive && !isParentActive) {
     dispatch(orderActions.removeAddon(data.relid));
   }
 
-  if (!parentId || activeParent) return children;
+  if (!parentId || isParentActive) return children;
   return null;
 };
 
