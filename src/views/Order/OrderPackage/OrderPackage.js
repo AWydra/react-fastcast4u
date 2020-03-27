@@ -1,9 +1,7 @@
 // @ts-nocheck
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import orderService from 'services/order';
-import { useCookies } from 'react-cookie';
 
 import { makeStyles, Container, Grid } from '@material-ui/core';
 import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded';
@@ -15,6 +13,7 @@ import Stepper from 'components/organisms/Stepper/Stepper';
 import OrderSummary from 'components/organisms/OrderSummary/OrderSummary';
 import IconListSection from 'components/organisms/IconListSection/IconListSection';
 import PackageGrid from 'templates/PackageGrid';
+import OrderAccessController from 'utils/OrderAccessController';
 
 const data = [
   {
@@ -69,26 +68,18 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const OrderPackage = () => {
-  const [cookies] = useCookies(['Fc4uOrder_Session']);
-  const [redirect, setRedirect] = useState(false);
   const products = useSelector(state => state.order.products);
   const addons = useSelector(state => state.order.addons);
   const loading = useSelector(state => state.order.loading);
   const dispatch = useDispatch();
   const classes = useStyles();
 
-  useEffect(() => {
-    if (!cookies.Fc4uOrder_Session) return setRedirect(true);
-    const { step } = cookies.Fc4uOrder_Session;
-    step < 1 && setRedirect(true);
-  }, [cookies.Fc4uOrder_Session]);
-
   // If products array isn't empty, don't fetch
   !products.length && dispatch(orderService.getPricing());
 
   return (
     <Container className={classes.root}>
-      {redirect && <Redirect to="/order" />}
+      <OrderAccessController currentStep={1} />
       <Grid container>
         <Grid item className={classes.content}>
           <Stepper

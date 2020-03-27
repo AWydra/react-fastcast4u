@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Link, Redirect } from 'react-router-dom';
-import { useCookies } from 'react-cookie';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 import styled from 'styled-components';
 import { Button, makeStyles, useMediaQuery } from '@material-ui/core';
@@ -9,6 +8,7 @@ import FullContainer from 'components/atoms/FullContainer/FullContainer';
 import ColumnForm from 'components/atoms/ColumnForm/ColumnForm';
 import BoxTitle from 'components/atoms/BoxTitle/BoxTitle';
 import Stepper from 'components/organisms/Stepper/Stepper';
+import OrderAccessController from 'utils/OrderAccessController';
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -26,21 +26,13 @@ const ButtonContainer = styled.div`
 `;
 
 const OrderPayment = () => {
-  const [cookies] = useCookies(['Fc4uOrder_Session']);
-  const [redirect, setRedirect] = useState(false);
   const classes = useStyles();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
 
-  useEffect(() => {
-    if (!cookies.Fc4uOrder_Session) return setRedirect(true);
-    const { step } = cookies.Fc4uOrder_Session;
-    step < 3 && setRedirect(true);
-  }, [cookies.Fc4uOrder_Session]);
-
   return (
     <FullContainer center centerX>
-      {redirect && <Redirect to="/order/package" />}
+      <OrderAccessController currentStep={3} />
       {matches && (
         <Stepper
           steps={['Create your Server Package', 'Create Account', 'Payment & Setup']}
