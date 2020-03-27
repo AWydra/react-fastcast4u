@@ -34,16 +34,16 @@ const orderReducer = (state = initialState, action) => {
     case 'TOGGLE_ADDON':
       return produce(state, draftState => {
         if (draftState.activeAddons.includes(action.payload)) {
-          const index = draftState.activeAddons.indexOf(action.payload);
-          draftState.activeAddons.splice(index, 1);
+          const newArray = draftState.activeAddons.filter(id => id !== action.payload);
+          draftState.activeAddons = newArray;
         } else {
           draftState.activeAddons.push(action.payload);
         }
       });
     case 'REMOVE_ADDON':
       return produce(state, draftState => {
-        const index = draftState.activeAddons.indexOf(action.payload);
-        draftState.activeAddons.splice(index, 1);
+        const newArray = draftState.activeAddons.filter(id => id !== action.payload);
+        draftState.activeAddons = newArray;
       });
     case 'SET_CYCLE':
       return produce(state, draftState => {
