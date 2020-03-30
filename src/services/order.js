@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { isProd } from 'utils/nodeEnv';
 
-const baseUrl = '/order/backend/api/';
+const baseUrl = `${isProd() ? 'https://fastcast4u.com' : ''}/order/backend/api/`;
 
 const setStep1 = async () => {
   const request = await axios.get(`${baseUrl}step1.php`);
@@ -22,9 +23,15 @@ const setStep3 = async data => {
   return request.data;
 };
 
+const setPaymentMethod = async method => {
+  const request = await axios.get(`${baseUrl}step4.php?paymentMethod=${method}`);
+  return request.data;
+};
+
 export default {
   getPricing,
   setStep1,
   setStep2,
   setStep3,
+  setPaymentMethod,
 };

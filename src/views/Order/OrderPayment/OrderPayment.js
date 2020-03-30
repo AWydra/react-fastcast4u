@@ -1,14 +1,17 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, Redirect } from 'react-router-dom';
+import orderServices from 'services/order';
 
 import styled from 'styled-components';
-import { Button, makeStyles, useMediaQuery } from '@material-ui/core';
-import { useTheme } from '@material-ui/core/styles';
+import { Button, makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
 import FullContainer from 'components/atoms/FullContainer/FullContainer';
 import ColumnForm from 'components/atoms/ColumnForm/ColumnForm';
 import BoxTitle from 'components/atoms/BoxTitle/BoxTitle';
+import Alert from 'components/atoms/Alert/Alert';
+import LoadingCover from 'components/molecules/LoadingCover/LoadingCover';
 import Stepper from 'components/organisms/Stepper/Stepper';
 import OrderAccessController from 'utils/OrderAccessController';
+import generatePayment from 'utils/paymentGenerator';
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -29,10 +32,28 @@ const OrderPayment = () => {
   const classes = useStyles();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [redirect, setRedirect] = useState(false);
+
+  const handleClick = async method => {
+    try {
+      setLoading(true);
+      const { data } = await orderServices.setPaymentMethod(method);
+
+      if (data.invoice.status === 'error') throw Error(data.invoice.message);
+      if (data.invoice.total === '0.00') return setRedirect(true);
+      generatePayment(method, data);
+    } catch (err) {
+      setError(err.message);
+      setTimeout(() => setLoading(false), 1000);
+    }
+  };
 
   return (
     <FullContainer center centerX>
       <OrderAccessController currentStep={3} />
+      {redirect && <Redirect to="/order/details" />}
       {matches && (
         <Stepper
           steps={['Create your Server Package', 'Create Account', 'Payment & Setup']}
@@ -41,19 +62,21 @@ const OrderPayment = () => {
         />
       )}
       <ColumnForm>
+        {loading && <LoadingCover />}
         <BoxTitle variant="h5" component="h1" mb={2}>
           Payment Checkout
         </BoxTitle>
         <ButtonContainer>
-          <Button
-            className={`${classes.button}`}
-            variant="contained"
-            size="large"
-            color="secondary"
-          >
+          <Button className={classes.button} variant="contained" size="large" color="secondary">
             Debit / Credit Card
           </Button>
-          <Button className={`${classes.button}`} variant="contained" size="large" color="primary">
+          <Button
+            className={classes.button}
+            variant="contained"
+            size="large"
+            color="primary"
+            onClick={() => handleClick('paypal')}
+          >
             PayPal
           </Button>
         </ButtonContainer>
@@ -61,6 +84,9 @@ const OrderPayment = () => {
           Back
         </Button>
       </ColumnForm>
+      <Alert severity="error" open={!!error} onClose={() => setError('')}>
+        {error}
+      </Alert>
     </FullContainer>
   );
 };

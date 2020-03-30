@@ -30,6 +30,7 @@ module.exports = {
     'no-unused-expressions': 'off',
     'no-case-declarations': 'off',
     'no-param-reassign': ['error', { props: false }],
+    'consistent-return': 'off',
   },
   settings: {
     'import/resolver': {
