@@ -20,6 +20,14 @@ const steps = [
     step: 3,
     href: '/order/payment',
   },
+  {
+    step: 4,
+    href: '/order/details',
+  },
+  {
+    step: 6,
+    href: '/order/pending',
+  },
 ];
 
 const getHref = step => steps.find(el => el.step === step).href;

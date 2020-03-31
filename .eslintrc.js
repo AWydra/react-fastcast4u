@@ -31,6 +31,7 @@ module.exports = {
     'no-case-declarations': 'off',
     'no-param-reassign': ['error', { props: false }],
     'consistent-return': 'off',
+    'no-underscore-dangle': 'off',
   },
   settings: {
     'import/resolver': {

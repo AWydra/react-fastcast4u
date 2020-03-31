@@ -70,7 +70,7 @@ const DetailsForm = ({ setLoading }) => {
   });
   return (
     <form onSubmit={formik.handleSubmit} noValidate autoComplete="off" className={classes.form}>
-      {redirect && <Redirect to="/order/wait" />}
+      {redirect && <Redirect to="/order/pending" />}
       <FormikInput formik={formik} label="First Name" name="firstname" type="text" />
       <FormikInput formik={formik} label="Last Name" name="lastname" type="text" />
       <FormikInput formik={formik} label="Company (optional)" name="company" type="text" />

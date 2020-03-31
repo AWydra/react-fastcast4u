@@ -6,6 +6,7 @@ import OrderPackage from 'views/Order/OrderPackage/OrderPackage';
 import OrderLogin from 'views/Order/OrderLogin/OrderLogin';
 import OrderPayment from 'views/Order/OrderPayment/OrderPayment';
 import OrderDetails from 'views/Order/OrderDetails/OrderDetails';
+import OrderPending from 'views/Order/OrderPending/OrderPending';
 import NotFound from 'views/NotFound/NotFound';
 
 const Order = () => (
@@ -15,6 +16,7 @@ const Order = () => (
     <Route path="/order/login" component={OrderLogin} />
     <Route path="/order/payment" component={OrderPayment} />
     <Route path="/order/details" component={OrderDetails} />
+    <Route path="/order/pending" component={OrderPending} />
     <Route component={NotFound} />
   </Switch>
 );
