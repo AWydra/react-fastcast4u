@@ -7,7 +7,7 @@ import MuiAlert from '@material-ui/lab/Alert';
 const useStyles = makeStyles(theme => ({
   snackbar: {
     marginBottom: matches => matches && theme.spacing(8),
-    bottom: theme.spacing(1),
+    bottom: matches => matches && theme.spacing(1),
   },
 }));
 

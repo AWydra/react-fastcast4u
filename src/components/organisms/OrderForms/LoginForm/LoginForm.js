@@ -61,10 +61,8 @@ const LoginForm = ({ setLoading }) => {
       setLoading(true);
       try {
         const data = {
-          email: values.email,
-          password: values.password,
+          ...values,
           username: values.otter,
-          emailmarketing: values.emailmarketing,
         };
 
         await orderServices.setStep3(data);
