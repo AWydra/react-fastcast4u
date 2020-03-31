@@ -65,6 +65,8 @@ const orderReducer = (state = initialState, action) => {
         draftState.username = username;
         draftState.emailmarketing = emailmarketing;
       });
+    case 'RESET_ORDER_STORE':
+      return initialState;
     default:
       return state;
   }

@@ -13,9 +13,7 @@ const setStep1 = async () => {
 };
 
 const getPricing = () => async dispatch => {
-  const order = await axios.get(`${baseUrl}pricing2.php`, {
-    cancelToken: source.token,
-  });
+  const order = await axios.get(`${baseUrl}pricing2.php`);
   dispatch({ type: 'PRICING_FETCH_SUCCESS', payload: order.data });
 };
 
@@ -54,6 +52,21 @@ const setStep6 = async data => {
   return request.data;
 };
 
+const checkFinalCompatibility = async () => {
+  const request = await axios.get(`${baseUrl}isOk.php`);
+  return request.data;
+};
+
+const isReady = async () => {
+  const request = await axios.get(`${baseUrl}isReady.php`);
+  return request.data;
+};
+
+const getLoginURL = async url => {
+  const request = await axios.get(url);
+  return request.data.url;
+};
+
 export default {
   cancel,
   getPricing,
@@ -63,4 +76,7 @@ export default {
   setPaymentMethod,
   checkCompatibility,
   setStep6,
+  checkFinalCompatibility,
+  isReady,
+  getLoginURL,
 };

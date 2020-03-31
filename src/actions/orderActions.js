@@ -33,6 +33,10 @@ const setCredentials = item => ({
   payload: item,
 });
 
+const resetStore = () => ({
+  type: 'RESET_ORDER_STORE',
+});
+
 export default {
   toggleProduct,
   toggleAddon,
@@ -41,4 +45,5 @@ export default {
   setPlan,
   setPromocode,
   setCredentials,
+  resetStore,
 };
