@@ -1,6 +1,7 @@
 // @ts-nocheck
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 
 import styled from 'styled-components';
@@ -9,6 +10,8 @@ import * as Yup from 'yup';
 import { Button, FormControlLabel, Checkbox, makeStyles } from '@material-ui/core';
 import FormikInput from 'components/atoms/FormikInput/FormikInput';
 import PhoneInput from 'components/atoms/PhoneInput/PhoneInput';
+import Alert from 'components/atoms/Alert/Alert';
+import orderServices from 'services/order';
 
 const useStyles = makeStyles(theme => ({
   form: {
@@ -27,10 +30,12 @@ const BtnContainer = styled.div`
   justify-content: ${({ flexEnd }) => (flexEnd ? 'flex-end' : 'space-between')};
 `;
 
-const DetailsForm = () => {
+const DetailsForm = ({ setLoading }) => {
   const [cookies] = useCookies(['Fc4uOrder_Session']);
   const classes = useStyles();
-  const { firstname, lastname, company, phone } = cookies.Fc4uOrder_Session;
+  const [error, setError] = useState('');
+  const [redirect, setRedirect] = useState(false);
+  const { firstname, lastname, company, phone } = cookies.Fc4uOrder_Session || {};
 
   const formik = useFormik({
     initialValues: {
@@ -48,12 +53,24 @@ const DetailsForm = () => {
         .min(3, 'Must be 3 characters or more')
         .required('Required'),
     }),
-    onSubmit: values => {
-      console.log(values);
+    onSubmit: async values => {
+      try {
+        setLoading(true);
+        const data = {
+          ...values,
+          phone: values.phone.replace(/\D+/g, ''),
+        };
+        await orderServices.setStep6(data);
+        setRedirect(true);
+      } catch (err) {
+        setError(err.response.data.errorMessage || err.message);
+        setLoading(false);
+      }
     },
   });
   return (
     <form onSubmit={formik.handleSubmit} noValidate autoComplete="off" className={classes.form}>
+      {redirect && <Redirect to="/order/wait" />}
       <FormikInput formik={formik} label="First Name" name="firstname" type="text" />
       <FormikInput formik={formik} label="Last Name" name="lastname" type="text" />
       <FormikInput formik={formik} label="Company (optional)" name="company" type="text" />
@@ -74,12 +91,19 @@ const DetailsForm = () => {
         label="Receive Service related emails and special offers"
       />
       <BtnContainer flexEnd>
-        <Button component={Link} to="/order/wait" variant="contained" color="primary" type="submit">
-          CONTINUE
+        <Button variant="contained" color="primary" type="submit">
+          FINISH
         </Button>
       </BtnContainer>
+      <Alert severity="error" open={!!error} onClose={() => setError('')}>
+        {error}
+      </Alert>
     </form>
   );
+};
+
+DetailsForm.propTypes = {
+  setLoading: PropTypes.func.isRequired,
 };
 
 export default DetailsForm;
