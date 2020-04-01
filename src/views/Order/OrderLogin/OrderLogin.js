@@ -6,7 +6,6 @@ import FullContainer from 'components/atoms/FullContainer/FullContainer';
 import ColumnForm from 'components/atoms/ColumnForm/ColumnForm';
 import BoxTitle from 'components/atoms/BoxTitle/BoxTitle';
 import Text from 'components/atoms/Text/Text';
-import LoadingCover from 'components/molecules/LoadingCover/LoadingCover';
 import Stepper from 'components/organisms/Stepper/Stepper';
 import LoginForm from 'components/organisms/OrderForms/LoginForm/LoginForm';
 import OrderAccessController from 'utils/OrderAccessController';
@@ -29,8 +28,7 @@ const OrderLogin = () => {
           mb={6}
         />
       )}
-      <ColumnForm>
-        {loading && <LoadingCover />}
+      <ColumnForm loading={loading}>
         <BoxTitle variant="h5" component="h1" mb={2}>
           Create Account or Sign In
         </BoxTitle>

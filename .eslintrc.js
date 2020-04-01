@@ -32,6 +32,7 @@ module.exports = {
     'no-param-reassign': ['error', { props: false }],
     'consistent-return': 'off',
     'no-underscore-dangle': 'off',
+    'react-hooks/exhaustive-deps': 'off',
   },
   settings: {
     'import/resolver': {

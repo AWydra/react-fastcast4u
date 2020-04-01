@@ -3,7 +3,6 @@ import { useMediaQuery, useTheme } from '@material-ui/core';
 import FullContainer from 'components/atoms/FullContainer/FullContainer';
 import ColumnForm from 'components/atoms/ColumnForm/ColumnForm';
 import BoxTitle from 'components/atoms/BoxTitle/BoxTitle';
-import LoadingCover from 'components/molecules/LoadingCover/LoadingCover';
 import Stepper from 'components/organisms/Stepper/Stepper';
 import DetailsForm from 'components/organisms/OrderForms/DetailsForm/DetailsForm';
 import orderServices from 'services/order';
@@ -32,7 +31,7 @@ const OrderDetails = () => {
     checkCompatibility();
 
     return () => orderServices.cancel();
-  }, [alert]);
+  }, []);
 
   return (
     <FullContainer center centerX>
@@ -44,8 +43,7 @@ const OrderDetails = () => {
           mb={6}
         />
       )}
-      <ColumnForm>
-        {loading && <LoadingCover />}
+      <ColumnForm loading={loading}>
         <BoxTitle variant="h5" component="h1" mb={2}>
           Account Details
         </BoxTitle>
