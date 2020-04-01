@@ -1,5 +1,5 @@
 // @ts-nocheck
-import store from 'store';
+import { store } from 'store';
 
 export const modeSwitch = (light, dark) => {
   const state = store.getState();

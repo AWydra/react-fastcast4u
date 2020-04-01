@@ -1,14 +1,27 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
+import { persistReducer, persistStore } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import thunk from 'redux-thunk';
+
 import generalReducer from 'reducers/generalReducer';
 import orderReducer from 'reducers/orderReducer';
 
+const generalPersistConfig = {
+  key: 'general',
+  storage,
+};
+
+const orderPersistConfig = {
+  key: 'order',
+  storage,
+};
+
 const rootReducer = combineReducers({
-  order: orderReducer,
-  general: generalReducer,
+  order: persistReducer(orderPersistConfig, orderReducer),
+  general: persistReducer(generalPersistConfig, generalReducer),
 });
 
-const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
-
-export default store;
+export const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
+export const persistor = persistStore(store);
+export default { store, persistor };

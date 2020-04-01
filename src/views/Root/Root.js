@@ -1,7 +1,8 @@
 // @ts-nocheck
 import React, { useEffect } from 'react';
 import { Provider } from 'react-redux';
-import store from 'store';
+import { store, persistor } from 'store';
+import { PersistGate } from 'redux-persist/integration/react';
 import { Router } from 'react-router-dom';
 import history from 'utils/history';
 import Routes from 'routes/mainRoutes';
@@ -31,13 +32,15 @@ const Root = () => {
 
   return (
     <Provider store={store}>
-      <Router history={history}>
-        <CookiesProvider>
-          <MainTemplate>
-            <Routes />
-          </MainTemplate>
-        </CookiesProvider>
-      </Router>
+      <PersistGate loading={null} persistor={persistor}>
+        <Router history={history}>
+          <CookiesProvider>
+            <MainTemplate>
+              <Routes />
+            </MainTemplate>
+          </CookiesProvider>
+        </Router>
+      </PersistGate>
     </Provider>
   );
 };
