@@ -7,4 +7,9 @@ const setChat = chat => ({
   payload: chat,
 });
 
-export default { toggleTheme, setChat };
+const setAlert = alert => ({
+  type: 'SET_ALERT',
+  payload: alert,
+});
+
+export default { toggleTheme, setChat, setAlert };

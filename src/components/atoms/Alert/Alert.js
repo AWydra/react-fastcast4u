@@ -1,8 +1,9 @@
 // @ts-nocheck
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import { Snackbar, useMediaQuery, useTheme, makeStyles } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
+import { useAlert } from 'utils/customHooks';
 
 const useStyles = makeStyles(theme => ({
   snackbar: {
@@ -11,27 +12,31 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Alert = ({ severity, children, ...props }) => {
+const Alert = () => {
+  const alert = useAlert();
+  const reduxAlert = useSelector(state => state.general.alert);
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down('sm'));
   const classes = useStyles(matches);
+
   return (
     <Snackbar
       className={classes.snackbar}
       autoHideDuration={6000}
       anchorOrigin={{ vertical: 'bottom', horizontal: matches ? 'center' : 'left' }}
-      {...props}
+      open={reduxAlert.open}
+      onClose={() => alert.hide()}
     >
-      <MuiAlert elevation={6} variant="filled" severity={severity} {...props}>
-        {children}
+      <MuiAlert
+        elevation={6}
+        variant="filled"
+        severity={reduxAlert.type}
+        onClose={() => alert.hide()}
+      >
+        {reduxAlert.content}
       </MuiAlert>
     </Snackbar>
   );
-};
-
-Alert.propTypes = {
-  severity: PropTypes.string.isRequired,
-  children: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
 };
 
 export default Alert;

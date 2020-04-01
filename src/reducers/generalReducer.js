@@ -3,6 +3,7 @@ import produce from 'immer';
 const initialState = {
   chat: {},
   theme: 'light',
+  alert: {},
 };
 
 const generalReducer = (state = initialState, action) => {
@@ -15,6 +16,10 @@ const generalReducer = (state = initialState, action) => {
     case 'SET_CHAT':
       return produce(state, draftState => {
         draftState.chat = action.payload;
+      });
+    case 'SET_ALERT':
+      return produce(state, draftState => {
+        draftState.alert = { ...draftState.alert, ...action.payload };
       });
     default:
       return state;
