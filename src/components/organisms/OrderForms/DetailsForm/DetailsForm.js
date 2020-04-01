@@ -10,8 +10,8 @@ import * as Yup from 'yup';
 import { Button, FormControlLabel, Checkbox, makeStyles } from '@material-ui/core';
 import FormikInput from 'components/atoms/FormikInput/FormikInput';
 import PhoneInput from 'components/atoms/PhoneInput/PhoneInput';
-import Alert from 'components/atoms/Alert/Alert';
 import orderServices from 'services/order';
+import { useAlert } from 'utils/customHooks';
 
 const useStyles = makeStyles(theme => ({
   form: {
@@ -33,7 +33,7 @@ const BtnContainer = styled.div`
 const DetailsForm = ({ setLoading }) => {
   const [cookies] = useCookies(['Fc4uOrder_Session']);
   const classes = useStyles();
-  const [error, setError] = useState('');
+  const alert = useAlert();
   const [redirect, setRedirect] = useState(false);
   const { firstname, lastname, company, phone } = cookies.Fc4uOrder_Session || {};
 
@@ -63,7 +63,7 @@ const DetailsForm = ({ setLoading }) => {
         await orderServices.setStep6(data);
         setRedirect(true);
       } catch (err) {
-        setError(err.response.data.errorMessage || err.message);
+        alert.error(err.response.data.errorMessage || err.message);
         setLoading(false);
       }
     },
@@ -95,9 +95,6 @@ const DetailsForm = ({ setLoading }) => {
           FINISH
         </Button>
       </BtnContainer>
-      <Alert severity="error" open={!!error} onClose={() => setError('')}>
-        {error}
-      </Alert>
     </form>
   );
 };

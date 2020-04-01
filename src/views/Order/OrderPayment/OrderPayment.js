@@ -7,11 +7,11 @@ import { Button, makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
 import FullContainer from 'components/atoms/FullContainer/FullContainer';
 import ColumnForm from 'components/atoms/ColumnForm/ColumnForm';
 import BoxTitle from 'components/atoms/BoxTitle/BoxTitle';
-import Alert from 'components/atoms/Alert/Alert';
 import LoadingCover from 'components/molecules/LoadingCover/LoadingCover';
 import Stepper from 'components/organisms/Stepper/Stepper';
 import OrderAccessController from 'utils/OrderAccessController';
 import generatePayment from 'utils/paymentGenerator';
+import { useAlert } from 'utils/customHooks';
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -32,7 +32,7 @@ const OrderPayment = () => {
   const classes = useStyles();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
-  const [error, setError] = useState('');
+  const alert = useAlert();
   const [loading, setLoading] = useState(false);
   const [redirect, setRedirect] = useState(false);
 
@@ -45,7 +45,7 @@ const OrderPayment = () => {
       if (data.invoice.total === '0.00') return setRedirect(true);
       generatePayment(method, data);
     } catch (err) {
-      setError(err.message);
+      alert.error(err.message);
       setTimeout(() => setLoading(false), 1000);
     }
   };
@@ -84,9 +84,6 @@ const OrderPayment = () => {
           Back
         </Button>
       </ColumnForm>
-      <Alert severity="error" open={!!error} onClose={() => setError('')}>
-        {error}
-      </Alert>
     </FullContainer>
   );
 };

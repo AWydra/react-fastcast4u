@@ -3,16 +3,16 @@ import { useMediaQuery, useTheme } from '@material-ui/core';
 import FullContainer from 'components/atoms/FullContainer/FullContainer';
 import ColumnForm from 'components/atoms/ColumnForm/ColumnForm';
 import BoxTitle from 'components/atoms/BoxTitle/BoxTitle';
-import Alert from 'components/atoms/Alert/Alert';
 import LoadingCover from 'components/molecules/LoadingCover/LoadingCover';
 import Stepper from 'components/organisms/Stepper/Stepper';
 import DetailsForm from 'components/organisms/OrderForms/DetailsForm/DetailsForm';
 import orderServices from 'services/order';
 import OrderAccessController from 'utils/OrderAccessController';
+import { useAlert } from 'utils/customHooks';
 
 const OrderDetails = () => {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const alert = useAlert();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
 
@@ -24,7 +24,7 @@ const OrderDetails = () => {
         setLoading(false);
       } catch (err) {
         if (!err.__CANCEL__) {
-          setError(err.response.data.errorMessage || err.message);
+          alert.error(err.response.data.errorMessage || err.message);
           setLoading(false);
         }
       }
@@ -32,7 +32,7 @@ const OrderDetails = () => {
     checkCompatibility();
 
     return () => orderServices.cancel();
-  }, []);
+  }, [alert]);
 
   return (
     <FullContainer center centerX>
@@ -51,9 +51,6 @@ const OrderDetails = () => {
         </BoxTitle>
         <DetailsForm setLoading={setLoading} />
       </ColumnForm>
-      <Alert severity="error" open={!!error} onClose={() => setError('')}>
-        {error}
-      </Alert>
     </FullContainer>
   );
 };

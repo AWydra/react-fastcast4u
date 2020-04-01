@@ -5,7 +5,7 @@ import HeadingBlock from 'components/molecules/HeadingBlock/HeadingBlock';
 import Features from 'components/organisms/Features/Features';
 import CTAButton from 'components/atoms/CTAButton/CTAButton';
 import orderServices from 'services/order';
-import Alert from 'components/atoms/Alert/Alert';
+import { useAlert } from 'utils/customHooks';
 
 import RocketIcon from 'assets/svg/RocketIcon';
 import MicrophoneIcon from 'assets/svg/MicrophoneIcon';
@@ -57,7 +57,7 @@ const data = [
 const Order = () => {
   const [disabled, setDisabled] = useState(false);
   const [redirect, setRedirect] = useState(false);
-  const [error, setError] = useState('');
+  const alert = useAlert();
 
   const handleClick = async () => {
     try {
@@ -65,7 +65,7 @@ const Order = () => {
       await orderServices.setStep1();
       setRedirect(true);
     } catch (err) {
-      setError(err.message);
+      alert.error(err.message);
       setDisabled(false);
     }
   };
@@ -89,9 +89,6 @@ const Order = () => {
         Start Now
       </CTAButton>
       {redirect && <Redirect push to="order/package" />}
-      <Alert severity="error" open={!!error} onClose={() => setError('')}>
-        {error}
-      </Alert>
     </FullContainer>
   );
 };

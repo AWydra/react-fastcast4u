@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
+import orderActions from 'actions/orderActions';
 import { Link, Redirect } from 'react-router-dom';
 import orderServices from 'services/order';
 
@@ -10,8 +11,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Button, FormControlLabel, Checkbox, makeStyles } from '@material-ui/core';
 import FormikInput from 'components/atoms/FormikInput/FormikInput';
-import Alert from 'components/atoms/Alert/Alert';
-import orderActions from 'actions/orderActions';
+import { useAlert } from 'utils/customHooks';
 
 const useStyles = makeStyles(theme => ({
   form: {
@@ -34,7 +34,7 @@ const LoginForm = ({ setLoading }) => {
   const { email, password, username, emailmarketing } = useSelector(state => state.order);
   const dispatch = useDispatch();
   const classes = useStyles();
-  const [error, setError] = useState('');
+  const alert = useAlert();
   const [redirect, setRedirect] = useState(false);
 
   const formik = useFormik({
@@ -69,7 +69,7 @@ const LoginForm = ({ setLoading }) => {
         dispatch(orderActions.setCredentials(data));
         setRedirect(true);
       } catch (err) {
-        setError(err.response.data.errorMessage || err.response.statusText);
+        alert.error(err.response.data.errorMessage || err.response.statusText);
         setLoading(false);
       }
     },
@@ -101,9 +101,6 @@ const LoginForm = ({ setLoading }) => {
           {redirect && <Redirect push to="/order/payment" />}
         </BtnContainer>
       </form>
-      <Alert severity="error" open={!!error} onClose={() => setError('')}>
-        {error}
-      </Alert>
     </>
   );
 };
