@@ -10,7 +10,7 @@ const mainTheme = {
   },
   palette: {
     primary: {
-      main: 'hsl(204, 63%, 49%)',
+      main: 'hsl(199, 100%, 36%)',
     },
     secondary: {
       main: 'hsl(350, 65%, 46%);',

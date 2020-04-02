@@ -83,16 +83,9 @@ const Home = () => {
         </CTAButton>
       </FullContainer>
       <FullContainer maxWidth="xl">
-        {sections.map(({ img, heading, content, btn, link }, i) => (
+        {sections.map((props, i) => (
           <React.Fragment key={i}>
-            <RowSection
-              img={img}
-              heading={heading}
-              content={content}
-              btn={btn}
-              link={link}
-              reverse={i % 2 === 1}
-            />
+            <RowSection {...props} reverse={i % 2 === 1} />
             {i + 1 < sections.length && <Divider variant="middle" />}
           </React.Fragment>
         ))}

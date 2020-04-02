@@ -38,16 +38,16 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const RowSection = ({ img, reverse, ...props }) => {
+const RowSection = ({ img, reverse, heading, ...props }) => {
   const classes = useStyles(reverse);
 
   return (
     <Grid className={classes.container} container>
       <Grid className={classes.image} item xs={12} lg={7}>
-        <Image src={img} />
+        <Image src={img} alt={heading} />
       </Grid>
       <Grid className={classes.item} item xs={12} lg={5}>
-        <RowContent reverse={reverse} {...props} />
+        <RowContent reverse={reverse} heading={heading} {...props} />
       </Grid>
     </Grid>
   );
@@ -56,6 +56,7 @@ const RowSection = ({ img, reverse, ...props }) => {
 RowSection.propTypes = {
   img: PropTypes.string.isRequired,
   reverse: PropTypes.bool.isRequired,
+  heading: PropTypes.string.isRequired,
 };
 
 export default RowSection;

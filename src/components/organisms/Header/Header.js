@@ -7,8 +7,8 @@ import styled, { css } from 'styled-components';
 import { AppBar, Toolbar, IconButton } from '@material-ui/core';
 import Logo from 'components/atoms/Logo/Logo';
 import NavButton from 'components/atoms/NavButton/NavButton';
-import Brightness4Icon from '@material-ui/icons/Brightness4';
-import Brightness7Icon from '@material-ui/icons/Brightness7';
+import LightIcon from '@material-ui/icons/Brightness4';
+import DarkIcon from '@material-ui/icons/Brightness7';
 
 const StyledAppBar = styled(AppBar)`
   ${({ theme }) => css`
@@ -39,8 +39,8 @@ const Header = () => {
     <StyledAppBar color="default" position="static">
       <StyledToolbar>
         <Logo mr="auto" to="/" />
-        <IconButton color="primary" onClick={handleClick}>
-          {theme === 'light' ? <Brightness4Icon /> : <Brightness7Icon />}
+        <IconButton color="primary" aria-label="toggle dark mode" onClick={handleClick}>
+          {theme === 'light' ? <LightIcon /> : <DarkIcon />}
         </IconButton>
         <NavButton to="/login">Login</NavButton>
       </StyledToolbar>
