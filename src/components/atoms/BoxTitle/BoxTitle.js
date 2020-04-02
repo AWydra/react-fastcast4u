@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Text from 'components/atoms/Text/Text';
-import { modeSwitch } from 'utils/theme';
 
 const useStyles = makeStyles(theme => ({
   title: {
@@ -10,7 +9,7 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 700,
   },
   color: {
-    color: modeSwitch(theme.palette.primary.main, theme.palette.primary.light),
+    color: theme.palette.primary.main,
   },
 }));
 

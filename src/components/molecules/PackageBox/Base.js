@@ -52,7 +52,7 @@ const useStyles = makeStyles(theme => ({
     border: `solid 1px ${
       isActive
         ? theme.palette.primary.main
-        : modeSwitch(theme.palette.grey[400], theme.palette.grey[700])
+        : modeSwitch(theme.palette.grey[400], theme.palette.grey[800])
     }`,
     transition: 'unset',
   }),

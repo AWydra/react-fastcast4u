@@ -59,8 +59,8 @@ const useStyles = makeStyles(theme => ({
     position: 'fixed',
     bottom: 0,
     left: 0,
-    borderTop: 'solid 2px',
-    borderTopColor: modeSwitch(theme.palette.grey[300], theme.palette.grey[700]),
+    borderTop: 'solid 1px',
+    borderTopColor: modeSwitch(theme.palette.grey[300], theme.palette.grey[800]),
     boxShadow: theme.shadows[4],
     zIndex: 2000000001,
   },
@@ -130,7 +130,7 @@ const PageNavigation = () => {
   return (
     matches &&
     showMenu && (
-      <BottomNavigation value={value} showLabels className={classes.root}>
+      <BottomNavigation component="nav" value={value} showLabels className={classes.root}>
         {navigationData.map(({ to, label, ...props }) => (
           <BottomNavigationAction
             component={Link}

@@ -6,7 +6,8 @@ const FooterContainer = styled(Container)`
   ${spacing}
   ${({ theme }) => css`
     margin-top: auto;
-    background-color: ${theme.palette.grey[900]};
+    background-color: ${theme.palette.background.paper};
+    border-top: solid 1px ${theme.palette.grey[800]};
     color: white;
 
     ${theme.breakpoints.down('xs')} {

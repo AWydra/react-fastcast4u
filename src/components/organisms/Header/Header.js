@@ -13,7 +13,7 @@ import DarkIcon from '@material-ui/icons/Brightness7';
 const StyledAppBar = styled(AppBar)`
   ${({ theme }) => css`
     padding: 0;
-    background-color: ${theme.palette.background.default};
+    background-color: ${theme.palette.background.paper};
   `}
 `;
 

@@ -20,7 +20,7 @@ const SummaryContainer = styled.div`
     position: sticky;
     top: ${theme.spacing(5)}px;
     background-color: ${theme.palette.background.paper};
-    border: solid 1px ${modeSwitch(theme.palette.grey[400], theme.palette.grey[700])};
+    border: solid 1px ${modeSwitch(theme.palette.grey[400], theme.palette.grey[800])};
     border-radius: ${theme.shape.borderRadius}px;
 
     ${theme.breakpoints.down('sm')} {

@@ -2,11 +2,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import { Container, ThemeProvider } from '@material-ui/core';
+import { Container } from '@material-ui/core';
 import FooterContainer from 'components/atoms/FooterContaier/FooterContainer';
 import FooterWidget from 'components/molecules/FooterWidget/FooterWidget';
 import FooterLinks from 'components/molecules/FooterLinks/FooterLinks';
-import theme from 'theme/footerTheme';
+import FooterThemeProvider from 'theme/FooterThemeProvider';
 
 const data = [
   {
@@ -56,14 +56,14 @@ const data = [
 const Footer = ({ location }) => {
   const isHidden = location.pathname.includes('order');
   return (
-    <ThemeProvider theme={theme}>
+    <FooterThemeProvider>
       <FooterContainer maxWidth={false} p={0}>
         <Container maxWidth="xl">
           {!isHidden && <FooterWidget data={data} />}
           <FooterLinks />
         </Container>
       </FooterContainer>
-    </ThemeProvider>
+    </FooterThemeProvider>
   );
 };
 
