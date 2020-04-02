@@ -9,22 +9,25 @@ import Header from 'components/organisms/Header/Header';
 import PageNavigation from 'components/organisms/PageNavigation/PageNavigation';
 import Footer from 'components/organisms/Footer/Footer';
 import MainThemeProvider from 'theme/MainThemeProvider';
+import ErrorHandler from './ErrorHandler';
 
 const MainTemplate = ({ children }) => {
   return (
-    <NoSsr>
-      <MainThemeProvider>
-        <StylesProvider injectFirst>
-          <CssBaseline />
-          <GlobalStyle />
-          <Alert />
-          <Header />
-          <Box mb={8}>{children}</Box>
-          <PageNavigation />
-          <Footer />
-        </StylesProvider>
-      </MainThemeProvider>
-    </NoSsr>
+    <ErrorHandler>
+      <NoSsr>
+        <MainThemeProvider>
+          <StylesProvider injectFirst>
+            <CssBaseline />
+            <GlobalStyle />
+            <Alert />
+            <Header />
+            <Box mb={8}>{children}</Box>
+            <PageNavigation />
+            <Footer />
+          </StylesProvider>
+        </MainThemeProvider>
+      </NoSsr>
+    </ErrorHandler>
   );
 };
 
