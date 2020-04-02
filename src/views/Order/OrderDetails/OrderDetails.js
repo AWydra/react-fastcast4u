@@ -31,6 +31,7 @@ const OrderDetails = () => {
     checkCompatibility();
 
     return () => orderServices.cancel();
+    // eslint-disable-next-line
   }, []);
 
   return (
