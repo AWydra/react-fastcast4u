@@ -16,7 +16,7 @@
 
 ## Project Overview 🎉
 
-E-commerce site created for one of the largest radio provider in the world. I used [Atomic Design](https://bradfrost.com/blog/post/atomic-web-design) for components architecture and Google's Material Design as a design language. When you first enter the page, you can see the company's offer or use the order wizard by clicking "Start Now" button. My goal is to create an application that is extremely easy to use and works partly offline.
+E-commerce site created for one of the largest radio provider in the world. I used [Atomic Design](https://bradfrost.com/blog/post/atomic-web-design) for components architecture and Google's Material Design as a design language. When you first enter the page, you can see the company's offer or use the order wizard by clicking "Start Now" button. My goal is to create an  accessible application that is extremely easy to use and works partly offline.
 
 ## TODO ✅
 
@@ -83,7 +83,7 @@ yarn start
 
 ## Credits 👏
 
-Big thanks to [@Chmaruss](https://github.com/Chmaruss) from [YouTube](https://www.youtube.com/channel/UCFmXR9JohMyuXPya2OUkcjg). Thanks to him and his tutorials I am where I am today.
+Big thanks to [@Chmarusso](https://github.com/Chmarusso) from [YouTube](https://www.youtube.com/channel/UCFmXR9JohMyuXPya2OUkcjg). Thanks to him and his tutorials I am where I am today.
 
 ## Live 📍
 
