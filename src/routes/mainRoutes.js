@@ -1,16 +1,20 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { Switch, Route } from 'react-router-dom';
-
-import Home from 'views/Home/Home';
+import PageLoader from 'components/molecules/PageLoader/PageLoader';
 import Order from 'views/Order/Order';
-import NotFound from 'views/NotFound/NotFound';
+
+const Home = lazy(() => import('views/Home/Home'));
+const NotFound = lazy(() => import('views/NotFound/NotFound'));
 
 const Routes = () => (
-  <Switch>
-    <Route exact path="/" component={Home} />
-    <Route path="/order" component={Order} />
-    <Route component={NotFound} />
-  </Switch>
+  <Suspense fallback={<PageLoader />}>
+    <Switch>
+      <Route exact path="/" component={Home} />
+      <Route path="/order" component={Order} />
+      <Route path="/test" component={PageLoader} />
+      <Route component={NotFound} />
+    </Switch>
+  </Suspense>
 );
 
 export default Routes;
