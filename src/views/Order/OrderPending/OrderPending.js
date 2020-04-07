@@ -4,12 +4,44 @@ import { useDispatch } from 'react-redux';
 import orderActions from 'actions/orderActions';
 import { withCookies, Cookies } from 'react-cookie';
 import orderServices from 'services/order';
+
+import { Chip, CircularProgress, makeStyles } from '@material-ui/core';
+import ColumnForm from 'components/atoms/ColumnForm/ColumnForm';
+import FullContainer from 'components/atoms/FullContainer/FullContainer';
+import BoxTitle from 'components/atoms/BoxTitle/BoxTitle';
+import Text from 'components/atoms/Text/Text';
 import OrderAccessController from 'utils/OrderAccessController';
+
+const useStyles = makeStyles(theme => ({
+  paper: {
+    padding: theme.spacing(2),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    [theme.breakpoints.up('sm')]: {
+      padding: theme.spacing(3, 5),
+    },
+  },
+  chip: {
+    fontSize: '20px',
+  },
+  status: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+}));
+
+const messages = {
+  checking: 'Checking data validation',
+  creating: 'Creating account',
+  initializing: 'Preparing account',
+};
 
 const OrderPending = ({ cookies }) => {
   const [status, setStatus] = useState('checking');
   const [url, setURL] = useState('checking');
   const dispatch = useDispatch();
+  const classes = useStyles();
 
   useEffect(() => {
     let interval;
@@ -53,11 +85,20 @@ const OrderPending = ({ cookies }) => {
   return (
     <>
       <OrderAccessController currentStep={6} />
-      <h1 style={{ textAlign: 'center' }}>Please wait</h1>
-      <h2 style={{ textAlign: 'center' }}>Status: {status}...</h2>
-      <h2 style={{ textAlign: 'center' }}>
-        We are processing the payment and setting your server. This may take up to a few minutes
-      </h2>
+      <FullContainer center>
+        <ColumnForm className={classes.paper}>
+          <BoxTitle variant="h4" component="h1" mb={3}>
+            Please Wait
+          </BoxTitle>
+          <CircularProgress />
+          <Text className={classes.status} component="h2" variant="h5" my={3}>
+            <Chip className={classes.chip} label={messages[status]} color="primary" />
+          </Text>
+          <Text textAlign="center">
+            We are processing the payment and setting your server. This may take up to a few minutes
+          </Text>
+        </ColumnForm>
+      </FullContainer>
     </>
   );
 };
