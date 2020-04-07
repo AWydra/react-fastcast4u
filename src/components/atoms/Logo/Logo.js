@@ -8,7 +8,7 @@ import { spacing } from '@material-ui/system';
 import Image from 'components/atoms/Image/Image';
 import LogoFile from 'assets/img/logo.png';
 
-const Logo = styled(({ ...other }) => <Image {...other} src={LogoFile} alt="Site logo" />)`
+const Logo = styled(Image)`
   ${({ theme }) => css`
     width: 140px;
     padding: ${theme.spacing(2, 0)};
@@ -32,7 +32,7 @@ const StyledButtonBase = styled(ButtonBase)`
 
 const LogoLink = ({ to, ...props }) => (
   <StyledButtonBase component={Link} to={to} centerRipple focusRipple {...props}>
-    <Logo {...props} />
+    <Logo src={LogoFile} alt="Site logo" visibleByDefault {...props} />
   </StyledButtonBase>
 );
 

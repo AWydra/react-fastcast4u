@@ -9,6 +9,7 @@ const FullContainer = styled(({ center, centerX, ...props }) => (
   ${({ theme }) => css`
     width: 100%;
     min-height: 70vh;
+    overflow-x: hidden;
 
     @media (orientation: landscape) AND (max-height: ${theme.breakpoints.values.md}px) {
       min-height: 100vh;
