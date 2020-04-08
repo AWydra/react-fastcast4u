@@ -6,7 +6,7 @@ import { withCookies, Cookies } from 'react-cookie';
 import orderServices from 'services/order';
 
 import { Chip, CircularProgress, makeStyles } from '@material-ui/core';
-import ColumnForm from 'components/atoms/ColumnForm/ColumnForm';
+import ColumnForm from 'components/molecules/ColumnForm/ColumnForm';
 import FullContainer from 'components/atoms/FullContainer/FullContainer';
 import BoxTitle from 'components/atoms/BoxTitle/BoxTitle';
 import Text from 'components/atoms/Text/Text';

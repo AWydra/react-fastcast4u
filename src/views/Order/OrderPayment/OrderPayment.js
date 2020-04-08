@@ -5,7 +5,7 @@ import orderServices from 'services/order';
 import styled from 'styled-components';
 import { Button, makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
 import FullContainer from 'components/atoms/FullContainer/FullContainer';
-import ColumnForm from 'components/atoms/ColumnForm/ColumnForm';
+import ColumnForm from 'components/molecules/ColumnForm/ColumnForm';
 import BoxTitle from 'components/atoms/BoxTitle/BoxTitle';
 import Stepper from 'components/organisms/Stepper/Stepper';
 import OrderAccessController from 'utils/OrderAccessController';

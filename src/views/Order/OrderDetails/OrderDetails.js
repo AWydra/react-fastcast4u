@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useMediaQuery, useTheme } from '@material-ui/core';
 import FullContainer from 'components/atoms/FullContainer/FullContainer';
-import ColumnForm from 'components/atoms/ColumnForm/ColumnForm';
+import ColumnForm from 'components/molecules/ColumnForm/ColumnForm';
 import BoxTitle from 'components/atoms/BoxTitle/BoxTitle';
 import Stepper from 'components/organisms/Stepper/Stepper';
 import DetailsForm from 'components/organisms/OrderForms/DetailsForm/DetailsForm';

@@ -3,7 +3,7 @@ import React, { useState, lazy, Suspense } from 'react';
 
 import { Link, CircularProgress, useMediaQuery, useTheme } from '@material-ui/core';
 import FullContainer from 'components/atoms/FullContainer/FullContainer';
-import ColumnForm from 'components/atoms/ColumnForm/ColumnForm';
+import ColumnForm from 'components/molecules/ColumnForm/ColumnForm';
 import BoxTitle from 'components/atoms/BoxTitle/BoxTitle';
 import Text from 'components/atoms/Text/Text';
 import Stepper from 'components/organisms/Stepper/Stepper';
