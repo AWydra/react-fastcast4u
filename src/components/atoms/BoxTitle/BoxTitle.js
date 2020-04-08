@@ -18,7 +18,11 @@ const BoxTitle = ({ children, ...props }) => {
 
   const sentence = children.split(' ').map(word => `${word} `);
   if (sentence.length >= 2) {
-    sentence[1] = <span className={classes.color}>{sentence[1]} </span>;
+    sentence[1] = (
+      <span data-testid="colored" className={classes.color}>
+        {sentence[1]}{' '}
+      </span>
+    );
   }
 
   return (
