@@ -1,3 +1,4 @@
+
 <h1 align="center">
   <a href="https://fastcast4u.com"><img src="https://fastcast4u.com/images/logo-dark.png" alt="FastCast4u Logo" width="200"></a>
   <br>
@@ -39,6 +40,7 @@ E-commerce site created for one of the largest radio provider in the world. I us
 - **react-hotjar**
 - **Material UI** framework
 - **styled-components**
+- **unit** & **component testing** using **Jest** and [**react-testing-library**](https://github.com/testing-library/react-testing-library)
 - **Husky** & **Lint-staged**
 - Tools: **CRA**, **Eslint**, **Prettier**
 
