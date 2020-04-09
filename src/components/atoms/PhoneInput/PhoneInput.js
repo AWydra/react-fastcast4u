@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import generalServices from 'services/general';
 import { makeStyles } from '@material-ui/core';
 import ReactPhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/material.css';
@@ -81,10 +82,21 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const PhoneInput = ({ ...props }) => {
+  const [country, setCountry] = useState('us');
   const classes = useStyles();
+
+  useEffect(() => {
+    const sendRequest = async () => {
+      const code = await generalServices.getCountryCode();
+      setCountry(code);
+    };
+
+    sendRequest();
+  }, []);
+
   return (
     <ReactPhoneInput
-      country="pl"
+      country={country}
       enableSearch
       containerClass={`react-tel-input ${classes.container}`}
       inputClass={`form-control ${classes.input}`}
