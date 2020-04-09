@@ -75,6 +75,7 @@ const Order = () => {
       <HeadingBlock
         title="Build the Server Package that's right for you in 3 Easy Steps"
         subtitle="We know what's important for streaming online so all Radio Servers come with:"
+        component="h1"
       />
       <Features data={data} />
       <CTAButton

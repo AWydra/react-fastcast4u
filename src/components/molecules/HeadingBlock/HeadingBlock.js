@@ -6,7 +6,6 @@ import styled from 'styled-components';
 
 const StyledContainer = styled.div`
   margin: 40px 0 60px;
-  padding: 0 15px;
 `;
 
 const HeadingBlock = ({ title, subtitle, ...props }) => (
