@@ -82,7 +82,7 @@ const Home = () => {
           START NOW
         </CTAButton>
       </FullContainer>
-      <FullContainer maxWidth="xl">
+      <FullContainer maxWidth="xl" overflowHidden>
         {sections.map((props, i) => (
           <React.Fragment key={i}>
             <RowSection {...props} reverse={i % 2 === 1} />
