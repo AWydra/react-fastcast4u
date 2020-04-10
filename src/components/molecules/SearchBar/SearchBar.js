@@ -13,6 +13,9 @@ const useStyles = makeStyles(theme => ({
     paddingRight: theme.spacing(2),
     flexGrow: 1,
     fontSize: theme.typography.pxToRem(20),
+    [theme.breakpoints.down('xs')]: {
+      fontSize: theme.typography.pxToRem(17),
+    },
   },
   iconButton: {
     margin: theme.spacing(0.25, 0.5, 0.25, 0.25),
@@ -22,10 +25,17 @@ const useStyles = makeStyles(theme => ({
     width: theme.spacing(4),
     height: theme.spacing(4),
     display: 'block',
+    [theme.breakpoints.down('xs')]: {
+      width: theme.spacing(3),
+      height: theme.spacing(3),
+    },
   },
   button: {
     borderRadius: 'unset',
     fontSize: theme.typography.pxToRem(18),
+    [theme.breakpoints.down('xs')]: {
+      fontSize: theme.typography.pxToRem(14),
+    },
   },
 }));
 
