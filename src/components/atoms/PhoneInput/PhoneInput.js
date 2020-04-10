@@ -87,11 +87,19 @@ const PhoneInput = ({ ...props }) => {
 
   useEffect(() => {
     const sendRequest = async () => {
-      const code = await generalServices.getCountryCode();
-      setCountry(code);
+      try {
+        const code = await generalServices.getCountryCode();
+        setCountry(code);
+      } catch (err) {
+        return null;
+      }
     };
 
     sendRequest();
+
+    return () => {
+      generalServices.cancel();
+    };
   }, []);
 
   return (
