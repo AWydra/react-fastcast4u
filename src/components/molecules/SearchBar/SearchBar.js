@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, IconButton, InputBase, Paper, makeStyles } from '@material-ui/core';
+import { Box, Button, IconButton, InputBase, Paper, makeStyles } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 
 const useStyles = makeStyles(theme => ({
@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
   },
   iconButton: {
     margin: theme.spacing(0.25, 0.5, 0.25, 0.25),
-    padding: theme.spacing(1),
+    padding: 5,
   },
   icon: {
     width: theme.spacing(4),
@@ -39,35 +39,37 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SearchBar = () => {
+const SearchBar = ({ ...props }) => {
   const classes = useStyles();
 
   return (
-    <Paper elevation={5} component="form" className={classes.root}>
-      <IconButton
-        component="label"
-        htmlFor="search"
-        className={classes.iconButton}
-        aria-label="search"
-      >
-        <SearchIcon className={classes.icon} />
-      </IconButton>
-      <InputBase
-        type="search"
-        id="search"
-        className={classes.input}
-        placeholder="Search a radio..."
-      />
-      <Button
-        className={classes.button}
-        disableElevation
-        size="large"
-        color="primary"
-        variant="contained"
-      >
-        Search
-      </Button>
-    </Paper>
+    <Box {...props}>
+      <Paper elevation={5} component="form" className={classes.root}>
+        <IconButton
+          component="label"
+          htmlFor="search"
+          className={classes.iconButton}
+          aria-label="search"
+        >
+          <SearchIcon className={classes.icon} />
+        </IconButton>
+        <InputBase
+          type="search"
+          id="search"
+          className={classes.input}
+          placeholder="Search a radio..."
+        />
+        <Button
+          className={classes.button}
+          disableElevation
+          size="large"
+          color="primary"
+          variant="contained"
+        >
+          Search
+        </Button>
+      </Paper>
+    </Box>
   );
 };
 
