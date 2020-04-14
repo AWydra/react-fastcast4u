@@ -90,6 +90,7 @@ const Promocode = () => {
           fullWidth
         />
         <CTAButton
+          disableElevation
           type="submit"
           variant="contained"
           color={active ? 'secondary' : 'primary'}

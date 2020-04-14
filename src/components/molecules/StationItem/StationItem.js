@@ -36,6 +36,9 @@ const useStyles = makeStyles(theme => ({
   content: {
     minWidth: 0,
     paddingLeft: theme.spacing(2),
+    [theme.breakpoints.down('xs')]: {
+      paddingLeft: 0,
+    },
     '&:last-child': {
       paddingBottom: theme.spacing(2),
     },
@@ -78,7 +81,7 @@ const StationItem = () => {
   const classes = useStyles();
 
   return (
-    <Card className={classes.root} component="li">
+    <Card className={classes.root} component="li" onClick={() => console.log('clicked')}>
       <CardActionArea className={classes.area}>
         <ContentWrapper>
           <CardContent className={classes.icon}>

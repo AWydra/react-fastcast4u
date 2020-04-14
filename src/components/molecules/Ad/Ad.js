@@ -12,7 +12,6 @@ import Text from 'components/atoms/Text/Text';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    marginTop: theme.spacing(3),
     position: 'sticky',
     top: theme.spacing(3),
   },
