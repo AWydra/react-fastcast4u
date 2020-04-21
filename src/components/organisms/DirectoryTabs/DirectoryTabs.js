@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Tabs = ({ data }) => {
+const DirectoryTabs = ({ data }) => {
   const [value, setValue] = useState('popular');
 
   const handleChange = (event, newValue) => {
@@ -57,9 +57,9 @@ const Tabs = ({ data }) => {
   );
 };
 
-Tabs.propTypes = {
+DirectoryTabs.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({ icon: PropTypes.element, label: PropTypes.any }))
     .isRequired,
 };
 
-export default Tabs;
+export default DirectoryTabs;
