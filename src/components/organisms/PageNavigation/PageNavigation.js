@@ -65,10 +65,10 @@ const useStyles = makeStyles(theme => ({
     zIndex: 2000000001,
   },
   action: {
-    padding: theme.spacing(1, 0),
+    padding: theme.spacing(0.5, 0),
     minWidth: 'unset',
     '&.Mui-selected': {
-      padding: theme.spacing(1, 0),
+      padding: theme.spacing(0.5, 0),
       '& .MuiBottomNavigationAction-label': { fontSize: '0.75rem' },
     },
   },

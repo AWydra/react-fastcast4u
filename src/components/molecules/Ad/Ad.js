@@ -16,17 +16,14 @@ const useStyles = makeStyles(theme => ({
     top: theme.spacing(3),
   },
   media: {
-    padding: theme.spacing(2.5),
+    padding: theme.spacing(2.5, 0),
   },
   content: {
-    padding: theme.spacing(3, 0),
+    padding: theme.spacing(3),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     color: 'white',
-    [theme.breakpoints.up('lg')]: {
-      padding: theme.spacing(3),
-    },
   },
   text: {
     textAlign: 'center',
