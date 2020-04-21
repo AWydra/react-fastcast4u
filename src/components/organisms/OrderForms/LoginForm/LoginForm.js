@@ -1,9 +1,9 @@
 // @ts-nocheck
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import orderActions from 'actions/orderActions';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import orderServices from 'services/order';
 
 import styled from 'styled-components';
@@ -12,6 +12,7 @@ import * as Yup from 'yup';
 import { Button, FormControlLabel, Checkbox, makeStyles } from '@material-ui/core';
 import FormikInput from 'components/atoms/FormikInput/FormikInput';
 import { useAlert } from 'utils/customHooks';
+import history from 'utils/history';
 
 const useStyles = makeStyles(theme => ({
   form: {
@@ -35,7 +36,6 @@ const LoginForm = ({ setLoading }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const alert = useAlert();
-  const [redirect, setRedirect] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -67,7 +67,7 @@ const LoginForm = ({ setLoading }) => {
 
         await orderServices.setStep3(data);
         dispatch(orderActions.setCredentials(data));
-        setRedirect(true);
+        history.push('/order/payment');
       } catch (err) {
         alert.error(err.response.data.errorMessage || err.response.statusText);
         setLoading(false);
@@ -98,7 +98,6 @@ const LoginForm = ({ setLoading }) => {
           <Button variant="contained" color="primary" type="submit">
             CONTINUE
           </Button>
-          {redirect && <Redirect push to="/order/payment" />}
         </BtnContainer>
       </form>
     </>

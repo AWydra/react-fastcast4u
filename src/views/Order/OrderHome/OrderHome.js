@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
 import FullContainer from 'components/atoms/FullContainer/FullContainer';
 import HeadingBlock from 'components/molecules/HeadingBlock/HeadingBlock';
 import Features from 'components/organisms/Features/Features';
 import CTAButton from 'components/atoms/CTAButton/CTAButton';
 import orderServices from 'services/order';
 import { useAlert } from 'utils/customHooks';
+import history from 'utils/history';
 
 import RocketIcon from 'assets/svg/RocketIcon';
 import MicrophoneIcon from 'assets/svg/MicrophoneIcon';
@@ -56,14 +56,13 @@ const data = [
 
 const Order = () => {
   const [disabled, setDisabled] = useState(false);
-  const [redirect, setRedirect] = useState(false);
   const alert = useAlert();
 
   const handleClick = async () => {
     try {
       setDisabled(true);
       await orderServices.setStep1();
-      setRedirect(true);
+      history.push('order/package');
     } catch (err) {
       alert.error(err.message);
       setDisabled(false);
@@ -89,7 +88,6 @@ const Order = () => {
       >
         Start Now
       </CTAButton>
-      {redirect && <Redirect push to="order/package" />}
     </FullContainer>
   );
 };

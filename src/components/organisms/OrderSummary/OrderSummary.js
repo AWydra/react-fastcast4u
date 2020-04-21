@@ -1,6 +1,5 @@
 // @ts-nocheck
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import orderServices from 'services/order';
 
@@ -14,6 +13,7 @@ import Promocode from 'components/molecules/Promocode/Promocode';
 import Text from 'components/atoms/Text/Text';
 import CTAButton from 'components/atoms/CTAButton/CTAButton';
 import { modeSwitch } from 'utils/theme';
+import history from 'utils/history';
 
 const SummaryContainer = styled.div`
   ${({ theme }) => css`
@@ -57,7 +57,6 @@ const useStyles = makeStyles(({ palette }) => ({
 
 const OrderSummary = () => {
   const order = useSelector(state => state.order);
-  const [redirect, setRedirect] = useState(false);
   const [loading, setLoading] = useState(false);
   const classes = useStyles();
 
@@ -76,10 +75,9 @@ const OrderSummary = () => {
     try {
       await orderServices.setStep2(packageData);
     } catch (err) {
-      console.error(err.message);
       setLoading(false);
     }
-    setRedirect(true);
+    history.push('/order/login');
   };
 
   return (
@@ -106,7 +104,6 @@ const OrderSummary = () => {
         <CTAButton disabled={loading} onClick={handleClick} color="primary">
           CONTINUE
         </CTAButton>
-        {redirect && <Redirect push to="/order/login" />}
       </FormContainer>
     </SummaryContainer>
   );

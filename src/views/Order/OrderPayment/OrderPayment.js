@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import orderServices from 'services/order';
 
 import styled from 'styled-components';
@@ -11,6 +11,7 @@ import Stepper from 'components/organisms/Stepper/Stepper';
 import OrderAccessController from 'utils/OrderAccessController';
 import generatePayment from 'utils/paymentGenerator';
 import { useAlert } from 'utils/customHooks';
+import history from 'utils/history';
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -33,7 +34,6 @@ const OrderPayment = () => {
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
   const alert = useAlert();
   const [loading, setLoading] = useState(false);
-  const [redirect, setRedirect] = useState(false);
 
   const handleClick = async method => {
     try {
@@ -41,7 +41,7 @@ const OrderPayment = () => {
       const { data } = await orderServices.setPaymentMethod(method);
 
       if (data.invoice.status === 'error') throw Error(data.invoice.message);
-      if (data.invoice.total === '0.00') return setRedirect(true);
+      if (data.invoice.total === '0.00') return history.push('/order/details');
       generatePayment(method, data);
     } catch (err) {
       alert.error(err.message);
@@ -52,7 +52,6 @@ const OrderPayment = () => {
   return (
     <FullContainer center centerX>
       <OrderAccessController currentStep={3} />
-      {redirect && <Redirect to="/order/details" />}
       {matches && (
         <Stepper
           steps={['Create your Server Package', 'Create Account', 'Payment & Setup']}
