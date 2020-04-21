@@ -5,7 +5,8 @@ import StationItem from 'components/molecules/StationItem/StationItem';
 import FullContainer from 'components/atoms/FullContainer/FullContainer';
 import SearchBar from 'components/molecules/SearchBar/SearchBar';
 import Ad from 'components/molecules/Ad/Ad';
-import Tabs from 'components/organisms/Tabs/Tabs';
+import DirectoryTabs from 'components/organisms/DirectoryTabs/DirectoryTabs';
+import DirectoryPagination from 'components/organisms/DirectoryPagination/DirectoryPagination';
 
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import FontDownloadIcon from '@material-ui/icons/FontDownload';
@@ -28,12 +29,13 @@ const RadioDirectory = () => {
       <SearchBar mb={6} />
       <Grid spacing={3} container>
         <Grid item xs={12} lg={8} component="section">
-          <Tabs data={data} />
+          <DirectoryTabs data={data} />
           <List>
             {[...Array(9)].map((el, i) => (
               <StationItem key={i} />
             ))}
           </List>
+          <DirectoryPagination />
         </Grid>
         <Grid item xs={12} lg={4} component="aside">
           <Ad />
