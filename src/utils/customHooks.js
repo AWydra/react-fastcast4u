@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import generalActions from 'actions/generalActions';
 
@@ -18,4 +18,17 @@ export const useAlert = () => {
   };
 };
 
-export default { useAlert };
+export const useDidUpdate = (callback, deps) => {
+  const hasMount = useRef(false);
+
+  useEffect(() => {
+    if (hasMount.current) {
+      callback();
+    } else {
+      hasMount.current = true;
+    }
+    // eslint-disable-next-line
+  }, deps);
+};
+
+export default { useAlert, useDidUpdate };
