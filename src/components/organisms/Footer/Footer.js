@@ -1,7 +1,6 @@
 // @ts-nocheck
 import React from 'react';
-import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { Container } from '@material-ui/core';
 import FooterContainer from 'components/atoms/FooterContaier/FooterContainer';
 import FooterWidget from 'components/molecules/FooterWidget/FooterWidget';
@@ -53,8 +52,10 @@ const data = [
   },
 ];
 
-const Footer = ({ location }) => {
+const Footer = () => {
+  const location = useLocation();
   const isHidden = location.pathname.includes('order');
+
   return (
     <FooterThemeProvider>
       <FooterContainer maxWidth={false} p={0}>
@@ -67,10 +68,4 @@ const Footer = ({ location }) => {
   );
 };
 
-Footer.propTypes = {
-  location: PropTypes.shape({
-    pathname: PropTypes.string,
-  }).isRequired,
-};
-
-export default withRouter(Footer);
+export default Footer;
