@@ -4,7 +4,14 @@ import PropTypes from 'prop-types';
 import { Paper, Tabs as MuiTabs, Tab, makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
-  tabs: { [theme.breakpoints.up('lg')]: { maxWidth: 'fit-content' } },
+  tabs: {
+    [theme.breakpoints.up('lg')]: {
+      maxWidth: 'fit-content',
+    },
+    '& [role="tablist"]': {
+      justifyContent: 'space-around',
+    },
+  },
   tab: {
     [theme.breakpoints.up('sm')]: {
       fontSize: '1rem',
@@ -33,13 +40,7 @@ const DirectoryTabs = ({ data }) => {
 
   return (
     <Paper square className={classes.tabs}>
-      <MuiTabs
-        indicatorColor="primary"
-        textColor="primary"
-        centered
-        value={value}
-        onChange={handleChange}
-      >
+      <MuiTabs indicatorColor="primary" textColor="primary" value={value} onChange={handleChange}>
         {data.map(({ icon, label, value }) => (
           <Tab
             className={classes.tab}
