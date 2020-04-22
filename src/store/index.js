@@ -6,6 +6,7 @@ import thunk from 'redux-thunk';
 
 import generalReducer from 'reducers/generalReducer';
 import orderReducer from 'reducers/orderReducer';
+import directoryReducer from 'reducers/directoryReducer';
 
 const generalPersistConfig = {
   key: 'general',
@@ -17,9 +18,15 @@ const orderPersistConfig = {
   storage,
 };
 
+const directoryPersistConfig = {
+  key: 'directory',
+  storage,
+};
+
 const rootReducer = combineReducers({
-  order: persistReducer(orderPersistConfig, orderReducer),
   general: persistReducer(generalPersistConfig, generalReducer),
+  order: persistReducer(orderPersistConfig, orderReducer),
+  directory: persistReducer(directoryPersistConfig, directoryReducer),
 });
 
 export const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));

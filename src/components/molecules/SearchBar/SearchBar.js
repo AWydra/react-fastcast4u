@@ -1,4 +1,7 @@
-import React from 'react';
+// @ts-nocheck
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import directoryActions from 'actions/directoryActions';
 import { Box, Button, IconButton, InputBase, Paper, makeStyles } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 
@@ -41,10 +44,22 @@ const useStyles = makeStyles(theme => ({
 
 const SearchBar = ({ ...props }) => {
   const classes = useStyles();
+  const storeTitle = useSelector(state => state.directory.title);
+  const dispatch = useDispatch();
+  const [title, setTitle] = useState(storeTitle);
+
+  const handleChange = ev => {
+    setTitle(ev.target.value);
+  };
+
+  const handleSubmit = ev => {
+    ev.preventDefault();
+    dispatch(directoryActions.setTitle(title));
+  };
 
   return (
-    <Box {...props}>
-      <Paper elevation={5} component="form" className={classes.root}>
+    <Box component="form" onSubmit={handleSubmit} {...props}>
+      <Paper elevation={5} className={classes.root}>
         <IconButton
           component="label"
           htmlFor="search"
@@ -58,6 +73,8 @@ const SearchBar = ({ ...props }) => {
           id="search"
           className={classes.input}
           placeholder="Search a radio..."
+          value={title}
+          onChange={handleChange}
         />
         <Button
           className={classes.button}
@@ -65,6 +82,7 @@ const SearchBar = ({ ...props }) => {
           size="large"
           color="primary"
           variant="contained"
+          type="submit"
         >
           Search
         </Button>
