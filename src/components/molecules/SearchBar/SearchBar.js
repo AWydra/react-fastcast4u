@@ -1,9 +1,10 @@
 // @ts-nocheck
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import directoryActions from 'actions/directoryActions';
 import { Box, Button, IconButton, InputBase, Paper, makeStyles } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
+import CloseIcon from '@material-ui/icons/Close';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -13,12 +14,16 @@ const useStyles = makeStyles(theme => ({
     maxWidth: 750,
   },
   input: {
-    paddingRight: theme.spacing(2),
-    flexGrow: 1,
-    fontSize: theme.typography.pxToRem(20),
-    [theme.breakpoints.down('xs')]: {
-      fontSize: theme.typography.pxToRem(17),
-      paddingRight: theme.spacing(1),
+    width: '100%',
+    fontSize: theme.typography.pxToRem(17),
+    '& input': {
+      marginLeft: theme.spacing(5),
+    },
+    [theme.breakpoints.up('sm')]: {
+      fontSize: theme.typography.pxToRem(20),
+      '& input': {
+        marginLeft: theme.spacing(6),
+      },
     },
   },
   iconButton: {
@@ -28,7 +33,10 @@ const useStyles = makeStyles(theme => ({
   icon: {
     width: theme.spacing(4),
     height: theme.spacing(4),
+    margin: theme.spacing(0, 1),
     display: 'block',
+    position: 'absolute',
+    color: theme.palette.grey[600],
     [theme.breakpoints.down('xs')]: {
       width: theme.spacing(3),
       height: theme.spacing(3),
@@ -49,6 +57,15 @@ const SearchBar = ({ ...props }) => {
   const dispatch = useDispatch();
   const [title, setTitle] = useState(storeTitle);
 
+  useEffect(() => {
+    setTitle(storeTitle);
+  }, [storeTitle]);
+
+  const handleClick = () => {
+    setTitle('');
+    dispatch(directoryActions.setTitle(''));
+  };
+
   const handleChange = ev => {
     setTitle(ev.target.value);
   };
@@ -61,22 +78,25 @@ const SearchBar = ({ ...props }) => {
   return (
     <Box component="form" onSubmit={handleSubmit} {...props}>
       <Paper elevation={5} className={classes.root}>
-        <IconButton
-          component="label"
-          htmlFor="search"
-          className={classes.iconButton}
-          aria-label="search"
-        >
-          <SearchIcon className={classes.icon} />
-        </IconButton>
         <InputBase
-          type="search"
           id="search"
           className={classes.input}
           placeholder="Search a radio..."
           value={title}
           onChange={handleChange}
           autoComplete="off"
+          startAdornment={<SearchIcon className={classes.icon} />}
+          endAdornment={
+            title && (
+              <IconButton
+                className={classes.iconButton}
+                onClick={handleClick}
+                aria-label="clear input"
+              >
+                <CloseIcon />
+              </IconButton>
+            )
+          }
         />
         <Button
           className={classes.button}
