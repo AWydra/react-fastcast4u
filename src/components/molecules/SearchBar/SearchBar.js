@@ -18,6 +18,7 @@ const useStyles = makeStyles(theme => ({
     fontSize: theme.typography.pxToRem(20),
     [theme.breakpoints.down('xs')]: {
       fontSize: theme.typography.pxToRem(17),
+      paddingRight: theme.spacing(1),
     },
   },
   iconButton: {
@@ -75,6 +76,7 @@ const SearchBar = ({ ...props }) => {
           placeholder="Search a radio..."
           value={title}
           onChange={handleChange}
+          autoComplete="off"
         />
         <Button
           className={classes.button}

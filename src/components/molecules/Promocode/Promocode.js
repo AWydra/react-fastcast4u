@@ -88,6 +88,7 @@ const Promocode = () => {
           placeholder="Promocode"
           variant="outlined"
           fullWidth
+          autoComplete="off"
         />
         <CTAButton
           disableElevation

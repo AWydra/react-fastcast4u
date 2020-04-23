@@ -9,7 +9,7 @@ import FooterThemeProvider from 'theme/FooterThemeProvider';
 
 const data = [
   {
-    title: 'PRODUCT &\xa0SERVICES',
+    title: 'SERVICES',
     content: [
       { heading: 'Radio Server', href: '/order' },
       { heading: 'Mobile App', href: '/app' },

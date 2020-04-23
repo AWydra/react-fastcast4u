@@ -5,8 +5,8 @@ import StationItem from 'components/molecules/StationItem/StationItem';
 import FullContainer from 'components/atoms/FullContainer/FullContainer';
 import SearchBar from 'components/molecules/SearchBar/SearchBar';
 import Ad from 'components/molecules/Ad/Ad';
-import DirectoryTabs from 'components/organisms/DirectoryTabs/DirectoryTabs';
-import DirectoryPagination from 'components/organisms/DirectoryPagination/DirectoryPagination';
+import DirectoryTabs from 'components/molecules/DirectoryTabs/DirectoryTabs';
+import DirectoryPagination from 'components/molecules/DirectoryPagination/DirectoryPagination';
 
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import FontDownloadIcon from '@material-ui/icons/FontDownload';
