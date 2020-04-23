@@ -13,4 +13,9 @@ const setTitle = title => ({
   payload: { title },
 });
 
-export default { setSort, setPage, setTitle };
+const setStations = stations => ({
+  type: 'SET_STATIONS',
+  payload: { stations },
+});
+
+export default { setSort, setPage, setTitle, setStations };

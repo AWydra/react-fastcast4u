@@ -4,6 +4,7 @@ const initialState = {
   sort: 'popular',
   page: 1,
   title: 'Halooo',
+  stations: [],
 };
 
 const directoryReducer = (state = initialState, action) => {
@@ -19,6 +20,10 @@ const directoryReducer = (state = initialState, action) => {
     case 'SET_TITLE':
       return produce(state, draftState => {
         draftState.title = action.payload.title;
+      });
+    case 'SET_STATIONS':
+      return produce(state, draftState => {
+        draftState.stations = action.payload.stations;
       });
     default:
       return state;
