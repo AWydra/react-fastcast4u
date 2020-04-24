@@ -1,6 +1,8 @@
 // @ts-nocheck
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
+import directoryActions from 'actions/directoryActions';
 import { Paper, Tabs as MuiTabs, Tab, makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
@@ -30,17 +32,17 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const DirectoryTabs = ({ data }) => {
-  const [value, setValue] = useState('popular');
+  const sort = useSelector(state => state.directory.sort);
+  const dispatch = useDispatch();
 
-  const handleChange = (event, newValue) => {
-    console.log(newValue);
-    setValue(newValue);
+  const handleChange = (ev, value) => {
+    dispatch(directoryActions.setSort(value));
   };
   const classes = useStyles();
 
   return (
     <Paper square className={classes.tabs}>
-      <MuiTabs indicatorColor="primary" textColor="primary" value={value} onChange={handleChange}>
+      <MuiTabs indicatorColor="primary" textColor="primary" value={sort} onChange={handleChange}>
         {data.map(({ icon, label, value }) => (
           <Tab
             className={classes.tab}
