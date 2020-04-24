@@ -7,10 +7,25 @@ const RadioDirectory = lazy(() => import('views/RadioDirectory/RadioDirectory'))
 const Order = () => (
   <Suspense fallback={<PageLoader />}>
     <Switch>
-      <Route path="/radio-directory/:page" component={RadioDirectory} />
-      <Route exact path="/radio-directory" component={RadioDirectory} />
+      <Route exact path="/radio-directory/station/:id/:station?" component={RadioDirectory} />
+      <Route
+        path="/radio-directory/search/:title/:page(\d+)/:sort(name|listeners)"
+        component={RadioDirectory}
+      />
+      <Route path="/radio-directory/:page(\d+)/:sort(name|listeners)" component={RadioDirectory} />
+      <Route
+        path="/radio-directory/search/:title/:sort(name|listeners)"
+        component={RadioDirectory}
+      />
+      <Route path="/radio-directory/search/:title/:page(\d+)" component={RadioDirectory} />
+      <Route path="/radio-directory/:sort(name|listeners)" component={RadioDirectory} />
+      <Route path="/radio-directory/search/:title" component={RadioDirectory} />
+      <Route path="/radio-directory/:page(\d+)" component={RadioDirectory} />
+      <Route path="/radio-directory" component={RadioDirectory} />
     </Switch>
   </Suspense>
 );
+
+// http://localhost:3000/radio-directory/search/WydraFM/2/name
 
 export default Order;
