@@ -1,12 +1,12 @@
 import React from 'react';
-import { List, Grid } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import HeadingBlock from 'components/molecules/HeadingBlock/HeadingBlock';
-import StationItem from 'components/molecules/StationItem/StationItem';
 import FullContainer from 'components/atoms/FullContainer/FullContainer';
 import SearchBar from 'components/molecules/SearchBar/SearchBar';
 import Ad from 'components/molecules/Ad/Ad';
 import DirectoryTabs from 'components/molecules/DirectoryTabs/DirectoryTabs';
 import DirectoryPagination from 'components/molecules/DirectoryPagination/DirectoryPagination';
+import DirectoryList from 'components/organisms/DirectoryList/DirectoryList';
 
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import FontDownloadIcon from '@material-ui/icons/FontDownload';
@@ -30,11 +30,7 @@ const RadioDirectory = () => {
       <Grid spacing={3} container>
         <Grid item xs={12} lg={8} component="section">
           <DirectoryTabs data={data} />
-          <List>
-            {[...Array(9)].map((el, i) => (
-              <StationItem key={i} />
-            ))}
-          </List>
+          <DirectoryList />
           <DirectoryPagination />
         </Grid>
         <Grid item xs={12} lg={4} component="aside">
