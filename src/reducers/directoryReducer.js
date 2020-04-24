@@ -9,6 +9,12 @@ const initialState = {
 
 const directoryReducer = (state = initialState, action) => {
   switch (action.type) {
+    case 'INIT_PARAMS':
+      return {
+        ...state,
+        ...action.payload,
+        sort: action.payload.sort || 'popular',
+      };
     case 'SET_SORT':
       return produce(state, draftState => {
         draftState.sort = action.payload.sort;

@@ -1,3 +1,8 @@
+const initParams = params => ({
+  type: 'INIT_PARAMS',
+  payload: { ...params },
+});
+
 const setSort = sort => ({
   type: 'SET_SORT',
   payload: { sort },
@@ -18,4 +23,4 @@ const setStations = stations => ({
   payload: { stations },
 });
 
-export default { setSort, setPage, setTitle, setStations };
+export default { initParams, setSort, setPage, setTitle, setStations };

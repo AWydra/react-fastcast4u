@@ -1,10 +1,11 @@
 // @ts-nocheck
-import React, { useEffect } from 'react';
-import { Link, useParams, useLocation } from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import directoryActions from 'actions/directoryActions';
-import { Pagination, PaginationItem } from '@material-ui/lab';
 import { makeStyles, useTheme, useMediaQuery } from '@material-ui/core';
+import { Pagination, PaginationItem } from '@material-ui/lab';
+import { modeSwitch } from 'utils/theme';
 
 const useStyles = makeStyles(theme => ({
   pagination: {
@@ -19,37 +20,29 @@ const useStyles = makeStyles(theme => ({
     },
     '& a': {
       [theme.breakpoints.up('lg')]: {
-        border: '1px solid rgba(0, 0, 0, 0.23)',
+        border: '1px solid',
+        borderColor: modeSwitch(theme.palette.grey[400], theme.palette.grey[700]),
       },
     },
   },
 }));
 
 const DirectoryPagination = () => {
-  const params = useParams();
-  const location = useLocation();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down('xs'));
   const classes = useStyles(matches);
   const page = useSelector(state => state.directory.page);
   const dispatch = useDispatch();
 
-  console.log('params', params);
-
   const handleChange = (ev, value) => {
     dispatch(directoryActions.setPage(value));
   };
-
-  useEffect(() => {
-    dispatch(directoryActions.setPage(Number(params.page || 1)));
-    // eslint-disable-next-line
-  }, [location.pathname]);
 
   return (
     <Pagination
       className={classes.pagination}
       onChange={handleChange}
-      page={page || 1}
+      page={Number(page)}
       count={169}
       color="primary"
       shape="rounded"
