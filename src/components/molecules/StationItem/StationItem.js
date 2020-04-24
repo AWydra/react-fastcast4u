@@ -1,10 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
-// import PropTypes from 'prop-types';
 import { Avatar, Card, CardActionArea, CardContent, makeStyles } from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
 import ThumbUpIcon from '@material-ui/icons/ThumbUpAltOutlined';
 import PeopleIcon from '@material-ui/icons/PeopleAltOutlined';
+import { modeSwitch } from 'utils/theme';
+import coverPicture from 'assets/img/cover.png';
 
 const ContentWrapper = styled.div`
   display: flex;
@@ -71,14 +73,17 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
     fontSize: theme.typography.pxToRem(18),
+    color: modeSwitch(theme.palette.grey[800], theme.palette.grey[200]),
   },
   statsIcon: {
     marginRight: theme.spacing(1),
   },
 }));
 
-const StationItem = () => {
+const StationItem = ({ data }) => {
   const classes = useStyles();
+
+  const coverPhoto = data.image.includes('nocover') ? coverPicture : data.image;
 
   return (
     <Card className={classes.root} component="li" onClick={() => console.log('clicked')}>
@@ -87,27 +92,29 @@ const StationItem = () => {
           <CardContent className={classes.icon}>
             <Avatar
               variant="rounded"
-              alt="Remy Sharp"
-              src="https://www.aquablog.ca/wp-content/uploads/2020/01/fave15.jpg"
+              alt={`${data.song} cover picture`}
+              src={coverPhoto}
               className={classes.avatar}
             />
           </CardContent>
           <CardContent className={classes.content}>
             <Text component="h4" variant="h6" fontSize="1.125rem">
-              Greatest Hits Radio Stream
+              {data.title}
             </Text>
-            <Text variant="subtitle1">Savage Garden - To the moon and back</Text>
+            <Text variant="subtitle1">
+              {data.artist} - {data.song}
+            </Text>
             <Text variant="subtitle2" color="textSecondary">
-              96 Kbps mp3
+              {data.bitrate} {data.format}
             </Text>
           </CardContent>
         </ContentWrapper>
         <CardContent className={classes.stats}>
           <Text className={classes.statsContent}>
-            <ThumbUpIcon className={classes.statsIcon} /> 277
+            <ThumbUpIcon className={classes.statsIcon} /> {data.likes}
           </Text>
           <Text className={classes.statsContent}>
-            <PeopleIcon className={classes.statsIcon} /> 4
+            <PeopleIcon className={classes.statsIcon} /> {data.listeners}
           </Text>
         </CardContent>
       </CardActionArea>
@@ -115,10 +122,22 @@ const StationItem = () => {
   );
 };
 
-// StationItem.propTypes = {
-//   icon: PropTypes.element.isRequired,
-//   heading: PropTypes.string.isRequired,
-//   description: PropTypes.string.isRequired,
-// };
+StationItem.propTypes = {
+  data: PropTypes.shape({
+    artist: PropTypes.string,
+    bitrate: PropTypes.string,
+    format: PropTypes.string,
+    id: PropTypes.string,
+    image: PropTypes.string,
+    likes: PropTypes.number,
+    listeners: PropTypes.string,
+    proxy: PropTypes.string,
+    song: PropTypes.string,
+    stream: PropTypes.string,
+    title: PropTypes.string,
+    username: PropTypes.string,
+    xml: PropTypes.string,
+  }).isRequired,
+};
 
 export default StationItem;
