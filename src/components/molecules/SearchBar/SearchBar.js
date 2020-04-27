@@ -1,10 +1,10 @@
 // @ts-nocheck
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import directoryActions from 'actions/directoryActions';
+import { useSelector } from 'react-redux';
 import { Box, Button, IconButton, InputBase, Paper, makeStyles } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import CloseIcon from '@material-ui/icons/Close';
+import history from 'utils/history';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -54,7 +54,6 @@ const useStyles = makeStyles(theme => ({
 const SearchBar = ({ ...props }) => {
   const classes = useStyles();
   const storeTitle = useSelector(state => state.directory.title);
-  const dispatch = useDispatch();
   const [title, setTitle] = useState(storeTitle);
 
   useEffect(() => {
@@ -63,7 +62,7 @@ const SearchBar = ({ ...props }) => {
 
   const handleClick = () => {
     setTitle('');
-    dispatch(directoryActions.setTitle(''));
+    history.push(`/radio-directory`);
   };
 
   const handleChange = ev => {
@@ -72,7 +71,7 @@ const SearchBar = ({ ...props }) => {
 
   const handleSubmit = ev => {
     ev.preventDefault();
-    dispatch(directoryActions.setTitle(title));
+    history.push(`/radio-directory${title ? `/search/${title}` : ''}`);
   };
 
   return (
