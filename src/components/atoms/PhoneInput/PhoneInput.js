@@ -81,7 +81,8 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const PhoneInput = ({ ...props }) => {
+// eslint-disable-next-line react/prop-types
+const PhoneInput = ({ value, ...props }) => {
   const [country, setCountry] = useState('us');
   const classes = useStyles();
 
@@ -104,7 +105,8 @@ const PhoneInput = ({ ...props }) => {
 
   return (
     <ReactPhoneInput
-      country={country}
+      value={value}
+      country={!value && country}
       enableSearch
       containerClass={`react-tel-input ${classes.container}`}
       inputClass={`form-control ${classes.input}`}
