@@ -3,17 +3,19 @@ import produce from 'immer';
 const initialState = {
   sort: 'popular',
   page: 1,
-  title: 'Halooo',
+  title: '',
   stations: [],
 };
 
 const directoryReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'INIT_PARAMS':
+    case 'SET_PARAMS':
       return {
         ...state,
         ...action.payload,
         sort: action.payload.sort || 'popular',
+        page: action.payload.page || 1,
+        title: action.payload.title || '',
       };
     case 'SET_SORT':
       return produce(state, draftState => {

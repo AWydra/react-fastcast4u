@@ -1,11 +1,11 @@
 // @ts-nocheck
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import directoryActions from 'actions/directoryActions';
+import { useSelector } from 'react-redux';
 import { makeStyles, useTheme, useMediaQuery } from '@material-ui/core';
-import { Pagination, PaginationItem } from '@material-ui/lab';
+import { Pagination } from '@material-ui/lab';
 import { modeSwitch } from 'utils/theme';
+import directoryLinkParser from 'utils/directoryLinkParser';
+import history from 'utils/history';
 
 const useStyles = makeStyles(theme => ({
   pagination: {
@@ -15,10 +15,10 @@ const useStyles = makeStyles(theme => ({
       flexWrap: 'nowrap',
       justifyContent: 'center',
     },
-    '& a, & div': {
+    '& button, & div': {
       margin: matches => matches && 0,
     },
-    '& a': {
+    '& button': {
       [theme.breakpoints.up('lg')]: {
         border: '1px solid',
         borderColor: modeSwitch(theme.palette.grey[400], theme.palette.grey[700]),
@@ -32,25 +32,21 @@ const DirectoryPagination = () => {
   const matches = useMediaQuery(theme.breakpoints.down('xs'));
   const classes = useStyles(matches);
   const page = useSelector(state => state.directory.page);
-  const dispatch = useDispatch();
 
   const handleChange = (ev, value) => {
-    dispatch(directoryActions.setPage(value));
+    history.push(directoryLinkParser({ page: value }));
   };
 
   return (
     <Pagination
-      className={classes.pagination}
       onChange={handleChange}
+      className={classes.pagination}
       page={Number(page)}
       count={169}
       color="primary"
       shape="rounded"
       size={matches ? 'medium' : 'large'}
       siblingCount={matches ? 1 : 2}
-      renderItem={item => (
-        <PaginationItem component={Link} to={`/radio-directory/${item.page}`} {...item} />
-      )}
     />
   );
 };
