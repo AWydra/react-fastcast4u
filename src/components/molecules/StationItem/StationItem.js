@@ -1,14 +1,19 @@
+// @ts-nocheck
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { Avatar, Card, CardActionArea, CardContent, makeStyles } from '@material-ui/core';
+import { Card, CardActionArea, CardContent, makeStyles } from '@material-ui/core';
+import { Skeleton } from '@material-ui/lab';
+import Image from 'components/atoms/Image/Image';
 import Text from 'components/atoms/Text/Text';
 import ThumbUpIcon from '@material-ui/icons/ThumbUpAltOutlined';
 import PeopleIcon from '@material-ui/icons/PeopleAltOutlined';
 import { modeSwitch } from 'utils/theme';
-import coverPicture from 'assets/img/cover.png';
+import defaultCoverPicture from 'assets/img/cover.png';
 
 const ContentWrapper = styled.div`
+  width: 100%;
   display: flex;
   flex-grow: 1;
   min-width: 0;
@@ -38,6 +43,7 @@ const useStyles = makeStyles(theme => ({
   content: {
     minWidth: 0,
     paddingLeft: theme.spacing(2),
+    flex: 1,
     [theme.breakpoints.down('xs')]: {
       paddingLeft: 0,
     },
@@ -60,6 +66,7 @@ const useStyles = makeStyles(theme => ({
     },
   },
   stats: {
+    minWidth: 110,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-around',
@@ -82,39 +89,49 @@ const useStyles = makeStyles(theme => ({
 
 const StationItem = ({ data }) => {
   const classes = useStyles();
+  const loading = useSelector(state => state.directory.loading);
 
-  const coverPhoto = data.image.includes('nocover') ? coverPicture : data.image;
+  const coverPhoto = data.image.includes('nocover') ? defaultCoverPicture : data.image;
 
   return (
     <Card className={classes.root} component="li" onClick={() => console.log('clicked')}>
       <CardActionArea className={classes.area}>
         <ContentWrapper>
           <CardContent className={classes.icon}>
-            <Avatar
-              variant="rounded"
-              alt={`${data.song} cover picture`}
-              src={coverPhoto}
-              className={classes.avatar}
-            />
+            {loading ? (
+              <Skeleton variant="rect" className={classes.avatar} />
+            ) : (
+              <Image
+                variant="rounded"
+                alt={`${data.song} cover picture`}
+                src={coverPhoto}
+                className={classes.avatar}
+                onError={ev => {
+                  ev.target.src = defaultCoverPicture;
+                }}
+              />
+            )}
           </CardContent>
           <CardContent className={classes.content}>
             <Text component="h4" variant="h6" fontSize="1.125rem">
-              {data.title}
+              {loading ? <Skeleton variant="text" width="80%" /> : data.title}
             </Text>
             <Text variant="subtitle1">
-              {data.artist} - {data.song}
+              {loading ? <Skeleton variant="text" width="50%" /> : `${data.artist} - ${data.song}`}
             </Text>
             <Text variant="subtitle2" color="textSecondary">
-              {data.bitrate} {data.format}
+              {loading ? <Skeleton variant="text" width={100} /> : `${data.bitrate} ${data.format}`}
             </Text>
           </CardContent>
         </ContentWrapper>
         <CardContent className={classes.stats}>
           <Text className={classes.statsContent}>
-            <ThumbUpIcon className={classes.statsIcon} /> {data.likes}
+            <ThumbUpIcon className={classes.statsIcon} />
+            {loading ? <Skeleton variant="text" width={35} /> : data.likes}
           </Text>
           <Text className={classes.statsContent}>
-            <PeopleIcon className={classes.statsIcon} /> {data.listeners}
+            <PeopleIcon className={classes.statsIcon} />
+            {loading ? <Skeleton variant="text" width={35} /> : data.listeners}
           </Text>
         </CardContent>
       </CardActionArea>
