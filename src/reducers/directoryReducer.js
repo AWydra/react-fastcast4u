@@ -1,10 +1,15 @@
 import produce from 'immer';
 
 const initialState = {
+  loading: true,
+  pages: 100,
   sort: 'popular',
   page: 1,
   title: '',
-  stations: [],
+  stations: [...Array(9)].map((el, i) => ({ id: i, image: `${i}` })),
+  source: {
+    cancel: () => {},
+  },
 };
 
 const directoryReducer = (state = initialState, action) => {
@@ -12,26 +17,23 @@ const directoryReducer = (state = initialState, action) => {
     case 'SET_PARAMS':
       return {
         ...state,
-        ...action.payload,
         sort: action.payload.sort || 'popular',
         page: action.payload.page || 1,
         title: action.payload.title || '',
+        id: action.payload.id || '',
       };
-    case 'SET_SORT':
+    case 'SET_LOADING':
       return produce(state, draftState => {
-        draftState.sort = action.payload.sort;
+        draftState.loading = action.payload.loading;
       });
-    case 'SET_PAGE':
+    case 'SET_PAGES':
       return produce(state, draftState => {
-        draftState.page = action.payload.page;
-      });
-    case 'SET_TITLE':
-      return produce(state, draftState => {
-        draftState.title = action.payload.title;
+        draftState.pages = action.payload.pages;
       });
     case 'SET_STATIONS':
       return produce(state, draftState => {
         draftState.stations = action.payload.stations;
+        draftState.loading = false;
       });
     default:
       return state;

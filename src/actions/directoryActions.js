@@ -1,21 +1,25 @@
+const setLoading = loading => ({
+  type: 'SET_LOADING',
+  payload: { loading },
+});
+
+const setPages = pages => ({
+  type: 'SET_PAGES',
+  payload: { pages },
+});
+
+const setSource = source => ({
+  type: 'SET_SOURCE',
+  payload: { source },
+});
+
+const cancelRequest = () => ({
+  type: 'CANCEL_REQUEST',
+});
+
 const setParams = params => ({
   type: 'SET_PARAMS',
   payload: { ...params },
-});
-
-const setSort = sort => ({
-  type: 'SET_SORT',
-  payload: { sort },
-});
-
-const setPage = page => ({
-  type: 'SET_PAGE',
-  payload: { page },
-});
-
-const setTitle = title => ({
-  type: 'SET_TITLE',
-  payload: { title },
 });
 
 const setStations = stations => ({
@@ -23,4 +27,4 @@ const setStations = stations => ({
   payload: { stations },
 });
 
-export default { setParams, setSort, setPage, setTitle, setStations };
+export default { setLoading, setPages, setSource, cancelRequest, setParams, setStations };
