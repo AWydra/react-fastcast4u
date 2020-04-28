@@ -32,6 +32,8 @@ const DirectoryPagination = () => {
   const matches = useMediaQuery(theme.breakpoints.down('xs'));
   const classes = useStyles(matches);
   const page = useSelector(state => state.directory.page);
+  const pages = useSelector(state => state.directory.pages);
+  const loading = useSelector(state => state.directory.loading);
 
   const handleChange = (ev, value) => {
     history.push(directoryLinkParser({ page: value }));
@@ -42,7 +44,8 @@ const DirectoryPagination = () => {
       onChange={handleChange}
       className={classes.pagination}
       page={Number(page)}
-      count={169}
+      count={pages}
+      disabled={loading}
       color="primary"
       shape="rounded"
       size={matches ? 'medium' : 'large'}
