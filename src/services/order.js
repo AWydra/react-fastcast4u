@@ -3,9 +3,7 @@ import { isProd } from 'utils/nodeEnv';
 
 const baseUrl = `${isProd() ? 'https://fastcast4u.com' : ''}/order/backend/api/`;
 
-const source = axios.CancelToken.source();
-
-const cancel = () => source.cancel();
+let source = axios.CancelToken.source();
 
 const setStep1 = async () => {
   const request = await axios.get(`${baseUrl}step1.php`);
@@ -53,18 +51,29 @@ const setStep6 = async data => {
 };
 
 const checkFinalCompatibility = async () => {
-  const request = await axios.get(`${baseUrl}isOk.php`);
+  const request = await axios.get(`${baseUrl}isOk.php`, {
+    cancelToken: source.token,
+  });
   return request.data;
 };
 
 const isReady = async () => {
-  const request = await axios.get(`${baseUrl}isReady.php`);
+  const request = await axios.get(`${baseUrl}isReady.php`, {
+    cancelToken: source.token,
+  });
   return request.data;
 };
 
 const getLoginURL = async url => {
-  const request = await axios.get(url);
+  const request = await axios.get(url, {
+    cancelToken: source.token,
+  });
   return request.data.url;
+};
+
+const cancel = () => {
+  source.cancel();
+  source = axios.CancelToken.source();
 };
 
 export default {
