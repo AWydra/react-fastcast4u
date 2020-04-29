@@ -16,8 +16,8 @@ const DirectoryList = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(directoryActions.setStationsPlaceholder(params.id && 1));
     dispatch(directoryActions.setParams(params));
-    dispatch(directoryActions.setLoading(true));
     const getStationList = async () => {
       try {
         const response = await directoryServices.getStationList(params);

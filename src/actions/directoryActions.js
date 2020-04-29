@@ -27,4 +27,17 @@ const setStations = stations => ({
   payload: { stations },
 });
 
-export default { setLoading, setPages, setSource, cancelRequest, setParams, setStations };
+const setStationsPlaceholder = (number = 9) => ({
+  type: 'SET_STATIONS_PLACEHOLDER',
+  payload: { number },
+});
+
+export default {
+  setLoading,
+  setPages,
+  setSource,
+  cancelRequest,
+  setParams,
+  setStations,
+  setStationsPlaceholder,
+};

@@ -35,6 +35,14 @@ const directoryReducer = (state = initialState, action) => {
         draftState.stations = action.payload.stations;
         draftState.loading = false;
       });
+    case 'SET_STATIONS_PLACEHOLDER':
+      return produce(state, draftState => {
+        draftState.loading = true;
+        draftState.stations = [...Array(action.payload.number)].map((el, i) => ({
+          id: i,
+          image: `${i}`,
+        }));
+      });
     default:
       return state;
   }
