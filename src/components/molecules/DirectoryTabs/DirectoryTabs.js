@@ -37,7 +37,13 @@ const DirectoryTabs = ({ data }) => {
   const classes = useStyles();
 
   const handleChange = (ev, value) => {
-    history.push(directoryLinkParser({ page: 1, sort: value }));
+    const currentPathname = window.location.pathname;
+    const destinationPathname = directoryLinkParser({ page: 1, sort: value });
+    if (currentPathname === destinationPathname) {
+      history.replace(destinationPathname);
+    } else {
+      history.push(destinationPathname);
+    }
   };
 
   return (

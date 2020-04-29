@@ -5,6 +5,7 @@ import { Box, Button, IconButton, InputBase, Paper, makeStyles } from '@material
 import SearchIcon from '@material-ui/icons/Search';
 import CloseIcon from '@material-ui/icons/Close';
 import history from 'utils/history';
+import directoryLinkParser from 'utils/directoryLinkParser';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -71,7 +72,13 @@ const SearchBar = ({ ...props }) => {
 
   const handleSubmit = ev => {
     ev.preventDefault();
-    history.push(`/radio-directory${title ? `/search/${title}` : ''}`);
+    const currentPathname = window.location.pathname;
+    const destinationPathname = directoryLinkParser({ page: 1, sort: 'popular', title });
+    if (currentPathname === destinationPathname) {
+      history.replace(destinationPathname);
+    } else {
+      history.push(destinationPathname);
+    }
   };
 
   return (

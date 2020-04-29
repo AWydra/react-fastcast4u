@@ -36,7 +36,13 @@ const DirectoryPagination = () => {
   const loading = useSelector(state => state.directory.loading);
 
   const handleChange = (ev, value) => {
-    history.push(directoryLinkParser({ page: value }));
+    const currentPathname = window.location.pathname;
+    const destinationPathname = directoryLinkParser({ page: value });
+    if (currentPathname === destinationPathname) {
+      history.replace(destinationPathname);
+    } else {
+      history.push(destinationPathname);
+    }
   };
 
   return (
