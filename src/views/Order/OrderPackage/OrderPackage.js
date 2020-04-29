@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import orderService from 'services/order';
 
@@ -74,8 +74,10 @@ const OrderPackage = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
 
-  // If products array isn't empty, don't fetch
-  !products.length && dispatch(orderService.getPricing());
+  useEffect(() => {
+    !products.length && dispatch(orderService.getPricing());
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <Container className={classes.root}>
