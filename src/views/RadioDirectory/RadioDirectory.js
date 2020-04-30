@@ -7,6 +7,7 @@ import Ad from 'components/molecules/Ad/Ad';
 import DirectoryTabs from 'components/molecules/DirectoryTabs/DirectoryTabs';
 import DirectoryPagination from 'components/molecules/DirectoryPagination/DirectoryPagination';
 import DirectoryList from 'components/organisms/DirectoryList/DirectoryList';
+import RadioPlayer from 'components/organisms/RadioPlayer/RadioPlayer';
 
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import FontDownloadIcon from '@material-ui/icons/FontDownload';
@@ -37,6 +38,7 @@ const RadioDirectory = () => {
           <Ad />
         </Grid>
       </Grid>
+      <RadioPlayer />
     </FullContainer>
   );
 };
