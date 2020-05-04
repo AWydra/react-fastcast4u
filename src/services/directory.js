@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { isProd } from 'utils/nodeEnv';
 
-const baseUrl = `${isProd() ? 'https://fastcast4u.com' : ''}/radio-directory/servertest.php`;
+const baseUrl = `${isProd() ? 'https://fastcast4u.com' : ''}/radio-directory/serverreact.php`;
 
 let source = axios.CancelToken.source();
 

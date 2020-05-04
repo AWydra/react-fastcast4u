@@ -144,7 +144,7 @@ StationItem.propTypes = {
     artist: PropTypes.string,
     bitrate: PropTypes.string,
     format: PropTypes.string,
-    id: PropTypes.string,
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     image: PropTypes.string,
     likes: PropTypes.number,
     listeners: PropTypes.string,
