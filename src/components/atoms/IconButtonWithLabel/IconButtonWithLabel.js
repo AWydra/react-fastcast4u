@@ -1,29 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { ButtonBase, makeStyles } from '@material-ui/core';
 
+const Button = styled(ButtonBase)`
+  display: 'flex';
+  flex-direction: column;
+  justify-content: space-around;
+`;
+
 const useStyles = makeStyles(theme => ({
-  button: {
-    padding: theme.spacing(0, 1),
-    display: 'flex',
-    flexDirection: 'column',
-  },
   icon: {
-    fontSize: 32,
+    fontSize: theme.typography.pxToRem(25),
   },
   label: {
-    fontSize: '1em',
+    fontSize: theme.typography.pxToRem(14.5),
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
   },
 }));
 
-const IconButtonWithLabel = ({ icon: Icon, label }) => {
+const IconButtonWithLabel = ({ icon: Icon, label, ...props }) => {
   const classes = useStyles();
 
   return (
-    <ButtonBase className={classes.button}>
+    <Button focusRipple centerRipple {...props}>
       <Icon className={classes.icon} />
       <span className={classes.label}>{label}</span>
-    </ButtonBase>
+    </Button>
   );
 };
 
