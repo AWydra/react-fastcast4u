@@ -13,10 +13,6 @@ const setSource = source => ({
   payload: { source },
 });
 
-const cancelRequest = () => ({
-  type: 'CANCEL_REQUEST',
-});
-
 const setParams = params => ({
   type: 'SET_PARAMS',
   payload: { ...params },
@@ -32,12 +28,23 @@ const setStationsPlaceholder = (number = 9) => ({
   payload: { number },
 });
 
+const setPlayerData = data => ({
+  type: 'SET_PLAYER_DATA',
+  payload: { ...data },
+});
+
+const setSongMetadata = data => ({
+  type: 'SET_SONG_METADATA',
+  payload: { ...data },
+});
+
 export default {
   setLoading,
   setPages,
   setSource,
-  cancelRequest,
   setParams,
   setStations,
   setStationsPlaceholder,
+  setPlayerData,
+  setSongMetadata,
 };

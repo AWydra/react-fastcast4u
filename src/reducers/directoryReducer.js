@@ -1,14 +1,28 @@
+// @ts-nocheck
 import produce from 'immer';
+
+const generateStationsPlaceholder = number =>
+  [...Array(number)].map((el, i) => ({ id: i, image: `${i}` }));
 
 const initialState = {
   loading: true,
-  pages: 100,
+  pages: 999,
   sort: 'popular',
   page: 1,
   title: '',
-  stations: [...Array(9)].map((el, i) => ({ id: i, image: `${i}` })),
-  source: {
-    cancel: () => {},
+  stations: generateStationsPlaceholder(9),
+  player: {
+    show: false,
+    id: '',
+    player: '',
+    proxy: '',
+    servertype: '',
+    metadata: '',
+    station: '',
+    artist: '',
+    title: '',
+    listeners: '',
+    image: '',
   },
 };
 
@@ -38,10 +52,15 @@ const directoryReducer = (state = initialState, action) => {
     case 'SET_STATIONS_PLACEHOLDER':
       return produce(state, draftState => {
         draftState.loading = true;
-        draftState.stations = [...Array(action.payload.number)].map((el, i) => ({
-          id: i,
-          image: `${i}`,
-        }));
+        draftState.stations = generateStationsPlaceholder(action.payload.number);
+      });
+    case 'SET_PLAYER_DATA':
+      return produce(state, draftState => {
+        draftState.player = { show: true, ...action.payload };
+      });
+    case 'SET_SONG_METADATA':
+      return produce(state, draftState => {
+        draftState.player = { ...draftState.player, ...action.payload };
       });
     default:
       return state;
