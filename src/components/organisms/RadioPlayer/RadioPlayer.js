@@ -1,4 +1,7 @@
-import React from 'react';
+// @ts-nocheck
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import directoryServices from 'services/directory';
 import {
   AppBar,
   Button,
@@ -10,13 +13,14 @@ import {
 } from '@material-ui/core';
 import Image from 'components/atoms/Image/Image';
 import IconButtonWithLabel from 'components/atoms/IconButtonWithLabel/IconButtonWithLabel';
+import ShareButton from 'components/molecules/ShareButton/ShareButton';
 import PlayerInfo from 'components/molecules/PlayerInfo/PlayerInfo';
 import VolumeSlider from 'components/molecules/VolumeSlider/VolumeSlider';
 import PlayIcon from 'assets/svg/PlayIcon';
 // import PauseIcon from '@material-ui/icons/Pause';
 import LikeIcon from '@material-ui/icons/ThumbUpOutlined';
-import ShareIcon from '@material-ui/icons/ShareOutlined';
 import LaunchIcon from '@material-ui/icons/Launch';
+import openPopup from 'utils/openPopup';
 
 const useStyles = makeStyles(theme => ({
   appBar: {
@@ -61,6 +65,7 @@ const useStyles = makeStyles(theme => ({
     height: theme.spacing(5.5),
     margin: theme.spacing(0.5),
     marginLeft: theme.spacing(0.5),
+    backgroundColor: theme.palette.common.white,
     [theme.breakpoints.up('sm')]: {
       width: theme.spacing(6),
       height: theme.spacing(6),
@@ -126,6 +131,17 @@ const RadioPlayer = () => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('lg'));
   const classes = useStyles();
+  const player = useSelector(state => state.directory.player);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(directoryServices.getSongMetadata(player.metadata, player.servertype));
+    const interval = setInterval(() => {
+      dispatch(directoryServices.getSongMetadata(player.metadata, player.servertype));
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, [player.metadata, dispatch]);
 
   return (
     <AppBar className={classes.appBar} position="fixed" color="primary" component="section">
@@ -133,29 +149,28 @@ const RadioPlayer = () => {
         <IconButton className={classes.iconButton} color="inherit" aria-label="play or pause radio">
           <PlayIcon className={classes.icon} />
         </IconButton>
-        <Image
-          className={classes.image}
-          src="https://images-na.ssl-images-amazon.com/images/I/61Y%2B05GJETL._SY450_.jpg"
-        />
-        <PlayerInfo
-          className={classes.album}
-          title="Blue Oyster Cult"
-          subtitle="Cities On Flame With Rock And Roll"
-        />
+        <Image className={classes.image} src={player.image} />
+        <PlayerInfo className={classes.album} title={player.artist} subtitle={player.title} />
         <PlayerInfo
           className={classes.station}
-          title="UP THE IRONS web Radio"
-          subtitle="Listeners: 0"
+          title={player.station}
+          subtitle={`Listeners: ${player.listeners}`}
           center
         />
         <IconButtonWithLabel className={classes.labelButton} icon={LikeIcon} label="Vote" />
-        <IconButtonWithLabel className={classes.labelButton} icon={ShareIcon} label="Share" />
+        <ShareButton className={classes.labelButton} id={player.id} />
         {matches ? (
-          <Button variant="contained" disableElevation className={classes.button}>
+          <Button
+            onClick={() => openPopup(player.player)}
+            variant="contained"
+            disableElevation
+            className={classes.button}
+          >
             Open in popup
           </Button>
         ) : (
           <IconButton
+            onClick={() => openPopup(player.player)}
             className={classes.externalButton}
             color="inherit"
             aria-label="open player in popup"
