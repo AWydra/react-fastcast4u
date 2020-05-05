@@ -1,7 +1,8 @@
 // @ts-nocheck
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import directoryActions from 'actions/directoryActions';
 import styled from 'styled-components';
 import { Card, CardActionArea, CardContent, makeStyles } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
@@ -90,11 +91,25 @@ const useStyles = makeStyles(theme => ({
 const StationItem = ({ data }) => {
   const classes = useStyles();
   const loading = useSelector(state => state.directory.loading);
+  const dispatch = useDispatch();
 
   const coverPhoto = data.image.includes('nocover') ? defaultCoverPicture : data.image;
 
+  const handleClick = () => {
+    dispatch(
+      directoryActions.setPlayerData({
+        id: data.id,
+        player: data.player,
+        proxy: data.proxy,
+        servertype: data.servertype,
+        metadata: data.metadata,
+        station: data.title,
+      }),
+    );
+  };
+
   return (
-    <Card className={classes.root} component="li" onClick={() => console.log('clicked')}>
+    <Card className={classes.root} component="li" onClick={handleClick}>
       <CardActionArea className={classes.area}>
         <ContentWrapper>
           <CardContent className={classes.icon}>
@@ -148,12 +163,14 @@ StationItem.propTypes = {
     image: PropTypes.string,
     likes: PropTypes.number,
     listeners: PropTypes.string,
+    player: PropTypes.string,
     proxy: PropTypes.string,
+    servertype: PropTypes.string,
     song: PropTypes.string,
     stream: PropTypes.string,
     title: PropTypes.string,
     username: PropTypes.string,
-    xml: PropTypes.string,
+    metadata: PropTypes.string,
   }).isRequired,
 };
 
