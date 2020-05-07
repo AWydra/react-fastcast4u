@@ -7,9 +7,51 @@ const setChat = chat => ({
   payload: chat,
 });
 
-const setAlert = alert => ({
-  type: 'SET_ALERT',
-  payload: alert,
-});
+const setAlert = {
+  success: content => ({
+    type: 'SET_ALERT',
+    payload: {
+      content,
+      type: 'success',
+      open: true,
+    },
+  }),
+  warning: content => ({
+    type: 'SET_ALERT',
+    payload: {
+      content,
+      type: 'warning',
+      open: true,
+    },
+  }),
+  error: content => ({
+    type: 'SET_ALERT',
+    payload: {
+      content,
+      type: 'error',
+      open: true,
+    },
+  }),
+  info: content => ({
+    type: 'SET_ALERT',
+    payload: {
+      content,
+      type: 'info',
+      open: true,
+    },
+  }),
+  show: () => ({
+    type: 'SET_ALERT',
+    payload: {
+      open: true,
+    },
+  }),
+  hide: () => ({
+    type: 'SET_ALERT',
+    payload: {
+      open: false,
+    },
+  }),
+};
 
 export default { toggleTheme, setChat, setAlert };
