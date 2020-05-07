@@ -135,12 +135,26 @@ const RadioPlayer = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(directoryServices.getSongMetadata(player.metadata, player.servertype));
-    const interval = setInterval(() => {
-      dispatch(directoryServices.getSongMetadata(player.metadata, player.servertype));
-    }, 10000);
+    let request;
+    let interval;
 
-    return () => clearInterval(interval);
+    const getSongMetadata = async () => {
+      request = await dispatch(
+        directoryServices.getSongMetadata(player.metadata, player.servertype),
+      );
+      interval = setInterval(async () => {
+        request = await dispatch(
+          directoryServices.getSongMetadata(player.metadata, player.servertype),
+        );
+      }, 10000);
+    };
+
+    getSongMetadata();
+
+    return () => {
+      clearInterval(interval);
+      request.cancel();
+    };
   }, [player.metadata, dispatch]);
 
   return (

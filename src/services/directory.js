@@ -1,32 +1,53 @@
+// @ts-nocheck
 import axios from 'axios';
+import generalActions from 'actions/generalActions';
 import directoryActions from 'actions/directoryActions';
 import normalizeSongMetadata from 'utils/normalizeSongMetadata';
 import { isProd } from 'utils/nodeEnv';
 
 const baseUrl = `${isProd() ? 'https://fastcast4u.com' : ''}/radio-directory/serverreact.php`;
 
-let source = axios.CancelToken.source();
+const getStationList = params => dispatch => {
+  const source = axios.CancelToken.source();
+  dispatch(directoryActions.setParams(params));
+  dispatch(directoryActions.setStationsPlaceholder(params.id && 1));
+  axios
+    .get(baseUrl, {
+      cancelToken: source.token,
+      params: {
+        ...params,
+      },
+    })
+    .then(({ data }) => {
+      dispatch(directoryActions.setPages(data.pages));
+      dispatch(directoryActions.setStations(data.data));
+    })
+    .catch(err => {
+      if (!axios.isCancel(err)) {
+        dispatch(generalActions.setAlert.error(err.message));
+      }
+    });
 
-const getStationList = async params => {
-  const request = await axios.get(baseUrl, {
-    cancelToken: source.token,
-    params: {
-      ...params,
-    },
-  });
-  return request.data;
+  return { cancel: () => source.cancel() };
 };
 
-const getSongMetadata = (url, servertype) => async dispatch => {
-  const { data } = await axios.get(url, {
-    cancelToken: source.token,
-  });
-  dispatch(directoryActions.setSongMetadata(normalizeSongMetadata(servertype, data)));
+const getSongMetadata = (url, servertype) => dispatch => {
+  const source = axios.CancelToken.source();
+
+  axios
+    .get(url, {
+      cancelToken: source.token,
+    })
+    .then(({ data }) => {
+      dispatch(directoryActions.setSongMetadata(normalizeSongMetadata(servertype, data)));
+    })
+    .catch(err => {
+      if (!axios.isCancel(err)) {
+        dispatch(generalActions.setAlert.error(err.message));
+      }
+    });
+
+  return { cancel: () => source.cancel() };
 };
 
-const cancel = () => {
-  source.cancel();
-  source = axios.CancelToken.source();
-};
-
-export default { getStationList, getSongMetadata, cancel };
+export default { getStationList, getSongMetadata };
