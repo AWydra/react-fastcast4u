@@ -1,4 +1,6 @@
+// @ts-nocheck
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Grid } from '@material-ui/core';
 import HeadingBlock from 'components/molecules/HeadingBlock/HeadingBlock';
 import FullContainer from 'components/atoms/FullContainer/FullContainer';
@@ -20,6 +22,7 @@ const data = [
 ];
 
 const RadioDirectory = () => {
+  const showPlayer = useSelector(state => state.directory.player.show);
   return (
     <FullContainer maxWidth="xl" component="main">
       <HeadingBlock
@@ -38,7 +41,7 @@ const RadioDirectory = () => {
           <Ad />
         </Grid>
       </Grid>
-      <RadioPlayer />
+      {showPlayer && <RadioPlayer />}
     </FullContainer>
   );
 };
