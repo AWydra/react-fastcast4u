@@ -32,11 +32,12 @@ const icons = {
 
 const VolumeSlider = ({ ...props }) => {
   const classes = useStyles();
-  const [volume, setVolume] = useState(50);
+  const [volume, setVolume] = useState(75);
   const [icon, setIcon] = useState('');
   const [mute, setMute] = useState(false);
 
   useEffect(() => {
+    window.Howler.volume(volume / 100);
     setMute(false);
 
     if (volume > 66) {
@@ -51,9 +52,12 @@ const VolumeSlider = ({ ...props }) => {
   }, [volume]);
 
   const handleClick = () => {
-    mute && setMute(false);
-    !mute && setMute(true);
+    setMute(!mute);
   };
+
+  useEffect(() => {
+    window.Howler.mute(mute);
+  }, [mute]);
 
   return (
     <Grid container alignItems="center" {...props}>
