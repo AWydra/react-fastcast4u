@@ -26,12 +26,6 @@ const DirectoryList = () => {
     // eslint-disable-next-line
   }, [location.pathname]);
 
-  useEffect(() => {
-    return () => {
-      directoryServices.cancel();
-    };
-  }, []);
-
   return (
     <List>
       {stations.map(station => (
