@@ -14,6 +14,7 @@ const PlayerInfoContainer = styled.div`
 const Title = styled.p`
   ${({ theme }) => css`
     margin: 0%;
+    color: ${({ error }) => (error ? theme.palette.error.main : 'inherit')};
     font-size: 0.95rem;
     font-weight: 600;
     line-height: 1.5;
@@ -30,6 +31,7 @@ const Title = styled.p`
 const Subtitle = styled.span`
   ${({ theme }) => css`
     display: block;
+    color: ${({ error }) => (error ? theme.palette.error.main : 'inherit')};
     font-size: ${6.5 / 8}rem;
     line-height: 1.4;
     white-space: nowrap;
@@ -42,16 +44,21 @@ const Subtitle = styled.span`
   `}
 `;
 
-const PlayerInfo = ({ title, subtitle, ...props }) => (
+const PlayerInfo = ({ title, subtitle, error, ...props }) => (
   <PlayerInfoContainer {...props}>
-    <Title>{title}</Title>
-    <Subtitle>{subtitle}</Subtitle>
+    <Title error={error}>{(error && 'Stream error') || title}</Title>
+    <Subtitle error={error}>{(error && 'Unable to load radio stream') || subtitle}</Subtitle>
   </PlayerInfoContainer>
 );
+
+PlayerInfo.defaultProps = {
+  error: false,
+};
 
 PlayerInfo.propTypes = {
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string.isRequired,
+  error: PropTypes.bool,
 };
 
 export default PlayerInfo;
