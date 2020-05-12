@@ -9,9 +9,11 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import MessengerIcon from 'assets/svg/MessengerIcon';
 import shareLinkVia from 'utils/shareLinkVia';
+import { useAlert } from 'utils/customHooks';
 
 const ShareButton = ({ id, ...props }) => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const alert = useAlert();
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
@@ -23,6 +25,7 @@ const ShareButton = ({ id, ...props }) => {
 
   const handleCopy = () => {
     copy(shareLinkVia.copy(id));
+    alert.success('Link copied to clipboard');
     setAnchorEl(null);
   };
 
