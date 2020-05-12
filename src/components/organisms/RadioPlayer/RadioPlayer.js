@@ -2,6 +2,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import directoryServices from 'services/directory';
+import ReactHowler from 'react-howler';
+
 import { AppBar, Container, makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
 import Image from 'components/atoms/Image/Image';
 import IconButtonWithLabel from 'components/atoms/IconButtonWithLabel/IconButtonWithLabel';
@@ -10,17 +12,16 @@ import PopupButton from 'components/atoms/PopupButton/PopupButton';
 import ShareButton from 'components/molecules/ShareButton/ShareButton';
 import PlayerInfo from 'components/molecules/PlayerInfo/PlayerInfo';
 import VolumeSlider from 'components/molecules/VolumeSlider/VolumeSlider';
+
 import LikeIcon from '@material-ui/icons/ThumbUpOutlined';
 import openPopup from 'utils/openPopup';
 import { useDidUpdate } from 'utils/customHooks';
-
-import ReactHowler from 'react-howler';
 
 const useStyles = makeStyles(theme => ({
   appBar: {
     top: 'auto',
     bottom: 59,
-    zIndex: 2000000001,
+    zIndex: theme.zIndex.appBar,
     backgroundColor: error => error && 'black',
     '@media (orientation: landscape)': {
       bottom: 41,
@@ -98,6 +99,16 @@ const RadioPlayer = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const classes = useStyles(error);
+  const chat = useSelector(state => state.general.chat);
+
+  useEffect(() => {
+    chat.hideWidget();
+
+    return () => {
+      chat.showWidget();
+    };
+    // eslint-disable-next-line
+  }, []);
 
   useEffect(() => {
     let request;
