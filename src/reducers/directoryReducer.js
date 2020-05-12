@@ -56,7 +56,7 @@ const directoryReducer = (state = initialState, action) => {
       });
     case 'SET_PLAYER_DATA':
       return produce(state, draftState => {
-        draftState.player = { show: true, ...action.payload };
+        draftState.player = { ...draftState.player, ...action.payload, show: true };
       });
     case 'SET_SONG_METADATA':
       return produce(state, draftState => {

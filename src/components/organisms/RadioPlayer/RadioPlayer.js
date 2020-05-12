@@ -1,32 +1,27 @@
 // @ts-nocheck
-import React, { useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import directoryServices from 'services/directory';
-import {
-  AppBar,
-  Button,
-  Container,
-  IconButton,
-  makeStyles,
-  useMediaQuery,
-  useTheme,
-} from '@material-ui/core';
+import { AppBar, Container, makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
 import Image from 'components/atoms/Image/Image';
 import IconButtonWithLabel from 'components/atoms/IconButtonWithLabel/IconButtonWithLabel';
+import PlayButton from 'components/atoms/PlayButton/PlayButton';
+import PopupButton from 'components/atoms/PopupButton/PopupButton';
 import ShareButton from 'components/molecules/ShareButton/ShareButton';
 import PlayerInfo from 'components/molecules/PlayerInfo/PlayerInfo';
 import VolumeSlider from 'components/molecules/VolumeSlider/VolumeSlider';
-import PlayIcon from 'assets/svg/PlayIcon';
-// import PauseIcon from '@material-ui/icons/Pause';
 import LikeIcon from '@material-ui/icons/ThumbUpOutlined';
-import LaunchIcon from '@material-ui/icons/Launch';
 import openPopup from 'utils/openPopup';
+import { useDidUpdate } from 'utils/customHooks';
+
+import ReactHowler from 'react-howler';
 
 const useStyles = makeStyles(theme => ({
   appBar: {
     top: 'auto',
     bottom: 59,
     zIndex: 2000000001,
+    backgroundColor: error => error && 'black',
     '@media (orientation: landscape)': {
       bottom: 41,
     },
@@ -43,21 +38,6 @@ const useStyles = makeStyles(theme => ({
     },
     [theme.breakpoints.down('xs')]: {
       padding: theme.spacing(0, 1, 0, 0.5),
-    },
-  },
-  iconButton: {
-    padding: theme.spacing(0.5),
-    [theme.breakpoints.up('md')]: {
-      padding: theme.spacing(1),
-    },
-  },
-  icon: {
-    fontSize: theme.typography.pxToRem(28),
-    [theme.breakpoints.up('sm')]: {
-      fontSize: theme.typography.pxToRem(32),
-    },
-    [theme.breakpoints.up('md')]: {
-      fontSize: theme.typography.pxToRem(36),
     },
   },
   image: {
@@ -89,13 +69,6 @@ const useStyles = makeStyles(theme => ({
       display: 'none !important',
     },
   },
-  button: {
-    height: 'fit-content',
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.common.white,
-    color: theme.palette.primary.main,
-    fontWeight: 600,
-  },
   labelButton: {
     minHeight: theme.spacing(6),
     padding: theme.spacing(0.5),
@@ -112,27 +85,19 @@ const useStyles = makeStyles(theme => ({
     width: 'unset',
     flex: 3,
   },
-  externalButton: {
-    display: 'none',
-    [theme.breakpoints.up('md')]: {
-      padding: theme.spacing(1),
-      display: 'block',
-    },
-  },
-  externalIcon: {
-    fontSize: theme.typography.pxToRem(25),
-    [theme.breakpoints.up('md')]: {
-      fontSize: theme.typography.pxToRem(32),
-    },
-  },
 }));
 
 const RadioPlayer = () => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('lg'));
-  const classes = useStyles();
   const player = useSelector(state => state.directory.player);
   const dispatch = useDispatch();
+  const audio = useRef(null);
+  const [playing, setPlaying] = useState(true);
+  const [stream, setStream] = useState(player.proxy);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const classes = useStyles(error);
 
   useEffect(() => {
     let request;
@@ -155,16 +120,69 @@ const RadioPlayer = () => {
       clearInterval(interval);
       request.cancel();
     };
+    // eslint-disable-next-line
   }, [player.metadata, dispatch]);
+
+  useDidUpdate(() => {
+    setStream(player.proxy);
+    setError(false);
+    setLoading(true);
+    setPlaying(true);
+  }, [player.proxy]);
+
+  const handleLoad = () => {
+    setError(false);
+    setPlaying(true);
+  };
+
+  const handlePlay = () => {
+    setError(false);
+    setLoading(false);
+  };
+
+  const handleClick = () => {
+    if (playing) {
+      setPlaying(false);
+    } else {
+      setLoading(true);
+      setStream(`${stream}?`);
+      setPlaying(true);
+    }
+  };
+
+  const handlePopup = () => {
+    setPlaying(false);
+    openPopup(player.player);
+  };
+
+  const handleLoadError = err => {
+    if (err !== null) {
+      setLoading(false);
+      setPlaying(false);
+      setError(true);
+    }
+  };
 
   return (
     <AppBar className={classes.appBar} position="fixed" color="primary" component="section">
       <Container className={classes.container} maxWidth="xl">
-        <IconButton className={classes.iconButton} color="inherit" aria-label="play or pause radio">
-          <PlayIcon className={classes.icon} />
-        </IconButton>
+        <ReactHowler
+          src={stream}
+          playing={playing}
+          ref={audio}
+          html5
+          onLoad={handleLoad}
+          onPlay={handlePlay}
+          onLoadError={handleLoadError}
+        />
+        <PlayButton loading={loading} playing={playing} onClick={handleClick} />
         <Image className={classes.image} src={player.image} />
-        <PlayerInfo className={classes.album} title={player.artist} subtitle={player.title} />
+        <PlayerInfo
+          className={classes.album}
+          title={player.artist}
+          subtitle={player.title}
+          error={error}
+        />
         <PlayerInfo
           className={classes.station}
           title={player.station}
@@ -173,26 +191,7 @@ const RadioPlayer = () => {
         />
         <IconButtonWithLabel className={classes.labelButton} icon={LikeIcon} label="Vote" />
         <ShareButton className={classes.labelButton} id={player.id} />
-        {matches ? (
-          <Button
-            onClick={() => openPopup(player.player)}
-            variant="contained"
-            disableElevation
-            className={classes.button}
-          >
-            Open in popup
-          </Button>
-        ) : (
-          <IconButton
-            onClick={() => openPopup(player.player)}
-            className={classes.externalButton}
-            color="inherit"
-            aria-label="open player in popup"
-          >
-            <LaunchIcon className={classes.externalIcon} />
-          </IconButton>
-        )}
-
+        <PopupButton onClick={handlePopup} />
         {matches && <VolumeSlider className={classes.slider} />}
       </Container>
     </AppBar>
