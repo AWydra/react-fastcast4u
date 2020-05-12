@@ -109,8 +109,8 @@ const StationItem = ({ data }) => {
   };
 
   return (
-    <Card className={classes.root} component="li" onClick={handleClick}>
-      <CardActionArea className={classes.area}>
+    <Card className={classes.root} component="li">
+      <CardActionArea className={classes.area} onClick={handleClick} disabled={loading}>
         <ContentWrapper>
           <CardContent className={classes.icon}>
             {loading ? (
@@ -162,7 +162,7 @@ StationItem.propTypes = {
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     image: PropTypes.string,
     likes: PropTypes.number,
-    listeners: PropTypes.string,
+    listeners: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     player: PropTypes.string,
     proxy: PropTypes.string,
     servertype: PropTypes.string,
