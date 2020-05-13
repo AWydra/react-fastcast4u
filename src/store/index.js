@@ -18,15 +18,10 @@ const orderPersistConfig = {
   storage,
 };
 
-const directoryPersistConfig = {
-  key: 'directory',
-  storage,
-};
-
 const rootReducer = combineReducers({
   general: persistReducer(generalPersistConfig, generalReducer),
   order: persistReducer(orderPersistConfig, orderReducer),
-  directory: persistReducer(directoryPersistConfig, directoryReducer),
+  directory: directoryReducer,
 });
 
 export const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
