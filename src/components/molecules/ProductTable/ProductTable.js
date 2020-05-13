@@ -50,7 +50,8 @@ const ProductTable = () => {
             ) : (
               <>
                 <TableCell component="th" scope="row" className={classes.cell}>
-                  Radio Server - {activeProductObject.name} {plan === 'premium' && ' (320kbps)'}
+                  Radio Server - {activeProductObject.name}
+                  {plan === 'premium' ? ' (320kbps)' : ' (128kbps)'}
                 </TableCell>
                 <TableCell align="right" className={`${classes.cell} ${classes.cellPrice}`}>
                   {currency}

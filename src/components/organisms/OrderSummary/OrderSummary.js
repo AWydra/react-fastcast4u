@@ -4,8 +4,7 @@ import { useSelector } from 'react-redux';
 import orderServices from 'services/order';
 
 import styled, { css } from 'styled-components';
-import { Divider } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Divider, makeStyles } from '@material-ui/core';
 import ProductTable from 'components/molecules/ProductTable/ProductTable';
 import BillingCycle from 'components/molecules/BillingCycle/BillingCycle';
 import SummaryPrice from 'components/molecules/SummaryPrice/SummaryPrice';
