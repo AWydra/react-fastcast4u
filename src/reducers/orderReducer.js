@@ -38,6 +38,9 @@ const orderReducer = (state = initialState, action) => {
           draftState.activeAddons = newArray;
         } else {
           draftState.activeAddons.push(action.payload);
+          draftState.addons
+            .filter(el => el.parent === action.payload)
+            .forEach(el => draftState.activeAddons.push(el.relid));
         }
       });
     case 'REMOVE_ADDON':
