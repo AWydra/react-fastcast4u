@@ -11,6 +11,7 @@ import directoryReducer from 'reducers/directoryReducer';
 const generalPersistConfig = {
   key: 'general',
   storage,
+  blacklist: ['chat'],
 };
 
 const orderPersistConfig = {
