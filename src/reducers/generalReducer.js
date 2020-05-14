@@ -1,7 +1,9 @@
 import produce from 'immer';
 
 const initialState = {
-  chat: {},
+  chat: {
+    isOpen: false,
+  },
   theme: 'light',
   alert: {},
 };
@@ -15,7 +17,11 @@ const generalReducer = (state = initialState, action) => {
       });
     case 'SET_CHAT':
       return produce(state, draftState => {
-        draftState.chat = action.payload;
+        draftState.chat = { ...draftState.chat, ...action.payload };
+      });
+    case 'SET_CHAT_DISPLAY':
+      return produce(state, draftState => {
+        draftState.chat.isOpen = action.payload.isOpen;
       });
     case 'SET_ALERT':
       return produce(state, draftState => {

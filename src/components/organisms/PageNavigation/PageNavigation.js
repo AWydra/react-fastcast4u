@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import generalActions from 'actions/generalActions';
 
 import styled, { css } from 'styled-components';
@@ -14,33 +14,29 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import tawkto from 'utils/tawkto';
 
-import HomeIcon from '@material-ui/icons/Home';
-import HelpIcon from '@material-ui/icons/Help';
-import ChatIcon from '@material-ui/icons/Chat';
-import RadioIcon from '@material-ui/icons/Radio';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import { Home, Help, Chat, Radio, ShoppingCart } from '@material-ui/icons';
 import { modeSwitch } from 'utils/theme';
 
 const navigationData = [
   {
     to: '/',
     label: 'Home',
-    icon: <HomeIcon />,
+    icon: <Home />,
   },
   {
     to: '/order',
     label: 'Order',
-    icon: <ShoppingCartIcon />,
+    icon: <ShoppingCart />,
   },
   {
     to: '/radio-directory',
     label: 'Directory',
-    icon: <RadioIcon />,
+    icon: <Radio />,
   },
   {
     to: '/faq',
     label: 'FAQ',
-    icon: <HelpIcon />,
+    icon: <Help />,
   },
 ];
 
@@ -83,53 +79,68 @@ const PageNavigation = () => {
   const classes = useStyles();
   const matches = useMediaQuery(theme.breakpoints.down('sm'));
   const { pathname } = useLocation();
-  const [showMenu, setShowMenu] = useState(false);
+  const chat = useSelector(state => state.general.chat);
+  const isChatOpened = useSelector(state => state.general.chat.isOpen);
   const [value, setValue] = useState(normalizePathname(pathname));
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const matchResolution = () =>
-      window.matchMedia(`(max-width: ${theme.breakpoints.values.md}px)`);
+    if (!chat.onLoaded) return;
+
+    if (isChatOpened) {
+      chat.maximize();
+    } else {
+      chat.minimize();
+    }
+    // eslint-disable-next-line
+  }, [chat.onLoaded, isChatOpened]);
+
+  useEffect(() => {
     tawkto.init(
       '55fb4794e1ea4c1012fe49df',
       tawk => {
-        const mql = matchResolution();
-        mql.matches && tawk.hideWidget();
-
-        mql.addEventListener('change', ev => {
-          if (ev.matches) {
-            tawk.minimize();
-            tawk.hideWidget();
-          } else {
-            tawk.showWidget();
-          }
-        });
         return dispatch(generalActions.setChat(tawk));
       },
       [
         {
           ev: 'onChatMinimized',
           fn: () => {
-            matchResolution().matches && setTimeout(window.Tawk_API.hideWidget, 0);
-            setShowMenu(true);
+            dispatch(generalActions.setChatDisplay(false));
+          },
+        },
+        {
+          ev: 'onChatMaximized',
+          fn: () => {
+            dispatch(generalActions.setChatDisplay(true));
           },
         },
       ],
     );
-  }, [dispatch, theme]);
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (!chat.onLoaded) return;
+
+    if (matches) {
+      dispatch(generalActions.setChatDisplay(false));
+      chat.hideWidget();
+    } else {
+      chat.showWidget();
+    }
+    // eslint-disable-next-line
+  }, [matches, chat.onLoaded]);
 
   useEffect(() => {
     setValue(normalizePathname(pathname));
   }, [pathname]);
 
   const handleClick = () => {
-    window.Tawk_API.maximize();
-    setShowMenu(false);
+    dispatch(generalActions.setChatDisplay(true));
   };
 
   return (
     matches &&
-    showMenu && (
+    !isChatOpened && (
       <BottomNavigation component="nav" value={value} showLabels className={classes.root}>
         {navigationData.map(({ to, label, ...props }) => (
           <BottomNavigationAction
@@ -145,7 +156,7 @@ const PageNavigation = () => {
         <BottomNavigationAction
           className={classes.action}
           label={<StyledLabel>Chat</StyledLabel>}
-          icon={<ChatIcon />}
+          icon={<Chat />}
           onClick={handleClick}
         />
       </BottomNavigation>

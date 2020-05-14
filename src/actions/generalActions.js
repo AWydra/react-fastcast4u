@@ -7,6 +7,11 @@ const setChat = chat => ({
   payload: chat,
 });
 
+const setChatDisplay = isOpen => ({
+  type: 'SET_CHAT_DISPLAY',
+  payload: { isOpen },
+});
+
 const setAlert = {
   success: content => ({
     type: 'SET_ALERT',
@@ -54,4 +59,4 @@ const setAlert = {
   }),
 };
 
-export default { toggleTheme, setChat, setAlert };
+export default { toggleTheme, setChat, setChatDisplay, setAlert };
