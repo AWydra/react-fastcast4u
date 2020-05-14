@@ -11,26 +11,31 @@ const setStep1 = async () => {
 };
 
 const getPricing = () => async dispatch => {
-  const order = await axios.get(`${baseUrl}pricing2.php`);
+  const order = await axios.get(`${baseUrl}pricing3.php`);
   dispatch({ type: 'PRICING_FETCH_SUCCESS', payload: order.data });
 };
 
 const setStep2 = async data => {
-  const request = await axios.get(`${baseUrl}step2.php?packageData=${JSON.stringify(data)}`, {
+  const request = await axios.get(`${baseUrl}step2-react.php`, {
+    params: { ...data },
     cancelToken: source.token,
   });
   return request.data;
 };
 
 const setStep3 = async data => {
-  const request = await axios.get(`${baseUrl}step3.php?accountData=${JSON.stringify(data)}`, {
+  const request = await axios.get(`${baseUrl}step3-react.php`, {
+    params: { ...data },
     cancelToken: source.token,
   });
   return request.data;
 };
 
 const setPaymentMethod = async method => {
-  const request = await axios.get(`${baseUrl}step4.php?paymentMethod=${method}`, {
+  const request = await axios.get(`${baseUrl}step4-react.php`, {
+    params: {
+      method,
+    },
     cancelToken: source.token,
   });
   return request.data;
@@ -44,7 +49,8 @@ const checkCompatibility = async () => {
 };
 
 const setStep6 = async data => {
-  const request = await axios.get(`${baseUrl}step6.php?accountData=${JSON.stringify(data)}`, {
+  const request = await axios.get(`${baseUrl}step5-react.php`, {
+    params: { ...data },
     cancelToken: source.token,
   });
   return request.data;
