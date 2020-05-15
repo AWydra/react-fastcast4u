@@ -9334,9 +9334,9 @@ react-lazy-load-image-component@^1.4.3:
     lodash.throttle "^4.1.1"
 
 react-phone-input-2@^2.12.1:
-  version "2.12.1"
-  resolved "https://registry.yarnpkg.com/react-phone-input-2/-/react-phone-input-2-2.12.1.tgz#26a588075543b83219daa20b3a657fad6796d75d"
-  integrity sha512-vme/0JwUiJwZ3lc1KgBFkATVHn+2qbeQPyPXROYNRzhpZhTD2qmm1CcdkkacJJZsjfhTBGDBwtKD6TyhpuxYQQ==
+  version "2.13.4"
+  resolved "https://registry.yarnpkg.com/react-phone-input-2/-/react-phone-input-2-2.13.4.tgz#03743c24214c570617828cf1141ce4f2b521d4cb"
+  integrity sha512-+k+Pkw+KYG4lUU32f1HORAxwLujSuuwU1j5vnG9PufoQW7wThLZBeZZcXu7XHVTiFkocFJ7SY86aDz6GCqtX9A==
   dependencies:
     classnames "^2.2.6"
     lodash.debounce "^4.0.8"

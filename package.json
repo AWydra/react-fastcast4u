@@ -72,12 +72,12 @@
     "prettier": "^1.19.1"
   },
   "proxy": "https://fastcast4u.com",
-  "husky": {
+  "ahusky": {
     "hooks": {
       "pre-commit": "lint-staged"
     }
   },
-  "lint-staged": {
+  "alint-staged": {
     "*.js": [
       "prettier --config .prettierrc --write",
       "eslint --fix",
