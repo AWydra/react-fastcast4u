@@ -82,7 +82,7 @@ const ContactFeature = ({ icon: Icon, title, desc, button, list }) => {
             ))}
           </Grid>
         )}
-        {button && (
+        {button.label && (
           <Button
             className={classes.button}
             variant="contained"
@@ -103,7 +103,7 @@ const ContactFeature = ({ icon: Icon, title, desc, button, list }) => {
 ContactFeature.defaultProps = {
   icon: false,
   desc: '',
-  button: false,
+  button: {},
   list: [],
 };
 
@@ -111,13 +111,10 @@ ContactFeature.propTypes = {
   icon: PropTypes.oneOfType([PropTypes.elementType, PropTypes.oneOf([false])]),
   title: PropTypes.string.isRequired,
   desc: PropTypes.string,
-  button: PropTypes.oneOfType([
-    PropTypes.shape({
-      label: PropTypes.string,
-      onClick: PropTypes.func,
-    }),
-    PropTypes.oneOf([false]),
-  ]),
+  button: PropTypes.shape({
+    label: PropTypes.string,
+    onClick: PropTypes.func,
+  }),
   list: PropTypes.array,
 };
 
