@@ -97,17 +97,12 @@ const PhoneInput = ({ value, ...props }) => {
     };
 
     sendRequest();
-
-    return () => {
-      generalServices.cancel();
-    };
   }, []);
 
   return (
     <ReactPhoneInput
       value={value}
       country={!value && country}
-      enableSearch
       containerClass={`react-tel-input ${classes.container}`}
       inputClass={`form-control ${classes.input}`}
       searchClass={classes.search}
