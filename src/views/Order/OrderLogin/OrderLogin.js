@@ -10,7 +10,7 @@ import Stepper from 'components/organisms/Stepper/Stepper';
 import LoginForm from 'components/organisms/OrderForms/LoginForm/LoginForm';
 import OrderAccessController from 'utils/OrderAccessController';
 
-const TosModal = lazy(() => import('components/molecules/TosModal/TosModal'));
+const TosModal = lazy(() => import('components/organisms/Modals/TosModal'));
 
 const OrderLogin = () => {
   const theme = useTheme();
