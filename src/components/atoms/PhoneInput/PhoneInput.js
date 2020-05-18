@@ -96,13 +96,13 @@ const PhoneInput = ({ value, ...props }) => {
       }
     };
 
-    sendRequest();
+    !value && sendRequest();
   }, []);
 
   return (
     <ReactPhoneInput
       value={value}
-      country={!value && country}
+      country={country}
       containerClass={`react-tel-input ${classes.container}`}
       inputClass={`form-control ${classes.input}`}
       searchClass={classes.search}
