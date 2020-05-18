@@ -55,17 +55,17 @@ const data = [
 ];
 
 const Order = () => {
-  const [disabled, setDisabled] = useState(false);
+  const [loading, setLoading] = useState(false);
   const alert = useAlert();
 
   const handleClick = async () => {
     try {
-      setDisabled(true);
+      setLoading(true);
       await orderServices.setStep1();
       history.push('order/package');
     } catch (err) {
       alert.error(err.message);
-      setDisabled(false);
+      setLoading(false);
     }
   };
 
@@ -84,7 +84,7 @@ const Order = () => {
         onClick={handleClick}
         mt={7}
         endIcon={<RocketIcon />}
-        disabled={disabled}
+        loading={loading}
       >
         Start Now
       </CTAButton>

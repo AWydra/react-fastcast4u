@@ -9,6 +9,10 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const ButtonContainer = styled.div`
   ${spacing}
+
+  button {
+    height: 100%;
+  }
 `;
 
 const useStyles = makeStyles(theme => ({
@@ -30,19 +34,19 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const CTAButton = ({ disabled, onClick, children, xlarge, ...props }) => {
+const CTAButton = ({ loading, disabled, onClick, children, xlarge, ...props }) => {
   const classes = useStyles(xlarge);
   return (
     <ButtonContainer {...props}>
       <Button
         variant="contained"
         className={classes.button}
-        disabled={disabled}
+        disabled={loading || disabled}
         onClick={onClick}
         {...props}
       >
         {children}
-        {disabled && <CircularProgress className={classes.progress} size={32} />}
+        {loading && <CircularProgress className={classes.progress} size={32} />}
       </Button>
     </ButtonContainer>
   );
@@ -51,12 +55,14 @@ const CTAButton = ({ disabled, onClick, children, xlarge, ...props }) => {
 CTAButton.propTypes = {
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.string]).isRequired,
   xlarge: PropTypes.bool,
+  loading: PropTypes.bool,
   disabled: PropTypes.bool,
   onClick: PropTypes.func,
 };
 
 CTAButton.defaultProps = {
   xlarge: false,
+  loading: false,
   disabled: false,
   onClick: null,
 };

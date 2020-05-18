@@ -96,7 +96,7 @@ const Promocode = () => {
           variant="contained"
           color={active ? 'secondary' : 'primary'}
           size="large"
-          disabled={loading}
+          loading={loading}
         >
           {active ? 'Remove' : 'Apply'}
         </CTAButton>
