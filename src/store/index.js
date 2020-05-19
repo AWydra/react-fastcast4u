@@ -11,12 +11,13 @@ import directoryReducer from 'reducers/directoryReducer';
 const generalPersistConfig = {
   key: 'general',
   storage,
-  blacklist: ['chat'],
+  blacklist: ['chat', 'alert'],
 };
 
 const orderPersistConfig = {
   key: 'order',
   storage,
+  blacklist: ['loading', 'products', 'addons', 'invalidPromocode'],
 };
 
 const rootReducer = combineReducers({
