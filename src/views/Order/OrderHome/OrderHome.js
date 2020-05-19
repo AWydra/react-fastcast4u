@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import orderActions from 'actions/orderActions';
 import FullContainer from 'components/atoms/FullContainer/FullContainer';
 import HeadingBlock from 'components/molecules/HeadingBlock/HeadingBlock';
 import Features from 'components/organisms/Features/Features';
@@ -57,6 +60,13 @@ const data = [
 const Order = () => {
   const [loading, setLoading] = useState(false);
   const alert = useAlert();
+  const location = useLocation();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    dispatch(orderActions.setPromocode(params.get('promo') || ''));
+  }, [dispatch, location.search]);
 
   const handleClick = async () => {
     try {
