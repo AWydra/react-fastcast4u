@@ -52,7 +52,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ContactFeature = ({ icon: Icon, title, desc, button, list }) => {
+const ContactFeature = ({ icon: Icon, title, desc, button, list, active }) => {
   const classes = useStyles();
 
   return (
@@ -90,11 +90,12 @@ const ContactFeature = ({ icon: Icon, title, desc, button, list }) => {
             size="large"
             endIcon={<ArrowForwardIcon />}
             onClick={button.onClick}
+            disabled={button.disabled}
           >
             {button.label}
           </Button>
         )}
-        <Status active />
+        <Status active={active} />
       </CardContent>
     </Card>
   );
@@ -105,6 +106,7 @@ ContactFeature.defaultProps = {
   desc: '',
   button: {},
   list: [],
+  active: true,
 };
 
 ContactFeature.propTypes = {
@@ -114,8 +116,10 @@ ContactFeature.propTypes = {
   button: PropTypes.shape({
     label: PropTypes.string,
     onClick: PropTypes.func,
+    disabled: PropTypes.bool,
   }),
   list: PropTypes.array,
+  active: PropTypes.bool,
 };
 
 export default ContactFeature;

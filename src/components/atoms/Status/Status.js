@@ -6,7 +6,8 @@ import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 
 const useStyles = makeStyles(theme => ({
   text: {
-    marginTop: theme.spacing(4),
+    marginTop: 'auto',
+    paddingTop: theme.spacing(4),
     display: 'flex',
     alignItems: 'center',
     fontSize: theme.typography.pxToRem(18),
