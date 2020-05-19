@@ -13,6 +13,8 @@ import PhoneInput from 'components/atoms/PhoneInput/PhoneInput';
 import CTAButton from 'components/atoms/CTAButton/CTAButton';
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
 
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
+
 const useStyles = makeStyles(theme => ({
   title: {
     paddingBottom: 0,
@@ -63,8 +65,8 @@ const CallModal = ({ onClose, ...props }) => {
   const [submitted, setSubmitted] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
-
-  window.check = parsePhoneNumberFromString;
+  const [error, setError] = useState(false);
+  const { executeRecaptcha } = useGoogleReCaptcha();
 
   const handleChange = phone => {
     const number = parsePhoneNumberFromString(`+${phone}`);
@@ -79,9 +81,16 @@ const CallModal = ({ onClose, ...props }) => {
   const handleSubmit = ev => {
     ev.preventDefault();
     setLoading(true);
-    setTimeout(() => {
-      setSubmitted(true);
-    }, 4000);
+    const sendRequest = async () => {
+      const token = await executeRecaptcha('login_page');
+      console.log(token);
+      setTimeout(() => {
+        setSubmitted(true);
+        setError(true);
+      }, 4000);
+    };
+
+    sendRequest();
   };
 
   return (
@@ -100,7 +109,9 @@ const CallModal = ({ onClose, ...props }) => {
       </DialogTitle>
       <DialogContent className={classes.content}>
         <DialogContentText className={classes.text}>
-          {submitted
+          {error
+            ? 'You have already submitted this number, only one call per hour is allowed. Try again later.'
+            : submitted
             ? 'Thank you. Our representative will contact you shortly. Please answer a call from this number: +1 (844) 203-2278'
             : 'Just leave your number. Our agent will call back as soon as possible.'}
         </DialogContentText>

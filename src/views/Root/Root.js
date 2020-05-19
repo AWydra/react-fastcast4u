@@ -10,6 +10,7 @@ import Routes from 'routes/mainRoutes';
 import ReactGA from 'utils/analytics';
 import { hotjar } from 'react-hotjar';
 import { CookiesProvider } from 'react-cookie';
+import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 
 import MainTemplate from 'templates/MainTemplate';
 
@@ -35,9 +36,11 @@ const Root = () => {
       <PersistGate loading={null} persistor={persistor}>
         <Router history={history}>
           <CookiesProvider>
-            <MainTemplate>
-              <Routes />
-            </MainTemplate>
+            <GoogleReCaptchaProvider reCaptchaKey="6LdUKPkUAAAAALnMyAe1VofPN4pvLo30wGKpl_dA">
+              <MainTemplate>
+                <Routes />
+              </MainTemplate>
+            </GoogleReCaptchaProvider>
           </CookiesProvider>
         </Router>
       </PersistGate>
