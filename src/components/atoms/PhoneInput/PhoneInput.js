@@ -97,6 +97,7 @@ const PhoneInput = ({ value, ...props }) => {
     };
 
     !value && sendRequest();
+    // eslint-disable-next-line
   }, []);
 
   return (

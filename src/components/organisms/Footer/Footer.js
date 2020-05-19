@@ -58,7 +58,7 @@ const Footer = () => {
 
   return (
     <FooterThemeProvider>
-      <FooterContainer maxWidth={false} p={0}>
+      <FooterContainer component="footer" maxWidth={false} p={0}>
         <Container maxWidth="xl">
           {!isHidden && <FooterWidget data={data} />}
           <FooterLinks />

@@ -25,7 +25,7 @@ const steps = [
     href: '/order/details',
   },
   {
-    step: 6,
+    step: 5,
     href: '/order/pending',
   },
 ];
