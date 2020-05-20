@@ -46,8 +46,7 @@ const OrderPending = ({ cookies }) => {
   const [message, setMessage] = useState(messages.checking);
   const [checking, setChecking] = useState(null);
   const [creating, setCreating] = useState(null);
-  const [initializing, setInitializing] = useState(null);
-  const [url, setURL] = useState('checking');
+  const [url, setURL] = useState(null);
   const dispatch = useDispatch();
   const classes = useStyles();
   const alert = useAlert();
@@ -94,7 +93,6 @@ const OrderPending = ({ cookies }) => {
 
         setMessage(messages.initializing);
         clearInterval(interval);
-        setInitializing(true);
         setURL(response.data.url);
       } catch (error) {
         return null;
@@ -114,7 +112,7 @@ const OrderPending = ({ cookies }) => {
         window.location = redirectURL;
       } catch (error) {
         if (!error.__CANCEL__) {
-          alert.error(error.message);
+          alert.error(error.response.data.error || error.message);
         }
       }
     }, 5000);
@@ -122,11 +120,11 @@ const OrderPending = ({ cookies }) => {
     return () => {
       clearInterval(interval);
     };
-  }, [initializing]);
+  }, [url]);
 
   return (
     <>
-      <OrderAccessController currentStep={6} />
+      <OrderAccessController currentStep={5} />
       <FullContainer center>
         <ColumnForm className={classes.paper}>
           <BoxTitle variant="h4" component="h1" mb={3}>

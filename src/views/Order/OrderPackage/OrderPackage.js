@@ -1,7 +1,6 @@
 // @ts-nocheck
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import orderService from 'services/order';
+import { useSelector } from 'react-redux';
 
 import { makeStyles, Container, Grid } from '@material-ui/core';
 import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded';
@@ -71,11 +70,9 @@ const OrderPackage = () => {
   const products = useSelector(state => state.order.products);
   const addons = useSelector(state => state.order.addons);
   const loading = useSelector(state => state.order.loading);
-  const dispatch = useDispatch();
   const classes = useStyles();
 
   useEffect(() => {
-    !products.length && dispatch(orderService.getPricing());
     // eslint-disable-next-line
   }, []);
 
