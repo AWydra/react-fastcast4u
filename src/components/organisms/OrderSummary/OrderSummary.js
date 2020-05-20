@@ -28,14 +28,6 @@ const SummaryContainer = styled.div`
   `}
 `;
 
-const SummaryPriceContainer = styled.div`
-  ${({ theme }) => css`
-    margin: ${theme.spacing(1, 0)};
-    display: flex;
-    justify-content: space-between;
-  `}
-`;
-
 const FormContainer = styled.div`
   padding: 15px;
   ${({ flexEnd }) =>
@@ -89,12 +81,7 @@ const OrderSummary = () => {
       <FormContainer>
         <BillingCycle />
         <Divider />
-        <SummaryPriceContainer>
-          <Text component="h5" variant="h6" fontSize={28} fontWeight={600}>
-            Total Price:
-          </Text>
-          <SummaryPrice />
-        </SummaryPriceContainer>
+        <SummaryPrice />
         <Divider />
         <Promocode />
       </FormContainer>
