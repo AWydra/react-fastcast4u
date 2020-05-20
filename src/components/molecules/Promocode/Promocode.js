@@ -1,16 +1,19 @@
 // @ts-nocheck
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import orderActions from 'actions/orderActions';
+import orderServices from 'services/order';
 
 import styled from 'styled-components';
-import { TextField } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { FormHelperText, TextField, makeStyles } from '@material-ui/core';
 import Label from 'components/atoms/Label/Label';
 import CTAButton from 'components/atoms/CTAButton/CTAButton';
+import { useDidUpdate } from 'utils/customHooks';
 
 const PromocodeContainer = styled.form`
   padding: 10px 0;
+  * {
+    transition: unset;
+  }
 `;
 
 const useStyles = makeStyles(theme => ({
@@ -26,30 +29,43 @@ const useStyles = makeStyles(theme => ({
       height: 42,
     },
   },
-  buttonProgress: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    marginTop: -15,
-    marginLeft: -15,
-  },
 }));
 
 const Promocode = () => {
   const reduxPromocode = useSelector(state => state.order.promocode);
+  const invalidPromocode = useSelector(state => state.order.invalidPromocode);
   const dispatch = useDispatch();
   const [promocode, setPromocode] = useState('');
   const [loading, setLoading] = useState(false);
-  const [active, setActive] = useState(false);
   const [invalid, setInvalid] = useState('');
+  const inputRef = useRef(null);
   const classes = useStyles();
 
   useEffect(() => {
-    if (reduxPromocode) {
-      setActive(true);
+    const getPricing = async () => {
+      reduxPromocode && setLoading(true);
       setPromocode(reduxPromocode);
-    }
+      await dispatch(orderServices.getPricing(reduxPromocode));
+      setLoading(false);
+    };
+
+    getPricing();
+    // eslint-disable-next-line
+  }, []);
+
+  useDidUpdate(() => {
+    setLoading(false);
+    setPromocode(reduxPromocode);
   }, [reduxPromocode]);
+
+  useDidUpdate(() => {
+    setLoading(false);
+    setPromocode(invalidPromocode);
+    setInvalid('Your promo code is invalid or expired');
+    setTimeout(() => {
+      inputRef.current.focus();
+    }, 0);
+  }, [invalidPromocode]);
 
   const handleChange = ev => {
     setPromocode(ev.target.value);
@@ -58,18 +74,13 @@ const Promocode = () => {
 
   const handleSubmit = ev => {
     ev.preventDefault();
+
     if (!promocode) {
       setInvalid('Provide promocode');
       return;
     }
     setLoading(true);
-    setTimeout(() => {
-      active && setPromocode('');
-      dispatch(orderActions.setPromocode(active ? '' : promocode));
-      setLoading(false);
-      setActive(!active);
-      setInvalid('');
-    }, 2000);
+    dispatch(orderServices.getPricing(reduxPromocode ? '' : promocode));
   };
 
   return (
@@ -78,13 +89,12 @@ const Promocode = () => {
       <div className={classes.inputContainer}>
         <TextField
           id="promocode-input"
-          error={!!invalid}
-          helperText={invalid}
+          inputRef={inputRef}
           className={classes.input}
           value={promocode}
           margin="dense"
           onChange={handleChange}
-          disabled={loading || active}
+          disabled={loading || !!reduxPromocode}
           placeholder="Promocode"
           variant="outlined"
           fullWidth
@@ -94,13 +104,17 @@ const Promocode = () => {
           disableElevation
           type="submit"
           variant="contained"
-          color={active ? 'secondary' : 'primary'}
+          color={reduxPromocode ? 'secondary' : 'primary'}
           size="large"
           loading={loading}
+          disabled={!!invalid}
         >
-          {active ? 'Remove' : 'Apply'}
+          {reduxPromocode ? 'Remove' : 'Apply'}
         </CTAButton>
       </div>
+      <FormHelperText error variant="filled">
+        {invalid}
+      </FormHelperText>
     </PromocodeContainer>
   );
 };

@@ -10,9 +10,20 @@ const setStep1 = async () => {
   return request.data;
 };
 
-const getPricing = () => async dispatch => {
-  const order = await axios.get(`${baseUrl}pricing3.php`);
-  dispatch({ type: 'PRICING_FETCH_SUCCESS', payload: order.data });
+const getPricing = promocode => async dispatch => {
+  try {
+    const order = await axios.get(`${baseUrl}pricing2.php`, {
+      params: {
+        promocode,
+      },
+    });
+    dispatch({ type: 'SET_PRICES', payload: order.data });
+    return true;
+  } catch (error) {
+    dispatch({ type: 'SET_PRICES', payload: error.response.data });
+    dispatch({ type: 'PRICING_FETCH_FAIL', payload: promocode });
+    return false;
+  }
 };
 
 const setStep2 = async data => {
@@ -64,7 +75,7 @@ const checkFinalCompatibility = async () => {
 };
 
 const isReady = async () => {
-  const request = await axios.get(`${baseUrl}isReady.php`, {
+  const request = await axios.get(`${baseUrl}isReady-react.php`, {
     cancelToken: source.token,
   });
   return request.data;

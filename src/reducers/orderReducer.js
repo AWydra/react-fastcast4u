@@ -10,6 +10,7 @@ const initialState = {
   addons: [],
   activeProduct: '',
   activeAddons: [],
+  recurfor: {},
   email: '',
   password: '',
   username: '',
@@ -18,14 +19,22 @@ const initialState = {
 
 const orderReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'PRICING_FETCH_SUCCESS':
+    case 'SET_PRICES':
       return produce(state, draftState => {
-        const { currency, products, addons } = action.payload;
+        const { currency, products, addons, promocode, recurfor } = action.payload;
+        const activeProduct = draftState.activeProduct ? draftState.activeProduct : products[0].id;
+
         draftState.loading = false;
         draftState.currency = currency;
         draftState.products = products;
         draftState.addons = addons;
-        draftState.activeProduct = products[0].id;
+        draftState.activeProduct = activeProduct;
+        draftState.promocode = promocode || '';
+        draftState.recurfor = recurfor;
+      });
+    case 'PRICING_FETCH_FAIL':
+      return produce(state, draftState => {
+        draftState.invalidPromocode = action.payload;
       });
     case 'TOGGLE_PRODUCT':
       return produce(state, draftState => {
