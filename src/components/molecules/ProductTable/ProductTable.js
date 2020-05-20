@@ -60,20 +60,21 @@ const ProductTable = () => {
               </>
             )}
           </TableRow>
-          {activeAddons.map(addonId => {
-            const addon = addons.find(el => el.relid === addonId);
-            return (
-              <TableRow key={addon.relid} className={classes.row}>
-                <TableCell component="th" scope="row" className={classes.cell}>
-                  {addon.name}
-                </TableCell>
-                <TableCell align="right" className={`${classes.cell} ${classes.cellPrice}`}>
-                  {currency}
-                  {addon[cycle]}
-                </TableCell>
-              </TableRow>
-            );
-          })}
+          {!!addons.length &&
+            activeAddons.map(addonId => {
+              const addon = addons.find(el => el.relid === addonId);
+              return (
+                <TableRow key={addon.relid} className={classes.row}>
+                  <TableCell component="th" scope="row" className={classes.cell}>
+                    {addon.name}
+                  </TableCell>
+                  <TableCell align="right" className={`${classes.cell} ${classes.cellPrice}`}>
+                    {currency}
+                    {addon[cycle]}
+                  </TableCell>
+                </TableRow>
+              );
+            })}
         </TableBody>
       </Table>
     </TableContainer>
