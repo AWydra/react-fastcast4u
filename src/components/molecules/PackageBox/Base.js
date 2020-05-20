@@ -2,51 +2,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import styled, { css } from 'styled-components';
-import { makeStyles } from '@material-ui/core/styles';
-import { Card, CardActionArea, CardContent, Divider } from '@material-ui/core';
+import {
+  Box,
+  Card,
+  CardActionArea,
+  CardContent,
+  Checkbox,
+  Divider,
+  makeStyles,
+} from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
 import { modeSwitch } from 'utils/theme';
 
-const GridContainer = styled.div`
-  ${({ theme }) => css`
-    display: grid;
-    height: 100%;
-    grid-template-columns: 1fr ${({ showPrice }) => showPrice && '105px'};
-
-    ${theme.breakpoints.down('xs')} {
-      grid-template-columns: 1fr ${({ showPrice }) => showPrice && 'auto'};
-    }
-  `}
-`;
-
-const Price = styled.div`
-  ${({ theme }) => css`
-    font-family: ${theme.typography.fontFamily};
-    font-size: 40px;
-    text-align: center;
-  `}
-`;
-
-const PriceUnit = styled.span`
-  margin-left: -7px;
-  display: inline-block;
-  vertical-align: top;
-  font-size: 28px;
-  font-weight: 400;
-`;
-
-const PriceCycle = styled.div`
-  margin-top: 5px;
-  color: #999;
-  text-align: center;
-  text-transform: uppercase;
-  font-size: 0.31em;
-  font-weight: 300;
-`;
-
 const useStyles = makeStyles(theme => ({
-  root: isActive => ({
+  root: ({ isActive }) => ({
     height: '100%',
     boxShadow: isActive ? `0px 0 0px 2px ${theme.palette.primary.main}` : 'unset',
     border: `solid 1px ${
@@ -60,63 +29,99 @@ const useStyles = makeStyles(theme => ({
     height: '100%',
   },
   content: {
-    padding: theme.spacing(2.5),
-    flexGrow: 1,
-  },
-  pricing: {
-    padding: theme.spacing(2.5, 1),
+    height: '100%',
+    padding: `${theme.spacing(1, 1.5)} !important`,
     display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: theme.palette.type !== 'dark' && theme.palette.grey[100],
-    transition: 'unset',
-    borderLeft: `solid 1px ${
-      theme.palette.type !== 'dark' ? theme.palette.grey[400] : theme.palette.grey[700]
-    }`,
-    [theme.breakpoints.down('xs')]: {
-      padding: theme.spacing(2.5, 2),
+    position: 'relative',
+    flexDirection: 'column',
+    flexGrow: 1,
+    [theme.breakpoints.up('lg')]: {
+      padding: `${theme.spacing(2, 2.5)} !important`,
+      paddingBottom: ({ showPrice }) => showPrice && `${theme.spacing(1.5)}px !important`,
     },
+  },
+  checkbox: { position: 'absolute', right: 0, top: 0 },
+  heading: {
+    fontSize: theme.typography.pxToRem(17),
+    [theme.breakpoints.up('lg')]: {
+      fontSize: theme.typography.pxToRem(20),
+    },
+  },
+  desc: {
+    fontSize: theme.typography.pxToRem(14),
+    [theme.breakpoints.up('lg')]: {
+      fontSize: theme.typography.pxToRem(15),
+    },
+  },
+  priceContainer: {
+    marginTop: 'auto',
+    paddingTop: theme.spacing(0.5),
+    display: 'flex',
+    alignItems: 'baseline',
+    justifyContent: 'flex-end',
+  },
+  price: {
+    fontSize: theme.typography.pxToRem(20),
+    fontWeight: 600,
+    color: theme.palette.primary.main,
+  },
+  priceOld: {
+    marginRight: theme.spacing(0.5),
+    alignSelf: 'flex-start',
+    color: theme.palette.grey[600],
+    textDecoration: 'line-through',
+  },
+  cycle: {
+    marginLeft: theme.spacing(0.5),
+    color: theme.palette.grey[700],
+    fontSize: theme.typography.pxToRem(14),
   },
 }));
 
 const ProductBox = ({ data, cycle, isActive, showPrice, onClick }) => {
   const currency = useSelector(state => state.order.currency);
   const { name, description } = data;
-  const price = showPrice && data[cycle] * 1;
-  const classes = useStyles(isActive, showPrice);
+  const price = Number(data[cycle]);
+  const priceBasic = Number(data[`${cycle}Basic`]);
+  const classes = useStyles({ isActive, showPrice });
 
   return (
     <Card className={classes.root} onClick={onClick}>
       <CardActionArea className={classes.actionArea}>
-        <GridContainer showPrice={showPrice}>
-          <CardContent className={classes.content}>
-            <Text gutterBottom variant="h6" component="h4" fontWeight={600}>
-              {name}
-            </Text>
-            <Divider />
-            <Text variant="body2" color="textSecondary" component="p" mt={1}>
-              {description}
-            </Text>
-          </CardContent>
+        <Checkbox checked={isActive} color="primary" className={classes.checkbox} />
+        <CardContent className={classes.content}>
+          <Text
+            className={classes.heading}
+            gutterBottom
+            variant="subtitle1"
+            component="h4"
+            fontWeight={600}
+            pr={3}
+          >
+            {name}
+          </Text>
+          <Divider />
+          <Text className={classes.desc} color="textSecondary" component="p" mt={1}>
+            {description}
+          </Text>
           {showPrice && (
-            <CardContent className={classes.pricing}>
-              <Price>
-                {!!price && (
-                  <PriceUnit component="p" variant="h4">
-                    {currency}
-                  </PriceUnit>
-                )}
-                {price || (
-                  <Text component="span" variant="h4">
-                    FREE
-                  </Text>
-                )}
-
-                <PriceCycle>{cycle}</PriceCycle>
-              </Price>
-            </CardContent>
+            <Box className={classes.priceContainer}>
+              {priceBasic !== price && (
+                <Text className={classes.priceOld}>
+                  {!!priceBasic && currency}
+                  {priceBasic ? priceBasic.toFixed(2) : 'FREE'}
+                </Text>
+              )}
+              <Text className={classes.price}>
+                {!!price && currency}
+                {price ? price.toFixed(2) : 'FREE'}
+              </Text>
+              <Text className={classes.cycle} component="span">
+                {cycle}
+              </Text>
+            </Box>
           )}
-        </GridContainer>
+        </CardContent>
       </CardActionArea>
     </Card>
   );

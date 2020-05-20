@@ -5,6 +5,8 @@ import orderActions from 'actions/orderActions';
 import Base from './Base';
 
 const countPrice = (product, cycle) => product[cycle].premium - product[cycle].regular;
+const countBasicPrice = (product, cycle) =>
+  product[cycle].premiumBasic - product[cycle].regularBasic;
 
 const PremiumBox = () => {
   const dispatch = useDispatch();
@@ -21,8 +23,11 @@ const PremiumBox = () => {
       name: 'Premium stream quality - 320kbps',
       description: 'The highest online audio streaming bitrate for the best sound quality',
       monthly: countPrice(product, 'monthly'),
+      monthlyBasic: countBasicPrice(product, 'monthly'),
       annually: countPrice(product, 'annually'),
+      annuallyBasic: countBasicPrice(product, 'annually'),
       biennially: countPrice(product, 'biennially'),
+      bienniallyBasic: countBasicPrice(product, 'biennially'),
     }),
     [product],
   );
