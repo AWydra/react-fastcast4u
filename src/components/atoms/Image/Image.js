@@ -8,7 +8,6 @@ const Image = styled(props => <LazyLoadImage effect="opacity" {...props} />)`
   ${spacing}
   max-width: 100%;
   display: block;
-  border-style: none;
 `;
 
 export default Image;

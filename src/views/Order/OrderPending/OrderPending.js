@@ -67,9 +67,7 @@ const OrderPending = ({ cookies }) => {
         setCreating(true);
         setMessage(messages.creating);
       } catch (error) {
-        if (!error.__CANCEL__) {
-          alert.error(error.message);
-        }
+        return null;
       }
     }, 5000);
 

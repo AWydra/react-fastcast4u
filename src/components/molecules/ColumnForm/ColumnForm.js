@@ -12,7 +12,7 @@ const ColumnForm = styled(({ loading, children, ...props }) => (
   ${({ theme }) => css`
     width: 100%;
     max-width: 450px;
-    padding: ${theme.spacing(2, 3)};
+    padding: ${theme.spacing(3, 2.5)};
     position: relative;
     box-shadow: ${theme.shadows[5]};
     ${theme.breakpoints.up('md')} {
