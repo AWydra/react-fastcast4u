@@ -41,7 +41,7 @@ const LoginForm = ({ setLoading }) => {
     initialValues: {
       email,
       password,
-      otter: username,
+      username,
       emailmarketing,
     },
     validationSchema: Yup.object({
@@ -51,7 +51,7 @@ const LoginForm = ({ setLoading }) => {
       password: Yup.string()
         .min(3, 'Must be 3 characters or more')
         .required('Required'),
-      otter: Yup.string()
+      username: Yup.string()
         .min(3, 'Must be 3 characters or more')
         .max(8, 'Must be 8 characters or less')
         .matches(/^[a-z0-9]{3,8}$/, "Can't contain special characters")
@@ -60,13 +60,8 @@ const LoginForm = ({ setLoading }) => {
     onSubmit: async values => {
       setLoading(true);
       try {
-        const data = {
-          ...values,
-          username: values.otter,
-        };
-
-        await orderServices.setStep3(data);
-        dispatch(orderActions.setCredentials(data));
+        await orderServices.setStep3(values);
+        dispatch(orderActions.setCredentials(values));
         history.push('/order/payment');
       } catch (err) {
         alert.error(err.response.data.errorMessage || err.response.statusText);
@@ -77,9 +72,21 @@ const LoginForm = ({ setLoading }) => {
   return (
     <>
       <form onSubmit={formik.handleSubmit} noValidate autoComplete="off" className={classes.form}>
-        <FormikInput formik={formik} label="Email" name="email" type="email" />
-        <FormikInput formik={formik} label="Password" name="password" type="password" />
-        <FormikInput formik={formik} label="Server Login Username" name="otter" />
+        <FormikInput
+          formik={formik}
+          label="Email"
+          name="email"
+          type="email"
+          autoComplete="username"
+        />
+        <FormikInput
+          formik={formik}
+          label="Password"
+          name="password"
+          type="password"
+          autoComplete="current-password"
+        />
+        <FormikInput formik={formik} label="Server Login Username" name="username" />
         <FormControlLabel
           control={
             <Checkbox
