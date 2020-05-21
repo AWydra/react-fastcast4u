@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
 
 const DirectoryPagination = () => {
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down('xs'));
+  const matches = useMediaQuery(theme.breakpoints.up('sm'));
   const classes = useStyles(matches);
   const page = useSelector(state => state.directory.page);
   const pages = useSelector(state => state.directory.pages);
@@ -54,8 +54,8 @@ const DirectoryPagination = () => {
       disabled={loading}
       color="primary"
       shape="rounded"
-      size={matches ? 'medium' : 'large'}
-      siblingCount={matches ? 1 : 2}
+      size={matches ? 'large' : 'medium'}
+      siblingCount={matches ? 2 : 1}
     />
   );
 };
