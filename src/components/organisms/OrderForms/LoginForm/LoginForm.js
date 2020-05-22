@@ -46,15 +46,18 @@ const LoginForm = ({ setLoading }) => {
     },
     validationSchema: Yup.object({
       email: Yup.string()
-        .matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i, 'Invalid email address')
+        .matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,7}$/i, 'Invalid email address')
         .required('Required'),
       password: Yup.string()
-        .min(3, 'Must be 3 characters or more')
+        .min(8, 'Must be 8 characters or more')
+        .max(30, 'Must be 30 characters or less')
+        .matches(/^[^#%&?+\\]{1,}$/, "Can't contain characters #%&?+\\")
         .required('Required'),
       username: Yup.string()
         .min(3, 'Must be 3 characters or more')
-        .max(8, 'Must be 8 characters or less')
-        .matches(/^[a-z0-9]{3,8}$/, "Can't contain special characters")
+        .max(16, 'Must be 16 characters or less')
+        .matches(/^[^A-Z]{1,}$/, "Can't contain uppercase characters")
+        .matches(/^[a-z0-9]{3,16}$/, "Can't contain special characters")
         .required('Required'),
     }),
     onSubmit: async values => {
