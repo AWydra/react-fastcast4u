@@ -54,8 +54,9 @@ const ProductTable = () => {
                   {plan === 'premium' ? ' (320kbps)' : ' (128kbps)'}
                 </TableCell>
                 <TableCell align="right" className={`${classes.cell} ${classes.cellPrice}`}>
-                  {currency}
-                  {activeProductObject[cycle][plan]}
+                  {activeProductObject[cycle][plan] === '0.00'
+                    ? 'FREE'
+                    : `${currency}${activeProductObject[cycle][plan]}`}
                 </TableCell>
               </>
             )}
@@ -69,8 +70,7 @@ const ProductTable = () => {
                     {addon.name}
                   </TableCell>
                   <TableCell align="right" className={`${classes.cell} ${classes.cellPrice}`}>
-                    {currency}
-                    {addon[cycle]}
+                    {addon[cycle] === '0.00' ? 'FREE' : `${currency}${addon[cycle]}`}
                   </TableCell>
                 </TableRow>
               );
