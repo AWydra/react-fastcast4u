@@ -87,7 +87,7 @@ const OrderSummary = () => {
       </FormContainer>
       <Divider />
       <FormContainer flexEnd>
-        <CTAButton loading={loading} onClick={handleClick} color="primary">
+        <CTAButton loading={loading} disabled={order.loading} onClick={handleClick} color="primary">
           CONTINUE
         </CTAButton>
       </FormContainer>
