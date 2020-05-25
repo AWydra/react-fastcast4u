@@ -1,6 +1,10 @@
 // @ts-nocheck
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { parsePhoneNumberFromString } from 'libphonenumber-js';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
+import generalServices from 'services/general';
+
 import {
   Box,
   Dialog,
@@ -11,9 +15,6 @@ import {
 } from '@material-ui/core';
 import PhoneInput from 'components/atoms/PhoneInput/PhoneInput';
 import CTAButton from 'components/atoms/CTAButton/CTAButton';
-import { parsePhoneNumberFromString } from 'libphonenumber-js';
-
-import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 
 const useStyles = makeStyles(theme => ({
   title: {
@@ -35,7 +36,9 @@ const useStyles = makeStyles(theme => ({
     },
   },
   text: {
-    fontSize: theme.typography.pxToRem(18),
+    [theme.breakpoints.up('md')]: {
+      fontSize: theme.typography.pxToRem(18),
+    },
   },
   box: {
     marginTop: theme.spacing(2.5),
@@ -57,15 +60,13 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-// https://fastcast4u.com/contact/?phone&success
-
-const CallModal = ({ onClose, ...props }) => {
+const CallRequestModal = ({ onClose, ...props }) => {
   const classes = useStyles();
   const [number, setNumber] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [message, setMessage] = useState(false);
   const { executeRecaptcha } = useGoogleReCaptcha();
 
   const handleChange = phone => {
@@ -80,14 +81,16 @@ const CallModal = ({ onClose, ...props }) => {
 
   const handleSubmit = ev => {
     ev.preventDefault();
+    if (disabled) return;
     setLoading(true);
     const sendRequest = async () => {
       const token = await executeRecaptcha('login_page');
-      console.log(token);
-      setTimeout(() => {
-        setSubmitted(true);
-        setError(true);
-      }, 4000);
+      const response = await generalServices.requestPhoneCall({
+        number,
+        token,
+      });
+      setMessage(response.message);
+      setSubmitted(true);
     };
 
     sendRequest();
@@ -95,25 +98,18 @@ const CallModal = ({ onClose, ...props }) => {
 
   return (
     <Dialog
-      classes={{ paper: classes.paper }}
-      onClose={() => {
-        onClose();
-        setDisabled(false);
-      }}
-      {...props}
-      aria-labelledby="modal-phone"
       scroll="body"
+      aria-labelledby="modal-phone"
+      classes={{ paper: classes.paper }}
+      onClose={() => onClose()}
+      {...props}
     >
       <DialogTitle className={classes.title} id="modal-phone">
         Prefer phone contact?
       </DialogTitle>
       <DialogContent className={classes.content}>
         <DialogContentText className={classes.text}>
-          {error
-            ? 'You have already submitted this number, only one call per hour is allowed. Try again later.'
-            : submitted
-            ? 'Thank you. Our representative will contact you shortly. Please answer a call from this number: +1 (844) 203-2278'
-            : 'Just leave your number. Our agent will call back as soon as possible.'}
+          {message || 'Just leave your number. Our agent will call back as soon as possible.'}
         </DialogContentText>
         {!submitted && (
           <>
@@ -130,6 +126,7 @@ const CallModal = ({ onClose, ...props }) => {
                 }}
                 value={number}
                 onChange={handleChange}
+                onEnterKeyPress={handleSubmit}
               />
               <CTAButton
                 className={classes.button}
@@ -149,8 +146,8 @@ const CallModal = ({ onClose, ...props }) => {
   );
 };
 
-CallModal.propTypes = {
+CallRequestModal.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default CallModal;
+export default CallRequestModal;

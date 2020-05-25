@@ -1,8 +1,8 @@
 import axios from 'axios';
+import { isProd } from 'utils/nodeEnv';
 
-const source = axios.CancelToken.source();
-
-const cancel = () => source.cancel();
+const baseUrl = `${isProd() ? 'https://fastcast4u.com' : ''}`;
+let source = axios.CancelToken.source();
 
 const getCountryCode = async () => {
   const response = await axios.get(
@@ -14,4 +14,17 @@ const getCountryCode = async () => {
   return response.data.countryCode.toLowerCase();
 };
 
-export default { getCountryCode, cancel };
+const requestPhoneCall = async (data) => {
+  const response = await axios.post(`${baseUrl}/request_phone/call_web-react.php`, data, {
+    cancelToken: source.token,
+  });
+
+  return response.data;
+}
+
+const cancel = () => {
+  source.cancel();
+  source = axios.CancelToken.source();
+};
+
+export default { getCountryCode, requestPhoneCall, cancel };

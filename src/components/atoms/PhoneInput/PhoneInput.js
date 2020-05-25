@@ -97,6 +97,10 @@ const PhoneInput = ({ value, ...props }) => {
     };
 
     !value && sendRequest();
+
+    return () => {
+      generalServices.cancel();
+    };
     // eslint-disable-next-line
   }, []);
 
