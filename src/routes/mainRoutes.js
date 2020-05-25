@@ -6,6 +6,7 @@ import PageLoader from 'components/molecules/PageLoader/PageLoader';
 
 const Home = lazy(() => import('views/Home/Home'));
 const Contact = lazy(() => import('views/Contact/Contact'));
+const Privacy = lazy(() => import('views/Privacy/Privacy'));
 const NotFound = lazy(() => import('views/NotFound/NotFound'));
 
 const Routes = () => (
@@ -15,6 +16,7 @@ const Routes = () => (
       <Route path="/order" component={OrderRoutes} />
       <Route path="/radio-directory" component={DirectoryRoutes} />
       <Route path="/contact" component={Contact} />
+      <Route path="/privacy" component={Privacy} />
       <Route component={NotFound} />
     </Switch>
   </Suspense>

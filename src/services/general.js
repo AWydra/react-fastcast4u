@@ -14,17 +14,33 @@ const getCountryCode = async () => {
   return response.data.countryCode.toLowerCase();
 };
 
-const requestPhoneCall = async (data) => {
+const requestPhoneCall = async data => {
   const response = await axios.post(`${baseUrl}/request_phone/call_web-react.php`, data, {
     cancelToken: source.token,
   });
 
   return response.data;
-}
+};
+
+const getTos = async () => {
+  const response = await axios.get(`${baseUrl}/tos/pure.php`, {
+    cancelToken: source.token,
+  });
+
+  return response.data;
+};
+
+const getPrivacyPolicy = async () => {
+  const response = await axios.get(`${baseUrl}/privacy/privacy.php`, {
+    cancelToken: source.token,
+  });
+
+  return response.data;
+};
 
 const cancel = () => {
   source.cancel();
   source = axios.CancelToken.source();
 };
 
-export default { getCountryCode, requestPhoneCall, cancel };
+export default { getCountryCode, requestPhoneCall, getTos, getPrivacyPolicy, cancel };
