@@ -16,17 +16,19 @@ const ButtonContainer = styled.div`
 `;
 
 const useStyles = makeStyles(theme => ({
-  button: xlarge =>
+  root: xlarge =>
     xlarge && {
       position: 'relative',
       [theme.breakpoints.up('lg')]: {
         padding: theme.spacing(0, 4),
-
-        '& .MuiButton-label': {
-          fontSize: 18,
-          fontWeight: 700,
-          lineHeight: 3,
-        },
+      },
+    },
+  label: xlarge =>
+    xlarge && {
+      [theme.breakpoints.up('lg')]: {
+        fontSize: 18,
+        fontWeight: 600,
+        lineHeight: 2.8,
       },
     },
   progress: {
@@ -40,7 +42,10 @@ const CTAButton = ({ loading, disabled, onClick, children, xlarge, ...props }) =
     <ButtonContainer {...props}>
       <Button
         variant="contained"
-        className={classes.button}
+        classes={{
+          root: classes.root,
+          label: classes.label,
+        }}
         disabled={loading || disabled}
         onClick={onClick}
         {...props}
