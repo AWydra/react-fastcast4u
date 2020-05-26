@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import generalActions from 'actions/generalActions';
 
@@ -8,9 +8,10 @@ import FullContainer from 'components/atoms/FullContainer/FullContainer';
 import HeadingBlock from 'components/molecules/HeadingBlock/HeadingBlock';
 import ContactFeature from 'components/molecules/ContactFeature/ContactFeature';
 import CTASection from 'components/organisms/CTASection/CTASection';
-import CallRequestModal from 'components/organisms/Modals/CallRequestModal';
 import { Phone, Chat, Email } from '@material-ui/icons';
 import history from 'utils/history';
+
+const CallRequestModal = lazy(() => import('components/organisms/Modals/CallRequestModal'));
 
 const listData = [
   {
@@ -137,7 +138,9 @@ const Contact = () => {
               onClick: () => setOpen(true),
             }}
           />
-          <CallRequestModal open={open} onClose={() => setOpen(false)} />
+          <Suspense fallback="">
+            {open && <CallRequestModal open={open} onClose={() => setOpen(false)} />}
+          </Suspense>
         </Grid>
       </Grid>
     </FullContainer>

@@ -43,7 +43,7 @@ const Ad = () => {
         >
           <CardContent className={classes.content}>
             <Text className={classes.text} mb={4} variant="h4" component="h2">
-              Start Your Online Radio Station for&nbsp;$1
+              Start Your Own Online Radio Station
             </Text>
             <Button size="large" variant="contained" color="primary">
               Start Now

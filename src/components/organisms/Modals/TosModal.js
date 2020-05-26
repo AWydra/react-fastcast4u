@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+import generalServices from 'services/general';
 
 import {
   Button,
@@ -46,8 +46,8 @@ const TosModal = ({ onClose, ...props }) => {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await axios.get('/tos/pure.php');
-      setResponse(response.data);
+      const response = await generalServices.getTos();
+      setResponse(response);
     }
     fetchData();
   }, []);

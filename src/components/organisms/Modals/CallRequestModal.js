@@ -101,7 +101,7 @@ const CallRequestModal = ({ onClose, ...props }) => {
       scroll="body"
       aria-labelledby="modal-phone"
       classes={{ paper: classes.paper }}
-      onClose={() => onClose()}
+      onClose={onClose}
       {...props}
     >
       <DialogTitle className={classes.title} id="modal-phone">
