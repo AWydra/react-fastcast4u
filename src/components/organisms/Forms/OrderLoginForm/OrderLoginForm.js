@@ -31,7 +31,7 @@ const BtnContainer = styled.div`
   justify-content: space-between;
 `;
 
-const LoginForm = ({ setLoading }) => {
+const OrderLoginForm = ({ setLoading }) => {
   const { email, password, username, emailmarketing } = useSelector(state => state.order);
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -114,8 +114,8 @@ const LoginForm = ({ setLoading }) => {
   );
 };
 
-LoginForm.propTypes = {
+OrderLoginForm.propTypes = {
   setLoading: PropTypes.func.isRequired,
 };
 
-export default LoginForm;
+export default OrderLoginForm;

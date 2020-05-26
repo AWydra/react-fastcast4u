@@ -4,7 +4,7 @@ import FullContainer from 'components/atoms/FullContainer/FullContainer';
 import ColumnForm from 'components/molecules/ColumnForm/ColumnForm';
 import BoxTitle from 'components/atoms/BoxTitle/BoxTitle';
 import Stepper from 'components/organisms/Stepper/Stepper';
-import DetailsForm from 'components/organisms/OrderForms/DetailsForm/DetailsForm';
+import DetailsForm from 'components/organisms/Forms/OrderDetailsForm/OrderDetailsForm';
 import orderServices from 'services/order';
 import OrderAccessController from 'utils/OrderAccessController';
 import { useAlert } from 'utils/customHooks';

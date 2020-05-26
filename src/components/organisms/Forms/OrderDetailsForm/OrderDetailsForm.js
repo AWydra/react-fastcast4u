@@ -30,7 +30,7 @@ const BtnContainer = styled.div`
   justify-content: ${({ flexEnd }) => (flexEnd ? 'flex-end' : 'space-between')};
 `;
 
-const DetailsForm = ({ setLoading }) => {
+const OrderDetailsForm = ({ setLoading }) => {
   const [cookies] = useCookies(['Fc4uOrder_Session']);
   const classes = useStyles();
   const alert = useAlert();
@@ -97,8 +97,8 @@ const DetailsForm = ({ setLoading }) => {
   );
 };
 
-DetailsForm.propTypes = {
+OrderDetailsForm.propTypes = {
   setLoading: PropTypes.func.isRequired,
 };
 
-export default DetailsForm;
+export default OrderDetailsForm;

@@ -7,7 +7,7 @@ import ColumnForm from 'components/molecules/ColumnForm/ColumnForm';
 import BoxTitle from 'components/atoms/BoxTitle/BoxTitle';
 import Text from 'components/atoms/Text/Text';
 import Stepper from 'components/organisms/Stepper/Stepper';
-import LoginForm from 'components/organisms/OrderForms/LoginForm/LoginForm';
+import LoginForm from 'components/organisms/Forms/OrderLoginForm/OrderLoginForm';
 import OrderAccessController from 'utils/OrderAccessController';
 
 const TosModal = lazy(() => import('components/organisms/Modals/TosModal'));
