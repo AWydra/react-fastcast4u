@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { isProd } from 'utils/nodeEnv';
 
-const baseUrl = `${isProd() ? 'https://fastcast4u.com' : ''}`;
+const baseUrl = `${isProd() ? 'https://fastcast4u.com/api' : '/api'}`;
 let source = axios.CancelToken.source();
 
 const getCountryCode = async () => {

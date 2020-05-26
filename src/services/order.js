@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { isProd } from 'utils/nodeEnv';
 
-const baseUrl = `${isProd() ? 'https://fastcast4u.com' : ''}/order/backend/api/`;
+const baseUrl = `${isProd() ? 'https://fastcast4u.com/api' : '/api'}/order/api/`;
 
 let source = axios.CancelToken.source();
 
@@ -12,7 +12,7 @@ const setStep1 = async () => {
 
 const getPricing = promocode => async dispatch => {
   try {
-    const order = await axios.get(`${baseUrl}pricing2.php`, {
+    const order = await axios.get(`${baseUrl}pricing.php`, {
       params: {
         promocode,
       },
@@ -27,7 +27,7 @@ const getPricing = promocode => async dispatch => {
 };
 
 const setStep2 = async data => {
-  const request = await axios.get(`${baseUrl}step2-react.php`, {
+  const request = await axios.get(`${baseUrl}step2.php`, {
     params: { ...data },
     cancelToken: source.token,
   });
@@ -35,7 +35,7 @@ const setStep2 = async data => {
 };
 
 const setStep3 = async data => {
-  const request = await axios.get(`${baseUrl}step3-react.php`, {
+  const request = await axios.get(`${baseUrl}step3.php`, {
     params: { ...data },
     cancelToken: source.token,
   });
@@ -43,7 +43,7 @@ const setStep3 = async data => {
 };
 
 const setPaymentMethod = async method => {
-  const request = await axios.get(`${baseUrl}step4-react.php`, {
+  const request = await axios.get(`${baseUrl}step4.php`, {
     params: {
       method,
     },
@@ -60,7 +60,7 @@ const checkCompatibility = async () => {
 };
 
 const setStep6 = async data => {
-  const request = await axios.get(`${baseUrl}step5-react.php`, {
+  const request = await axios.get(`${baseUrl}step5.php`, {
     params: { ...data },
     cancelToken: source.token,
   });
@@ -75,7 +75,7 @@ const checkFinalCompatibility = async () => {
 };
 
 const isReady = async () => {
-  const request = await axios.get(`${baseUrl}isReady-react.php`, {
+  const request = await axios.get(`${baseUrl}isReady.php`, {
     cancelToken: source.token,
   });
   return request.data;
