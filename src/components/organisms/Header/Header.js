@@ -1,5 +1,6 @@
 // @ts-nocheck
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import generalActions from 'actions/generalActions';
 
@@ -30,21 +31,25 @@ const StyledToolbar = styled(Toolbar)`
 const Header = () => {
   const theme = useSelector(state => state.general.theme);
   const dispatch = useDispatch();
+  const location = useLocation();
+  const isHidden = location.pathname.includes('login');
 
   const handleClick = () => {
     dispatch(generalActions.toggleTheme());
   };
 
   return (
-    <StyledAppBar color="default" position="static">
-      <StyledToolbar>
-        <Logo mr="auto" to="/" />
-        <IconButton color="primary" aria-label="toggle dark mode" onClick={handleClick}>
-          {theme === 'light' ? <LightIcon /> : <DarkIcon />}
-        </IconButton>
-        <NavButton to="/login">Login</NavButton>
-      </StyledToolbar>
-    </StyledAppBar>
+    !isHidden && (
+      <StyledAppBar color="default" position="static">
+        <StyledToolbar>
+          <Logo mr="auto" to="/" />
+          <IconButton color="primary" aria-label="toggle dark mode" onClick={handleClick}>
+            {theme === 'light' ? <LightIcon /> : <DarkIcon />}
+          </IconButton>
+          <NavButton to="/login">Login</NavButton>
+        </StyledToolbar>
+      </StyledAppBar>
+    )
   );
 };
 
