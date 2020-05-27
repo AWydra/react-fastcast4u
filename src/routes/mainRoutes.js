@@ -6,6 +6,7 @@ import PageLoader from 'components/molecules/PageLoader/PageLoader';
 
 const Home = lazy(() => import('views/Home/Home'));
 const Contact = lazy(() => import('views/Contact/Contact'));
+const Login = lazy(() => import('views/Login/Login'));
 const ToS = lazy(() => import('views/ToS/ToS'));
 const Privacy = lazy(() => import('views/Privacy/Privacy'));
 const NotFound = lazy(() => import('views/NotFound/NotFound'));
@@ -16,6 +17,7 @@ const Routes = () => (
       <Route exact path="/" component={Home} />
       <Route path="/order" component={OrderRoutes} />
       <Route path="/radio-directory" component={DirectoryRoutes} />
+      <Route path="/login" component={Login} />
       <Route path="/contact" component={Contact} />
       <Route path="/tos" component={ToS} />
       <Route path="/privacy" component={Privacy} />
