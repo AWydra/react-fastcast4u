@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import styled, { css } from 'styled-components';
-import { LinearProgress } from '@material-ui/core';
+import { Box, LinearProgress, makeStyles } from '@material-ui/core';
 import generalServices from 'services/general';
 import FullContainer from 'components/atoms/FullContainer/FullContainer';
 
-const PrivacySection = styled.section`
-  ${({ theme }) => {
-    css`
-      font-family: ${theme.typography.fontFamily} !important;
-    `;
-  }}
-`;
+const useStyles = makeStyles(theme => ({
+  privacy: {
+    '& h1': theme.typography.h4,
+    '& h2': theme.typography.h6,
+    '& p': theme.typography.body1,
+  },
+  loading: {
+    marginTop: theme.spacing(8),
+  },
+}));
 
 const Privacy = () => {
   const [response, setResponse] = useState('');
+  const classes = useStyles();
 
   useEffect(() => {
     const getPrivacyPolicy = async () => {
@@ -27,9 +30,9 @@ const Privacy = () => {
   return (
     <FullContainer maxWidth="xl">
       {response ? (
-        <PrivacySection dangerouslySetInnerHTML={{ __html: response }} />
+        <Box mt={4} className={classes.privacy} dangerouslySetInnerHTML={{ __html: response }} />
       ) : (
-        <LinearProgress />
+        <LinearProgress className={classes.loading} />
       )}
     </FullContainer>
   );

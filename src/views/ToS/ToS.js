@@ -21,7 +21,7 @@ const Privacy = () => {
   useEffect(() => {
     const getPrivacyPolicy = async () => {
       const response = await generalServices.getTos();
-      setResponse(response);
+      setResponse(response.message);
     };
 
     getPrivacyPolicy();
