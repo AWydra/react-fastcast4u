@@ -3,6 +3,7 @@ import produce from 'immer';
 const initialState = {
   chat: {
     isOpen: false,
+    isOnline: true,
   },
   theme: 'light',
   alert: {},
@@ -22,6 +23,10 @@ const generalReducer = (state = initialState, action) => {
     case 'SET_CHAT_DISPLAY':
       return produce(state, draftState => {
         draftState.chat.isOpen = action.payload.isOpen;
+      });
+    case 'SET_CHAT_STATUS':
+      return produce(state, draftState => {
+        draftState.chat.isOnline = action.payload.isOnline;
       });
     case 'SET_ALERT':
       return produce(state, draftState => {

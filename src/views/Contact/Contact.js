@@ -83,20 +83,18 @@ const Contact = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
-  const [status, setStatus] = useState(true);
+  const [loading, setLoading] = useState(false);
   const chat = useSelector(state => state.general.chat);
 
-  useEffect(() => {
-    const isChatOnline = () =>
-      chat.getStatus && chat.getStatus() === 'online' ? setStatus(true) : setStatus(false);
+  const Fallback = () => {
+    useEffect(() => {
+      setLoading(true);
 
-    isChatOnline();
-    const interval = setInterval(isChatOnline, 5000);
+      return () => setLoading(false);
+    }, []);
 
-    return () => {
-      clearInterval(interval);
-    };
-  }, [chat]);
+    return '';
+  };
 
   return (
     <FullContainer maxWidth="xl">
@@ -107,16 +105,21 @@ const Contact = () => {
             icon={Chat}
             title="Live Chat"
             desc="Chat with a friendly Customer Service agent"
-            active={status}
+            active={chat.isOnline}
             button={{
               label: 'Open Chat',
               onClick: () => dispatch(generalActions.setChatDisplay(true)),
-              disabled: !status,
+              disabled: !chat.isOnline,
             }}
           />
         </Grid>
         <Grid className={classes.phone} item>
-          <ContactFeature icon={Phone} title="Phone Support" list={listData} active={status} />
+          <ContactFeature
+            icon={Phone}
+            title="Phone Support"
+            list={listData}
+            active={chat.isOnline}
+          />
         </Grid>
         <Grid className={classes.message} item>
           <ContactFeature
@@ -136,9 +139,11 @@ const Contact = () => {
             button={{
               label: 'REQUEST CALL',
               onClick: () => setOpen(true),
+              disabled: !chat.isOnline,
+              loading,
             }}
           />
-          <Suspense fallback="">
+          <Suspense fallback={<Fallback />}>
             {open && <CallRequestModal open={open} onClose={() => setOpen(false)} />}
           </Suspense>
         </Grid>

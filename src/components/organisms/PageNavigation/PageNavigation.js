@@ -14,7 +14,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import tawkto from 'utils/tawkto';
 
-import { Home, Help, Chat, Radio, ShoppingCart } from '@material-ui/icons';
+import { Chat, Help, Home, Radio, ShoppingCart } from '@material-ui/icons';
 import { modeSwitch } from 'utils/theme';
 
 const navigationData = [
@@ -88,9 +88,9 @@ const PageNavigation = () => {
     if (!chat.onLoaded) return;
 
     if (isChatOpened) {
-      chat.maximize();
+      window.Tawk_API.maximize();
     } else {
-      chat.minimize();
+      window.Tawk_API.minimize();
     }
     // eslint-disable-next-line
   }, [chat.onLoaded, isChatOpened]);
@@ -112,6 +112,12 @@ const PageNavigation = () => {
           ev: 'onChatMaximized',
           fn: () => {
             dispatch(generalActions.setChatDisplay(true));
+          },
+        },
+        {
+          ev: 'onStatusChange',
+          fn: status => {
+            dispatch(generalActions.setChatStatus(status === 'online'));
           },
         },
       ],
@@ -153,12 +159,23 @@ const PageNavigation = () => {
             {...props}
           />
         ))}
-        <BottomNavigationAction
-          className={classes.action}
-          label={<StyledLabel>Chat</StyledLabel>}
-          icon={<Chat />}
-          onClick={handleClick}
-        />
+        {chat.isOnline ? (
+          <BottomNavigationAction
+            className={classes.action}
+            label={<StyledLabel>Chat</StyledLabel>}
+            icon={<Chat />}
+            onClick={handleClick}
+          />
+        ) : (
+          <BottomNavigationAction
+            component={Link}
+            to="/ticket"
+            value="/ticket"
+            className={classes.action}
+            label={<StyledLabel>Contact</StyledLabel>}
+            icon={<Chat />}
+          />
+        )}
       </BottomNavigation>
     )
   );
