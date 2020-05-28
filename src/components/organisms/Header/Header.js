@@ -32,7 +32,7 @@ const Header = () => {
   const theme = useSelector(state => state.general.theme);
   const dispatch = useDispatch();
   const location = useLocation();
-  const isHidden = location.pathname.includes('login');
+  const isHidden = location.pathname.startsWith('/login');
 
   const handleClick = () => {
     dispatch(generalActions.toggleTheme());

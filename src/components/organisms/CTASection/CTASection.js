@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Button } from '@material-ui/core';
+import CTAButton from 'components/atoms/CTAButton/CTAButton';
 import Text from 'components/atoms/Text/Text';
 
 const Container = styled.section`
@@ -25,9 +25,9 @@ const CTASection = ({ heading, content, button }) => (
       </Text>
     )}
     {button.label && (
-      <Button variant="contained" color="primary" size="large" onClick={button.onClick}>
+      <CTAButton variant="contained" color="primary" size="large" {...button}>
         {button.label}
-      </Button>
+      </CTAButton>
     )}
   </Container>
 );

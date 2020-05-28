@@ -47,7 +47,7 @@ const TosModal = ({ onClose, ...props }) => {
   useEffect(() => {
     async function fetchData() {
       const response = await generalServices.getTos();
-      setResponse(response);
+      setResponse(response.message);
     }
     fetchData();
   }, []);
