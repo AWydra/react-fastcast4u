@@ -8,9 +8,9 @@ const generateCycle = (period, cycle, after = false) => {
     normalizedPeriod = after ? period * 24 + 6 : period;
   }
 
-  return `${normalizedPeriod === 1 && !after ? '' : normalizedPeriod} ${
-    after ? 'month' : normalizedCycle
-  }${normalizedPeriod > 1 ? 's' : ''}`;
+  return `${normalizedPeriod === 1 ? '' : normalizedPeriod} ${after ? 'month' : normalizedCycle}${
+    normalizedPeriod > 1 ? 's' : ''
+  }:`;
 };
 
 export default generateCycle;
