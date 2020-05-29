@@ -50,10 +50,9 @@ const OrderPayment = () => {
     try {
       setLoading(true);
       const { data } = await orderServices.setPaymentMethod(method);
-
       if (data.invoice.status === 'error') throw Error(data.invoice.message);
       if (data.invoice.total === '0.00') return history.push('/order/details');
-      generatePayment(method, data);
+      generatePayment(data.payment);
     } catch (err) {
       alert.error(err.response.data.errorMessage || err.message);
       setTimeout(() => setLoading(false), 1000);
@@ -76,7 +75,7 @@ const OrderPayment = () => {
         </BoxTitle>
         <SecureMessage />
         <Box mb={4}>
-          <PaymentButton>
+          <PaymentButton onClick={() => handleClick('fasterpay')}>
             Debit / Credit Card
             <Box display="flex" alignItems="center" ml={1}>
               <VisaIcon className={classes.icon} />
