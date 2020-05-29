@@ -28,7 +28,7 @@ const StyledContainer = styled.div`
   `}
 `;
 
-const RowContent = ({ heading, content, btn, link, reverse }) => {
+const RowContent = ({ heading, content, button, reverse }) => {
   return (
     <StyledContainer reverse={reverse}>
       <Text component="h3" variant="h3" mb={3}>
@@ -37,8 +37,8 @@ const RowContent = ({ heading, content, btn, link, reverse }) => {
       <Text component="p" variant="h5" mt={2} mb={4}>
         {content}
       </Text>
-      <Button component={Link} to={link} size="large" variant="contained" color="secondary">
-        {btn}
+      <Button component={Link} size="large" variant="contained" color="secondary" {...button}>
+        {button.label}
       </Button>
     </StyledContainer>
   );
@@ -47,8 +47,10 @@ const RowContent = ({ heading, content, btn, link, reverse }) => {
 RowContent.propTypes = {
   heading: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
-  btn: PropTypes.string.isRequired,
-  link: PropTypes.string.isRequired,
+  button: PropTypes.shape({
+    label: PropTypes.string,
+    to: PropTypes.string,
+  }).isRequired,
   reverse: PropTypes.bool.isRequired,
 };
 

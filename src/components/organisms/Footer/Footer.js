@@ -12,17 +12,17 @@ const data = [
     title: 'SERVICES',
     content: [
       { heading: 'Radio Server', href: '/order' },
-      { heading: 'Mobile App', href: '/app' },
-      { heading: 'Radio Player', href: '/customize' },
-      { heading: 'Alexa Radio Skill', href: '/alexa-skill' },
+      { heading: 'Mobile App', href: '/app', external: true },
+      { heading: 'Radio Player', href: '/customize', external: true },
+      // { heading: 'Alexa Radio Skill', href: '/alexa-skill' },
     ],
   },
   {
     title: 'RESOURCES',
     content: [
       { heading: 'Radio Directory', href: '/radio-directory' },
-      { heading: 'Tutorials', href: '/help' },
-      { heading: 'FAQ', href: '/faq' },
+      { heading: 'Tutorials', href: '/help', external: true },
+      { heading: 'FAQ', href: '/faq', external: true },
       {
         heading: 'Server Uptime',
         href: 'https://billing.fastcast4u.com/serverstatus.php',
@@ -33,7 +33,7 @@ const data = [
   {
     title: 'SUPPORT',
     content: [
-      { heading: 'LiveChat', href: '/chat' }, // Tawk.to API
+      { heading: 'LiveChat', href: '/contact' }, // Tawk.to API
       { heading: 'Call', href: '/contact' },
       { heading: 'Message us', href: '/ticket' },
       { heading: 'Client Area', href: '/login' },

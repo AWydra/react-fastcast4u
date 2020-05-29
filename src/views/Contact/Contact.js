@@ -98,7 +98,11 @@ const Contact = () => {
 
   return (
     <FullContainer maxWidth="xl">
-      <HeadingBlock title="Contact page" subtitle="Whatever." component="h1" />
+      <HeadingBlock
+        title="Contact Us"
+        subtitle="Please select your preferred way to talk to us"
+        component="h1"
+      />
       <Grid container spacing={4}>
         <Grid className={classes.chat} item>
           <ContactFeature

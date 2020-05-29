@@ -7,10 +7,11 @@ import { modeSwitch } from 'utils/theme';
 
 const useStyles = makeStyles(theme => ({
   container: {
+    width: '100%',
+    marginTop: theme.spacing(1),
+    position: 'relative',
     fontFamily: 'inherit !important',
     fontSize: '1rem',
-    position: 'relative',
-    width: '100%',
     '& .flag-dropdown:before': {
       content: '"Phone Number (optional)" !important',
       width: 'auto !important',
@@ -36,7 +37,7 @@ const useStyles = makeStyles(theme => ({
   },
   input: {
     width: '100% !important',
-    padding: '10.5px 14px 10.5px 58px !important',
+    padding: '9.5px 14px 9.5px 58px !important',
     backgroundColor: 'transparent !important',
     borderColor: modeSwitch(
       'hsla(0, 0%, 0%, 0.23) !important',

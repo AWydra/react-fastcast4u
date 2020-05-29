@@ -14,29 +14,38 @@ const sections = [
     img: 'https://fastcast4u.com/images/start/device1.png',
     heading: 'Start Streaming Online in 3 minutes',
     content: 'Complete Radio Server Package',
-    btn: 'Start Now',
-    link: '/order',
+    button: {
+      label: 'Start Now',
+      to: '/order',
+    },
   },
   {
     img: 'https://fastcast4u.com/images/app/IPadIP.png',
     heading: 'Mobile App',
     content: 'Create Your Own Application for Android &\xa0Apple iOS',
-    btn: 'Start Now',
-    link: '/order',
+    button: {
+      label: 'Start Now',
+      to: '/order',
+    },
   },
   {
     img: 'https://fastcast4u.com/images/landing/wpdev1.png',
     heading: 'WebPlayer Page',
     content: 'Customizable Radio Player for listeners',
-    btn: 'Start Now',
-    link: '/order',
+    button: {
+      label: 'Start Now',
+      to: '/order',
+    },
   },
   {
     img: 'https://fastcast4u.com/images/landing/alexa.png',
     heading: 'Alexa Radio Skill',
     content: 'Add your radio stream to Alexa',
-    btn: 'Start Now',
-    link: '/order',
+    button: {
+      label: 'Soon',
+      to: '/order',
+      disabled: true,
+    },
   },
 ];
 

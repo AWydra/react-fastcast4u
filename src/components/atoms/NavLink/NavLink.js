@@ -26,7 +26,7 @@ const NavLink = ({ children, external, to, ...props }) => {
   };
 
   return external ? (
-    <NavButton component="a" href={to} target="_blank" rel="noreferrer" {...commonProps}>
+    <NavButton component="a" href={to} {...commonProps}>
       {children}
     </NavButton>
   ) : (

@@ -38,29 +38,26 @@ const FormContainer = styled.div`
     `}
 `;
 
-const useStyles = makeStyles(({ palette }) => ({
-  heading: {
-    color: palette.type !== 'dark' && palette.grey[800],
-    fontWeight: 600,
-    fontSize: 20,
-  },
-}));
-
-const OrderSummary = () => {
-  const order = useSelector(state => state.order);
+const Continue = () => {
   const [loading, setLoading] = useState(false);
-  const classes = useStyles();
+  const products = useSelector(state => state.order.products);
+  const activeProduct = useSelector(state => state.order.activeProduct);
+  const plan = useSelector(state => state.order.plan);
+  const activeAddons = useSelector(state => state.order.activeAddons);
+  const cycle = useSelector(state => state.order.cycle);
+  const promocode = useSelector(state => state.order.promocode);
+  const orderLoading = useSelector(state => state.order.loading);
 
   const handleClick = async () => {
     setLoading(true);
 
-    const productID = order.products.find(({ id }) => id === order.activeProduct).plan[order.plan];
+    const productID = products.find(({ id }) => id === activeProduct).plan[plan];
 
     const packageData = {
       product: productID,
-      addons: order.activeAddons.join(','),
-      billingcycle: order.cycle,
-      promocode: order.promocode,
+      addons: activeAddons.join(','),
+      billingcycle: cycle,
+      promocode,
     };
 
     try {
@@ -70,6 +67,26 @@ const OrderSummary = () => {
     }
     history.push('/order/login');
   };
+
+  return (
+    <FormContainer flexEnd>
+      <CTAButton loading={loading} disabled={orderLoading} onClick={handleClick} color="primary">
+        CONTINUE
+      </CTAButton>
+    </FormContainer>
+  );
+};
+
+const useStyles = makeStyles(({ palette }) => ({
+  heading: {
+    color: palette.type !== 'dark' && palette.grey[800],
+    fontWeight: 600,
+    fontSize: 20,
+  },
+}));
+
+const OrderSummary = () => {
+  const classes = useStyles();
 
   return (
     <SummaryContainer>
@@ -86,11 +103,7 @@ const OrderSummary = () => {
         <Promocode />
       </FormContainer>
       <Divider />
-      <FormContainer flexEnd>
-        <CTAButton loading={loading} disabled={order.loading} onClick={handleClick} color="primary">
-          CONTINUE
-        </CTAButton>
-      </FormContainer>
+      <Continue />
     </SummaryContainer>
   );
 };

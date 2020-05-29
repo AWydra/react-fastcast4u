@@ -116,9 +116,11 @@ const ProductBox = ({ data, cycle, isActive, showPrice, onClick }) => {
                 {!!price && currency}
                 {price ? price.toFixed(2) : 'FREE'}
               </Text>
-              <Text className={classes.cycle} component="span">
-                {cycle}
-              </Text>
+              {!!price && (
+                <Text className={classes.cycle} component="span">
+                  {cycle}
+                </Text>
+              )}
             </Box>
           )}
         </CardContent>
