@@ -38,9 +38,20 @@ const getPrivacyPolicy = async () => {
   return response.data;
 };
 
+const sendTicket = async data => {
+  const response = await axios.post(`${baseUrl}/ticket/ticket.php`, data, {
+    cancelToken: source.token,
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+
+  return response.data;
+};
+
 const cancel = () => {
   source.cancel();
   source = axios.CancelToken.source();
 };
 
-export default { getCountryCode, requestPhoneCall, getTos, getPrivacyPolicy, cancel };
+export default { getCountryCode, requestPhoneCall, getTos, getPrivacyPolicy, sendTicket, cancel };
