@@ -5386,7 +5386,7 @@ hmac-drbg@^1.0.0:
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.1"
 
-hoist-non-react-statics@3.3.2, hoist-non-react-statics@^3.0.0, hoist-non-react-statics@^3.1.0, hoist-non-react-statics@^3.3.0, hoist-non-react-statics@^3.3.2:
+hoist-non-react-statics@^3.0.0, hoist-non-react-statics@^3.1.0, hoist-non-react-statics@^3.3.0, hoist-non-react-statics@^3.3.2:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-3.3.2.tgz#ece0acaf71d62c2969c2ec59feff42a4b1a85b45"
   integrity sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==
@@ -9344,13 +9344,6 @@ react-ga@^2.7.0:
   version "2.7.0"
   resolved "https://registry.yarnpkg.com/react-ga/-/react-ga-2.7.0.tgz#24328f157f31e8cffbf4de74a3396536679d8d7c"
   integrity sha512-AjC7UOZMvygrWTc2hKxTDvlMXEtbmA0IgJjmkhgmQQ3RkXrWR11xEagLGFGaNyaPnmg24oaIiaNPnEoftUhfXA==
-
-react-google-recaptcha-v3@^1.5.1:
-  version "1.5.1"
-  resolved "https://registry.yarnpkg.com/react-google-recaptcha-v3/-/react-google-recaptcha-v3-1.5.1.tgz#6e58153283f1005d48755f9d6d6e4cac73848f3b"
-  integrity sha512-ZQUt1/kUtoiIGNaQCNkHVs4IW47PD7DsGjOPJZB0zRwiza8xUeZqtjn3/aH1htQ+rWw5MsDuTjUmZAuTWAghyw==
-  dependencies:
-    hoist-non-react-statics "3.3.2"
 
 react-hotjar@^2.1.0:
   version "2.1.0"
