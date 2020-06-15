@@ -10,7 +10,7 @@ import Routes from 'routes/mainRoutes';
 import ReactGA from 'utils/analytics';
 import { hotjar } from 'react-hotjar';
 import { CookiesProvider } from 'react-cookie';
-import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
+import reCaptcha from 'utils/reCaptcha';
 
 import MainTemplate from 'templates/MainTemplate';
 
@@ -31,16 +31,19 @@ const Root = () => {
     hotjar.initialize(95081, 6);
   }, []);
 
+  // reCaptcha
+  useEffect(() => {
+    reCaptcha.init();
+  }, []);
+
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <Router history={history}>
           <CookiesProvider>
-            <GoogleReCaptchaProvider reCaptchaKey="6LdUKPkUAAAAALnMyAe1VofPN4pvLo30wGKpl_dA">
-              <MainTemplate>
-                <Routes />
-              </MainTemplate>
-            </GoogleReCaptchaProvider>
+            <MainTemplate>
+              <Routes />
+            </MainTemplate>
           </CookiesProvider>
         </Router>
       </PersistGate>

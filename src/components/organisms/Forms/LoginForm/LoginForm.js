@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 // @ts-nocheck
 import React, { useState } from 'react';
-import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import loginServices from 'services/login';
 
 import styled from 'styled-components';
@@ -11,6 +10,7 @@ import { Link, makeStyles } from '@material-ui/core';
 import CTAButton from 'components/atoms/CTAButton/CTAButton';
 import FormikInput from 'components/atoms/FormikInput/FormikInput';
 import Text from 'components/atoms/Text/Text';
+import reCaptcha from 'utils/reCaptcha';
 import { useAlert } from 'utils/customHooks';
 
 const useStyles = makeStyles(theme => ({
@@ -44,13 +44,12 @@ const BtnContainer = styled.div`
 const LoginForm = () => {
   const classes = useStyles();
   const alert = useAlert();
-  const { executeRecaptcha } = useGoogleReCaptcha();
   const [forgot, setForgot] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const loginUser = async values => {
     setLoading(true);
-    const token = await executeRecaptcha();
+    const token = await reCaptcha.generate();
     const response = await loginServices.loginUser({
       ...values,
       token,
@@ -61,7 +60,7 @@ const LoginForm = () => {
 
   const forgotPassword = async values => {
     setLoading(true);
-    const token = await executeRecaptcha();
+    const token = await reCaptcha.generate();
     await loginServices.forgotPassword({
       usernameOrEmail: values.username,
       token,

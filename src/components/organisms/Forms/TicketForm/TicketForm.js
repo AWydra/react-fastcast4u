@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 // @ts-nocheck
 import React, { useState } from 'react';
-import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import generalServices from 'services/general';
 
 import { useFormik } from 'formik';
@@ -12,6 +11,7 @@ import CTAButton from 'components/atoms/CTAButton/CTAButton';
 import FormikInput from 'components/atoms/FormikInput/FormikInput';
 import PhoneInput from 'components/atoms/PhoneInput/PhoneInput';
 import Dropzone from 'components/organisms/Dropzone/Dropzone';
+import reCaptcha from 'utils/reCaptcha';
 import { useAlert } from 'utils/customHooks';
 
 const useStyles = makeStyles(theme => ({
@@ -35,13 +35,12 @@ const useStyles = makeStyles(theme => ({
 const LoginForm = () => {
   const classes = useStyles();
   const alert = useAlert();
-  const { executeRecaptcha } = useGoogleReCaptcha();
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
 
   const sendTicket = async values => {
     setLoading(true);
-    const token = await executeRecaptcha();
+    const token = await reCaptcha.generate();
     await generalServices.sendTicket({
       ...values,
       'g-recaptcha-response': token,

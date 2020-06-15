@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
-import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import generalServices from 'services/general';
 
 import {
@@ -15,6 +14,7 @@ import {
 } from '@material-ui/core';
 import PhoneInput from 'components/atoms/PhoneInput/PhoneInput';
 import CTAButton from 'components/atoms/CTAButton/CTAButton';
+import reCaptcha from 'utils/reCaptcha';
 
 const useStyles = makeStyles(theme => ({
   title: {
@@ -67,7 +67,6 @@ const CallRequestModal = ({ onClose, ...props }) => {
   const [disabled, setDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(false);
-  const { executeRecaptcha } = useGoogleReCaptcha();
 
   const handleChange = phone => {
     const number = parsePhoneNumberFromString(`+${phone}`);
@@ -84,7 +83,7 @@ const CallRequestModal = ({ onClose, ...props }) => {
     if (disabled) return;
     setLoading(true);
     const sendRequest = async () => {
-      const token = await executeRecaptcha('login_page');
+      const token = await reCaptcha.generate();
       const response = await generalServices.requestPhoneCall({
         number,
         token,
