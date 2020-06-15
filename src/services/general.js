@@ -39,11 +39,18 @@ const getPrivacyPolicy = async () => {
 };
 
 const sendTicket = async data => {
-  const response = await axios.post(`${baseUrl}/ticket/ticket.php`, data, {
+  const formData = new FormData();
+
+  Object.keys(data).forEach(key => {
+    if (Array.isArray(data[key])) {
+      data[key].forEach((el, i) => formData.append(`attachements${i}`, el));
+    } else {
+      formData.append(key, data[key]);
+    }
+  });
+
+  const response = await axios.post(`${baseUrl}/ticket/ticket.php`, formData, {
     cancelToken: source.token,
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
   });
 
   return response.data;
