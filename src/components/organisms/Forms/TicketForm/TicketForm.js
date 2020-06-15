@@ -6,32 +6,17 @@ import generalServices from 'services/general';
 
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { DropzoneDialog } from 'material-ui-dropzone';
-import {
-  Button,
-  Chip,
-  Grid,
-  InputLabel,
-  Link,
-  makeStyles,
-  useMediaQuery,
-  useTheme,
-} from '@material-ui/core';
+import { Button, Chip, Grid, InputLabel, Link, makeStyles } from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
 import CTAButton from 'components/atoms/CTAButton/CTAButton';
 import FormikInput from 'components/atoms/FormikInput/FormikInput';
 import PhoneInput from 'components/atoms/PhoneInput/PhoneInput';
+import Dropzone from 'components/organisms/Dropzone/Dropzone';
 import { useAlert } from 'utils/customHooks';
 
 const useStyles = makeStyles(theme => ({
   phone: {
     marignTop: 7,
-  },
-  grid: {
-    '& p': {
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
-    },
   },
   buttonContainer: {
     display: 'flex',
@@ -48,8 +33,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const LoginForm = () => {
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down('sm'));
   const classes = useStyles();
   const alert = useAlert();
   const { executeRecaptcha } = useGoogleReCaptcha();
@@ -152,6 +135,14 @@ const LoginForm = () => {
             <Chip label={file.name} key={file.name} />
           ))}
         </div>
+        <Dropzone
+          open={open}
+          onClose={() => setOpen(false)}
+          onSave={files => {
+            formik.setFieldValue('attachments', files);
+            setOpen(false);
+          }}
+        />
       </Grid>
       <Grid item xs={12}>
         <FormikInput
@@ -164,41 +155,7 @@ const LoginForm = () => {
           autoComplete="message"
         />
       </Grid>
-      <DropzoneDialog
-        acceptedFiles={['']}
-        dialogProps={{
-          maxWidth: 'xl',
-          fullWidth: true,
-          fullScreen: matches,
-          disableEscapeKeyDown: true,
-          disableBackdropClick: true,
-        }}
-        cancelButtonText="cancel"
-        submitButtonText="add"
-        maxFileSize={5000000}
-        open={open}
-        onClose={() => setOpen(false)}
-        onSave={files => {
-          formik.setFieldValue('attachments', files);
-          setOpen(false);
-        }}
-        filesLimit={18}
-        showPreviews
-        showFileNamesInPreview
-        previewGridProps={{
-          container: {
-            spacing: 2,
-          },
-          item: {
-            xs: 6,
-            md: 4,
-          },
-        }}
-        previewGridClasses={{
-          item: classes.grid,
-        }}
-        showAlerts={false}
-      />
+
       <Grid item xs={12} className={classes.buttonContainer}>
         <Text style={{ textAlign: 'center', marginBottom: 12 }}>
           By submitting a message you agree on processing the provided data according to our{' '}
