@@ -17,6 +17,11 @@ const setChatStatus = isOnline => ({
   payload: { isOnline },
 });
 
+const setCountry = country => ({
+  type: 'SET_COUNTRY',
+  payload: { country },
+});
+
 const setAlert = {
   success: content => ({
     type: 'SET_ALERT',
@@ -64,4 +69,4 @@ const setAlert = {
   }),
 };
 
-export default { toggleTheme, setChat, setChatDisplay, setChatStatus, setAlert };
+export default { toggleTheme, setChat, setChatDisplay, setChatStatus, setCountry, setAlert };

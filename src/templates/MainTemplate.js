@@ -1,6 +1,10 @@
 // @ts-nocheck
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import generalActions from 'actions/generalActions';
+import generalServices from 'services/general';
+
 import { CssBaseline, NoSsr, Box } from '@material-ui/core/';
 import { StylesProvider } from '@material-ui/core/styles';
 import GlobalStyle from 'theme/GlobalStyle';
@@ -12,6 +16,17 @@ import MainThemeProvider from 'theme/MainThemeProvider';
 import ErrorHandler from './ErrorHandler';
 
 const MainTemplate = ({ children }) => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const getCountryCode = async () => {
+      const code = await generalServices.getCountryCode();
+      dispatch(generalActions.setCountry(code));
+    };
+
+    getCountryCode();
+  }, []);
+
   return (
     <ErrorHandler>
       <NoSsr>

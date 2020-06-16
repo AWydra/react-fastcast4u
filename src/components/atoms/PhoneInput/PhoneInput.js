@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import generalServices from 'services/general';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core';
 import ReactPhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/material.css';
@@ -84,26 +84,8 @@ const useStyles = makeStyles(theme => ({
 
 // eslint-disable-next-line react/prop-types
 const PhoneInput = ({ value, ...props }) => {
-  const [country, setCountry] = useState('us');
+  const country = useSelector(state => state.general.country);
   const classes = useStyles();
-
-  useEffect(() => {
-    const sendRequest = async () => {
-      try {
-        const code = await generalServices.getCountryCode();
-        setCountry(code);
-      } catch (err) {
-        return null;
-      }
-    };
-
-    !value && sendRequest();
-
-    return () => {
-      generalServices.cancel();
-    };
-    // eslint-disable-next-line
-  }, []);
 
   return (
     <ReactPhoneInput

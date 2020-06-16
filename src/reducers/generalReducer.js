@@ -7,6 +7,7 @@ const initialState = {
   },
   theme: 'light',
   alert: {},
+  country: 'us',
 };
 
 const generalReducer = (state = initialState, action) => {
@@ -27,6 +28,10 @@ const generalReducer = (state = initialState, action) => {
     case 'SET_CHAT_STATUS':
       return produce(state, draftState => {
         draftState.chat.isOnline = action.payload.isOnline;
+      });
+    case 'SET_COUNTRY':
+      return produce(state, draftState => {
+        draftState.country = action.payload.country;
       });
     case 'SET_ALERT':
       return produce(state, draftState => {
