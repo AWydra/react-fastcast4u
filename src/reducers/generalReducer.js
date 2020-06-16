@@ -8,6 +8,7 @@ const initialState = {
   theme: 'light',
   alert: {},
   country: 'us',
+  interacted: false,
 };
 
 const generalReducer = (state = initialState, action) => {
@@ -32,6 +33,10 @@ const generalReducer = (state = initialState, action) => {
     case 'SET_COUNTRY':
       return produce(state, draftState => {
         draftState.country = action.payload.country;
+      });
+    case 'SET_INTERACTED':
+      return produce(state, draftState => {
+        draftState.interacted = true;
       });
     case 'SET_ALERT':
       return produce(state, draftState => {

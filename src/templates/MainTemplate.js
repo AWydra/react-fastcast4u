@@ -13,6 +13,7 @@ import Header from 'components/organisms/Header/Header';
 import PageNavigation from 'components/organisms/PageNavigation/PageNavigation';
 import Footer from 'components/organisms/Footer/Footer';
 import MainThemeProvider from 'theme/MainThemeProvider';
+import detectInteraction from 'utils/detectInteraction';
 import ErrorHandler from './ErrorHandler';
 
 const MainTemplate = ({ children }) => {
@@ -25,7 +26,11 @@ const MainTemplate = ({ children }) => {
     };
 
     getCountryCode();
-  }, []);
+  }, [dispatch]);
+
+  useEffect(() => {
+    detectInteraction(() => dispatch(generalActions.setInteracted()));
+  }, [dispatch]);
 
   return (
     <ErrorHandler>

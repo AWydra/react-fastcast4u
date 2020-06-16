@@ -22,6 +22,10 @@ const setCountry = country => ({
   payload: { country },
 });
 
+const setInteracted = () => ({
+  type: 'SET_INTERACTED',
+});
+
 const setAlert = {
   success: content => ({
     type: 'SET_ALERT',
@@ -69,4 +73,12 @@ const setAlert = {
   }),
 };
 
-export default { toggleTheme, setChat, setChatDisplay, setChatStatus, setCountry, setAlert };
+export default {
+  toggleTheme,
+  setChat,
+  setChatDisplay,
+  setChatStatus,
+  setCountry,
+  setInteracted,
+  setAlert,
+};
