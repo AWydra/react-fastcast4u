@@ -12,7 +12,6 @@ import {
   useTheme,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import tawkto from 'utils/tawkto';
 
 import { Chat, Help, Home, Radio, ShoppingCart } from '@material-ui/icons';
 import { modeSwitch } from 'utils/theme';
@@ -94,35 +93,6 @@ const PageNavigation = () => {
     }
     // eslint-disable-next-line
   }, [chat.onLoaded, isChatOpened]);
-
-  useEffect(() => {
-    tawkto.init(
-      '55fb4794e1ea4c1012fe49df',
-      tawk => {
-        return dispatch(generalActions.setChat(tawk));
-      },
-      [
-        {
-          ev: 'onChatMinimized',
-          fn: () => {
-            dispatch(generalActions.setChatDisplay(false));
-          },
-        },
-        {
-          ev: 'onChatMaximized',
-          fn: () => {
-            dispatch(generalActions.setChatDisplay(true));
-          },
-        },
-        {
-          ev: 'onStatusChange',
-          fn: status => {
-            dispatch(generalActions.setChatStatus(status === 'online'));
-          },
-        },
-      ],
-    );
-  }, [dispatch]);
 
   useEffect(() => {
     if (!chat.onLoaded) return;
