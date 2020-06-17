@@ -9,6 +9,7 @@ import Alert from 'components/atoms/Alert/Alert';
 import Header from 'components/organisms/Header/Header';
 import PageNavigation from 'components/organisms/PageNavigation/PageNavigation';
 import Footer from 'components/organisms/Footer/Footer';
+import CookieConsent from 'components/organisms/CookieConsent/CookieConsent';
 import MainThemeProvider from 'theme/MainThemeProvider';
 import ErrorHandler from 'templates/ErrorHandler';
 import ThirdPartyResources from 'utils/ThirdPartyResources';
@@ -26,6 +27,7 @@ const MainTemplate = ({ children }) => (
           <PageNavigation />
           <Footer />
           <ThirdPartyResources />
+          <CookieConsent />
         </StylesProvider>
       </MainThemeProvider>
     </NoSsr>
