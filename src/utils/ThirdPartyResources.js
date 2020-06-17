@@ -4,10 +4,6 @@ import generalActions from 'actions/generalActions';
 import generalServices from 'services/general';
 import detectInteraction from 'utils/detectInteraction';
 
-import ReactGA, { initializeAnalytics } from 'utils/analytics';
-import { hotjar } from 'react-hotjar';
-import reCaptcha from 'utils/reCaptcha';
-import tawkto from 'utils/tawkto';
 import history from 'utils/history';
 
 const ThirdPartyResources = () => {
@@ -16,50 +12,66 @@ const ThirdPartyResources = () => {
 
   useEffect(() => {
     if (interacted) {
+      // OneSignal
+      import('utils/onesignal').then(onesignal => {
+        onesignal.default.init();
+      });
+
       // hotjar
-      hotjar.initialize(95081, 6);
+      import('react-hotjar').then(({ hotjar }) => {
+        hotjar.initialize(95081, 6);
+      });
 
       // reCaptcha
-      reCaptcha.init();
+      import('utils/reCaptcha').then(reCaptcha => {
+        reCaptcha.default.init();
+      });
 
       // analytics
-      initializeAnalytics();
-      ReactGA.pageview(window.location.pathname);
+      import('utils/analytics').then(ReactGA => {
+        ReactGA.default.pageview(window.location.pathname);
 
-      history.listen(location => {
-        ReactGA.set({ page: location.pathname }); // Update the user's current page
-        ReactGA.pageview(location.pathname); // Record a pageview for the given page
+        history.listen(location => {
+          ReactGA.default.set({ page: location.pathname }); // Update the user's current page
+          ReactGA.default.pageview(location.pathname); // Record a pageview for the given page
+        });
       });
 
       // Tawk.to
-      tawkto.init(
-        '55fb4794e1ea4c1012fe49df',
-        tawk => {
-          return dispatch(generalActions.setChat(tawk));
-        },
-        [
-          {
-            ev: 'onChatMinimized',
-            fn: () => {
-              dispatch(generalActions.setChatDisplay(false));
-            },
+      import('utils/tawkto').then(tawkto => {
+        tawkto.default.init(
+          '55fb4794e1ea4c1012fe49df',
+          tawk => {
+            return dispatch(generalActions.setChat(tawk));
           },
-          {
-            ev: 'onChatMaximized',
-            fn: () => {
-              dispatch(generalActions.setChatDisplay(true));
+          [
+            {
+              ev: 'onChatMinimized',
+              fn: () => {
+                dispatch(generalActions.setChatDisplay(false));
+              },
             },
-          },
-          {
-            ev: 'onStatusChange',
-            fn: status => {
-              dispatch(generalActions.setChatStatus(status === 'online'));
+            {
+              ev: 'onChatMaximized',
+              fn: () => {
+                dispatch(generalActions.setChatDisplay(true));
+              },
             },
-          },
-        ],
-      );
+            {
+              ev: 'onStatusChange',
+              fn: status => {
+                dispatch(generalActions.setChatStatus(status === 'online'));
+              },
+            },
+          ],
+        );
+      });
     }
   }, [dispatch, interacted]);
+
+  useEffect(() => {
+    detectInteraction(() => dispatch(generalActions.setInteracted()));
+  }, [dispatch]);
 
   useEffect(() => {
     const getCountryCode = async () => {
@@ -68,10 +80,6 @@ const ThirdPartyResources = () => {
     };
 
     getCountryCode();
-  }, [dispatch]);
-
-  useEffect(() => {
-    detectInteraction(() => dispatch(generalActions.setInteracted()));
   }, [dispatch]);
 
   return <span />;
