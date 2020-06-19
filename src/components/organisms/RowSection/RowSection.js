@@ -10,35 +10,43 @@ const useStyles = makeStyles(theme => ({
   container: {
     height: '100%',
     minHeight: 450,
+    margin: theme.spacing(2, 0),
     padding: theme.spacing(4, 0),
   },
   item: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: reverse => (reverse ? 'flex-end' : 'flex-start'),
-    align: reverse => (reverse ? 'right' : 'left'),
+    alignItems: ({ reverse, long }) =>
+      long ? (reverse ? 'flex-start' : 'flex-end') : reverse ? 'flex-end' : 'flex-start',
+    textAlign: ({ reverse, long }) =>
+      long ? (reverse ? 'left' : 'right') : reverse ? 'right' : 'left',
+    [theme.breakpoints.down('sm')]: {
+      textAlign: 'center !important',
+      alignItems: 'center !important',
+    },
   },
   image: {
     minHeight: 200,
-    padding: theme.spacing(0, 2),
+    padding: ({ long }) => (long ? theme.spacing(0, 3) : theme.spacing(0, 2)),
     display: 'flex',
     justifyContent: 'center',
+    alignItems: 'center',
 
     '& img': {
       margin: '0 auto',
       maxHeight: '100%',
-      padding: theme.spacing(0, 8),
+      padding: ({ long }) => !long && theme.spacing(0, 8),
     },
     '& > *': {
       width: '100%',
     },
 
-    [theme.breakpoints.up('lg')]: {
-      order: reverse => (reverse ? 1 : 0),
+    [theme.breakpoints.up('md')]: {
+      order: ({ reverse }) => (reverse ? 1 : 0),
     },
 
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('sm')]: {
       order: 'unset',
       padding: theme.spacing(0, 4),
       '& img': {
@@ -48,8 +56,8 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const RowSection = ({ img, reverse, heading, ...props }) => {
-  const classes = useStyles(reverse);
+const RowSection = ({ img, reverse, heading, long, ...props }) => {
+  const classes = useStyles({ reverse, long });
   const [show, setShow] = useState(false);
 
   return (
@@ -62,13 +70,13 @@ const RowSection = ({ img, reverse, heading, ...props }) => {
     >
       <Grid className={classes.container} container>
         <Slide direction={reverse ? 'left' : 'right'} in={show} timeout={{ enter: 900 }}>
-          <Grid className={classes.image} item xs={12} lg={7}>
+          <Grid className={classes.image} item xs={12} md={long ? 6 : 7}>
             <Image src={img} alt={heading} />
           </Grid>
         </Slide>
         <Slide direction={reverse ? 'right' : 'left'} in={show} timeout={{ enter: 900 }}>
-          <Grid className={classes.item} item xs={12} lg={5}>
-            <RowContent reverse={reverse} heading={heading} {...props} />
+          <Grid className={classes.item} item xs={12} md={long ? 6 : 5}>
+            <RowContent long={long} heading={heading} {...props} />
           </Grid>
         </Slide>
       </Grid>
@@ -76,10 +84,15 @@ const RowSection = ({ img, reverse, heading, ...props }) => {
   );
 };
 
+RowSection.defaultProps = {
+  long: false,
+};
+
 RowSection.propTypes = {
   img: PropTypes.string.isRequired,
   reverse: PropTypes.bool.isRequired,
   heading: PropTypes.string.isRequired,
+  long: PropTypes.bool,
 };
 
 export default RowSection;

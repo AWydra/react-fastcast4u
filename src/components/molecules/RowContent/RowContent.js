@@ -2,46 +2,69 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import styled, { css } from 'styled-components';
-import { Button } from '@material-ui/core';
+import { Box, Button, makeStyles } from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
 
-const StyledContainer = styled.div`
-  ${({ theme }) => css`
-    width: 100%;
-    height: 100%;
-    display: inherit;
-    margin-top: ${theme.spacing(5)}px;
-    flex-direction: inherit;
-    justify-content: flex-start;
-    align-items: center;
-    text-align: center;
+const useStyles = makeStyles(theme => ({
+  box: {
+    width: '100%',
+    height: '100%',
+    display: 'inherit',
+    flexDirection: 'inherit',
+    justifyContent: 'inherit',
+    alignItems: 'inherit',
+    textAlign: 'inherit',
+  },
+  heading: long =>
+    long
+      ? {
+          width: '100%',
+          fontSize: 27,
+          marginTop: theme.spacing(3),
+          [theme.breakpoints.up('lg')]: {
+            fontSize: 34,
+            marginTop: theme.spacing(0),
+          },
+        }
+      : {
+          width: '100%',
+          ...theme.typography.h3,
+        },
+  content: long =>
+    long
+      ? {
+          width: '100%',
+          fontSize: 16,
+          [theme.breakpoints.up('lg')]: {
+            fontSize: 18,
+          },
+        }
+      : {
+          width: '100%',
+          ...theme.typography.h5,
+        },
+}));
 
-    ${theme.breakpoints.up('xl')} {
-      margin-top: ${theme.spacing(10)}px;
-    }
+const RowContent = ({ heading, content, button, long }) => {
+  const classes = useStyles(long);
 
-    ${theme.breakpoints.up('lg')} {
-      align-items: inherit;
-      text-align: ${({ reverse }) => (reverse ? 'right' : 'left')};
-    }
-  `}
-`;
-
-const RowContent = ({ heading, content, button, reverse }) => {
   return (
-    <StyledContainer reverse={reverse}>
-      <Text component="h3" variant="h3" mb={3}>
+    <Box className={classes.box}>
+      <Text component="h3" variant="h3" mb={3} className={classes.heading}>
         {heading}
       </Text>
-      <Text component="p" variant="h5" mt={2} mb={4}>
+      <Text component="p" variant="h5" mt={0} mb={4} className={classes.content}>
         {content}
       </Text>
       <Button component={Link} size="large" variant="contained" color="secondary" {...button}>
         {button.label}
       </Button>
-    </StyledContainer>
+    </Box>
   );
+};
+
+RowContent.defaultProps = {
+  long: false,
 };
 
 RowContent.propTypes = {
@@ -51,7 +74,7 @@ RowContent.propTypes = {
     label: PropTypes.string,
     to: PropTypes.string,
   }).isRequired,
-  reverse: PropTypes.bool.isRequired,
+  long: PropTypes.bool,
 };
 
 export default RowContent;
