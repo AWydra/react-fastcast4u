@@ -99,13 +99,12 @@ const RadioPlayer = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const classes = useStyles(error);
-  const chat = useSelector(state => state.general.chat);
 
   useEffect(() => {
-    chat.hideWidget();
+    window.Tawk_API.hideWidget();
 
     return () => {
-      chat.showWidget();
+      window.Tawk_API.showWidget();
     };
     // eslint-disable-next-line
   }, []);

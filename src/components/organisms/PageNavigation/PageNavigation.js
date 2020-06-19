@@ -36,6 +36,7 @@ const navigationData = [
     to: '/faq',
     label: 'FAQ',
     icon: <Help />,
+    external: true,
   },
 ];
 
@@ -99,9 +100,9 @@ const PageNavigation = () => {
 
     if (matches) {
       dispatch(generalActions.setChatDisplay(false));
-      chat.hideWidget();
+      window.Tawk_API.hideWidget();
     } else {
-      chat.showWidget();
+      window.Tawk_API.showWidget();
     }
     // eslint-disable-next-line
   }, [matches, chat.onLoaded]);
@@ -118,10 +119,11 @@ const PageNavigation = () => {
     matches &&
     !isChatOpened && (
       <BottomNavigation component="nav" value={value} showLabels className={classes.root}>
-        {navigationData.map(({ to, label, ...props }) => (
+        {navigationData.map(({ to, label, external, ...props }) => (
           <BottomNavigationAction
-            component={Link}
+            component={external ? 'a' : Link}
             to={to}
+            href={to}
             className={classes.action}
             value={to}
             label={<StyledLabel>{label}</StyledLabel>}
