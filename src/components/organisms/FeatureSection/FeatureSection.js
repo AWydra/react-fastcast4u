@@ -35,11 +35,15 @@ const useStyles = makeStyles(theme => ({
     },
   },
   primary: {
-    fontSize: 20,
     marginBottom: theme.spacing(0.75),
+    [theme.breakpoints.up('md')]: {
+      fontSize: 20,
+    },
   },
   secondary: {
-    fontSize: 16,
+    [theme.breakpoints.up('md')]: {
+      fontSize: 16,
+    },
   },
 }));
 
@@ -57,7 +61,7 @@ const FeatureSection = () => {
         </Grid>
         <Grid item className={classes.item} xs={12} md={7}>
           <List>
-            <ListItem>
+            <ListItem disableGutters>
               <ListItemIcon className={classes.listItemIcon}>
                 <FolderIcon />
               </ListItemIcon>
@@ -73,7 +77,7 @@ const FeatureSection = () => {
                 secondary="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
               />
             </ListItem>
-            <ListItem>
+            <ListItem disableGutters>
               <ListItemIcon className={classes.listItemIcon}>
                 <FolderIcon />
               </ListItemIcon>
@@ -86,7 +90,7 @@ const FeatureSection = () => {
                 secondary="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
               />
             </ListItem>
-            <ListItem>
+            <ListItem disableGutters>
               <ListItemIcon className={classes.listItemIcon}>
                 <FolderIcon />
               </ListItemIcon>
