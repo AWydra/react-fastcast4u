@@ -91,6 +91,7 @@ const PageNavigation = () => {
       window.Tawk_API.maximize();
     } else {
       window.Tawk_API.minimize();
+      matches && window.Tawk_API.hideWidget();
     }
     // eslint-disable-next-line
   }, [chat.onLoaded, isChatOpened]);
@@ -105,7 +106,7 @@ const PageNavigation = () => {
       window.Tawk_API.showWidget();
     }
     // eslint-disable-next-line
-  }, [matches, chat.onLoaded]);
+  }, [matches]);
 
   useEffect(() => {
     setValue(normalizePathname(pathname));

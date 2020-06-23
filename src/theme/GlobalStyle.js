@@ -6,6 +6,10 @@ const GlobalStyle = createGlobalStyle`
     font-family: "Poppins", sans-serif;
   }
 
+  body {
+    overflow-y: scroll;
+  }
+
   #root {
     min-height: 100vh;
     display: flex;
