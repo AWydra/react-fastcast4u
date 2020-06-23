@@ -14,6 +14,7 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(4, 0),
   },
   item: {
+    padding: ({ long }) => long && theme.spacing(0, 1.5),
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -22,13 +23,14 @@ const useStyles = makeStyles(theme => ({
     textAlign: ({ reverse, long }) =>
       long ? (reverse ? 'left' : 'right') : reverse ? 'right' : 'left',
     [theme.breakpoints.down('sm')]: {
+      padding: '0 !important',
       textAlign: 'center !important',
       alignItems: 'center !important',
     },
   },
   image: {
     minHeight: 200,
-    padding: ({ long }) => (long ? theme.spacing(0, 3) : theme.spacing(0, 2)),
+    padding: ({ long }) => (long ? theme.spacing(0, 1.5) : theme.spacing(0, 2)),
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -48,7 +50,7 @@ const useStyles = makeStyles(theme => ({
 
     [theme.breakpoints.down('sm')]: {
       order: 'unset',
-      padding: theme.spacing(0, 4),
+      padding: '0 !important',
       '& img': {
         padding: theme.spacing(0),
       },
@@ -71,7 +73,7 @@ const RowSection = ({ img, reverse, heading, long, ...props }) => {
       <Grid className={classes.container} container>
         <Slide direction={reverse ? 'left' : 'right'} in={show} timeout={{ enter: 900 }}>
           <Grid className={classes.image} item xs={12} md={long ? 6 : 7}>
-            <Image src={img} alt={heading} />
+            {React.isValidElement(img) ? img : <Image src={img} alt={heading} />}
           </Grid>
         </Slide>
         <Slide direction={reverse ? 'right' : 'left'} in={show} timeout={{ enter: 900 }}>
@@ -89,7 +91,7 @@ RowSection.defaultProps = {
 };
 
 RowSection.propTypes = {
-  img: PropTypes.string.isRequired,
+  img: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
   reverse: PropTypes.bool.isRequired,
   heading: PropTypes.string.isRequired,
   long: PropTypes.bool,

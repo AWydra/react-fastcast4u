@@ -1,12 +1,27 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
+import styled from 'styled-components';
 import { Container, Divider, Link } from '@material-ui/core';
 import FullContainer from 'components/atoms/FullContainer/FullContainer';
 import RowSection from 'components/organisms/RowSection/RowSection';
 import HeroSection from 'components/organisms/HeroSection/HeroSection';
 import FeatureSection from 'components/organisms/FeatureSection/FeatureSection';
 import Accordion from 'components/organisms/Accordion/Accordion';
+import PricingBlock from 'components/organisms/PricingBlock/PricingBlock';
 import Text from 'components/atoms/Text/Text';
+
+const YTContainer = styled.div`
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  height: 0;
+  & iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+`;
 
 const sections = [
   {
@@ -30,7 +45,19 @@ const sections = [
     },
   },
   {
-    img: 'http://zephyr.us-themes.com/wp-content/uploads/iPhone-6-Infinity1.png',
+    img: (
+      <YTContainer>
+        <iframe
+          title="yt-movie"
+          width="560"
+          height="315"
+          src="https://www.youtube-nocookie.com/embed/4BFhqOSN3Vw"
+          frameBorder="0"
+          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
+      </YTContainer>
+    ),
     heading: 'Wonderful digital things require a good mix of combined skills',
     content:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in purus. Praesent viverra, est vitae efficitur auctor, nibh orci varius ligula, gravida molestie enim justo ut diam. Praesent eget congue lacus, ut viverra neque.',
@@ -89,6 +116,7 @@ const AlexaSkill = () => (
       ))}
     </FullContainer>
     <FeatureSection />
+    <PricingBlock />
     <Container maxWidth="xl">
       <Text component="h2" variant="h4" mt={4} mb={6} align="center" fontWeight={500}>
         Frequently Asked Questions
