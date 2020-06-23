@@ -8,6 +8,7 @@ import styled, { css } from 'styled-components';
 import { AppBar, Toolbar, IconButton } from '@material-ui/core';
 import Logo from 'components/atoms/Logo/Logo';
 import NavButton from 'components/atoms/NavButton/NavButton';
+import SocialBar from 'components/molecules/SocialBar/SocialBar';
 import LightIcon from '@material-ui/icons/Brightness4';
 import DarkIcon from '@material-ui/icons/Brightness7';
 
@@ -41,6 +42,7 @@ const Header = () => {
   return (
     !isHidden && (
       <StyledAppBar color="default" position="static">
+        <SocialBar />
         <StyledToolbar>
           <Logo mr="auto" to="/" />
           <IconButton color="primary" aria-label="toggle dark mode" onClick={handleClick}>
