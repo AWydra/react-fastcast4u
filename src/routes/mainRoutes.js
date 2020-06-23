@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import OrderRoutes from 'routes/orderRoutes';
 import DirectoryRoutes from 'routes/directoryRoutes';
 import PageLoader from 'components/molecules/PageLoader/PageLoader';
@@ -16,6 +16,7 @@ const NotFound = lazy(() => import('views/NotFound/NotFound'));
 const Routes = () => (
   <Suspense fallback={<PageLoader />}>
     <Switch>
+      <Redirect from="/:url*(/+)" to={window.location.pathname.slice(0, -1)} />
       <Route exact path="/" component={Home} />
       <Route path="/order" component={OrderRoutes} />
       <Route path="/radio-directory" component={DirectoryRoutes} />
