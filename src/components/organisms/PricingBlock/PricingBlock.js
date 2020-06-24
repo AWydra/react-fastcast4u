@@ -11,8 +11,12 @@ import {
 } from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
 import CTAButton from 'components/atoms/CTAButton/CTAButton';
+import { modeSwitch } from 'utils/theme';
 
 const useStyles = makeStyles(theme => ({
+  container: {
+    marginBottom: theme.spacing(2),
+  },
   desc: {
     padding: theme.spacing(3),
   },
@@ -32,8 +36,11 @@ const useStyles = makeStyles(theme => ({
     },
   },
   listItem: {
+    paddingLeft: 0,
+    paddingRight: theme.spacing(2),
     [theme.breakpoints.down('sm')]: {
       textAlign: 'center',
+      padding: theme.spacing(1, 0),
     },
   },
   pricing: {
@@ -43,13 +50,16 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
     alignItems: 'center',
     borderLeft: 'solid 1px',
-    borderColor: theme.palette.grey[300],
-    backgroundColor: theme.palette.grey[100],
+    borderColor: modeSwitch(theme.palette.grey[300], theme.palette.grey[800]),
+    backgroundColor: modeSwitch(theme.palette.grey[100], theme.palette.grey[900]),
     [theme.breakpoints.down('sm')]: {
       borderLeft: 'unset',
       borderTop: 'solid 1px',
-      borderColor: theme.palette.grey[300],
+      borderColor: modeSwitch(theme.palette.grey[300], theme.palette.grey[800]),
     },
+  },
+  price: {
+    lineHeight: 1.2,
   },
   priceUnit: {
     verticalAlign: 'super',
@@ -60,7 +70,7 @@ const PricingBlock = () => {
   const classes = useStyles();
 
   return (
-    <Container maxWidth="xl">
+    <Container className={classes.container} maxWidth="xl">
       <Paper variant="outlined" elevation={20}>
         <Grid container>
           <Grid className={classes.desc} item xs={12} md={9}>
@@ -68,41 +78,33 @@ const PricingBlock = () => {
               How many Themes can you Download today?
             </Text>
             <Divider />
-            <Grid container className={classes.listContainer}>
-              <Grid item xs={12} md={6}>
-                <List className={classes.list}>
-                  <ListItem className={classes.listItem}>
-                    <ListItemText primary="Ultra Responsive Layouts" />
-                  </ListItem>
-                  <ListItem className={classes.listItem}>
-                    <ListItemText primary="Advanced Admin Panel" />
-                  </ListItem>
-                  <ListItem className={classes.listItem}>
-                    <ListItemText primary="Support for Custom Fonts" />
-                  </ListItem>
-                </List>
+            <Grid component={List} container className={classes.listContainer}>
+              <Grid component={ListItem} className={classes.listItem} item xs={12} md={6}>
+                <ListItemText primary="Your custom invitation name" />
               </Grid>
-              <Grid item xs={12} md={6}>
-                <List className={classes.list}>
-                  <ListItem className={classes.listItem}>
-                    <ListItemText primary="Retina Ready Designs" />
-                  </ListItem>
-                  <ListItem className={classes.listItem}>
-                    <ListItemText primary="Tons of Customization Options" />
-                  </ListItem>
-                  <ListItem className={classes.listItem}>
-                    <ListItemText primary="Premium Sliders Included" />
-                  </ListItem>
-                </List>
+              <Grid component={ListItem} className={classes.listItem} item xs={12} md={6}>
+                <ListItemText primary="Start/play/launch radio stream" />
+              </Grid>
+              <Grid component={ListItem} className={classes.listItem} item xs={12} md={6}>
+                <ListItemText primary="The current title information" />
+              </Grid>
+              <Grid component={ListItem} className={classes.listItem} item xs={12} md={6}>
+                <ListItemText primary="Publication on Amazon Store included" />
+              </Grid>
+              <Grid component={ListItem} className={classes.listItem} item xs={12}>
+                <Text variant="body1">
+                  Supported languages: English, Spanish, French, Italian, German, Portuguese, Hindi
+                  and Japanese
+                </Text>
               </Grid>
             </Grid>
           </Grid>
           <Grid item xs={12} md={3} className={classes.pricing}>
-            <Text fontSize={64} lineHeight={1.2}>
+            <Text fontSize={64} className={classes.price}>
               <Text className={classes.priceUnit} component="span" fontSize={32}>
                 $
               </Text>
-              39
+              60
             </Text>
             <Text mb={1.5} color="textSecondary">
               MONTHLY
