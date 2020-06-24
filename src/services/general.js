@@ -4,14 +4,11 @@ import { isProd } from 'utils/nodeEnv';
 const baseUrl = `${isProd() ? 'https://fastcast4u.com/api' : '/api'}`;
 let source = axios.CancelToken.source();
 
-const getCountryCode = async () => {
-  const response = await axios.get(
-    'https://vip.timezonedb.com/v2.1/get-time-zone?key=5FNLRO90MNS0&format=json&by=ip',
-    {
-      cancelToken: source.token,
-    },
-  );
-  return response.data.countryCode.toLowerCase();
+const getInitialData = async () => {
+  const response = await axios.get('https://fastcast4u.com/api/general/initialResponse.php', {
+    cancelToken: source.token,
+  });
+  return response.data;
 };
 
 const requestPhoneCall = async data => {
@@ -61,4 +58,11 @@ const cancel = () => {
   source = axios.CancelToken.source();
 };
 
-export default { getCountryCode, requestPhoneCall, getTos, getPrivacyPolicy, sendTicket, cancel };
+export default {
+  getInitialData,
+  requestPhoneCall,
+  getTos,
+  getPrivacyPolicy,
+  sendTicket,
+  cancel,
+};

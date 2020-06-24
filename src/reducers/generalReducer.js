@@ -30,10 +30,8 @@ const generalReducer = (state = initialState, action) => {
       return produce(state, draftState => {
         draftState.chat.isOnline = action.payload.isOnline;
       });
-    case 'SET_COUNTRY':
-      return produce(state, draftState => {
-        draftState.country = action.payload.country;
-      });
+    case 'SET_INITIAL_DATA':
+      return { ...state, ...action.payload.data };
     case 'SET_INTERACTED':
       return produce(state, draftState => {
         draftState.interacted = true;

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import {
   Container,
   Divider,
@@ -68,6 +69,7 @@ const useStyles = makeStyles(theme => ({
 
 const PricingBlock = () => {
   const classes = useStyles();
+  const currency = useSelector(state => state.general.currency);
 
   return (
     <Container className={classes.container} maxWidth="xl">
@@ -102,7 +104,7 @@ const PricingBlock = () => {
           <Grid item xs={12} md={3} className={classes.pricing}>
             <Text fontSize={64} className={classes.price}>
               <Text className={classes.priceUnit} component="span" fontSize={32}>
-                $
+                {currency}
               </Text>
               60
             </Text>

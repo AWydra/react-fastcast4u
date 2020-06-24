@@ -17,9 +17,9 @@ const setChatStatus = isOnline => ({
   payload: { isOnline },
 });
 
-const setCountry = country => ({
-  type: 'SET_COUNTRY',
-  payload: { country },
+const setInitialData = data => ({
+  type: 'SET_INITIAL_DATA',
+  payload: { data },
 });
 
 const setInteracted = () => ({
@@ -78,7 +78,7 @@ export default {
   setChat,
   setChatDisplay,
   setChatStatus,
-  setCountry,
+  setInitialData,
   setInteracted,
   setAlert,
 };

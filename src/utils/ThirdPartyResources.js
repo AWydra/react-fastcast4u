@@ -74,12 +74,12 @@ const ThirdPartyResources = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    const getCountryCode = async () => {
-      const code = await generalServices.getCountryCode();
-      dispatch(generalActions.setCountry(code));
+    const getInitialData = async () => {
+      const code = await generalServices.getInitialData();
+      dispatch(generalActions.setInitialData(code));
     };
 
-    getCountryCode();
+    getInitialData();
   }, [dispatch]);
 
   return <span />;
