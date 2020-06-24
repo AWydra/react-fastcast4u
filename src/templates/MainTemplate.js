@@ -6,6 +6,7 @@ import { CssBaseline, NoSsr, Box } from '@material-ui/core/';
 import { StylesProvider } from '@material-ui/core/styles';
 import GlobalStyle from 'theme/GlobalStyle';
 import Alert from 'components/atoms/Alert/Alert';
+import OnlineStatusBar from 'components/molecules/OnlineStatusBar/OnlineStatusBar';
 import Header from 'components/organisms/Header/Header';
 import PageNavigation from 'components/organisms/PageNavigation/PageNavigation';
 import Footer from 'components/organisms/Footer/Footer';
@@ -23,6 +24,7 @@ const MainTemplate = ({ children }) => (
           <GlobalStyle />
           <Alert />
           <Header />
+          <OnlineStatusBar />
           <Box mb={8}>{children}</Box>
           <PageNavigation />
           <Footer />
