@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, lazy, Suspense } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {
@@ -11,8 +11,9 @@ import {
   useMediaQuery,
 } from '@material-ui/core';
 import { Call, Chat, Facebook, Twitter, YouTube, Instagram, LinkedIn } from '@material-ui/icons';
-import CallRequestModal from 'components/organisms/Modals/CallRequestModal';
 import { modeSwitch } from 'utils/theme';
+
+const CallRequestModal = lazy(() => import('components/organisms/Modals/CallRequestModal'));
 
 const useStyles = makeStyles(theme => ({
   box: {
@@ -50,6 +51,34 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+const data = [
+  {
+    href: 'https://www.facebook.com/freeshoutcast/',
+    icon: Facebook,
+    label: 'Facebook',
+  },
+  {
+    href: 'https://www.youtube.com/user/FastCast4u',
+    icon: YouTube,
+    label: 'YouTube',
+  },
+  {
+    href: 'https://www.linkedin.com/company/fastcast4u',
+    icon: LinkedIn,
+    label: 'LinkedIn',
+  },
+  {
+    href: 'https://twitter.com/FastCast4u',
+    icon: Twitter,
+    label: 'Twitter',
+  },
+  {
+    href: 'https://www.instagram.com/fastcast4u/',
+    icon: Instagram,
+    label: 'Instagram',
+  },
+];
+
 const SocialBar = () => {
   const [open, setOpen] = useState(false);
   const isChatOnline = useSelector(state => state.general.chat.isOnline);
@@ -70,7 +99,12 @@ const SocialBar = () => {
       <Box className={classes.box}>
         <Container className={classes.container} maxWidth="xl">
           <Box className={classes.linkContainer}>
-            <Button className={classes.btn} startIcon={<Call />} onClick={handlePhoneClick}>
+            <Button
+              className={classes.btn}
+              startIcon={<Call />}
+              onClick={handlePhoneClick}
+              disabled={open}
+            >
               +1 (844) 203-2278
             </Button>
             {isChatOnline ? (
@@ -83,41 +117,22 @@ const SocialBar = () => {
               </Button>
             )}
           </Box>
-          <CallRequestModal open={open} onClose={() => setOpen(false)} />
           <Box className={classes.linkContainer}>
-            <MuiLink
-              className={classes.link}
-              href="https://www.facebook.com/freeshoutcast/"
-              target="_blank"
-            >
-              <Facebook className={classes.icon} />
-            </MuiLink>
-            <MuiLink
-              className={classes.link}
-              href="https://www.youtube.com/user/FastCast4u"
-              target="_blank"
-            >
-              <YouTube className={classes.icon} />
-            </MuiLink>
-            <MuiLink
-              className={classes.link}
-              href="https://www.linkedin.com/company/fastcast4u"
-              target="_blank"
-            >
-              <LinkedIn className={classes.icon} />
-            </MuiLink>
-            <MuiLink className={classes.link} href="https://twitter.com/FastCast4u" target="_blank">
-              <Twitter className={classes.icon} />
-            </MuiLink>
-            <MuiLink
-              className={classes.link}
-              href="https://www.instagram.com/fastcast4u/"
-              target="_blank"
-            >
-              <Instagram className={classes.icon} />
-            </MuiLink>
+            {data.map(({ href, icon: Icon, label }) => (
+              <MuiLink
+                className={classes.link}
+                href={href}
+                target="_blank"
+                aria-label={label.toLowerCase()}
+              >
+                <Icon className={classes.icon} />
+              </MuiLink>
+            ))}
           </Box>
         </Container>
+        <Suspense fallback="">
+          {open && <CallRequestModal open={open} onClose={() => setOpen(false)} />}
+        </Suspense>
       </Box>
     )
   );
