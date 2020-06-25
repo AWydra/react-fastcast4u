@@ -14,6 +14,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 
 import { Chat, Help, Home, Radio, ShoppingCart } from '@material-ui/icons';
+import useOnlineStatus from '@rehooks/online-status';
 import { modeSwitch } from 'utils/theme';
 
 const navigationData = [
@@ -82,6 +83,7 @@ const PageNavigation = () => {
   const chat = useSelector(state => state.general.chat);
   const isChatOpened = useSelector(state => state.general.chat.isOpen);
   const [value, setValue] = useState(normalizePathname(pathname));
+  const isOnline = useOnlineStatus();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -132,7 +134,7 @@ const PageNavigation = () => {
             {...props}
           />
         ))}
-        {chat.isOnline ? (
+        {chat.isOnline && isOnline ? (
           <BottomNavigationAction
             className={classes.action}
             label={<StyledLabel>Chat</StyledLabel>}

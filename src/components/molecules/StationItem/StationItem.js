@@ -100,7 +100,7 @@ const StationItem = ({ data }) => {
       directoryActions.setPlayerData({
         id: data.id,
         player: data.player,
-        proxy: data.proxy,
+        proxy: data.stream,
         servertype: data.servertype,
         metadata: data.metadata,
         station: data.title,
