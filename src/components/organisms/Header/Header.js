@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import generalActions from 'actions/generalActions';
 
 import styled, { css } from 'styled-components';
-import { AppBar, Toolbar, IconButton } from '@material-ui/core';
+import { AppBar, Toolbar, Tooltip, IconButton } from '@material-ui/core';
 import Logo from 'components/atoms/Logo/Logo';
 import NavButton from 'components/atoms/NavButton/NavButton';
 import SocialBar from 'components/molecules/SocialBar/SocialBar';
@@ -45,9 +45,11 @@ const Header = () => {
         <SocialBar />
         <StyledToolbar>
           <Logo mr="auto" to="/" />
-          <IconButton color="primary" aria-label="toggle dark mode" onClick={handleClick}>
-            {theme === 'light' ? <LightIcon /> : <DarkIcon />}
-          </IconButton>
+          <Tooltip title="Toggle light/dark theme">
+            <IconButton color="primary" aria-label="toggle dark theme" onClick={handleClick}>
+              {theme === 'light' ? <LightIcon /> : <DarkIcon />}
+            </IconButton>
+          </Tooltip>
           <NavButton to="/login">Login</NavButton>
         </StyledToolbar>
       </StyledAppBar>

@@ -6,6 +6,7 @@ import {
   Box,
   Container,
   Link as MuiLink,
+  Tooltip,
   makeStyles,
   useTheme,
   useMediaQuery,
@@ -99,14 +100,16 @@ const SocialBar = () => {
       <Box className={classes.box}>
         <Container className={classes.container} maxWidth="xl">
           <Box className={classes.linkContainer}>
-            <Button
-              className={classes.btn}
-              startIcon={<Call />}
-              onClick={handlePhoneClick}
-              disabled={open}
-            >
-              +1 (844) 203-2278
-            </Button>
+            <Tooltip title="Request call">
+              <Button
+                className={classes.btn}
+                startIcon={<Call />}
+                onClick={handlePhoneClick}
+                disabled={open}
+              >
+                +1 (844) 203-2278
+              </Button>
+            </Tooltip>
             {isChatOnline ? (
               <Button className={classes.btn} startIcon={<Chat />} onClick={handleChatClick}>
                 Open Chat
@@ -119,14 +122,16 @@ const SocialBar = () => {
           </Box>
           <Box className={classes.linkContainer}>
             {data.map(({ href, icon: Icon, label }) => (
-              <MuiLink
-                className={classes.link}
-                href={href}
-                target="_blank"
-                aria-label={label.toLowerCase()}
-              >
-                <Icon className={classes.icon} />
-              </MuiLink>
+              <Tooltip key={href} title={label}>
+                <MuiLink
+                  className={classes.link}
+                  href={href}
+                  target="_blank"
+                  aria-label={label.toLowerCase()}
+                >
+                  <Icon className={classes.icon} />
+                </MuiLink>
+              </Tooltip>
             ))}
           </Box>
         </Container>
