@@ -1,22 +1,27 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Box, Grid, makeStyles } from '@material-ui/core';
+import { ButtonBase, Box, Grid, makeStyles } from '@material-ui/core';
 import Image from 'components/atoms/Image/Image';
 import PromotionBanner from 'components/organisms/PromotionBanner/PromotionBanner';
 import LoginForm from 'components/organisms/Forms/LoginForm/LoginForm';
+import { modeSwitch } from 'utils/theme';
 import logo from 'assets/img/logo.png';
 
 const useStyles = makeStyles(theme => ({
   container: {
     minHeight: '100vh',
+    marginBottom: theme.spacing(-8),
   },
   login: {
-    padding: theme.spacing(8, 1),
+    padding: theme.spacing(12, 1, 4),
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     position: 'relative',
-    backgroundColor: theme.palette.grey[50],
+    backgroundColor: modeSwitch(theme.palette.grey[50], theme.palette.grey[900]),
+    [theme.breakpoints.up('md')]: {
+      padding: theme.spacing(8, 1),
+    },
     [theme.breakpoints.up('xl')]: {
       flex: 0,
       flexBasis: '550px',
@@ -24,8 +29,9 @@ const useStyles = makeStyles(theme => ({
   },
   logo: {
     width: theme.spacing(28),
+    padding: theme.spacing(2),
     position: 'absolute',
-    top: 14,
+    top: theme.spacing(1),
     left: '50%',
     transform: 'translateX(-50%)',
   },
@@ -37,7 +43,7 @@ const useStyles = makeStyles(theme => ({
     },
   },
   banner: {
-    padding: theme.spacing(0, 2),
+    padding: theme.spacing(6, 2),
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -55,9 +61,9 @@ const Login = () => {
   return (
     <Grid className={classes.container} container>
       <Grid className={classes.login} item xs={12} md={6} lg={5} xl={4}>
-        <Link to="/">
-          <Image className={classes.logo} src={logo} />
-        </Link>
+        <ButtonBase className={classes.logo} component={Link} to="/" centerRipple focusRipple>
+          <Image src={logo} />
+        </ButtonBase>
         <Box className={classes.loginContainer}>
           <LoginForm />
         </Box>
