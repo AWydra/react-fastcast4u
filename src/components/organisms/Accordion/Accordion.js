@@ -30,10 +30,10 @@ const Accordion = ({ data }) => {
         expandIcon={<ExpandMoreIcon />}
         aria-controls={`panel${i + 1}bh-content`}
       >
-        <Text variant="h5">{heading}</Text>
+        {React.isValidElement(heading) ? heading : <Text variant="h5">{heading}</Text>}
       </ExpansionPanelSummary>
-      <ExpansionPanelDetails>
-        <Text>{content}</Text>
+      <ExpansionPanelDetails style={{ display: 'flex', flexDirection: 'column' }}>
+        {React.isValidElement(content) ? content : <Text>{content}</Text>}
       </ExpansionPanelDetails>
     </StyledExpansionPanel>
   ));
