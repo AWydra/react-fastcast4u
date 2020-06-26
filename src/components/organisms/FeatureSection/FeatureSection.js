@@ -11,6 +11,7 @@ import {
 import Text from 'components/atoms/Text/Text';
 import Image from 'components/atoms/Image/Image';
 import FolderIcon from '@material-ui/icons/Folder';
+import Cite from 'components/atoms/Cite/Cite';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -29,6 +30,7 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
   },
   listItemIcon: {
+    minWidth: theme.spacing(5.5),
     fontSize: 32,
     '& svg': {
       fontSize: 'unset',
@@ -53,7 +55,7 @@ const FeatureSection = () => {
   return (
     <Container className={classes.container} maxWidth="xl">
       <Text className={classes.heading} component="h2" variant="h4">
-        Get your Skill for Amazon Echo Smart Speakers with a custom voice command
+        Handy commands to launch your radio
       </Text>
       <Grid container spacing={2}>
         <Grid item className={classes.item} xs={12} md={5}>
@@ -70,11 +72,11 @@ const FeatureSection = () => {
                   primary: classes.primary,
                   secondary: classes.secondary,
                 }}
-                primary="Retina Ready &amp; Fully Responsive"
+                primary={<Cite>{'Alexa, enable {Your Radio Name}'}</Cite>}
                 primaryTypographyProps={{
                   component: 'h3',
                 }}
-                secondary="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                secondary="Simple activation on Alexa devices by a voice command or through Amazon App"
               />
             </ListItem>
             <ListItem disableGutters>
@@ -86,8 +88,8 @@ const FeatureSection = () => {
                   primary: classes.primary,
                   secondary: classes.secondary,
                 }}
-                primary="Four Awesome Header Layouts"
-                secondary="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                primary={<Cite>{'Alexa, play {Your Radio Name}'}</Cite>}
+                secondary="Easily launch and control radio stream with customizable voice commands"
               />
             </ListItem>
             <ListItem disableGutters>
@@ -99,8 +101,13 @@ const FeatureSection = () => {
                   primary: classes.primary,
                   secondary: classes.secondary,
                 }}
-                primary="Quick-to-Install and Easy-to-Use"
-                secondary="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                primary={
+                  <Cite>
+                    {'Alexa, ask {Your Radio Name}, '}
+                    title please?
+                  </Cite>
+                }
+                secondary="Whenever asked, Alexa tells the current track title, artist name or broadcast data"
               />
             </ListItem>
           </List>
