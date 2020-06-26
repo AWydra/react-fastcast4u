@@ -6,8 +6,9 @@ const GlobalStyle = createGlobalStyle`
     font-family: "Poppins", sans-serif;
   }
 
-  body {
+  html {
     overflow-y: scroll;
+    scroll-behavior: smooth;
   }
 
   #root {

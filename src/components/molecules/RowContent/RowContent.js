@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 // @ts-nocheck
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -56,7 +57,14 @@ const RowContent = ({ heading, content, button, long }) => {
       <Text component="p" variant="h5" mt={0} mb={4} className={classes.content}>
         {content}
       </Text>
-      <Button component={Link} size="large" variant="contained" color="secondary" {...button}>
+      <Button
+        component={button.onClick ? 'button' : button.href ? 'a' : Link}
+        size="large"
+        variant="contained"
+        color="secondary"
+        target={button.href && '_blank'}
+        {...button}
+      >
         {button.label}
       </Button>
     </Box>
