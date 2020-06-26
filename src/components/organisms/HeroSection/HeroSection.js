@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 // @ts-nocheck
 import React from 'react';
 import { Box, makeStyles } from '@material-ui/core';
@@ -29,8 +30,12 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const HeroSection = () => {
+const HeroSection = ({ scrollRef }) => {
   const classes = useStyles();
+
+  const handleClick = () => {
+    window.scrollTo(0, scrollRef.current.offsetTop);
+  };
 
   return (
     <Box className={classes.box}>
@@ -38,11 +43,18 @@ const HeroSection = () => {
         Alexa Skill for your Radio Station
       </Text>
       <Box mt={4} display="flex" className={classes.buttonContainer}>
-        <CTAButton variant="contained" xlarge color="primary">
-          VIEW FEATURES
+        <CTAButton variant="contained" xlarge color="primary" onClick={handleClick}>
+          SEE MORE
         </CTAButton>
-        <CTAButton variant="contained" xlarge color="secondary">
-          VIEW PORTFOLIO
+        <CTAButton
+          variant="contained"
+          xlarge
+          color="secondary"
+          component="a"
+          href="https://www.amazon.com/dp/B08B8RN7Y6/"
+          target="_blank"
+        >
+          TEST DEMO
         </CTAButton>
       </Box>
     </Box>
