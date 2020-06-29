@@ -27,6 +27,8 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(3),
     display: 'flex',
     flexDirection: 'column',
+    position: 'relative',
+    overflow: 'hidden',
   },
   heading: {
     paddingBottom: theme.spacing(2),
@@ -60,11 +62,9 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    position: 'relative',
     borderLeft: 'solid 1px',
     borderColor: modeSwitch(theme.palette.grey[300], theme.palette.grey[800]),
     backgroundColor: modeSwitch(theme.palette.grey[100], theme.palette.grey[900]),
-    overflow: 'hidden',
     [theme.breakpoints.down('sm')]: {
       borderLeft: 'unset',
       borderTop: 'solid 1px',
@@ -87,7 +87,17 @@ const useStyles = makeStyles(theme => ({
     lineHeight: 1.2,
   },
   priceUnit: {
+    position: 'absolute',
+    transform: 'translateX(-100%)',
     verticalAlign: 'super',
+  },
+  priceOld: {
+    position: 'absolute',
+    fontSize: theme.spacing(2.75),
+    verticalAlign: 'top',
+    color: theme.palette.grey[600],
+    fontWeight: 500,
+    textDecoration: 'line-through',
   },
 }));
 
@@ -106,21 +116,25 @@ const PricingBlock = ({ ...props }) => {
             <Divider />
             <Grid component={List} container className={classes.listContainer}>
               <Grid component={ListItem} className={classes.listItem} item xs={12} md={6}>
-                <ListItemText primary="Your custom invitation name" />
+                <ListItemText primary="Your custom invotation name" />
               </Grid>
               <Grid component={ListItem} className={classes.listItem} item xs={12} md={6}>
                 <ListItemText primary="Start/play/launch radio stream" />
               </Grid>
               <Grid component={ListItem} className={classes.listItem} item xs={12} md={6}>
-                <ListItemText primary="The current title information" />
+                <ListItemText primary="Publication on Amazon Store included" />
               </Grid>
               <Grid component={ListItem} className={classes.listItem} item xs={12} md={6}>
-                <ListItemText primary="Publication on Amazon Store included" />
+                <ListItemText primary="The current title information" />
               </Grid>
               <Grid component={ListItem} className={classes.listItem} item xs={12} md={6}>
                 <ListItemText primary="Multilingual support" />
               </Grid>
+              <Grid component={ListItem} className={classes.listItem} item xs={12} md={6}>
+                <ListItemText primary="Compatible with Amazon Echo & Alexa Devices" />
+              </Grid>
             </Grid>
+            <Chip className={classes.chip} label="NEW" color="secondary" />
           </Grid>
           <Grid item xs={12} md={3} className={classes.pricing}>
             <Text fontSize={64} className={classes.price}>
@@ -128,6 +142,9 @@ const PricingBlock = ({ ...props }) => {
                 {currency}
               </Text>
               60
+              <Text component="small" className={classes.priceOld}>
+                {currency}99
+              </Text>
             </Text>
             <Text mb={1.5} color="textSecondary">
               ONE-TIME
@@ -137,11 +154,10 @@ const PricingBlock = ({ ...props }) => {
               xlarge
               variant="contained"
               component="a"
-              href="https://fastcast4u.com/account/cart.php?a=add&pid=523"
+              href="https://fastcast4u.com/account/cart.php?a=add&pid=523&promocode=Alexa"
             >
               get now
             </CTAButton>
-            <Chip className={classes.chip} label="NEW" color="secondary" />
           </Grid>
         </Grid>
       </Paper>
