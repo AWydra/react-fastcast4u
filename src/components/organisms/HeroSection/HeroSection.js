@@ -7,16 +7,18 @@ import CTAButton from 'components/atoms/CTAButton/CTAButton';
 
 const useStyles = makeStyles(theme => ({
   box: {
-    minHeight: '70vh',
+    minHeight: '80vh',
     padding: theme.spacing(10, 2),
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundImage:
-      'url(http://zephyr.us-themes.com/wp-content/uploads/revslider/vertical_fullscreen/shutterstock_156031910.jpg)',
+    backgroundImage: 'url(http://img.fastcast4u.com/react/alexa/alexa-bg-mobile.png)',
     backgroundPosition: 'center center',
     backgroundSize: 'cover',
+    [theme.breakpoints.up('xl')]: {
+      backgroundImage: 'url(http://img.fastcast4u.com/react/alexa/alexa-bg.png)',
+    },
   },
   heading: {
     textAlign: 'center',
@@ -34,7 +36,7 @@ const HeroSection = ({ scrollRef }) => {
   const classes = useStyles();
 
   const handleClick = () => {
-    window.scrollTo(0, scrollRef.current.offsetTop);
+    scrollRef.current.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -44,7 +46,7 @@ const HeroSection = ({ scrollRef }) => {
       </Text>
       <Box mt={4} display="flex" className={classes.buttonContainer}>
         <CTAButton variant="contained" xlarge color="primary" onClick={handleClick}>
-          SEE MORE
+          &nbsp;SEE MORE&nbsp;
         </CTAButton>
         <CTAButton
           variant="contained"
