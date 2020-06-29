@@ -99,7 +99,12 @@ const PageNavigation = () => {
   }, [chat.onLoaded, isChatOpened]);
 
   useEffect(() => {
-    if (!chat.onLoaded) return;
+    if (chat.onLoaded === undefined) {
+      dispatch(generalActions.setChatStatus(false));
+      return;
+    }
+
+    if (chat.onLoaded === false) return;
 
     if (matches) {
       dispatch(generalActions.setChatDisplay(false));
