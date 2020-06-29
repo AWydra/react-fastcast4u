@@ -8,7 +8,6 @@ const GlobalStyle = createGlobalStyle`
 
   html {
     overflow-y: scroll;
-    scroll-behavior: smooth;
   }
 
   #root {
