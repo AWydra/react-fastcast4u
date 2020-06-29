@@ -4,7 +4,7 @@ const Cite = styled.blockquote`
   margin: 0;
   display: block;
   font-family: monospace;
-  font-size: 16px;
+  font-size: 17px;
   letter-spacing: -1px;
   font-style: italic;
   ${({ theme }) => theme.breakpoints.up('md')} {

@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
 import Image from 'components/atoms/Image/Image';
-import FolderIcon from '@material-ui/icons/Folder';
+import { AddCircle, PlayCircleFilled, Help } from '@material-ui/icons';
 import Cite from 'components/atoms/Cite/Cite';
 
 const useStyles = makeStyles(theme => ({
@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
   },
   heading: {
     maxWidth: 800,
-    margin: theme.spacing(0, 'auto'),
+    margin: theme.spacing(0, 'auto', 5),
     textAlign: 'center',
     fontWeight: 500,
   },
@@ -30,10 +30,9 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
   },
   listItemIcon: {
-    minWidth: theme.spacing(5.5),
-    fontSize: 32,
+    minWidth: theme.spacing(7),
     '& svg': {
-      fontSize: 'unset',
+      fontSize: 38,
     },
   },
   primary: {
@@ -59,13 +58,13 @@ const FeatureSection = () => {
       </Text>
       <Grid container spacing={2}>
         <Grid item className={classes.item} xs={12} md={5}>
-          <Image src="https://www.worldshop.eu/medias/sys_master/h9a/h0b/8895596068894.png" />
+          <Image src="https://fastcast4u.com/images/landing/alexa.png" />
         </Grid>
         <Grid item className={classes.item} xs={12} md={7}>
           <List>
             <ListItem disableGutters>
               <ListItemIcon className={classes.listItemIcon}>
-                <FolderIcon />
+                <AddCircle />
               </ListItemIcon>
               <ListItemText
                 classes={{
@@ -81,7 +80,7 @@ const FeatureSection = () => {
             </ListItem>
             <ListItem disableGutters>
               <ListItemIcon className={classes.listItemIcon}>
-                <FolderIcon />
+                <PlayCircleFilled />
               </ListItemIcon>
               <ListItemText
                 classes={{
@@ -94,7 +93,7 @@ const FeatureSection = () => {
             </ListItem>
             <ListItem disableGutters>
               <ListItemIcon className={classes.listItemIcon}>
-                <FolderIcon />
+                <Help />
               </ListItemIcon>
               <ListItemText
                 classes={{
