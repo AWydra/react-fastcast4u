@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import {
   Chip,
@@ -101,38 +102,32 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const PricingBlock = ({ ...props }) => {
+const PricingBlock = ({ data, ...props }) => {
   const classes = useStyles();
   const currency = useSelector(state => state.general.currency);
 
   return (
-    <Container className={classes.container} maxWidth="xl" {...props}>
+    <Container className={classes.container} maxWidth="xl" component="section" {...props}>
       <Paper className={classes.paper} variant="outlined" elevation={20}>
         <Grid container>
           <Grid className={classes.desc} item xs={12} md={9}>
             <Text className={classes.heading} component="h3" variant="h5">
-              Alexa Skill Package
+              {data.heading}
             </Text>
             <Divider />
             <Grid component={List} container className={classes.listContainer}>
-              <Grid component={ListItem} className={classes.listItem} item xs={12} md={6}>
-                <ListItemText primary="Your custom invotation name" />
-              </Grid>
-              <Grid component={ListItem} className={classes.listItem} item xs={12} md={6}>
-                <ListItemText primary="Start/play/launch radio stream" />
-              </Grid>
-              <Grid component={ListItem} className={classes.listItem} item xs={12} md={6}>
-                <ListItemText primary="Publication on Amazon Store included" />
-              </Grid>
-              <Grid component={ListItem} className={classes.listItem} item xs={12} md={6}>
-                <ListItemText primary="The current title information" />
-              </Grid>
-              <Grid component={ListItem} className={classes.listItem} item xs={12} md={6}>
-                <ListItemText primary="Multilingual support" />
-              </Grid>
-              <Grid component={ListItem} className={classes.listItem} item xs={12} md={6}>
-                <ListItemText primary="Compatible with Amazon Echo & Alexa Devices" />
-              </Grid>
+              {data.list.map(content => (
+                <Grid
+                  component={ListItem}
+                  className={classes.listItem}
+                  item
+                  xs={12}
+                  md={6}
+                  key={content}
+                >
+                  <ListItemText primary={content} />
+                </Grid>
+              ))}
             </Grid>
             <Chip className={classes.chip} label="NEW" color="secondary" />
           </Grid>
@@ -141,28 +136,40 @@ const PricingBlock = ({ ...props }) => {
               <Text className={classes.priceUnit} component="span" fontSize={32}>
                 {currency}
               </Text>
-              60
-              <Text component="small" className={classes.priceOld}>
-                {currency}99
-              </Text>
+              {data.price.current}
+              {data.price.old && (
+                <Text component="small" className={classes.priceOld}>
+                  {currency}
+                  {data.price.old}
+                </Text>
+              )}
             </Text>
             <Text mb={1.5} color="textSecondary">
-              ONE-TIME
+              {data.cycle}
             </Text>
-            <CTAButton
-              color="primary"
-              xlarge
-              variant="contained"
-              component="a"
-              href="https://fastcast4u.com/account/cart.php?a=add&pid=523&promocode=Alexa"
-            >
-              get now
+            <CTAButton color="primary" xlarge variant="contained" {...data.button}>
+              {data.button.label}
             </CTAButton>
           </Grid>
         </Grid>
       </Paper>
     </Container>
   );
+};
+
+PricingBlock.propTypes = {
+  data: PropTypes.shape({
+    heading: PropTypes.string,
+    list: PropTypes.arrayOf(PropTypes.string),
+    price: PropTypes.shape({
+      current: PropTypes.number,
+      old: PropTypes.number,
+    }),
+    cycle: PropTypes.string,
+    button: PropTypes.shape({
+      label: PropTypes.string,
+    }),
+  }).isRequired,
 };
 
 export default PricingBlock;
