@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Container,
   Grid,
@@ -10,8 +11,6 @@ import {
 } from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
 import Image from 'components/atoms/Image/Image';
-import { AddCircle, PlayCircleFilled, Help } from '@material-ui/icons';
-import Cite from 'components/atoms/Cite/Cite';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -48,72 +47,52 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const FeatureSection = () => {
+const FeatureSection = ({ data, ...props }) => {
   const classes = useStyles();
 
   return (
-    <Container className={classes.container} maxWidth="xl">
+    <Container className={classes.container} maxWidth="xl" component="section" {...props}>
       <Text className={classes.heading} component="h2" variant="h4">
-        Handy commands to launch your radio
+        {data.heading}
       </Text>
       <Grid container spacing={2}>
         <Grid item className={classes.item} xs={12} md={5}>
-          <Image src="https://fastcast4u.com/images/landing/alexa.png" />
+          <Image src={data.img} />
         </Grid>
         <Grid item className={classes.item} xs={12} md={7}>
           <List>
-            <ListItem disableGutters>
-              <ListItemIcon className={classes.listItemIcon}>
-                <AddCircle />
-              </ListItemIcon>
-              <ListItemText
-                classes={{
-                  primary: classes.primary,
-                  secondary: classes.secondary,
-                }}
-                primary={<Cite>{'Alexa, enable {Your Radio Name}'}</Cite>}
-                primaryTypographyProps={{
-                  component: 'h3',
-                }}
-                secondary="Simple activation on Alexa devices by a voice command or through Amazon App"
-              />
-            </ListItem>
-            <ListItem disableGutters>
-              <ListItemIcon className={classes.listItemIcon}>
-                <PlayCircleFilled />
-              </ListItemIcon>
-              <ListItemText
-                classes={{
-                  primary: classes.primary,
-                  secondary: classes.secondary,
-                }}
-                primary={<Cite>{'Alexa, play {Your Radio Name}'}</Cite>}
-                secondary="Easily launch and control radio stream with customizable voice commands"
-              />
-            </ListItem>
-            <ListItem disableGutters>
-              <ListItemIcon className={classes.listItemIcon}>
-                <Help />
-              </ListItemIcon>
-              <ListItemText
-                classes={{
-                  primary: classes.primary,
-                  secondary: classes.secondary,
-                }}
-                primary={
-                  <Cite>
-                    {'Alexa, ask {Your Radio Name}, '}
-                    title please?
-                  </Cite>
-                }
-                secondary="Whenever asked, Alexa tells the current track title, artist name or broadcast data"
-              />
-            </ListItem>
+            {data.list.map((item, i) => (
+              <ListItem disableGutters key={i}>
+                <ListItemIcon className={classes.listItemIcon}>{item.icon}</ListItemIcon>
+                <ListItemText
+                  classes={{
+                    primary: classes.primary,
+                    secondary: classes.secondary,
+                  }}
+                  primary={item.primary}
+                  secondary={item.secondary}
+                />
+              </ListItem>
+            ))}
           </List>
         </Grid>
       </Grid>
     </Container>
   );
+};
+
+FeatureSection.propTypes = {
+  data: PropTypes.shape({
+    heading: PropTypes.string,
+    img: PropTypes.string,
+    list: PropTypes.arrayOf(
+      PropTypes.exact({
+        icon: PropTypes.element,
+        primary: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+        secondary: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+      }),
+    ),
+  }).isRequired,
 };
 
 export default FeatureSection;
