@@ -1,6 +1,6 @@
-/* eslint-disable react/prop-types */
 // @ts-nocheck
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Box, makeStyles } from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
 import CTAButton from 'components/atoms/CTAButton/CTAButton';
@@ -32,35 +32,36 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const HeroSection = ({ scrollRef }) => {
+const HeroSection = ({ data, ...props }) => {
   const classes = useStyles();
 
-  const handleClick = () => {
-    scrollRef.current.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
-    <Box className={classes.box}>
+    <Box className={classes.box} component="section" {...props}>
       <Text className={classes.heading} component="h1" variant="h2">
-        Alexa Skill for your Radio Station
+        {data.heading}
       </Text>
-      <Box mt={4} display="flex" className={classes.buttonContainer}>
-        <CTAButton variant="contained" xlarge color="primary" onClick={handleClick}>
-          &nbsp;SEE MORE&nbsp;
-        </CTAButton>
-        <CTAButton
-          variant="contained"
-          xlarge
-          color="secondary"
-          component="a"
-          href="https://www.amazon.com/dp/B08B8RN7Y6/"
-          target="_blank"
-        >
-          TEST DEMO
-        </CTAButton>
-      </Box>
+      {data.buttons && (
+        <Box mt={4} display="flex" className={classes.buttonContainer}>
+          {data.buttons.map(({ label, ...props }) => (
+            <CTAButton variant="contained" xlarge {...props} key={label}>
+              {label}
+            </CTAButton>
+          ))}
+        </Box>
+      )}
     </Box>
   );
+};
+
+HeroSection.propTypes = {
+  data: PropTypes.shape({
+    heading: PropTypes.string.isRequired,
+    buttons: PropTypes.arrayOf(
+      PropTypes.shape({
+        label: PropTypes.string,
+      }),
+    ),
+  }).isRequired,
 };
 
 export default HeroSection;
