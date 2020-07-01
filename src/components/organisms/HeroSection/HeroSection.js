@@ -13,12 +13,14 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundImage: 'url(http://img.fastcast4u.com/react/alexa/alexa-bg-mobile.png)',
-    backgroundPosition: 'center center',
-    backgroundSize: 'cover',
-    [theme.breakpoints.up('xl')]: {
-      backgroundImage: 'url(http://img.fastcast4u.com/react/alexa/alexa-bg.png)',
-    },
+    position: 'relative',
+    overflow: 'hidden',
+  },
+  picture: { position: 'absolute', width: '100%', height: '100%', zIndex: -1 },
+  cover: {
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
   },
   heading: {
     textAlign: 'center',
@@ -37,6 +39,10 @@ const HeroSection = ({ data, ...props }) => {
 
   return (
     <Box className={classes.box} component="section" {...props}>
+      <picture className={classes.picture}>
+        <source media="(min-width:768px)" srcSet={data.pictures.desktop} />
+        <img className={classes.cover} src={data.pictures.mobile} alt="cover" />
+      </picture>
       <Text className={classes.heading} component="h1" variant="h2">
         {data.heading}
       </Text>
@@ -56,6 +62,10 @@ const HeroSection = ({ data, ...props }) => {
 HeroSection.propTypes = {
   data: PropTypes.shape({
     heading: PropTypes.string.isRequired,
+    pictures: PropTypes.shape({
+      mobile: PropTypes.string,
+      desktop: PropTypes.string,
+    }),
     buttons: PropTypes.arrayOf(
       PropTypes.shape({
         label: PropTypes.string,
