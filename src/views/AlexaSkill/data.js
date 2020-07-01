@@ -27,8 +27,9 @@ export const YTContainer = styled.div`
 export const heroData = {
   heading: 'Alexa Skill for your Radio Station',
   pictures: {
-    mobile: 'https://img.fastcast4u.com/react/alexa/alexa-bg-mobile.png',
-    desktop: 'https://img.fastcast4u.com/react/alexa/alexa-bg.png',
+    mobile: 'https://img.fastcast4u.com/react/alexa/alexa-bg-mobile',
+    desktop: 'https://img.fastcast4u.com/react/alexa/alexa-bg',
+    alt: 'Alexa on a desk',
   },
   buttons: [
     {
@@ -48,7 +49,7 @@ export const heroData = {
 
 export const sectionsData = [
   {
-    img: 'http://img.fastcast4u.com/react/alexa/alexa-front.png',
+    img: 'http://img.fastcast4u.com/react/alexa/alexa-front',
     heading: 'Why create your own Alexa Skill?',
     content:
       'There are over 100 million Alexa devices sold worldwide and still growing. There’s little doubt that voice control is the future, and Alexa is at the top. Create your own Alexa Skill and let users of Amazon Smart speakers easily tune in to your station.',

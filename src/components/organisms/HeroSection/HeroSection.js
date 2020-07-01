@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Box, makeStyles } from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
+import Picture from 'components/molecules/Picture/Picture';
 import CTAButton from 'components/atoms/CTAButton/CTAButton';
 
 const useStyles = makeStyles(theme => ({
@@ -16,11 +17,16 @@ const useStyles = makeStyles(theme => ({
     position: 'relative',
     overflow: 'hidden',
   },
-  picture: { position: 'absolute', width: '100%', height: '100%', zIndex: -1 },
-  cover: {
+  picture: {
+    position: 'absolute',
     width: '100%',
     height: '100%',
-    objectFit: 'cover',
+    zIndex: -1,
+    '& img': {
+      width: '100%',
+      height: '100%',
+      objectFit: 'cover',
+    },
   },
   heading: {
     textAlign: 'center',
@@ -39,10 +45,12 @@ const HeroSection = ({ data, ...props }) => {
 
   return (
     <Box className={classes.box} component="section" {...props}>
-      <picture className={classes.picture}>
-        <source media="(min-width:768px)" srcSet={data.pictures.desktop} />
-        <img className={classes.cover} src={data.pictures.mobile} alt="cover" />
-      </picture>
+      <Picture
+        className={classes.picture}
+        desktop={data.pictures.desktop}
+        mobile={data.pictures.mobile}
+        alt={data.pictures.alt}
+      />
       <Text className={classes.heading} component="h1" variant="h2">
         {data.heading}
       </Text>
@@ -65,6 +73,7 @@ HeroSection.propTypes = {
     pictures: PropTypes.shape({
       mobile: PropTypes.string,
       desktop: PropTypes.string,
+      alt: PropTypes.string,
     }),
     buttons: PropTypes.arrayOf(
       PropTypes.shape({

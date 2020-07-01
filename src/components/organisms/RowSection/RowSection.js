@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Grid, makeStyles } from '@material-ui/core';
 import RowContent from 'components/molecules/RowContent/RowContent';
-import Image from 'components/atoms/Image/Image';
+import Picture from 'components/molecules/Picture/Picture';
 import { Slide } from 'react-awesome-reveal';
 
 const useStyles = makeStyles(theme => ({
@@ -37,7 +37,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
     alignItems: 'center',
 
-    '& > div': {
+    '& div': {
       width: '100%',
       display: 'flex',
       justifyContent: 'center',
@@ -70,7 +70,7 @@ const RowSection = ({ img, reverse, heading, long, ...props }) => {
     <Grid className={classes.container} container>
       <Grid className={classes.image} item xs={12} sm={6} md={long ? 6 : 7}>
         <Slide direction={reverse ? 'right' : 'left'} triggerOnce>
-          {React.isValidElement(img) ? img : <Image src={img} alt={heading} />}
+          <div>{React.isValidElement(img) ? img : <Picture mobile={img} alt={heading} />}</div>
         </Slide>
       </Grid>
       <Grid className={classes.item} item xs={12} sm={6} md={long ? 6 : 5}>

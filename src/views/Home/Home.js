@@ -11,7 +11,7 @@ import Accordion from 'components/organisms/Accordion/Accordion';
 
 const sections = [
   {
-    img: 'https://fastcast4u.com/images/start/device1.png',
+    img: 'https://img.fastcast4u.com/react/home/device1',
     heading: 'Start Streaming Online in 3 minutes',
     content: 'Complete Radio Server Package',
     button: {
@@ -20,7 +20,7 @@ const sections = [
     },
   },
   {
-    img: 'https://fastcast4u.com/images/app/IPadIP.png',
+    img: 'https://img.fastcast4u.com/react/home/IPadIP',
     heading: 'Mobile App',
     content: 'Create Your Own Application for Android &\xa0Apple iOS',
     button: {
@@ -29,7 +29,7 @@ const sections = [
     },
   },
   {
-    img: 'https://fastcast4u.com/images/landing/wpdev1.png',
+    img: 'https://img.fastcast4u.com/react/home/wpdev1',
     heading: 'WebPlayer Page',
     content: 'Customizable Radio Player for listeners',
     button: {
@@ -38,13 +38,12 @@ const sections = [
     },
   },
   {
-    img: 'https://fastcast4u.com/images/landing/alexa.png',
+    img: 'https://img.fastcast4u.com/react/home/alexa',
     heading: 'Alexa Radio Skill',
     content: 'Add your radio stream to Alexa',
     button: {
-      label: 'Soon',
-      to: '/order',
-      disabled: true,
+      label: 'Get Now',
+      to: '/alexa-skill',
     },
   },
 ];
