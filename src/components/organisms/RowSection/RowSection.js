@@ -9,9 +9,11 @@ import { Slide } from 'react-awesome-reveal';
 const useStyles = makeStyles(theme => ({
   container: {
     height: '100%',
-    minHeight: 450,
     margin: theme.spacing(2, 0),
     padding: theme.spacing(4, 0),
+    [theme.breakpoints.up('md')]: {
+      minHeight: 450,
+    },
   },
   item: {
     padding: ({ long }) => long && theme.spacing(0, 1.5),
@@ -35,25 +37,28 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
     alignItems: 'center',
 
+    '& > div': {
+      width: '100%',
+      display: 'flex',
+      justifyContent: 'center',
+    },
+
     '& img': {
       margin: '0 auto',
-      maxHeight: '100%',
-      padding: ({ long }) => !long && theme.spacing(0, 8),
-    },
-    '& > *': {
-      width: '100%',
-    },
+      maxHeight: 365,
+      padding: ({ long }) => !long && theme.spacing(0, 5),
 
-    [theme.breakpoints.up('md')]: {
-      order: ({ reverse }) => (reverse ? 1 : 0),
-    },
-
-    [theme.breakpoints.down('sm')]: {
-      order: 'unset',
-      padding: '0 !important',
-      '& img': {
-        padding: theme.spacing(0),
+      [theme.breakpoints.down('xs')]: {
+        paddingBottom: theme.spacing(2),
       },
+
+      [theme.breakpoints.up('md')]: {
+        padding: ({ long }) => !long && theme.spacing(0, 8),
+      },
+    },
+
+    [theme.breakpoints.up('sm')]: {
+      order: ({ reverse }) => (reverse ? 1 : 0),
     },
   },
 }));
@@ -63,12 +68,12 @@ const RowSection = ({ img, reverse, heading, long, ...props }) => {
 
   return (
     <Grid className={classes.container} container>
-      <Grid className={classes.image} item xs={12} md={long ? 6 : 7}>
+      <Grid className={classes.image} item xs={12} sm={6} md={long ? 6 : 7}>
         <Slide direction={reverse ? 'right' : 'left'} triggerOnce>
           {React.isValidElement(img) ? img : <Image src={img} alt={heading} />}
         </Slide>
       </Grid>
-      <Grid className={classes.item} item xs={12} md={long ? 6 : 5}>
+      <Grid className={classes.item} item xs={12} sm={6} md={long ? 6 : 5}>
         <RowContent long={long} heading={heading} {...props} />
       </Grid>
     </Grid>
