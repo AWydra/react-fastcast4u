@@ -85,6 +85,7 @@ const Contact = () => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const chat = useSelector(state => state.general.chat);
+  const phoneActive = useSelector(state => state.general.phoneActive);
 
   const Fallback = () => {
     useEffect(() => {
@@ -118,12 +119,7 @@ const Contact = () => {
           />
         </Grid>
         <Grid className={classes.phone} item>
-          <ContactFeature
-            icon={Phone}
-            title="Phone Support"
-            list={listData}
-            active={chat.isOnline}
-          />
+          <ContactFeature icon={Phone} title="Phone Support" list={listData} active={phoneActive} />
         </Grid>
         <Grid className={classes.message} item>
           <ContactFeature
@@ -143,7 +139,6 @@ const Contact = () => {
             button={{
               label: 'REQUEST CALL',
               onClick: () => setOpen(true),
-              disabled: !chat.isOnline,
               loading,
             }}
           />
