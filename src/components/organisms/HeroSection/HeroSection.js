@@ -13,14 +13,29 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: ({ left }) => (left ? 'flex-start' : 'center'),
     position: 'relative',
+    textAlign: 'center',
     overflow: 'hidden',
   },
+  left: ({ left }) =>
+    left && {
+      width: '100%',
+      marginLeft: theme.spacing(4),
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      textAlign: 'left',
+      [theme.breakpoints.up('md')]: {
+        width: '50%',
+      },
+    },
   picture: {
-    position: 'absolute',
     width: '100%',
     height: '100%',
+    position: 'absolute',
+    top: 0,
+    left: 0,
     zIndex: -1,
     '& img': {
       width: '100%',
@@ -29,19 +44,23 @@ const useStyles = makeStyles(theme => ({
     },
   },
   heading: {
-    textAlign: 'center',
+    marginLeft: ({ left }) => left && theme.spacing(1),
+    textAlign: 'inherit',
     color: 'white',
+    lineHeight: ({ left }) => left && 1.5,
   },
   buttonContainer: {
     display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: ({ left }) => (left ? 'flex-start' : 'center'),
     '& button': {
       margin: theme.spacing(0, 1),
     },
   },
 }));
 
-const HeroSection = ({ data, ...props }) => {
-  const classes = useStyles();
+const HeroSection = ({ data, left, ...props }) => {
+  const classes = useStyles({ left });
 
   return (
     <Box className={classes.box} component="section" {...props}>
@@ -51,20 +70,26 @@ const HeroSection = ({ data, ...props }) => {
         mobile={data.pictures.mobile}
         alt={data.pictures.alt}
       />
-      <Text className={classes.heading} component="h1" variant="h2">
-        {data.heading}
-      </Text>
-      {data.buttons && (
-        <Box mt={4} display="flex" className={classes.buttonContainer}>
-          {data.buttons.map(({ label, ...props }) => (
-            <CTAButton variant="contained" xlarge {...props} key={label}>
-              {label}
-            </CTAButton>
-          ))}
-        </Box>
-      )}
+      <Box className={classes.left}>
+        <Text className={classes.heading} component="h1" variant="h2">
+          {data.heading}
+        </Text>
+        {data.buttons && (
+          <Box mt={4} display="flex" className={classes.buttonContainer}>
+            {data.buttons.map(({ label, ...props }) => (
+              <CTAButton variant="contained" xlarge {...props} key={label}>
+                {label}
+              </CTAButton>
+            ))}
+          </Box>
+        )}
+      </Box>
     </Box>
   );
+};
+
+HeroSection.defaultProps = {
+  left: false,
 };
 
 HeroSection.propTypes = {
@@ -81,6 +106,7 @@ HeroSection.propTypes = {
       }),
     ),
   }).isRequired,
+  left: PropTypes.bool,
 };
 
 export default HeroSection;
