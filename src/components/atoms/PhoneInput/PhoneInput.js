@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core';
 import ReactPhoneInput from 'react-phone-input-2';
@@ -13,7 +14,7 @@ const useStyles = makeStyles(theme => ({
     fontFamily: 'inherit !important',
     fontSize: '1rem',
     '& .flag-dropdown:before': {
-      content: '"Phone Number (optional)" !important',
+      content: ({ label }) => `"${label}" !important`,
       width: 'auto !important',
       backgroundColor: `${theme.palette.background.paper} !important`,
       color: theme.palette.text.secondary,
@@ -82,10 +83,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-// eslint-disable-next-line react/prop-types
-const PhoneInput = ({ value, ...props }) => {
+const PhoneInput = ({ value, label, ...props }) => {
   const country = useSelector(state => state.general.country);
-  const classes = useStyles();
+  const classes = useStyles({ label });
 
   return (
     <ReactPhoneInput
@@ -98,6 +98,15 @@ const PhoneInput = ({ value, ...props }) => {
       {...props}
     />
   );
+};
+
+PhoneInput.defaultProps = {
+  label: 'Phone Number (optional)',
+};
+
+PhoneInput.propTypes = {
+  value: PropTypes.string.isRequired,
+  label: PropTypes.string,
 };
 
 export default PhoneInput;
