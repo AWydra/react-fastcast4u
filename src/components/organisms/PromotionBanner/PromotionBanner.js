@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Box, makeStyles } from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
 import Image from 'components/atoms/Image/Image';
@@ -33,18 +34,17 @@ const PromotionBanner = () => {
   return (
     <Box className={classes.box}>
       <Text className={classes.heading} component="h2" variant="h4">
-        Create Your Own Mobile App
+        Get Your Own Alexa Radio Skill
       </Text>
-      <Image className={classes.image} src="https://fastcast4u.com/images/tel2.png" />
+      <Image className={classes.image} src="https://fastcast4u.com/images/landing/alexa.png" />
       <CTAButton
-        component="a"
-        href="https://fastcast4u.com/public-app-creator/"
-        target="_blank"
+        component={Link}
+        to="/alexa-skill"
         className={classes.button}
         xlarge
         color="secondary"
       >
-        Create App
+        Get Now
       </CTAButton>
     </Box>
   );

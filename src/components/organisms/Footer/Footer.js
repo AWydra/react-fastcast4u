@@ -14,7 +14,7 @@ const data = [
       { heading: 'Radio Server', href: '/order' },
       { heading: 'Mobile App', href: '/app', external: true },
       { heading: 'Radio Player', href: '/customize', external: true },
-      // { heading: 'Alexa Radio Skill', href: '/alexa-skill' },
+      { heading: 'Alexa Radio Skill', href: '/alexa-skill' },
     ],
   },
   {
