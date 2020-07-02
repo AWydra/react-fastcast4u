@@ -10,6 +10,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Link,
   makeStyles,
 } from '@material-ui/core';
 import PhoneInput from 'components/atoms/PhoneInput/PhoneInput';
@@ -37,7 +38,7 @@ const useStyles = makeStyles(theme => ({
   },
   text: {
     [theme.breakpoints.up('md')]: {
-      fontSize: theme.typography.pxToRem(18),
+      fontSize: theme.typography.pxToRem(17),
     },
   },
   box: {
@@ -114,10 +115,14 @@ const CallRequestModal = ({ onClose, ...props }) => {
           <>
             <DialogContentText className={classes.text}>
               By submitting a phone number you agree on processing the provided data according to
-              our
+              our{' '}
+              <Link href="/privacy" target="_blank">
+                Privacy Policy
+              </Link>
             </DialogContentText>
             <Box component="form" onSubmit={handleSubmit} className={classes.box}>
               <PhoneInput
+                label="Phone Number"
                 className={classes.input}
                 disableDropdown
                 inputProps={{
