@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Box, Button, makeStyles } from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
+import { modeSwitch } from 'utils/theme';
 
 const useStyles = makeStyles(theme => ({
   box: {
@@ -28,7 +29,7 @@ const useStyles = makeStyles(theme => ({
         }
       : {
           width: '100%',
-          ...theme.typography.h3,
+          fontSize: 38,
         },
   content: long =>
     long
@@ -41,7 +42,8 @@ const useStyles = makeStyles(theme => ({
         }
       : {
           width: '100%',
-          ...theme.typography.h5,
+          fontSize: 19,
+          color: theme.palette.grey[modeSwitch(700, 300)],
         },
 }));
 

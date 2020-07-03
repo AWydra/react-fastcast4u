@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
     },
   },
   item: {
-    padding: ({ long }) => long && theme.spacing(0, 1.5),
+    padding: theme.spacing(0, 2),
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
   },
   image: {
     minHeight: 200,
-    padding: ({ long }) => (long ? theme.spacing(0, 1.5) : theme.spacing(0, 2)),
+    padding: theme.spacing(0, 2),
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -50,10 +50,6 @@ const useStyles = makeStyles(theme => ({
 
       [theme.breakpoints.down('xs')]: {
         paddingBottom: theme.spacing(2),
-      },
-
-      [theme.breakpoints.up('md')]: {
-        padding: ({ long }) => !long && theme.spacing(0, 8),
       },
     },
 
