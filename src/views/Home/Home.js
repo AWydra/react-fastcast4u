@@ -1,18 +1,35 @@
 // @ts-nocheck
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Divider, Container } from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
-import RocketIcon from 'assets/svg/RocketIcon';
-import CTAButton from 'components/atoms/CTAButton/CTAButton';
+// import CTAButton from 'components/atoms/CTAButton/CTAButton';
 import FullContainer from 'components/atoms/FullContainer/FullContainer';
 import RowSection from 'components/organisms/RowSection/RowSection';
 import Accordion from 'components/organisms/Accordion/Accordion';
+// import RocketIcon from 'assets/svg/RocketIcon';
+import HeroSection from 'components/organisms/HeroSection/HeroSection';
+import history from 'utils/history';
+
+const heroData = {
+  heading: 'Add your Online Radio Station to Alexa',
+  pictures: {
+    mobile: 'https://img.fastcast4u.com/react/home/home-bg',
+    // desktop: 'https://img.fastcast4u.com/react/alexa/alexa-bg',
+    alt: 'Alexa on a desk',
+  },
+  buttons: [
+    {
+      label: '\xa0GET NOW\xa0',
+      onClick: () => history.push('/alexa-skill'),
+      color: 'secondary',
+    },
+  ],
+};
 
 const sections = [
   {
     img: 'https://img.fastcast4u.com/react/home/device1',
-    heading: 'Start Streaming Online in 3 minutes',
+    heading: 'Start Streaming Online in 3\xa0minutes',
     content: 'Complete Radio Server Package',
     button: {
       label: 'Start Now',
@@ -22,7 +39,7 @@ const sections = [
   {
     img: 'https://img.fastcast4u.com/react/home/IPadIP',
     heading: 'Mobile App',
-    content: 'Create Your Own Application for Android &\xa0Apple iOS',
+    content: 'Create Your Own Application for Android &\xa0iOS',
     button: {
       label: 'Start Now',
       to: '/order',
@@ -74,7 +91,7 @@ const accordion = [
 const Home = () => {
   return (
     <>
-      <FullContainer center maxWidth="xl">
+      {/* <FullContainer center maxWidth="xl">
         <Text component="h1" variant="h2" px={2} fontWeight={500} align="center" gutterBottom>
           Create Your Own Internet Radio Station
         </Text>
@@ -89,7 +106,8 @@ const Home = () => {
         >
           START NOW
         </CTAButton>
-      </FullContainer>
+      </FullContainer> */}
+      <HeroSection left data={heroData} />
       <FullContainer maxWidth="xl" overflowHidden>
         {sections.map((props, i) => (
           <React.Fragment key={i}>
