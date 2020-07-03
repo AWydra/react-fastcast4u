@@ -1,9 +1,11 @@
 import React, { Fragment } from 'react';
-import { Divider } from '@material-ui/core';
+import { Divider, Container } from '@material-ui/core';
+import Text from 'components/atoms/Text/Text';
 import FullContainer from 'components/atoms/FullContainer/FullContainer';
 import RowSection from 'components/organisms/RowSection/RowSection';
 import HeroSection from 'components/organisms/HeroSection/HeroSection';
-import { heroData, sectionsData } from './data';
+import Accordion from 'components/organisms/Accordion/Accordion';
+import { heroData, sectionsData, deliveryAccordionsData } from './data';
 
 const App = () => {
   return (
@@ -17,6 +19,12 @@ const App = () => {
           </Fragment>
         ))}
       </FullContainer>
+      <Container maxWidth="xl">
+        <Text component="h2" variant="h4" mt={4} mb={6} align="center" fontWeight={500}>
+          App Delivery and Hosting
+        </Text>
+        <Accordion data={deliveryAccordionsData} />
+      </Container>
     </>
   );
 };
