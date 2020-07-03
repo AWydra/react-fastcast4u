@@ -132,3 +132,43 @@ export const deliveryAccordionsData = [
     ),
   },
 ];
+
+export const specificationAccordionsData = [
+  {
+    heading: 'Radio Stream, Live TV and Video',
+    content: (
+      <Text>
+        The App supports Online Radio Streams (MP3, AAC or AAC+) Live TV Streams (.m3u8) and Video
+        Streams (MP4). You can have multiple streams in one App! Do not have your Online Radio
+        station yet?{' '}
+        <Link href="/start" target="_blank">
+          Create it with us.
+        </Link>
+      </Text>
+    ),
+  },
+  {
+    heading: 'Custom Design',
+    content:
+      'Easily design and preview your App with a free Online Mobile App Creator. Next, we create the App individually for your project. All Apps are released free from our branding.',
+  },
+  {
+    heading: 'Social Network & Web',
+    content:
+      'Share your Social Media Pages and view the content of websites in WebView without any external web browsers.',
+  },
+  {
+    heading: 'Podcasts',
+    content: 'Your broadcasts and shows from SoundCloud are listed and available on demand.',
+  },
+  {
+    heading: 'Push Notifications',
+    content:
+      'Keep your listeners updated by sending them Push Notifications from an online OneSignal Panel. It’s a great way to notify about your live broadcasts and scheduled shows.',
+  },
+  {
+    heading: 'Monetization',
+    content:
+      "Make money online on displaying Ads in your App. Ads are delivered by AdMob so you do not have to look for advertisers, we'll just hook up Apps with your AdMob account.",
+  },
+];

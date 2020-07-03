@@ -5,7 +5,12 @@ import FullContainer from 'components/atoms/FullContainer/FullContainer';
 import RowSection from 'components/organisms/RowSection/RowSection';
 import HeroSection from 'components/organisms/HeroSection/HeroSection';
 import Accordion from 'components/organisms/Accordion/Accordion';
-import { heroData, sectionsData, deliveryAccordionsData } from './data';
+import {
+  heroData,
+  sectionsData,
+  deliveryAccordionsData,
+  specificationAccordionsData,
+} from './data';
 
 const App = () => {
   return (
@@ -24,6 +29,15 @@ const App = () => {
           App Delivery and Hosting
         </Text>
         <Accordion data={deliveryAccordionsData} />
+      </Container>
+      <Container maxWidth="xl">
+        <Text component="h2" variant="h4" mt={4} mb={1} align="center" fontWeight={500}>
+          Product Specifications
+        </Text>
+        <Text align="center" variant="h6" mb={6} color="textSecondary">
+          Features available for your Application
+        </Text>
+        <Accordion data={specificationAccordionsData} />
       </Container>
     </>
   );
