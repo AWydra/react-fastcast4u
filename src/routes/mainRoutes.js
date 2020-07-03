@@ -5,6 +5,7 @@ import DirectoryRoutes from 'routes/directoryRoutes';
 import PageLoader from 'components/molecules/PageLoader/PageLoader';
 
 const Home = lazy(() => import('views/Home/Home'));
+const App = lazy(() => import('views/App/App'));
 const AlexaSkill = lazy(() => import('views/AlexaSkill/AlexaSkill'));
 const Contact = lazy(() => import('views/Contact/Contact'));
 const Login = lazy(() => import('views/Login/Login'));
@@ -20,6 +21,7 @@ const Routes = () => (
       <Route exact path="/" component={Home} />
       <Route path="/order" component={OrderRoutes} />
       <Route path="/radio-directory" component={DirectoryRoutes} />
+      <Route path="/app" component={App} />
       <Route path="/alexa-skill" component={AlexaSkill} />
       <Route path="/login" component={Login} />
       <Route path="/ticket" component={Ticket} />
