@@ -9285,6 +9285,13 @@ react-app-polyfill@^1.0.5:
     regenerator-runtime "^0.13.3"
     whatwg-fetch "^3.0.0"
 
+react-app-rewired@^2.1.6:
+  version "2.1.6"
+  resolved "https://registry.yarnpkg.com/react-app-rewired/-/react-app-rewired-2.1.6.tgz#33ee3076a7f34d6a7c94e649cac67e7c8c580de8"
+  integrity sha512-06flj0kK5tf/RN4naRv/sn6j3sQd7rsURoRLKLpffXDzJeNiAaTNic+0I8Basojy5WDwREkTqrMLewSAjcb13w==
+  dependencies:
+    semver "^5.6.0"
+
 react-awesome-reveal@^2.4.2:
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/react-awesome-reveal/-/react-awesome-reveal-2.4.2.tgz#341368bddcffaddf8a3130d5ac2cb25247246aae"

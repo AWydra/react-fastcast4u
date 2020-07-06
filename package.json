@@ -43,7 +43,7 @@
   },
   "scripts": {
     "start": "cross-env NODE_ENV=development react-scripts start",
-    "build": "cross-env NODE_ENV=production react-scripts build",
+    "build": "cross-env NODE_ENV=production react-app-rewired build",
     "test": "cross-env NODE_ENV=test react-scripts test",
     "analyze": "npx source-map-explorer \"build/static/js/*.js\"",
     "lint": "eslint .",
@@ -74,7 +74,8 @@
     "eslint-plugin-react-hooks": "^1.7.0",
     "husky": "^4.2.1",
     "lint-staged": "^10.0.2",
-    "prettier": "^1.19.1"
+    "prettier": "^1.19.1",
+    "react-app-rewired": "^2.1.6"
   },
   "proxy": "https://fastcast4u.com",
   "husky": {
