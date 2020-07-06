@@ -1,14 +1,17 @@
 import React, { Fragment } from 'react';
-import { Divider, Container } from '@material-ui/core';
-import Text from 'components/atoms/Text/Text';
+import { Divider } from '@material-ui/core';
 import FullContainer from 'components/atoms/FullContainer/FullContainer';
+import PackageBox from 'components/molecules/PackageBox/Base';
+import TitleSection from 'components/organisms/TitleSection/TitleSection';
 import RowSection from 'components/organisms/RowSection/RowSection';
 import HeroSection from 'components/organisms/HeroSection/HeroSection';
 import Accordion from 'components/organisms/Accordion/Accordion';
+import PackageGrid from 'templates/PackageGrid';
 import {
   heroData,
   sectionsData,
   deliveryAccordionsData,
+  packageData,
   specificationAccordionsData,
 } from './data';
 
@@ -24,21 +27,32 @@ const App = () => {
           </Fragment>
         ))}
       </FullContainer>
-      <Container maxWidth="xl">
-        <Text component="h2" variant="h4" mt={4} mb={6} align="center" fontWeight={500}>
-          App Delivery and Hosting
-        </Text>
+      <TitleSection primary="App Delivery and Hosting">
         <Accordion data={deliveryAccordionsData} />
-      </Container>
-      <Container maxWidth="xl">
-        <Text component="h2" variant="h4" mt={4} mb={1} align="center" fontWeight={500}>
-          Product Specifications
-        </Text>
-        <Text align="center" variant="h6" mb={6} color="textSecondary">
-          Features available for your Application
-        </Text>
+      </TitleSection>
+      <TitleSection primary="Additional Features">
+        <PackageGrid>
+          {packageData.map(({ data, cycle, price }) => (
+            <PackageBox
+              key={data.id}
+              data={data}
+              cycle={cycle}
+              priceProp={price}
+              priceBasicProp={price}
+              showPrice
+              hideCheckbox
+              disabled
+            />
+          ))}
+        </PackageGrid>
+      </TitleSection>
+      <TitleSection
+        primary="Product Specifications"
+        secondary="Features available for your Application"
+        end
+      >
         <Accordion data={specificationAccordionsData} />
-      </Container>
+      </TitleSection>
     </>
   );
 };

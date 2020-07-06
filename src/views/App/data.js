@@ -133,6 +133,28 @@ export const deliveryAccordionsData = [
   },
 ];
 
+export const packageData = [
+  {
+    data: {
+      id: '1',
+      name: 'Push Notifications',
+      description:
+        'Improve interaction with your listeners by sending notifications through the App',
+    },
+    cycle: 'ONE TIME',
+    price: 10,
+  },
+  {
+    data: {
+      id: '2',
+      name: 'App Monetization',
+      description: 'Generate revenue from AdMob Ads displayed in your App',
+    },
+    cycle: 'ONE TIME',
+    price: 20,
+  },
+];
+
 export const specificationAccordionsData = [
   {
     heading: 'Radio Stream, Live TV and Video',
