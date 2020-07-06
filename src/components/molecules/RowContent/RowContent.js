@@ -11,6 +11,7 @@ const useStyles = makeStyles(theme => ({
   box: {
     width: '100%',
     height: '100%',
+    paddingTop: theme.spacing(2),
     display: 'inherit',
     flexDirection: 'inherit',
     justifyContent: 'inherit',
@@ -29,7 +30,11 @@ const useStyles = makeStyles(theme => ({
         }
       : {
           width: '100%',
-          fontSize: 38,
+          fontSize: 27,
+          [theme.breakpoints.up('lg')]: {
+            fontSize: 38,
+            marginTop: theme.spacing(0),
+          },
         },
   content: long =>
     long
@@ -42,9 +47,15 @@ const useStyles = makeStyles(theme => ({
         }
       : {
           width: '100%',
-          fontSize: 19,
+          fontSize: 17,
           color: theme.palette.grey[modeSwitch(700, 300)],
+          [theme.breakpoints.up('lg')]: {
+            fontSize: 19,
+          },
         },
+  btn: {
+    marginTop: theme.spacing(4),
+  },
 }));
 
 const RowContent = ({ heading, content, button, long }) => {
@@ -55,24 +66,28 @@ const RowContent = ({ heading, content, button, long }) => {
       <Text component="h3" variant="h3" mb={3} className={classes.heading}>
         {heading}
       </Text>
-      <Text component="p" variant="h5" mt={0} mb={4} className={classes.content}>
+      <Text component="p" variant="h5" mt={0} className={classes.content}>
         {content}
       </Text>
-      <Button
-        component={button.onClick ? 'button' : button.href ? 'a' : Link}
-        size="large"
-        variant="contained"
-        color="secondary"
-        target={button.href && '_blank'}
-        {...button}
-      >
-        {button.label}
-      </Button>
+      {button.label && (
+        <Button
+          className={classes.btn}
+          component={button.onClick ? 'button' : button.href ? 'a' : Link}
+          size="large"
+          variant="contained"
+          color="secondary"
+          target={button.href && '_blank'}
+          {...button}
+        >
+          {button.label}
+        </Button>
+      )}
     </Box>
   );
 };
 
 RowContent.defaultProps = {
+  button: {},
   long: false,
 };
 
@@ -82,7 +97,7 @@ RowContent.propTypes = {
   button: PropTypes.shape({
     label: PropTypes.string,
     to: PropTypes.string,
-  }).isRequired,
+  }),
   long: PropTypes.bool,
 };
 

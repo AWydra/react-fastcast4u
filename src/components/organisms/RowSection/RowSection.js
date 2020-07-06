@@ -46,11 +46,6 @@ const useStyles = makeStyles(theme => ({
     '& img': {
       margin: '0 auto',
       maxHeight: 365,
-      padding: ({ long }) => !long && theme.spacing(0, 5),
-
-      [theme.breakpoints.down('xs')]: {
-        paddingBottom: theme.spacing(2),
-      },
     },
 
     [theme.breakpoints.up('sm')]: {
