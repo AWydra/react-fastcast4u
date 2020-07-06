@@ -19,9 +19,7 @@ const useStyles = makeStyles(theme => ({
     height: '100%',
     boxShadow: isActive ? `0px 0 0px 2px ${theme.palette.primary.main}` : 'unset',
     border: `solid 1px ${
-      isActive
-        ? theme.palette.primary.main
-        : modeSwitch(theme.palette.grey[400], theme.palette.grey[800])
+      isActive ? theme.palette.primary.main : theme.palette.grey[modeSwitch(400, 800)]
     }`,
     transition: 'unset',
   }),
@@ -68,27 +66,39 @@ const useStyles = makeStyles(theme => ({
   priceOld: {
     marginRight: theme.spacing(0.5),
     alignSelf: 'flex-start',
-    color: theme.palette.grey[600],
+    color: theme.palette.grey[modeSwitch(600, 400)],
     textDecoration: 'line-through',
   },
   cycle: {
     marginLeft: theme.spacing(0.5),
-    color: theme.palette.grey[700],
+    color: theme.palette.grey[modeSwitch(700, 300)],
     fontSize: theme.typography.pxToRem(14),
   },
 }));
 
-const ProductBox = ({ data, cycle, isActive, showPrice, onClick }) => {
-  const currency = useSelector(state => state.order.currency);
+const ProductBox = ({
+  data,
+  cycle,
+  isActive,
+  priceProp,
+  priceBasicProp,
+  showPrice,
+  hideCheckbox,
+  disabled,
+  onClick,
+}) => {
+  const currency = useSelector(state => state.general.currency);
   const { name, description } = data;
-  const price = Number(data[cycle]);
-  const priceBasic = Number(data[`${cycle}Basic`]);
+  const price = priceProp || Number(data[cycle]);
+  const priceBasic = priceBasicProp || Number(data[`${cycle}Basic`]);
   const classes = useStyles({ isActive, showPrice });
 
   return (
     <Card className={classes.root} onClick={onClick}>
-      <CardActionArea className={classes.actionArea}>
-        <Checkbox checked={isActive} color="primary" className={classes.checkbox} />
+      <CardActionArea className={classes.actionArea} disabled={disabled}>
+        {!hideCheckbox && (
+          <Checkbox checked={isActive} color="primary" className={classes.checkbox} />
+        )}
         <CardContent className={classes.content}>
           <Text
             className={classes.heading}
@@ -137,12 +147,22 @@ ProductBox.propTypes = {
     description: PropTypes.string.isRequired,
   }).isRequired,
   cycle: PropTypes.string,
-  isActive: PropTypes.bool.isRequired,
-  onClick: PropTypes.func.isRequired,
+  isActive: PropTypes.bool,
+  onClick: PropTypes.func,
+  priceProp: PropTypes.number,
+  priceBasicProp: PropTypes.number,
+  hideCheckbox: PropTypes.bool,
+  disabled: PropTypes.bool,
 };
 
 ProductBox.defaultProps = {
   cycle: '',
+  isActive: false,
+  onClick: () => {},
+  priceProp: 0,
+  priceBasicProp: 0,
+  hideCheckbox: false,
+  disabled: false,
 };
 
 export default ProductBox;
