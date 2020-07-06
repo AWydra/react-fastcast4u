@@ -21,6 +21,13 @@ const data = [
   { icon: <PeopleAltIcon />, label: 'Listeners', value: 'listeners' },
 ];
 
+const ad = {
+  image: '//img.fastcast4u.com/react/radio-directory/directory-banner.png',
+  text: 'Start Your Own Online Radio Station',
+  label: 'Start Now',
+  to: '/order',
+};
+
 const RadioDirectory = () => {
   const showPlayer = useSelector(state => state.directory.player.show);
   return (
@@ -38,7 +45,7 @@ const RadioDirectory = () => {
           <DirectoryPagination />
         </Grid>
         <Grid item xs={12} lg={4} component="aside">
-          <Ad />
+          <Ad {...ad} />
         </Grid>
       </Grid>
       {showPlayer && <RadioPlayer />}
