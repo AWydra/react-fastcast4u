@@ -1,7 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Button,
-  Container,
   Divider,
   Grid,
   List,
@@ -18,9 +18,19 @@ import { modeSwitch } from 'utils/theme';
 const useStyles = makeStyles(theme => ({
   container: {
     padding: theme.spacing(3, 0, 7),
+    justifyContent: 'center',
   },
   item: {
-    margin: theme.spacing(5, 0, 2),
+    margin: theme.spacing(2, 0),
+    boxShadow: theme.shadows[6],
+    zIndex: ({ best }) => best && 1,
+
+    [theme.breakpoints.down('sm')]: {
+      order: ({ best }) => best && 1,
+    },
+    [theme.breakpoints.up('md')]: {
+      margin: ({ best }) => (best ? 0 : theme.spacing(5, 0, 2)),
+    },
   },
   box: {
     height: '100%',
@@ -30,9 +40,10 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
   },
   title: {
-    padding: theme.spacing(2, 0),
+    padding: ({ best }) => theme.spacing(best ? 2.5 : 2, 0),
     backgroundColor: theme.palette.grey[modeSwitch(50, 900)],
     textAlign: 'center',
+    fontWeight: 500,
   },
   divider: {
     width: '100%',
@@ -46,97 +57,60 @@ const useStyles = makeStyles(theme => ({
   },
   image: {
     height: theme.spacing(6),
-    marginTop: theme.spacing(1),
+    margin: ({ best }) => (best ? theme.spacing(2.5, 0) : theme.spacing(1)),
   },
   btn: {
     marginTop: theme.spacing(4),
   },
 }));
 
-const PricingTable = ({ ...props }) => {
-  const classes = useStyles();
+const PricingTable = ({ title, price, oldPrice, list, image, link, best }) => {
+  const classes = useStyles({ best });
 
   return (
-    <Container maxWidth="xl" {...props}>
-      <Grid className={classes.container} container spacing={0}>
-        <Grid className={classes.item} item md={4}>
-          <Paper className={classes.box} variant="outlined">
-            <Text className={classes.title} component="h4" variant="h6">
-              Android App
-            </Text>
-            <Divider className={classes.divider} />
-            <Price price={99} oldPrice={149} />
-            <List className={classes.list}>
-              <ListItem>
-                <ListItemText primary="Android Smartphones" />
-              </ListItem>
-              <ListItem>
-                <ListItemText primary="Android Tablets" />
-              </ListItem>
-            </List>
-            <Image className={classes.image} src="https://fastcast4u.com/images/app/android.png" />
-            <Button className={classes.btn} color="primary" variant="contained" size="large">
-              GET NOW
-            </Button>
-          </Paper>
-        </Grid>
-        <Grid item md={4}>
-          <Paper className={classes.box} variant="outlined">
-            <Text
-              className={classes.title}
-              component="h4"
-              variant="h5"
-              pt={2.5}
-              pb={2.5}
-              fontWeight={500}
-              fontSize={24}
-            >
-              Android &amp; iOS App
-            </Text>
-            <Divider className={classes.divider} />
-            <Price price={149} oldPrice={199} />
-            <List className={classes.list}>
-              <ListItem>
-                <ListItemText primary="Android Smartphones &amp; Tablets" />
-              </ListItem>
-              <ListItem>
-                <ListItemText primary="Apple iPhone &amp; iPad" />
-              </ListItem>
-            </List>
-            <Image
-              className={classes.image}
-              src="https://fastcast4u.com/images/app/IP&android.png"
-              style={{ margin: '20px 0' }}
-            />
-            <Button className={classes.btn} color="primary" variant="contained" size="large">
-              GET NOW
-            </Button>
-          </Paper>
-        </Grid>
-        <Grid className={classes.item} item md={4}>
-          <Paper className={classes.box} variant="outlined">
-            <Text className={classes.title} component="h4" variant="h6">
-              iOS App
-            </Text>
-            <Divider className={classes.divider} />
-            <Price price={99} oldPrice={149} />
-            <List className={classes.list}>
-              <ListItem>
-                <ListItemText primary="Apple iPhone" />
-              </ListItem>
-              <ListItem>
-                <ListItemText primary="Apple iPad" />
-              </ListItem>
-            </List>
-            <Image className={classes.image} src="https://fastcast4u.com/images/app/IP.png" />
-            <Button className={classes.btn} color="primary" variant="contained" size="large">
-              GET NOW
-            </Button>
-          </Paper>
-        </Grid>
-      </Grid>
-    </Container>
+    <Grid className={classes.item} component="article" item xs={12} sm={9} md={4}>
+      <Paper className={classes.box} variant="outlined">
+        <Text className={classes.title} component="h4" variant="h6">
+          {title}
+        </Text>
+        <Divider className={classes.divider} />
+        <Price price={price} oldPrice={oldPrice} />
+        <List className={classes.list}>
+          {list.map(content => (
+            <ListItem key={content}>
+              <ListItemText primary={content} />
+            </ListItem>
+          ))}
+        </List>
+        <Image className={classes.image} src={image} />
+        <Button
+          className={classes.btn}
+          component="a"
+          href={link}
+          color="primary"
+          variant="contained"
+          size="large"
+        >
+          GET NOW
+        </Button>
+      </Paper>
+    </Grid>
   );
+};
+
+PricingTable.defaultProps = {
+  oldPrice: false,
+  best: false,
+};
+
+PricingTable.propTypes = {
+  title: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  oldPrice: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
+  list: PropTypes.arrayOf(PropTypes.string).isRequired,
+  image: PropTypes.string.isRequired,
+  link: PropTypes.string.isRequired,
+  best: PropTypes.bool,
 };
 
 export default PricingTable;
