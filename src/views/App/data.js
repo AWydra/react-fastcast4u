@@ -6,6 +6,8 @@ import { modeSwitch } from 'utils/theme';
 import AndroidIcon from '@material-ui/icons/Android';
 import AppleIcon from 'assets/svg/AppleIcon';
 
+export const specificationRef = React.createRef();
+
 const Icon = styled.span`
   ${({ theme }) => css`
     margin-right: ${theme.spacing(0.75)}px;
@@ -24,14 +26,15 @@ export const heroData = {
   heading: 'New Mobile App for your Online Radio Station',
   pictures: {
     mobile: 'https://img.fastcast4u.com/react/app/app-bg',
-    // desktop: 'https://img.fastcast4u.com/react/alexa/alexa-bg',
     alt: 'Phone in a hand',
   },
   buttons: [
     {
-      label: 'CREATE YOUR APP',
-      onClick: () => console.log('clicked'),
       color: 'primary',
+      label: 'CREATE YOUR APP',
+      component: 'a',
+      href: 'https://billing.fastcast4u.com/link.php?id=873',
+      target: '_blank',
     },
     {
       label: 'Watch App Video',
@@ -50,7 +53,9 @@ export const sectionsData = [
     content: 'The New 2020 Mobile App for Android, iPhone & iPad.',
     button: {
       label: 'Specification',
-      href: 'https://www.amazon.com/dp/B08B8RN7Y6/',
+      onClick: () => {
+        specificationRef.current.scrollIntoView({ behavior: 'smooth' });
+      },
     },
   },
   {
@@ -71,10 +76,38 @@ export const sectionsData = [
     content: 'Design and Preview your App in the Creator. Absolutely no coding skills required!',
     button: {
       label: 'OPEN APP CREATOR',
-      onClick: () => {
-        console.log('clicked');
-      },
+      component: 'a',
+      href: 'https://billing.fastcast4u.com/link.php?id=873',
+      target: '_blank',
     },
+  },
+];
+
+export const pricingData = [
+  {
+    title: 'Android App',
+    price: 99,
+    oldPrice: 149,
+    list: ['Android Smartphones', 'Android Tablets'],
+    image: 'https://img.fastcast4u.com/react/app/android.png',
+    link: 'https://billing.fastcast4u.com/cart.php?a=add&pid=496&promocode=summermobile',
+  },
+  {
+    title: 'Android & iOS App',
+    price: 149,
+    oldPrice: 199,
+    list: ['Android Smartphones & Tablets', 'Apple iPhone & iPad'],
+    image: 'https://img.fastcast4u.com/react/app/IP&android.png',
+    link: 'https://billing.fastcast4u.com/cart.php?a=add&pid=498&promocode=summermobile',
+    best: true,
+  },
+  {
+    title: 'iOS App',
+    price: 99,
+    oldPrice: 149,
+    list: ['Apple iPhone', 'Apple iPad'],
+    image: 'https://img.fastcast4u.com/react/app/IP.png',
+    link: 'https://billing.fastcast4u.com/cart.php?a=add&pid=497&promocode=summermobile',
   },
 ];
 

@@ -5,11 +5,15 @@ import PackageBox from 'components/molecules/PackageBox/Base';
 import TitleSection from 'components/organisms/TitleSection/TitleSection';
 import RowSection from 'components/organisms/RowSection/RowSection';
 import HeroSection from 'components/organisms/HeroSection/HeroSection';
+import PricingTable from 'components/organisms/PricingTable/PricingTable';
 import Accordion from 'components/organisms/Accordion/Accordion';
 import PackageGrid from 'templates/PackageGrid';
+import PricingGrid from 'templates/PricingGrid';
 import {
+  specificationRef,
   heroData,
   sectionsData,
+  pricingData,
   deliveryAccordionsData,
   packageData,
   specificationAccordionsData,
@@ -27,6 +31,11 @@ const App = () => {
           </Fragment>
         ))}
       </FullContainer>
+      <PricingGrid>
+        {pricingData.map((props, i) => (
+          <PricingTable key={i} {...props} />
+        ))}
+      </PricingGrid>
       <TitleSection primary="App Delivery and Hosting">
         <Accordion data={deliveryAccordionsData} />
       </TitleSection>
@@ -50,6 +59,7 @@ const App = () => {
         primary="Product Specifications"
         secondary="Features available for your Application"
         end
+        innerRef={specificationRef}
       >
         <Accordion data={specificationAccordionsData} />
       </TitleSection>
