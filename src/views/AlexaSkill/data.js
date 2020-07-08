@@ -49,7 +49,7 @@ export const heroData = {
 
 export const sectionsData = [
   {
-    img: 'http://img.fastcast4u.com/react/alexa/alexa-front',
+    img: 'https://img.fastcast4u.com/react/alexa/alexa-front',
     heading: 'Why create your own Alexa Skill?',
     content:
       'There are over 100 million Alexa devices sold worldwide and still growing. There’s little doubt that voice control is the future, and Alexa is at the top. Create your own Alexa Skill and let users of Amazon Smart speakers easily tune in to your station.',
@@ -66,7 +66,7 @@ export const sectionsData = [
             title="alexa-movie"
             width="560"
             height="315"
-            src="https://www.youtube-nocookie.com/embed/KcJt61r7MFs"
+            src="https://www.youtube.com/embed/9EGLwIQ4CYI"
             frameBorder="0"
             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
@@ -111,7 +111,7 @@ export const featureData = {
 export const pricingData = {
   heading: 'Alexa Skill Package',
   list: [
-    'Your custom invotation name',
+    'Your custom invocation name',
     'Start/play/launch radio stream',
     'Publication on Amazon Store included',
     'The current title information',

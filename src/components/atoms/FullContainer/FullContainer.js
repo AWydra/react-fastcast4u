@@ -38,6 +38,7 @@ const FullContainer = styled(({ center, centerX, overflowHidden, ...props }) => 
     }
 
     ${theme.breakpoints.down('sm')} {
+      min-height: 85vh;
       justify-content: center;
     }
   `}

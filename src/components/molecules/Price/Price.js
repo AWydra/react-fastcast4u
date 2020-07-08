@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Box, makeStyles, Chip } from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
+import { modeSwitch } from 'utils/theme';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -15,7 +16,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'baseline',
-    color: theme.palette.primary.main,
+    color: modeSwitch(theme.palette.primary.main, 'white'),
   },
   unit: {
     fontSize: theme.spacing(3.75),
@@ -28,7 +29,7 @@ const useStyles = makeStyles(theme => ({
   old: {
     alignSelf: 'flex-start',
     position: 'relative',
-    color: theme.palette.grey[600],
+    color: theme.palette.grey[modeSwitch(600, 400)],
     fontSize: '1.75em',
     '&:before': {
       content: '""',
@@ -37,7 +38,7 @@ const useStyles = makeStyles(theme => ({
       top: '50%',
       left: -1,
       borderBottom: 'solid 2px',
-      borderBottomColor: theme.palette.grey[700],
+      borderBottomColor: theme.palette.grey[modeSwitch(700, 300)],
       transform: 'rotate(-16deg)',
     },
   },
@@ -47,6 +48,7 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(0, 2),
     fontSize: '1.1em',
     fontWeight: 600,
+    color: modeSwitch(theme.palette.primary.main, 'white'),
   },
 }));
 

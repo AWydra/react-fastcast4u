@@ -56,8 +56,11 @@ const useStyles = makeStyles(theme => ({
     },
   },
   image: {
-    height: theme.spacing(6),
-    margin: ({ best }) => (best ? theme.spacing(2.5, 0) : theme.spacing(1)),
+    height: theme.spacing(7),
+    margin: ({ best }) => best && theme.spacing(2, 0),
+    padding: theme.spacing(1),
+    backgroundColor: modeSwitch(false, 'white'),
+    borderRadius: theme.shape.borderRadius,
   },
   btn: {
     marginTop: theme.spacing(4),

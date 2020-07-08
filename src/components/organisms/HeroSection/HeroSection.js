@@ -21,13 +21,15 @@ const useStyles = makeStyles(theme => ({
   left: ({ left }) =>
     left && {
       width: '100%',
-      marginLeft: theme.spacing(4),
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
-      textAlign: 'left',
-      [theme.breakpoints.up('md')]: {
+      textAlign: 'center',
+      [theme.breakpoints.up('lg')]: {
         width: '50%',
+        maxWidth: theme.spacing(98),
+        marginLeft: '10%',
+        textAlign: 'left',
       },
     },
   picture: {
@@ -52,9 +54,12 @@ const useStyles = makeStyles(theme => ({
   buttonContainer: {
     display: 'flex',
     flexWrap: 'wrap',
-    justifyContent: ({ left }) => (left ? 'flex-start' : 'center'),
-    '& button': {
-      margin: theme.spacing(0, 1),
+    justifyContent: 'center',
+    '& > *': {
+      margin: theme.spacing(0.5, 1),
+    },
+    [theme.breakpoints.up('lg')]: {
+      justifyContent: ({ left }) => (left ? 'flex-start' : 'center'),
     },
   },
 }));

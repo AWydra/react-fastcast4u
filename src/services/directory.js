@@ -5,7 +5,7 @@ import directoryActions from 'actions/directoryActions';
 import normalizeSongMetadata from 'utils/normalizeSongMetadata';
 import { isProd } from 'utils/nodeEnv';
 
-const baseUrl = `${isProd() ? 'https://fastcast4u.com' : ''}/radio-directory/serverreact.php`;
+const baseUrl = `${isProd() ? 'https://fastcast4u.com' : ''}/api/radio-directory/server.php`;
 
 const getStationList = params => dispatch => {
   const source = axios.CancelToken.source();

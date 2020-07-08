@@ -149,8 +149,8 @@ const PageNavigation = () => {
         ) : (
           <BottomNavigationAction
             component={Link}
-            to="/ticket"
-            value="/ticket"
+            to="/contact"
+            value="/contact"
             className={classes.action}
             label={<StyledLabel>Contact</StyledLabel>}
             icon={<Chat />}
