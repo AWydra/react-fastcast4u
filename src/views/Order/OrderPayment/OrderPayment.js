@@ -4,6 +4,7 @@ import orderServices from 'services/order';
 
 import { Box, Button, makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
 import FullContainer from 'components/atoms/FullContainer/FullContainer';
+import Image from 'components/atoms/Image/Image';
 import BoxTitle from 'components/atoms/BoxTitle/BoxTitle';
 import PaymentButton from 'components/atoms/PaymentButton/PaymentButton';
 import SecureMessage from 'components/atoms/SecureMessage/SecureMessage';
@@ -18,24 +19,32 @@ import { modeSwitch } from 'utils/theme';
 import VisaIcon from 'assets/svg/VisaIcon';
 import MastercardIcon from 'assets/svg/MastercardIcon';
 import PaypalIcon from 'assets/svg/PaypalIcon';
+import idealLogo from 'assets/img/idealLogo.png';
+import pscLogo from 'assets/img/pscLogo.png';
 
 const useStyles = makeStyles(theme => ({
+  paymethod: {
+    marginLeft: theme.spacing(0.5),
+    backgroundColor: modeSwitch('transparent', theme.palette.common.white),
+    borderRadius: theme.shape.borderRadius,
+  },
   icon: {
     width: theme.spacing(6),
-    marginLeft: theme.spacing(0.5),
     padding: theme.spacing(0, 0.5),
-    backgroundColor: modeSwitch('transparent', theme.palette.common.white),
     border: 'solid 1px',
     borderColor: theme.palette.grey[300],
-    borderRadius: theme.shape.borderRadius,
   },
   paypal: {
     width: theme.spacing(3),
     height: theme.spacing(3.5),
-    marginLeft: theme.spacing(0.5),
     padding: theme.spacing(0.5),
-    backgroundColor: modeSwitch('transparent', theme.palette.common.white),
-    borderRadius: theme.shape.borderRadius,
+  },
+  image: {
+    height: theme.spacing(3),
+    padding: theme.spacing(0.5),
+    '& img': {
+      height: '100%',
+    },
   },
 }));
 
@@ -78,14 +87,25 @@ const OrderPayment = () => {
           <PaymentButton onClick={() => handleClick('fasterpay')}>
             Debit / Credit Card
             <Box display="flex" alignItems="center" ml={1}>
-              <VisaIcon className={classes.icon} />
-              <MastercardIcon className={classes.icon} />
+              <VisaIcon className={`${classes.paymethod} ${classes.icon}`} />
+              <MastercardIcon className={`${classes.paymethod} ${classes.icon}`} />
             </Box>
           </PaymentButton>
           <PaymentButton onClick={() => handleClick('paypal')}>
             PayPal
             <Box display="flex" alignItems="center" ml={1}>
-              <PaypalIcon className={classes.paypal} />
+              <PaypalIcon className={`${classes.paymethod} ${classes.paypal}`} />
+            </Box>
+          </PaymentButton>
+          <PaymentButton onClick={() => handleClick('paymentwall')}>
+            +120 methods
+            <Box display="flex" alignItems="center" ml={1}>
+              <Box className={`${classes.paymethod} ${classes.image}`}>
+                <Image src={idealLogo} />
+              </Box>
+              <Box className={`${classes.paymethod} ${classes.image}`}>
+                <Image src={pscLogo} />
+              </Box>
             </Box>
           </PaymentButton>
         </Box>
