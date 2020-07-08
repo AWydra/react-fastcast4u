@@ -227,3 +227,9 @@ export const specificationAccordionsData = [
       "Make money online on displaying Ads in your App. Ads are delivered by AdMob so you do not have to look for advertisers, we'll just hook up Apps with your AdMob account.",
   },
 ];
+
+export const appDownloadData = {
+  heading: 'Download Demo App',
+  googlePlay: 'https://billing.fastcast4u.com/link.php?id=851',
+  appleStore: 'https://billing.fastcast4u.com/link.php?id=850',
+};

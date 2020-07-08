@@ -7,6 +7,7 @@ import RowSection from 'components/organisms/RowSection/RowSection';
 import HeroSection from 'components/organisms/HeroSection/HeroSection';
 import PricingTable from 'components/organisms/PricingTable/PricingTable';
 import Accordion from 'components/organisms/Accordion/Accordion';
+import AppDownloadSection from 'components/organisms/AppDownloadSection/AppDownloadSection';
 import PackageGrid from 'templates/PackageGrid';
 import PricingGrid from 'templates/PricingGrid';
 import {
@@ -17,6 +18,7 @@ import {
   deliveryAccordionsData,
   packageData,
   specificationAccordionsData,
+  appDownloadData,
 } from './data';
 
 const App = () => {
@@ -63,6 +65,7 @@ const App = () => {
       >
         <Accordion data={specificationAccordionsData} />
       </TitleSection>
+      <AppDownloadSection {...appDownloadData} />
     </>
   );
 };
