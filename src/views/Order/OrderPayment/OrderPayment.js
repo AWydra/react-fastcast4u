@@ -19,6 +19,7 @@ import { modeSwitch } from 'utils/theme';
 import VisaIcon from 'assets/svg/VisaIcon';
 import MastercardIcon from 'assets/svg/MastercardIcon';
 import PaypalIcon from 'assets/svg/PaypalIcon';
+import bankTransfer from 'assets/img/bankTransfer.png';
 import idealLogo from 'assets/img/idealLogo.png';
 import pscLogo from 'assets/img/pscLogo.png';
 
@@ -100,6 +101,9 @@ const OrderPayment = () => {
           <PaymentButton onClick={() => handleClick('paymentwall')}>
             +120 methods
             <Box display="flex" alignItems="center" ml={1}>
+              <Box className={`${classes.paymethod} ${classes.image}`}>
+                <Image src={bankTransfer} />
+              </Box>
               <Box className={`${classes.paymethod} ${classes.image}`}>
                 <Image src={idealLogo} />
               </Box>
