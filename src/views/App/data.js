@@ -228,6 +228,64 @@ export const specificationAccordionsData = [
   },
 ];
 
+export const sliderData = [
+  {
+    heading: 'Neque ornare aenean',
+    content:
+      'Porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet',
+  },
+  {
+    heading: 'Platea dictumst quisque',
+    content:
+      'Quis lectus nulla at volutpat diam ut venenatis tellus in metus vulputate eu scelerisque felis',
+  },
+  {
+    heading: 'Risus at ultrices',
+    content:
+      'In hendrerit gravida rutrum quisque non tellus orci ac auctor augue mauris augue neque gravida',
+  },
+  {
+    heading: 'Dolor morbi non',
+    content:
+      'Amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean',
+  },
+  {
+    heading: 'Lectus vestibulum mattis',
+    content:
+      'Volutpat diam ut venenatis tellus in metus vulputate eu scelerisque felis imperdiet proin fermentum leo',
+  },
+  {
+    heading: 'Lorem ipsum dolor',
+    content:
+      'Sagittis aliquam malesuada bibendum arcu vitae elementum curabitur vitae nunc sed velit dignissim sodales ut',
+  },
+  {
+    heading: 'Egestas quis ipsum',
+    content:
+      'Pellentesque diam volutpat commodo sed egestas egestas fringilla phasellus faucibus scelerisque eleifend donec pretium vulputate',
+  },
+  {
+    heading: 'Enim sed faucibus',
+    content:
+      'Nulla facilisi cras fermentum odio eu feugiat pretium nibh ipsum consequat nisl vel pretium lectus',
+  },
+  {
+    heading: 'Ut lectus arcu',
+    content:
+      'Nisi porta lorem mollis aliquam ut porttitor leo a diam sollicitudin tempor id eu nisl',
+  },
+  {
+    heading: 'Pretium viverra suspendisse',
+    content:
+      'Neque egestas congue quisque egestas diam in arcu cursus euismod quis viverra nibh cras pulvinar',
+  },
+  {
+    heading: 'Facilisis magna etiam',
+    content:
+      'Netus et malesuada fames ac turpis egestas integer eget aliquet nibh praesent tristique magna sit',
+  },
+];
+
 export const appDownloadData = {
   heading: 'Download Demo App',
   googlePlay: 'https://billing.fastcast4u.com/link.php?id=851',

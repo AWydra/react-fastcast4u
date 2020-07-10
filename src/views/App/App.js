@@ -6,6 +6,7 @@ import TitleSection from 'components/organisms/TitleSection/TitleSection';
 import RowSection from 'components/organisms/RowSection/RowSection';
 import HeroSection from 'components/organisms/HeroSection/HeroSection';
 import PricingTable from 'components/organisms/PricingTable/PricingTable';
+import PhoneSection from 'components/organisms/PhoneSection/PhoneSection';
 import Accordion from 'components/organisms/Accordion/Accordion';
 import AppDownloadSection from 'components/organisms/AppDownloadSection/AppDownloadSection';
 import PackageGrid from 'templates/PackageGrid';
@@ -18,6 +19,7 @@ import {
   deliveryAccordionsData,
   packageData,
   specificationAccordionsData,
+  sliderData,
   appDownloadData,
 } from './data';
 
@@ -60,10 +62,12 @@ const App = () => {
       <TitleSection
         primary="Product Specifications"
         secondary="Features available for your Application"
-        end
         innerRef={specificationRef}
       >
         <Accordion data={specificationAccordionsData} />
+      </TitleSection>
+      <TitleSection primary="Lorem Ipsum" secondary="Dolor sit amet consectetur adipiscing elit">
+        <PhoneSection data={sliderData} />
       </TitleSection>
       <AppDownloadSection {...appDownloadData} />
     </>
