@@ -30,11 +30,13 @@ const BtnContainer = styled.div`
   justify-content: ${({ flexEnd }) => (flexEnd ? 'flex-end' : 'space-between')};
 `;
 
-const OrderDetailsForm = ({ setLoading }) => {
+const OrderDetailsForm = ({ independent, setLoading, additionalData, setHandler }) => {
   const [cookies] = useCookies(['Fc4uOrder_Session']);
   const classes = useStyles();
   const alert = useAlert();
-  const { firstname, lastname, company, phone } = cookies.Fc4uOrder_Session || {};
+  const { firstname = '', lastname = '', company = '', phone = '' } = independent
+    ? {}
+    : cookies.Fc4uOrder_Session;
 
   const formik = useFormik({
     initialValues: {
@@ -59,10 +61,19 @@ const OrderDetailsForm = ({ setLoading }) => {
           ...values,
           phone: values.phone.replace(/\D+/g, ''),
         };
-        await orderServices.setStep6(data);
-        history.replace('/order/pending');
+        await (independent
+          ? orderServices.updateDetails({ ...data, ...additionalData })
+          : orderServices.setStep6(data));
+        !independent && history.replace('/order/pending');
+        setHandler({
+          heading: 'Profile Successfuly Updated - Thank you',
+          hide: true,
+          redirect: '/',
+        });
+        formik.resetForm();
       } catch (err) {
         alert.error(err.response.data.errorMessage || err.message);
+      } finally {
         setLoading(false);
       }
     },
@@ -86,19 +97,28 @@ const OrderDetailsForm = ({ setLoading }) => {
             checked={formik.values.acceptedOffers}
           />
         }
-        label="Receive Service related emails and special offers"
+        label="Receive Service related SMS"
       />
       <BtnContainer flexEnd>
         <Button variant="contained" color="primary" type="submit">
-          FINISH
+          {independent ? 'Send' : 'FINISH'}
         </Button>
       </BtnContainer>
     </form>
   );
 };
 
+OrderDetailsForm.defaultProps = {
+  independent: false,
+  additionalData: {},
+  setHandler: () => {},
+};
+
 OrderDetailsForm.propTypes = {
+  independent: PropTypes.bool,
   setLoading: PropTypes.func.isRequired,
+  additionalData: PropTypes.objectOf(PropTypes.string),
+  setHandler: PropTypes.func,
 };
 
 export default OrderDetailsForm;

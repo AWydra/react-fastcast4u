@@ -13,6 +13,7 @@ const Ticket = lazy(() => import('views/Ticket/Ticket'));
 const ToS = lazy(() => import('views/ToS/ToS'));
 const Privacy = lazy(() => import('views/Privacy/Privacy'));
 const NotFound = lazy(() => import('views/NotFound/NotFound'));
+const UpdateDetails = lazy(() => import('views/UpdateDetails/UpdateDetails'));
 
 const Routes = () => (
   <Suspense fallback={<PageLoader />}>
@@ -28,6 +29,7 @@ const Routes = () => (
       <Route path="/contact" component={Contact} />
       <Route path="/tos" component={ToS} />
       <Route path="/privacy" component={Privacy} />
+      <Route path="/update-details" component={UpdateDetails} />
       <Route component={NotFound} />
     </Switch>
   </Suspense>
