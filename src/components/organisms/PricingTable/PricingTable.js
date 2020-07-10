@@ -21,14 +21,12 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
   },
   item: {
-    margin: theme.spacing(2, 0),
-    boxShadow: theme.shadows[6],
     zIndex: ({ best }) => best && 1,
 
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       order: ({ best }) => best && 1,
     },
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.up('lg')]: {
       margin: ({ best }) => (best ? 0 : theme.spacing(5, 0, 2)),
     },
   },
@@ -38,8 +36,10 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    boxShadow: theme.shadows[6],
   },
   title: {
+    width: '100%',
     padding: ({ best }) => theme.spacing(best ? 2.5 : 2, 0),
     backgroundColor: theme.palette.grey[modeSwitch(50, 900)],
     textAlign: 'center',
@@ -71,7 +71,15 @@ const PricingTable = ({ title, price, oldPrice, list, image, link, best }) => {
   const classes = useStyles({ best });
 
   return (
-    <Grid className={classes.item} component="article" item xs={12} sm={9} md={4}>
+    <Grid
+      className={classes.item}
+      component="article"
+      item
+      xs={12}
+      sm={best ? 9 : 6}
+      md={best && 6}
+      lg={4}
+    >
       <Paper className={classes.box} variant="outlined">
         <Text className={classes.title} component="h4" variant="h6">
           {title}

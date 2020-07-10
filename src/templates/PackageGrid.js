@@ -39,13 +39,13 @@ const PackageGrid = ({ addons, loading, children }) => {
   return (
     <Grid container spacing={2}>
       {addons && (
-        <Grid item xs={12} lg={6}>
+        <Grid item xs={12} sm={6}>
           <PremiumBox />
         </Grid>
       )}
 
       {children.map((el, i) => (
-        <Grid key={i} item xs={12} lg={6} className={classes.grid}>
+        <Grid key={i} item xs={12} sm={6} className={classes.grid}>
           {el}
         </Grid>
       ))}

@@ -7,9 +7,6 @@ import AppleStore from 'assets/svg/AppleStore';
 import googlePlayImg from 'assets/img/googlePlay.png';
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    paddingTop: `${theme.spacing(10)}px !important`,
-  },
   box: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -35,7 +32,7 @@ const AppDownloadSection = ({ heading, googlePlay, appleStore }) => {
   const classes = useStyles();
 
   return (
-    <TitleSection className={classes.root} primary={heading}>
+    <TitleSection primary={heading}>
       <Box className={classes.box}>
         <ButtonBase
           className={classes.button}
