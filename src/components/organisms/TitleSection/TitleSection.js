@@ -18,12 +18,13 @@ const TitleSection = ({ primary, secondary, end, children, ...props }) => (
 );
 
 TitleSection.defaultProps = {
+  primary: '',
   secondary: '',
   end: false,
 };
 
 TitleSection.propTypes = {
-  primary: PropTypes.string.isRequired,
+  primary: PropTypes.string,
   secondary: PropTypes.string,
   end: PropTypes.bool,
   children: PropTypes.element.isRequired,
