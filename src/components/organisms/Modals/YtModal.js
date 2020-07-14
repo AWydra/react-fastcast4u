@@ -36,14 +36,7 @@ const YtModal = ({ onClose, url, ...props }) => {
   const classes = useStyles();
 
   return (
-    <Modal
-      className={classes.modal}
-      fullWidth
-      maxWidth="lg"
-      scroll="paper"
-      onClose={onClose}
-      {...props}
-    >
+    <Modal className={classes.modal} onClose={onClose} {...props}>
       <Box className={classes.container}>
         <YTContainer>
           <iframe

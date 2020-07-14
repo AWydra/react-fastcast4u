@@ -9,6 +9,9 @@ const useStyles = makeStyles({
       textOverflow: 'ellipsis',
     },
   },
+  dropzone: {
+    backgroundColor: 'transparent',
+  },
 });
 
 const Dropzone = ({ ...props }) => {
@@ -18,6 +21,7 @@ const Dropzone = ({ ...props }) => {
   return (
     <DropzoneDialog
       acceptedFiles={['']}
+      dropzoneClass={classes.dropzone}
       dialogProps={{
         maxWidth: 'xl',
         fullWidth: true,

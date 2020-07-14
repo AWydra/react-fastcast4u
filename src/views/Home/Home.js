@@ -13,8 +13,8 @@ import history from 'utils/history';
 const heroData = {
   heading: 'Add your Online Radio Station to Alexa',
   pictures: {
-    mobile: 'https://img.fastcast4u.com/react/home/home-bg',
-    // desktop: 'https://img.fastcast4u.com/react/alexa/alexa-bg',
+    mobile: 'https://img.fastcast4u.com/react/home/home-bg-mobile',
+    desktop: 'https://img.fastcast4u.com/react/home/home-bg',
     alt: 'Alexa on a desk',
   },
   buttons: [

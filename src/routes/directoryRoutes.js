@@ -4,7 +4,7 @@ import PageLoader from 'components/molecules/PageLoader/PageLoader';
 
 const RadioDirectory = lazy(() => import('views/RadioDirectory/RadioDirectory'));
 
-const Order = () => (
+const RadioDirectoryRoutes = () => (
   <Suspense fallback={<PageLoader />}>
     <Switch>
       <Route exact path="/radio-directory/station/:id/:station?" component={RadioDirectory} />
@@ -26,6 +26,4 @@ const Order = () => (
   </Suspense>
 );
 
-// http://localhost:3000/radio-directory/search/WydraFM/2/name
-
-export default Order;
+export default RadioDirectoryRoutes;

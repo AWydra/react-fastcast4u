@@ -10,7 +10,7 @@ const OrderDetails = lazy(() => import('views/Order/OrderDetails/OrderDetails'))
 const OrderPending = lazy(() => import('views/Order/OrderPending/OrderPending'));
 const NotFound = lazy(() => import('views/NotFound/NotFound'));
 
-const Order = () => (
+const OrderRoutes = () => (
   <Suspense fallback={<PageLoader />}>
     <Switch>
       <Route exact path="/order" component={OrderHome} />
@@ -24,4 +24,4 @@ const Order = () => (
   </Suspense>
 );
 
-export default Order;
+export default OrderRoutes;

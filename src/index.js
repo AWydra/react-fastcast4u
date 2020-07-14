@@ -10,7 +10,7 @@ serviceWorker.register({
     if (registration && registration.waiting) {
       await registration.unregister();
       registration.waiting.postMessage({ type: 'SKIP_WAITING' });
-      window.location.reload();
+      setTimeout(window.location.reload, 2000);
     }
   },
 });

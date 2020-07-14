@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const LoginForm = () => {
+const TicketForm = () => {
   const classes = useStyles();
   const alert = useAlert();
   const [loading, setLoading] = useState(false);
@@ -170,4 +170,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default TicketForm;

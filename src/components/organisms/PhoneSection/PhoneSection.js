@@ -29,10 +29,11 @@ const useStyles = makeStyles(theme => ({
       flexBasis: '100%',
     },
     [theme.breakpoints.up('md')]: {
+      height: '40%',
       order: 'unset',
     },
     [theme.breakpoints.up('lg')]: {
-      height: '40%',
+      height: '32%',
     },
   },
   phoneContainer: {
@@ -89,10 +90,10 @@ const PhoneSection = ({ device, data }) => {
     <Grid container className={classes.container} justify="center">
       <Grid className={classes.content} item>
         <Hidden smDown>
-          <Text align="center" component="h3" variant="h4" fontWeight={500}>
+          <Text align="center" component="h3" variant="h3" fontWeight={500}>
             {data[Math.abs(slide) % data.length].heading}
           </Text>
-          <Text align="center" mt={4}>
+          <Text align="center" variant="h6" fontWeight={400} mt={4}>
             {data[Math.abs(slide) % data.length].content}
           </Text>
         </Hidden>

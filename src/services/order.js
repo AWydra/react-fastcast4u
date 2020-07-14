@@ -67,6 +67,13 @@ const setStep6 = async data => {
   return request.data;
 };
 
+const updateDetails = async data => {
+  const request = await axios.post(`/api/details/details.php`, data, {
+    cancelToken: source.token,
+  });
+  return request.data;
+};
+
 const checkFinalCompatibility = async () => {
   const request = await axios.get(`${baseUrl}isOk.php`, {
     cancelToken: source.token,
@@ -102,6 +109,7 @@ export default {
   setPaymentMethod,
   checkCompatibility,
   setStep6,
+  updateDetails,
   checkFinalCompatibility,
   isReady,
   getLoginURL,
