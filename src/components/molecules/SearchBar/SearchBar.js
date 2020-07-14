@@ -1,5 +1,6 @@
 // @ts-nocheck
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Box, Button, IconButton, InputBase, Paper, makeStyles } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
@@ -52,7 +53,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SearchBar = ({ ...props }) => {
+const SearchBar = ({ placeholder, ...props }) => {
   const classes = useStyles();
   const storeTitle = useSelector(state => state.directory.title);
   const [title, setTitle] = useState(storeTitle);
@@ -87,7 +88,7 @@ const SearchBar = ({ ...props }) => {
         <InputBase
           id="search"
           className={classes.input}
-          placeholder="Search a radio..."
+          placeholder={placeholder}
           value={title}
           onChange={handleChange}
           autoComplete="off"
@@ -117,6 +118,10 @@ const SearchBar = ({ ...props }) => {
       </Paper>
     </Box>
   );
+};
+
+SearchBar.propTypes = {
+  placeholder: PropTypes.string.isRequired,
 };
 
 export default SearchBar;
