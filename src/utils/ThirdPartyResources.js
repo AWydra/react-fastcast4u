@@ -66,6 +66,11 @@ const ThirdPartyResources = () => {
           ],
         );
       });
+
+      // OneSignal
+      import('utils/fbPixel').then(fbPixel => {
+        fbPixel.default.init();
+      });
     }
   }, [dispatch, interacted]);
 
