@@ -2,6 +2,7 @@ import React, { lazy, Suspense } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import OrderRoutes from 'routes/orderRoutes';
 import DirectoryRoutes from 'routes/directoryRoutes';
+import HelpRoutes from 'routes/helpRoutes';
 import PageLoader from 'components/molecules/PageLoader/PageLoader';
 
 const Home = lazy(() => import('views/Home/Home'));
@@ -27,6 +28,7 @@ const Routes = () => (
       <Route path="/login" component={Login} />
       <Route path="/ticket" component={Ticket} />
       <Route path="/contact" component={Contact} />
+      <Route path="/help" component={HelpRoutes} />
       <Route path="/tos" component={ToS} />
       <Route path="/privacy" component={Privacy} />
       <Route path="/update-details" component={UpdateDetails} />
