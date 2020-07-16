@@ -12,6 +12,7 @@ import {
   useTheme,
   useMediaQuery,
 } from '@material-ui/core';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 const useStyles = makeStyles(theme => ({
   tabsContainer: {
@@ -44,7 +45,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const HelpTabs = ({ categories, activeId, onClick }) => {
+const HelpTabs = ({ categories, activeId, loading, onClick }) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('md'));
   const classes = useStyles();
@@ -92,22 +93,32 @@ const HelpTabs = ({ categories, activeId, onClick }) => {
 
   return matches ? (
     <Box className={classes.tabsContainer} component="ul">
-      {memoizedCategories}
+      {loading
+        ? [...Array(9)].map((el, i) => (
+            <Skeleton key={i} className={classes.listItem} variant="rect" width={180} height={40} />
+          ))
+        : memoizedCategories}
     </Box>
   ) : (
     <FormControl variant="outlined" className={classes.formControl}>
-      <InputLabel htmlFor="category-select">Select category</InputLabel>
-      <Select
-        native
-        value={activeId}
-        onChange={ev => onClick(ev.target.value)}
-        inputProps={{
-          id: 'category-select',
-        }}
-        label="Select category"
-      >
-        {memoizedSelectCategories}
-      </Select>
+      {loading ? (
+        <Skeleton variant="rect" width="100%" height={56} />
+      ) : (
+        <>
+          <InputLabel htmlFor="category-select">Select category</InputLabel>
+          <Select
+            native
+            value={activeId}
+            onChange={ev => onClick(ev.target.value)}
+            inputProps={{
+              id: 'category-select',
+            }}
+            label="Select category"
+          >
+            {memoizedSelectCategories}
+          </Select>
+        </>
+      )}
     </FormControl>
   );
 };
