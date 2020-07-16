@@ -1,7 +1,17 @@
-import React from 'react';
+/* eslint-disable react/prop-types */
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
-import { Box, Paper, makeStyles } from '@material-ui/core';
+import {
+  Box,
+  ButtonBase,
+  FormControl,
+  InputLabel,
+  Select,
+  Paper,
+  makeStyles,
+  useTheme,
+  useMediaQuery,
+} from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   tabsContainer: {
@@ -16,6 +26,7 @@ const useStyles = makeStyles(theme => ({
     listStyle: 'none',
   },
   tab: {
+    height: '100%',
     padding: theme.spacing(1),
     display: 'block',
     fontSize: 16,
@@ -27,43 +38,77 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.primary.main,
     color: 'white',
   },
+  formControl: {
+    width: '100%',
+    marginBottom: theme.spacing(3),
+  },
 }));
 
-const HelpTabs = ({ categories }) => {
+const HelpTabs = ({ categories, activeId, onClick }) => {
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up('md'));
   const classes = useStyles();
 
-  return (
-    <Box className={classes.tabsContainer} component="ul">
-      {categories.map(category => (
-        <li className={classes.listItem}>
-          <Paper
-            key={category.id}
-            className={classes.tab}
-            component={NavLink}
-            exact
-            to={`/help${category.description}`}
-            activeClassName={classes.active}
-            variant="outlined"
-            square
-          >
+  const memoizedSelectCategories = useMemo(() => {
+    return (
+      !matches &&
+      categories
+        .concat({
+          name: 'HELP Show All',
+          id: 'all',
+        })
+        .map(category => (
+          <option key={category.id} value={category.id}>
             {category.name.slice(5).replace('&amp;', '&')}
-          </Paper>
-        </li>
-      ))}
-      <li className={classes.listItem}>
-        <Paper
-          className={classes.tab}
-          component={NavLink}
-          exact
-          to="/help/all"
-          activeClassName={classes.active}
-          variant="outlined"
-          square
-        >
-          Show All
-        </Paper>
-      </li>
+          </option>
+        ))
+    );
+  }, [categories, activeId, matches]);
+
+  const memoizedCategories = useMemo(() => {
+    return (
+      matches &&
+      categories
+        .concat({
+          name: 'HELP Show All',
+          id: 'all',
+        })
+        .map(category => (
+          <li className={classes.listItem} key={category.id}>
+            <Paper
+              className={`${classes.tab} ${category.id === activeId && classes.active}`}
+              component={ButtonBase}
+              focusRipple
+              variant="outlined"
+              square
+              onClick={() => onClick(category.id)}
+            >
+              {category.name.slice(5).replace('&amp;', '&')}
+            </Paper>
+          </li>
+        ))
+    );
+  }, [categories, activeId, matches]);
+
+  return matches ? (
+    <Box className={classes.tabsContainer} component="ul">
+      {memoizedCategories}
     </Box>
+  ) : (
+    <FormControl variant="outlined" className={classes.formControl}>
+      <InputLabel htmlFor="category-select">Select category</InputLabel>
+      <Select
+        native
+        value={activeId}
+        onChange={ev => onClick(ev.target.value)}
+        inputProps={{
+          id: 'category-select',
+        }}
+        label="Select category"
+      >
+        {memoizedSelectCategories}
+      </Select>
+    </FormControl>
   );
 };
 
