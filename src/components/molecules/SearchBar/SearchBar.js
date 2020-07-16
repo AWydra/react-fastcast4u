@@ -1,15 +1,13 @@
 // @ts-nocheck
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
 import { Box, Button, IconButton, InputBase, Paper, makeStyles } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import CloseIcon from '@material-ui/icons/Close';
-import history from 'utils/history';
-import directoryLinkParser from 'utils/directoryLinkParser';
 
 const useStyles = makeStyles(theme => ({
   root: {
+    minHeight: theme.spacing(5.5),
     display: 'flex',
     overflow: 'hidden',
     margin: '0 auto',
@@ -53,75 +51,55 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SearchBar = ({ placeholder, ...props }) => {
+const SearchBar = ({ placeholder, value, onChange, onClear, onSubmit, ...props }) => {
   const classes = useStyles();
-  const storeTitle = useSelector(state => state.directory.title);
-  const [title, setTitle] = useState(storeTitle);
-
-  useEffect(() => {
-    setTitle(storeTitle);
-  }, [storeTitle]);
-
-  const handleClick = () => {
-    setTitle('');
-    history.push(`/radio-directory`);
-  };
-
-  const handleChange = ev => {
-    setTitle(ev.target.value);
-  };
-
-  const handleSubmit = ev => {
-    ev.preventDefault();
-    const currentPathname = window.location.pathname;
-    const destinationPathname = directoryLinkParser({ page: 1, sort: 'popular', title });
-    if (currentPathname === destinationPathname) {
-      history.replace(destinationPathname);
-    } else {
-      history.push(destinationPathname);
-    }
-  };
 
   return (
-    <Box component="form" onSubmit={handleSubmit} {...props}>
+    <Box component={onSubmit && 'form'} onSubmit={onSubmit} {...props}>
       <Paper elevation={5} className={classes.root}>
         <InputBase
           id="search"
           className={classes.input}
           placeholder={placeholder}
-          value={title}
-          onChange={handleChange}
+          value={value}
+          onChange={onChange}
           autoComplete="off"
           startAdornment={<SearchIcon className={classes.icon} />}
           endAdornment={
-            title && (
-              <IconButton
-                className={classes.iconButton}
-                onClick={handleClick}
-                aria-label="clear input"
-              >
+            value && (
+              <IconButton className={classes.iconButton} onClick={onClear} aria-label="clear input">
                 <CloseIcon />
               </IconButton>
             )
           }
         />
-        <Button
-          className={classes.button}
-          disableElevation
-          size="large"
-          color="primary"
-          variant="contained"
-          type="submit"
-        >
-          Search
-        </Button>
+        {onSubmit && (
+          <Button
+            className={classes.button}
+            disableElevation
+            size="large"
+            color="primary"
+            variant="contained"
+            type="submit"
+          >
+            Search
+          </Button>
+        )}
       </Paper>
     </Box>
   );
 };
 
+SearchBar.defaultProps = {
+  onSubmit: undefined,
+};
+
 SearchBar.propTypes = {
   placeholder: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  onChange: PropTypes.func.isRequired,
+  onClear: PropTypes.func.isRequired,
+  onSubmit: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
 };
 
 export default SearchBar;
