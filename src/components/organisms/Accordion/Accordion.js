@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import { ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary } from '@material-ui/core';
@@ -17,8 +17,8 @@ const StyledExpansionPanel = styled(ExpansionPanel)`
     `}
 `;
 
-const Accordion = ({ data }) => {
-  const [expanded, setExpanded] = React.useState(0);
+const Accordion = ({ data, summaryProps }) => {
+  const [expanded, setExpanded] = useState(0);
 
   const handleChange = panel => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
@@ -30,13 +30,23 @@ const Accordion = ({ data }) => {
         expandIcon={<ExpandMoreIcon />}
         aria-controls={`panel${i + 1}bh-content`}
       >
-        {React.isValidElement(heading) ? heading : <Text variant="h5">{heading}</Text>}
+        {React.isValidElement(heading) ? (
+          heading
+        ) : (
+          <Text variant="h5" {...summaryProps}>
+            {heading}
+          </Text>
+        )}
       </ExpansionPanelSummary>
       <ExpansionPanelDetails style={{ display: 'flex', flexDirection: 'column' }}>
         {React.isValidElement(content) ? content : <Text>{content}</Text>}
       </ExpansionPanelDetails>
     </StyledExpansionPanel>
   ));
+};
+
+Accordion.defaultProps = {
+  summaryProps: {},
 };
 
 Accordion.propTypes = {
@@ -46,6 +56,7 @@ Accordion.propTypes = {
       content: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
     }),
   ).isRequired,
+  summaryProps: PropTypes.object,
 };
 
 export default Accordion;

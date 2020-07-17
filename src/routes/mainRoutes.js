@@ -11,6 +11,7 @@ const AlexaSkill = lazy(() => import('views/AlexaSkill/AlexaSkill'));
 const Contact = lazy(() => import('views/Contact/Contact'));
 const Login = lazy(() => import('views/Login/Login'));
 const Ticket = lazy(() => import('views/Ticket/Ticket'));
+const Faq = lazy(() => import('views/Faq/Faq'));
 const ToS = lazy(() => import('views/ToS/ToS'));
 const Privacy = lazy(() => import('views/Privacy/Privacy'));
 const NotFound = lazy(() => import('views/NotFound/NotFound'));
@@ -29,6 +30,7 @@ const Routes = () => (
       <Route path="/ticket" component={Ticket} />
       <Route path="/contact" component={Contact} />
       <Route path="/help" component={HelpRoutes} />
+      <Route path="/faq" component={Faq} />
       <Route path="/tos" component={ToS} />
       <Route path="/privacy" component={Privacy} />
       <Route path="/update-details" component={UpdateDetails} />
