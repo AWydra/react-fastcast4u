@@ -8,7 +8,7 @@ const HelpArticle = lazy(() => import('views/HelpArticle/HelpArticle'));
 const HelpRoutes = () => (
   <Suspense fallback={<PageLoader />}>
     <Switch>
-      <Route exact path="/help/:id(\d+)/:slug" component={HelpArticle} />
+      <Route exact path="/help/:id(\d+)/:slug?" component={HelpArticle} />
       <Route exact path="/help/:category?" component={Help} />
     </Switch>
   </Suspense>

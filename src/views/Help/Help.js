@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Grid } from '@material-ui/core';
 import Skeleton from '@material-ui/lab/Skeleton';
 import FullContainer from 'components/atoms/FullContainer/FullContainer';
@@ -7,6 +8,7 @@ import SearchBar from 'components/molecules/SearchBar/SearchBar';
 import HelpTabs from 'components/molecules/HelpTabs/HelpTabs';
 import HelpBox from 'components/molecules/HelpBox/HelpBox';
 import helpServices from 'services/help';
+import history from 'utils/history';
 
 const Help = () => {
   const [categories, setCategories] = useState([]);
@@ -14,6 +16,12 @@ const Help = () => {
   const [activeId, setActiveId] = useState(0);
   const [title, setTitle] = useState('');
   const [loading, setLoading] = useState(true);
+  const location = useLocation();
+
+  useEffect(() => {
+    const id = new URLSearchParams(location.search).get('id');
+    id && history.push(`/help/${id}`);
+  }, [location]);
 
   const handleChange = ev => {
     setTitle(ev.target.value);
@@ -41,10 +49,15 @@ const Help = () => {
       setActiveId(values[0][0].id);
       setLoading(false);
     });
+
+    return () => {
+      helpServices.cancel();
+    };
   }, []);
 
   const filterArticles = useCallback(
     article => (activeId === 'all' ? true : article.category_id === activeId),
+    // eslint-disable-next-line
     [articles, activeId],
   );
 
@@ -52,6 +65,7 @@ const Help = () => {
     article =>
       article.helpTitle.toLowerCase().includes(title.toLowerCase()) ||
       article.helpDescription.toLowerCase().includes(title.toLowerCase()),
+    // eslint-disable-next-line
     [articles, title],
   );
 
@@ -70,6 +84,7 @@ const Help = () => {
             />
           </Grid>
         )),
+    // eslint-disable-next-line
     [articles, activeId, title],
   );
 

@@ -11,9 +11,17 @@ const getCategories = async () => {
   return response.data;
 };
 
+const getArticles = async () => {
+  const response = await axios.get(`${baseUrl}/getArticles.php`, {
+    cancelToken: source.token,
+  });
+
+  return response.data;
+};
+
 const cancel = () => {
   source.cancel();
   source = axios.CancelToken.source();
 };
 
-export default { getCategories, cancel };
+export default { getCategories, getArticles, cancel };

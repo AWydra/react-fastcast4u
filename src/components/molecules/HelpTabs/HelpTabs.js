@@ -64,6 +64,7 @@ const HelpTabs = ({ categories, activeId, loading, onClick }) => {
           </option>
         ))
     );
+    // eslint-disable-next-line
   }, [categories, activeId, matches]);
 
   const memoizedCategories = useMemo(() => {
@@ -89,6 +90,7 @@ const HelpTabs = ({ categories, activeId, loading, onClick }) => {
           </li>
         ))
     );
+    // eslint-disable-next-line
   }, [categories, activeId, matches]);
 
   return matches ? (
