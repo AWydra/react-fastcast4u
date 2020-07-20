@@ -1,7 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
-import { ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary } from '@material-ui/core';
+import {
+  ExpansionPanel,
+  ExpansionPanelDetails,
+  ExpansionPanelSummary,
+  makeStyles,
+} from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Text from 'components/atoms/Text/Text';
 
@@ -17,12 +22,46 @@ const StyledExpansionPanel = styled(ExpansionPanel)`
     `}
 `;
 
-const Accordion = ({ data, summaryProps }) => {
-  const [expanded, setExpanded] = useState(0);
+const useStyles = makeStyles(theme => ({
+  content: {
+    '& a': {
+      color: theme.palette.primary.main,
+    },
+    '& img': {
+      width: 'auto !important',
+      maxWidth: '100%',
+      height: 'auto !important',
+      maxHeight: 400,
+      display: 'block',
+      [theme.breakpoints.up('md')]: {
+        maxHeight: 550,
+      },
+    },
+    '& .iframe-container': {
+      width: '100%',
+      position: 'relative',
+      paddingTop: '56.0714%',
+
+      '& iframe': {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+      },
+    },
+  },
+}));
+
+const Accordion = ({ data, summaryProps, injectHTML, start }) => {
+  const [expanded, setExpanded] = useState(start);
+  const classes = useStyles();
 
   const handleChange = panel => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
+
+  useEffect(() => setExpanded(start), [data, start]);
 
   return data.map(({ heading, content }, i) => (
     <StyledExpansionPanel key={i} expanded={expanded === i} onChange={handleChange(i)}>
@@ -33,13 +72,26 @@ const Accordion = ({ data, summaryProps }) => {
         {React.isValidElement(heading) ? (
           heading
         ) : (
-          <Text variant="h5" {...summaryProps}>
-            {heading}
-          </Text>
+          <Text
+            variant="h5"
+            {...(injectHTML
+              ? { dangerouslySetInnerHTML: { __html: heading } }
+              : { children: heading })}
+            {...summaryProps}
+          />
         )}
       </ExpansionPanelSummary>
       <ExpansionPanelDetails style={{ display: 'flex', flexDirection: 'column' }}>
-        {React.isValidElement(content) ? content : <Text>{content}</Text>}
+        {React.isValidElement(content) ? (
+          content
+        ) : (
+          <Text
+            className={injectHTML && classes.content}
+            {...(injectHTML
+              ? { dangerouslySetInnerHTML: { __html: content } }
+              : { children: content })}
+          />
+        )}
       </ExpansionPanelDetails>
     </StyledExpansionPanel>
   ));
@@ -47,6 +99,7 @@ const Accordion = ({ data, summaryProps }) => {
 
 Accordion.defaultProps = {
   summaryProps: {},
+  start: 0,
 };
 
 Accordion.propTypes = {
