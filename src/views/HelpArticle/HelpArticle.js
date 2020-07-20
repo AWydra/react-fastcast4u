@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import helpServices from 'services/help';
 import styled, { css } from 'styled-components';
-import { Button, Container } from '@material-ui/core';
+import { Button, Container, LinearProgress } from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-
-const sampleResponse = `<p>Starting your first Reseller buisiness with Internet Radio Stations and don't know how to manage your own and your customer's accounts in Centova Cast? Watch this video guide to learn what do all those buttons and icons mean.<br /><br /><iframe src="//www.youtube.com/embed/grdY5okNqOg" width="560" height="314" allowfullscreen="allowfullscreen"></iframe></p>`;
 
 const Article = styled.div`
   ${({ theme }) => css`
@@ -26,9 +25,10 @@ const Article = styled.div`
     }
 
     & img {
-      width: 100%;
-      max-width: 700px;
-      height: auto;
+      width: auto !important;
+      max-width: 100%;
+      height: auto !important;
+      max-height: 550px;
       display: block;
     }
 
@@ -50,26 +50,37 @@ const Article = styled.div`
 
 const HelpArticle = () => {
   const { id } = useParams();
+  const [response, setResponse] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log(id);
-  }, []);
+    helpServices.getArticle(id).then(res => {
+      setResponse(res);
+      setLoading(false);
+    });
+  }, [id]);
 
   return (
     <Container maxWidth="xl">
-      <Text compnent="h1" variant="h4" fontWeight={500} mt={6} mb={4}>
-        HOW TO CREATE YOUR MOBILE APP
-      </Text>
-      <Article dangerouslySetInnerHTML={{ __html: sampleResponse }} />
-      <Button
-        startIcon={<ArrowBackIcon />}
-        component={Link}
-        to="/help"
-        variant="contained"
-        color="primary"
-      >
-        Back to help
-      </Button>
+      {loading ? (
+        <LinearProgress style={{ marginTop: '2em' }} />
+      ) : (
+        <>
+          <Text compnent="h1" variant="h4" fontWeight={500} mt={6} mb={4}>
+            {response.raw_title}
+          </Text>
+          <Article dangerouslySetInnerHTML={{ __html: response.article }} />
+          <Button
+            startIcon={<ArrowBackIcon />}
+            component={Link}
+            to="/help"
+            variant="contained"
+            color="primary"
+          >
+            Back to help
+          </Button>
+        </>
+      )}
     </Container>
   );
 };
