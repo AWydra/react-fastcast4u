@@ -1,0 +1,77 @@
+{
+  "language": "English",
+  "code": "en",
+  "home": {
+    "heroSection": {
+      "heading": "Add your Online Radio Station to Alexa",
+      "buttons": ["Get Now"]
+    },
+    "rowSections": [
+      {
+        "heading": "Start Streaming Online in 3 minutes",
+        "content": "Complete Radio Server Package",
+        "button": "Start Now"
+      },
+      {
+        "heading": "Mobile App",
+        "content": "Create Your Own Application for Android & iOS",
+        "button": "Start Now"
+      },
+      {
+        "heading": "WebPlayer Page",
+        "content": "Customizable Radio Player for listeners",
+        "button": "Start Now"
+      },
+      {
+        "heading": "Alexa Radio Skill",
+        "content": "Add your radio stream to Alexa",
+        "button": "Start Now"
+      }
+    ],
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "accordions": [
+        {
+          "heading": "How to start streaming online?",
+          "content": "With FastCast4u you can start streaming online in 3 minutes. Sign in, create a package and your Radio Server will be set up automatically, just upload music, broadcasts or shows or connect a live DJ from your computer."
+        },
+        {
+          "heading": "Earn on streaming online",
+          "content": "SHOUTcast Radio Servers come with TargetSpot Stream Monetization program. You can also make money online by placing ad banners on your Web Player Page and activating Admob Ads on Mobile Apps. Lastly, your radio station can rely on Donates from satisfied listeners."
+        },
+        {
+          "heading": "Web Player Page & Radio Player",
+          "content": "Web Player Page will automatically go online with your Radio Server. You don’t need web hosting, complicated website builders or domains - just customize the page and share with your listeners. The customize Radio Player is also available as an embed widget for websites."
+        },
+        {
+          "heading": "Mobile Apps",
+          "content": "Mobile App for Android, iPhone & iPad features a Player for Online Radio and Live TV/Video streams. Your social media and website can be available in a built-in WebView. Using an Online App Creator you get a customized App with your own branding, artwork and theme."
+        }
+      ]
+    }
+  },
+  "footer": {
+    "items": [
+      {
+        "title": "SERVICES",
+        "content": ["Radio Server", "Mobile App", "Radio Player", "Alexa Radio Skill"]
+      },
+      {
+        "title": "RESOURCES",
+        "content": ["Radio Directory", "Tutorials", "FAQ", "Server Uptime"]
+      },
+      {
+        "title": "SUPPORT",
+        "content": ["LiveChat", "Call", "Message us", "Client Area"]
+      },
+      {
+        "title": "SOCIAL",
+        "content": ["Facebook", "YouTube"]
+      }
+    ],
+    "copyrights": "Copyrights",
+    "reserved": "All Rights Reserved by FastCast DWC-LLC",
+    "tos": "Terms of Service",
+    "privacy": "Privacy Policy"
+  }
+}
