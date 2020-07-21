@@ -1,10 +1,11 @@
 // @ts-nocheck
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Box, makeStyles } from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
 import Picture from 'components/molecules/Picture/Picture';
 import CTAButton from 'components/atoms/CTAButton/CTAButton';
+import YtModal from 'components/organisms/Modals/YtModal';
 
 const useStyles = makeStyles(theme => ({
   box: {
@@ -64,8 +65,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const HeroSection = ({ data, left, ...props }) => {
+const HeroSection = ({ data, left, youtube, ...props }) => {
   const classes = useStyles({ left });
+  const [open, setOpen] = useState(false);
 
   return (
     <Box className={classes.box} component="section" {...props}>
@@ -86,15 +88,28 @@ const HeroSection = ({ data, left, ...props }) => {
                 {label}
               </CTAButton>
             ))}
+            {youtube.label && (
+              <CTAButton
+                variant="contained"
+                color="secondary"
+                xlarge
+                onClick={() => setOpen(true)}
+                {...props}
+              >
+                {youtube.label}
+              </CTAButton>
+            )}
           </Box>
         )}
       </Box>
+      {youtube.url && <YtModal open={open} onClose={() => setOpen(false)} url={youtube.url} />}
     </Box>
   );
 };
 
 HeroSection.defaultProps = {
   left: false,
+  youtube: {},
 };
 
 HeroSection.propTypes = {
@@ -112,6 +127,10 @@ HeroSection.propTypes = {
     ),
   }).isRequired,
   left: PropTypes.bool,
+  youtube: PropTypes.shape({
+    label: PropTypes.string,
+    url: PropTypes.string,
+  }),
 };
 
 export default HeroSection;

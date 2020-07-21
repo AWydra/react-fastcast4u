@@ -6,6 +6,7 @@ import TitleSection from 'components/organisms/TitleSection/TitleSection';
 import RowSection from 'components/organisms/RowSection/RowSection';
 import HeroSection from 'components/organisms/HeroSection/HeroSection';
 import PricingTable from 'components/organisms/PricingTable/PricingTable';
+import Promobar from 'components/organisms/Promobar/Promobar';
 import PhoneSection from 'components/organisms/PhoneSection/PhoneSection';
 import Accordion from 'components/organisms/Accordion/Accordion';
 import AppDownloadSection from 'components/organisms/AppDownloadSection/AppDownloadSection';
@@ -16,6 +17,7 @@ import {
   heroData,
   sectionsData,
   pricingData,
+  promobarData,
   deliveryAccordionsData,
   packageData,
   specificationAccordionsData,
@@ -26,20 +28,24 @@ import {
 const App = () => {
   return (
     <>
-      <HeroSection left data={heroData} />
+      <HeroSection left data={heroData} youtube={heroData.youtube} />
       <FullContainer maxWidth="xl" overflowHidden>
         {sectionsData.map((props, i) => (
           <Fragment key={i}>
-            <RowSection {...props} reverse={i % 2 === 1} />
+            <RowSection long {...props} reverse={i % 2 === 0} />
             {i + 1 < sectionsData.length && <Divider variant="middle" />}
           </Fragment>
         ))}
       </FullContainer>
+      <TitleSection>
+        <PhoneSection data={sliderData} />
+      </TitleSection>
       <PricingGrid>
         {pricingData.map((props, i) => (
           <PricingTable key={i} {...props} />
         ))}
       </PricingGrid>
+      <Promobar {...promobarData} />
       <TitleSection primary="App Delivery and Hosting">
         <Accordion data={deliveryAccordionsData} />
       </TitleSection>
@@ -65,9 +71,6 @@ const App = () => {
         innerRef={specificationRef}
       >
         <Accordion data={specificationAccordionsData} />
-      </TitleSection>
-      <TitleSection primary="Lorem Ipsum" secondary="Dolor sit amet consectetur adipiscing elit">
-        <PhoneSection data={sliderData} />
       </TitleSection>
       <AppDownloadSection {...appDownloadData} />
     </>
