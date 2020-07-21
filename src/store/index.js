@@ -7,6 +7,7 @@ import thunk from 'redux-thunk';
 import generalReducer from 'reducers/generalReducer';
 import orderReducer from 'reducers/orderReducer';
 import directoryReducer from 'reducers/directoryReducer';
+import languageReducer from 'reducers/languageReducer';
 
 const generalPersistConfig = {
   key: 'general',
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   general: persistReducer(generalPersistConfig, generalReducer),
   order: persistReducer(orderPersistConfig, orderReducer),
   directory: directoryReducer,
+  language: languageReducer,
 });
 
 export const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
