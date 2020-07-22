@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import orderActions from 'actions/orderActions';
 import FullContainer from 'components/atoms/FullContainer/FullContainer';
 import HeadingBlock from 'components/molecules/HeadingBlock/HeadingBlock';
@@ -18,50 +18,48 @@ import EffectiveIcon from 'assets/svg/EffectiveIcon';
 import VideoIcon from 'assets/svg/VideoIcon';
 import RemoteIcon from 'assets/svg/RemoteIcon';
 
-const data = [
-  {
-    icon: <MicrophoneIcon />,
-    heading: 'Unlimited Radio & AutoDJ',
-    description:
-      'Enjoy the Unlimited listener traffic for your online station and Unlimited AutoDJ disc space for audio files',
-  },
-  {
-    icon: <ReturnIcon />,
-    heading: '10-Day Money Back Guarantee',
-    description:
-      'Don’t hesitate to test! We guarantee a full money refund if you are not satisfied with our product or service',
-  },
-  {
-    icon: <EffectiveIcon />,
-    heading: 'Instant Server Setup',
-    description:
-      'Your Radio Server will be set up immediately and you can start broadcasting online within minutes',
-  },
-  {
-    icon: <EarningIcon />,
-    heading: 'Stream Monetization Solutions',
-    description:
-      'Earn Money Online from Ads in your Mobile Apps or WebPlayer and SHOUTcast Stream Monetization System',
-  },
-  {
-    icon: <VideoIcon />,
-    heading: 'Radio Player & Addons',
-    description:
-      'Easily share your station on the Internet by Free WebPlayer Page and clever radio addons',
-  },
-  {
-    icon: <RemoteIcon />,
-    heading: 'Live Customer Support',
-    description:
-      'Chat or talk with friendly Customer Service and Technical Support whenever you need assistance',
-  },
-];
-
 const Order = () => {
   const [loading, setLoading] = useState(false);
+  const content = useSelector(state => state.language.orderHome);
   const alert = useAlert();
   const location = useLocation();
   const dispatch = useDispatch();
+
+  const data = useMemo(
+    () => [
+      {
+        icon: <MicrophoneIcon />,
+        heading: content.features[0].heading,
+        description: content.features[0].description,
+      },
+      {
+        icon: <ReturnIcon />,
+        heading: content.features[1].heading,
+        description: content.features[1].description,
+      },
+      {
+        icon: <EffectiveIcon />,
+        heading: content.features[2].heading,
+        description: content.features[2].description,
+      },
+      {
+        icon: <EarningIcon />,
+        heading: content.features[3].heading,
+        description: content.features[3].description,
+      },
+      {
+        icon: <VideoIcon />,
+        heading: content.features[4].heading,
+        description: content.features[4].description,
+      },
+      {
+        icon: <RemoteIcon />,
+        heading: content.features[5].heading,
+        description: content.features[5].description,
+      },
+    ],
+    [content],
+  );
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -82,8 +80,8 @@ const Order = () => {
   return (
     <FullContainer center maxWidth="xl">
       <HeadingBlock
-        title="Build the Server Package that's right for you in 3 Easy Steps"
-        subtitle="We know what's important for streaming online so all Radio Servers come with:"
+        title={content.heading.title}
+        subtitle={content.heading.subtitle}
         component="h1"
       />
       <Features data={data} />
@@ -96,7 +94,7 @@ const Order = () => {
         endIcon={<RocketIcon />}
         loading={loading}
       >
-        Start Now
+        {content.button}
       </CTAButton>
     </FullContainer>
   );

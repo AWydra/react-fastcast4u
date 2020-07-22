@@ -50,6 +50,39 @@
       ]
     }
   },
+  "orderHome": {
+    "heading": {
+      "title": "Build the Server Package that's right for you in 3 Easy Steps",
+      "subtitle": "We know what's important for streaming online so all Radio Servers come with:"
+    },
+    "features": [
+      {
+        "heading": "Unlimited Radio & AutoDJ",
+        "description": "Enjoy the Unlimited listener traffic for your online station and Unlimited AutoDJ disc space for audio files"
+      },
+      {
+        "heading": "10-Day Money Back Guarantee",
+        "description": "Don’t hesitate to test! We guarantee a full money refund if you are not satisfied with our product or service"
+      },
+      {
+        "heading": "Instant Server Setup",
+        "description": "Your Radio Server will be set up immediately and you can start broadcasting online within minutes"
+      },
+      {
+        "heading": "Stream Monetization Solutions",
+        "description": "Earn Money Online from Ads in your Mobile Apps or WebPlayer and SHOUTcast Stream Monetization System"
+      },
+      {
+        "heading": "Radio Player & Addons",
+        "description": "Easily share your station on the Internet by Free WebPlayer Page and clever radio addons"
+      },
+      {
+        "heading": "Live Customer Support",
+        "description": "Chat or talk with friendly Customer Service and Technical Support whenever you need assistance"
+      }
+    ],
+    "button": "Start Now"
+  },
   "footer": {
     "items": [
       {
