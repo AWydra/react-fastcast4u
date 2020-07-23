@@ -3,16 +3,17 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import generalActions from 'actions/generalActions';
+import MobileCounterBar from 'components/molecules/MobileCounterBar/MobileCounterBar';
 
 import styled, { css } from 'styled-components';
 import {
+  Box,
   BottomNavigation,
   BottomNavigationAction,
-  useMediaQuery,
+  makeStyles,
   useTheme,
+  useMediaQuery,
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-
 import { Chat, Help, Home, Radio, ShoppingCart } from '@material-ui/icons';
 import useOnlineStatus from '@rehooks/online-status';
 import { modeSwitch } from 'utils/theme';
@@ -52,14 +53,17 @@ const StyledLabel = styled.div`
 const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
-    height: 'auto',
     position: 'fixed',
     bottom: 0,
     left: 0,
+    zIndex: 2000000001,
+  },
+  navigation: {
+    width: '100%',
+    height: 'auto',
     borderTop: 'solid 1px',
     borderTopColor: modeSwitch(theme.palette.grey[300], theme.palette.grey[800]),
     boxShadow: theme.shadows[4],
-    zIndex: 2000000001,
   },
   action: {
     padding: theme.spacing(1, 0),
@@ -81,7 +85,6 @@ const PageNavigation = () => {
   const matches = useMediaQuery(theme.breakpoints.down('sm'));
   const { pathname } = useLocation();
   const chat = useSelector(state => state.general.chat);
-  const isChatOpened = useSelector(state => state.general.chat.isOpen);
   const [value, setValue] = useState(normalizePathname(pathname));
   const isOnline = useOnlineStatus();
   const dispatch = useDispatch();
@@ -89,14 +92,14 @@ const PageNavigation = () => {
   useEffect(() => {
     if (!chat.onLoaded) return;
 
-    if (isChatOpened) {
+    if (chat.isOpen) {
       window.Tawk_API.maximize();
     } else {
       window.Tawk_API.minimize();
       matches && window.Tawk_API.hideWidget();
     }
     // eslint-disable-next-line
-  }, [chat.onLoaded, isChatOpened]);
+  }, [chat.onLoaded, chat.isOpen]);
 
   useEffect(() => {
     if (chat.onLoaded === undefined) {
@@ -125,38 +128,41 @@ const PageNavigation = () => {
 
   return (
     matches &&
-    !isChatOpened && (
-      <BottomNavigation component="nav" value={value} showLabels className={classes.root}>
-        {navigationData.map(({ to, label, external, ...props }) => (
-          <BottomNavigationAction
-            component={external ? 'a' : Link}
-            to={to}
-            href={to}
-            className={classes.action}
-            value={to}
-            label={<StyledLabel>{label}</StyledLabel>}
-            key={to}
-            {...props}
-          />
-        ))}
-        {chat.isOnline && isOnline ? (
-          <BottomNavigationAction
-            className={classes.action}
-            label={<StyledLabel>Chat</StyledLabel>}
-            icon={<Chat />}
-            onClick={handleClick}
-          />
-        ) : (
-          <BottomNavigationAction
-            component={Link}
-            to="/contact"
-            value="/contact"
-            className={classes.action}
-            label={<StyledLabel>Contact</StyledLabel>}
-            icon={<Chat />}
-          />
-        )}
-      </BottomNavigation>
+    !chat.isOpen && (
+      <Box className={classes.root}>
+        <MobileCounterBar content="BUY NOW 50% OFF" date={Date.UTC(2020, 6, 31)} />
+        <BottomNavigation component="nav" value={value} showLabels className={classes.navigation}>
+          {navigationData.map(({ to, label, external, ...props }) => (
+            <BottomNavigationAction
+              component={external ? 'a' : Link}
+              to={to}
+              href={to}
+              className={classes.action}
+              value={to}
+              label={<StyledLabel>{label}</StyledLabel>}
+              key={to}
+              {...props}
+            />
+          ))}
+          {chat.isOnline && isOnline ? (
+            <BottomNavigationAction
+              className={classes.action}
+              label={<StyledLabel>Chat</StyledLabel>}
+              icon={<Chat />}
+              onClick={handleClick}
+            />
+          ) : (
+            <BottomNavigationAction
+              component={Link}
+              to="/contact"
+              value="/contact"
+              className={classes.action}
+              label={<StyledLabel>Contact</StyledLabel>}
+              icon={<Chat />}
+            />
+          )}
+        </BottomNavigation>
+      </Box>
     )
   );
 };
