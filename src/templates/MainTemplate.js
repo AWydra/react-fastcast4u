@@ -7,6 +7,7 @@ import { StylesProvider } from '@material-ui/core/styles';
 import GlobalStyle from 'theme/GlobalStyle';
 import Alert from 'components/atoms/Alert/Alert';
 import OnlineStatusBar from 'components/molecules/OnlineStatusBar/OnlineStatusBar';
+import PromoNotification from 'components/molecules/PromoNotification/PromoNotification';
 import Header from 'components/organisms/Header/Header';
 import PageNavigation from 'components/organisms/PageNavigation/PageNavigation';
 import Footer from 'components/organisms/Footer/Footer';
@@ -30,6 +31,7 @@ const MainTemplate = ({ children }) => (
           <Footer />
           <ThirdPartyResources />
           <CookieConsent />
+          <PromoNotification />
         </StylesProvider>
       </MainThemeProvider>
     </NoSsr>
