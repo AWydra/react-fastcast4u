@@ -8,14 +8,14 @@
     },
     "rowSections": [
       {
-        "heading": "Start Streaming Online in 3 minutes",
+        "heading": "UNLIMITED Radio Server Package",
         "content": "Complete Radio Server Package",
-        "button": "Start Now"
+        "button": "Start Now 50% OFF"
       },
       {
         "heading": "Mobile App",
         "content": "Create Your Own Application for Android & iOS",
-        "button": "Start Now"
+        "button": "Get Now 50% OFF"
       },
       {
         "heading": "WebPlayer Page",
@@ -25,7 +25,7 @@
       {
         "heading": "Alexa Radio Skill",
         "content": "Add your radio stream to Alexa",
-        "button": "Start Now"
+        "button": "Get Now 50% OFF"
       }
     ],
     "faq": {
@@ -49,6 +49,9 @@
         }
       ]
     }
+  },
+  "order": {
+    "stepper": ["Create your Server Package", "Create Account", "Payment & Setup"]
   },
   "orderHome": {
     "heading": {
@@ -82,6 +85,57 @@
       }
     ],
     "button": "Start Now"
+  },
+  "orderPackage": {
+    "headings": ["Your Package Includes", "Select Control Panel", "Select Addons"],
+    "features": [
+      {
+        "heading": "Server",
+        "content": [
+          "Unlimited Listeners",
+          "Unlimited Traffic (Bandwidth)",
+          "Unlimited AutoDJ Disc Space"
+        ]
+      },
+      {
+        "heading": "Features",
+        "content": [
+          "Online Radio Control Panel",
+          "AutoDJ Stream Automation",
+          "Easy Live Stream Connection"
+        ]
+      },
+      {
+        "heading": "Addons",
+        "content": [
+          "WebPlayer Page & Radio Player",
+          "Server Downtime Monitoring",
+          "Twitter and Tunein Addons"
+        ]
+      }
+    ],
+    "premium": {
+      "name": "Premium stream quality - 320kbps",
+      "description": "The highest online audio streaming bitrate for the best sound quality"
+    },
+    "summary": {
+      "heading": "ORDER SUMMARY",
+      "billing": {
+        "heading": "Billing Cycle:",
+        "monthly": "Monthly",
+        "annually": "12 Months",
+        "biennially": "24 Months",
+        "months2": "+2 MONTHS FREE",
+        "months6": "+6 MONTHS FREE"
+      },
+      "total": "Total due today:",
+      "promocode": "Promocode",
+      "invalid": "Your promo code is invalid or expired",
+      "provide": "Provide promocode",
+      "apply": "Apply",
+      "remove": "Remove",
+      "continue": "Continue"
+    }
   },
   "footer": {
     "items": [

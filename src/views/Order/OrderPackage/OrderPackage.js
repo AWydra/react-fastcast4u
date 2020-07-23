@@ -14,33 +14,6 @@ import IconListSection from 'components/organisms/IconListSection/IconListSectio
 import PackageGrid from 'templates/PackageGrid';
 import OrderAccessController from 'utils/OrderAccessController';
 
-const data = [
-  {
-    heading: 'Server',
-    content: [
-      'Unlimited Listeners',
-      'Unlimited Traffic (Bandwidth)',
-      'Unlimited AutoDJ Disc Space',
-    ],
-  },
-  {
-    heading: 'Features',
-    content: [
-      'Online Radio Control Panel',
-      'AutoDJ Stream Automation',
-      'Easy Live Stream Connection',
-    ],
-  },
-  {
-    heading: 'Addons',
-    content: [
-      'WebPlayer Page & Radio Player',
-      'Server Downtime Monitoring',
-      'Twitter and Tunein Addons',
-    ],
-  },
-];
-
 const useStyles = makeStyles(theme => ({
   root: {
     maxWidth: 1500,
@@ -67,6 +40,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const OrderPackage = () => {
+  const content = useSelector(state => state.language.orderPackage);
+  const steps = useSelector(state => state.language.order.stepper);
   const products = useSelector(state => state.order.products);
   const addons = useSelector(state => state.order.addons);
   const loading = useSelector(state => state.order.loading);
@@ -81,20 +56,17 @@ const OrderPackage = () => {
       <OrderAccessController currentStep={1} />
       <Grid container>
         <Grid item className={classes.content}>
-          <Stepper
-            steps={['Create your Server Package', 'Create Account', 'Payment & Setup']}
-            activeStep={0}
-          />
+          <Stepper steps={steps} activeStep={0} />
           <FancyTitle component="h3" variant="h4">
-            Your Package Includes
+            {content.headings[0]}
           </FancyTitle>
           <IconListSection>
-            {data.map((props, i) => (
+            {content.features.map((props, i) => (
               <IconList key={i} {...props} icon={<CheckCircleRoundedIcon />} />
             ))}
           </IconListSection>
           <FancyTitle component="h3" variant="h4">
-            Select Control Panel
+            {content.headings[1]}
           </FancyTitle>
           <PackageGrid loading={loading}>
             {products.map(product => (
@@ -102,7 +74,7 @@ const OrderPackage = () => {
             ))}
           </PackageGrid>
           <FancyTitle component="h3" variant="h4">
-            Select Addons
+            {content.headings[2]}
           </FancyTitle>
           <PackageGrid addons loading={loading}>
             {addons.map(addon => (

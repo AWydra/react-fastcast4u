@@ -43,6 +43,7 @@ const SummaryPriceItem = ({ period, cycle, price, after, label, basicPrice, ...p
 };
 
 const SummaryPrice = () => {
+  const content = useSelector(state => state.language.orderPackage.summary.total);
   const order = useSelector(state => state.order);
   const { products, activeProduct, addons, activeAddons, cycle, plan, recurfor } = order;
 
@@ -73,12 +74,7 @@ const SummaryPrice = () => {
 
   return (
     <>
-      <SummaryPriceItem
-        label="Total due today:"
-        cycle={cycle}
-        price={price.discounted}
-        fontSize={25}
-      />
+      <SummaryPriceItem label={content} cycle={cycle} price={price.discounted} fontSize={25} />
       {recurfor && recurfor[cycle] && price.discounted !== price.basic && (
         <>
           {recurfor[cycle] > 1 && (

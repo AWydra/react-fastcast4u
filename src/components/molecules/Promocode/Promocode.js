@@ -32,6 +32,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Promocode = () => {
+  const content = useSelector(state => state.language.orderPackage.summary);
   const reduxPromocode = useSelector(state => state.order.promocode);
   const invalidPromocode = useSelector(state => state.order.invalidPromocode);
   const dispatch = useDispatch();
@@ -61,7 +62,7 @@ const Promocode = () => {
   useDidUpdate(() => {
     setLoading(false);
     setPromocode(invalidPromocode);
-    setInvalid('Your promo code is invalid or expired');
+    setInvalid(content.invalid);
     setTimeout(() => {
       inputRef.current.focus();
     }, 0);
@@ -76,7 +77,7 @@ const Promocode = () => {
     ev.preventDefault();
 
     if (!promocode) {
-      setInvalid('Provide promocode');
+      setInvalid(content.provide);
       return;
     }
     setLoading(true);
@@ -85,7 +86,7 @@ const Promocode = () => {
 
   return (
     <PromocodeContainer onSubmit={handleSubmit}>
-      <Label htmlFor="promocode-input">Promocode:</Label>
+      <Label htmlFor="promocode-input">{content.promocode}:</Label>
       <div className={classes.inputContainer}>
         <TextField
           id="promocode-input"
@@ -95,7 +96,7 @@ const Promocode = () => {
           margin="dense"
           onChange={handleChange}
           disabled={loading || !!reduxPromocode}
-          placeholder="Promocode"
+          placeholder={content.promocode}
           variant="outlined"
           fullWidth
           autoComplete="off"
@@ -109,7 +110,7 @@ const Promocode = () => {
           loading={loading}
           disabled={!!invalid}
         >
-          {reduxPromocode ? 'Remove' : 'Apply'}
+          {reduxPromocode ? content.remove : content.apply}
         </CTAButton>
       </div>
       <FormHelperText error variant="filled">

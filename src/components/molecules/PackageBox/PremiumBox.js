@@ -9,6 +9,7 @@ const countBasicPrice = (product, cycle) =>
   product[cycle].premiumBasic - product[cycle].regularBasic;
 
 const PremiumBox = () => {
+  const content = useSelector(state => state.language.orderPackage.premium);
   const dispatch = useDispatch();
   const cycle = useSelector(state => state.order.cycle);
   const plan = useSelector(state => state.order.plan);
@@ -20,8 +21,8 @@ const PremiumBox = () => {
   const data = useMemo(
     () => ({
       id: 'Premium stream quality - 320kbps',
-      name: 'Premium stream quality - 320kbps',
-      description: 'The highest online audio streaming bitrate for the best sound quality',
+      name: content.name,
+      description: content.description,
       monthly: countPrice(product, 'monthly'),
       monthlyBasic: countBasicPrice(product, 'monthly'),
       annually: countPrice(product, 'annually'),
@@ -29,7 +30,7 @@ const PremiumBox = () => {
       biennially: countPrice(product, 'biennially'),
       bienniallyBasic: countBasicPrice(product, 'biennially'),
     }),
-    [product],
+    [product, content],
   );
 
   const handleClick = () => {

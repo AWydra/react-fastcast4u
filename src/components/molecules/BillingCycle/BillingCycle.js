@@ -50,6 +50,7 @@ const FormGroup = styled.div`
 
 const BillingCycle = () => {
   const cycle = useSelector(state => state.order.cycle);
+  const content = useSelector(state => state.language.orderPackage.summary.billing);
   const dispatch = useDispatch();
 
   const handleChange = ({ target }) => {
@@ -61,7 +62,7 @@ const BillingCycle = () => {
   return (
     <BillingContainer>
       <Text component="h5" variant="h6" fontSize={18} fontWeight={600} mb={1}>
-        Billing Cycle:
+        {content.heading}
       </Text>
       <RadioGroup
         className={classes.group}
@@ -75,7 +76,7 @@ const BillingCycle = () => {
             className={classes.label}
             value="monthly"
             control={<Radio className={classes.radio} color="primary" />}
-            label="Monthly"
+            label={content.monthly}
           />
         </FormGroup>
         <FormGroup>
@@ -85,12 +86,12 @@ const BillingCycle = () => {
             control={<Radio className={classes.radio} color="primary" />}
             label={
               <>
-                12 Months
+                {content.annually}
                 <Chip
                   className={classes.chip}
                   color="primary"
                   size="small"
-                  label="+2 MONTHS FREE"
+                  label={content.months2}
                 />
               </>
             }
@@ -104,12 +105,12 @@ const BillingCycle = () => {
             control={<Radio className={classes.radio} color="primary" />}
             label={
               <>
-                24 Months
+                {content.biennially}
                 <Chip
                   className={classes.chip}
                   color="primary"
                   size="small"
-                  label="+6 MONTHS FREE"
+                  label={content.months6}
                 />
               </>
             }

@@ -40,6 +40,7 @@ const FormContainer = styled.div`
 
 const Continue = () => {
   const [loading, setLoading] = useState(false);
+  const content = useSelector(state => state.language.orderPackage.summary.continue);
   const products = useSelector(state => state.order.products);
   const activeProduct = useSelector(state => state.order.activeProduct);
   const plan = useSelector(state => state.order.plan);
@@ -71,7 +72,7 @@ const Continue = () => {
   return (
     <FormContainer flexEnd>
       <CTAButton loading={loading} disabled={orderLoading} onClick={handleClick} color="primary">
-        CONTINUE
+        {content}
       </CTAButton>
     </FormContainer>
   );
@@ -87,11 +88,12 @@ const useStyles = makeStyles(({ palette }) => ({
 
 const OrderSummary = () => {
   const classes = useStyles();
+  const heading = useSelector(state => state.language.orderPackage.summary.heading);
 
   return (
     <SummaryContainer>
       <Text className={classes.heading} component="h5" variant="h5" p={2}>
-        ORDER SUMMARY
+        {heading}
       </Text>
       <Divider />
       <ProductTable />
