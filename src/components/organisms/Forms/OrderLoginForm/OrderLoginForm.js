@@ -32,6 +32,7 @@ const BtnContainer = styled.div`
 `;
 
 const OrderLoginForm = ({ setLoading }) => {
+  const content = useSelector(state => state.language.orderLogin);
   const { email, password, username, emailmarketing } = useSelector(state => state.order);
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -46,19 +47,19 @@ const OrderLoginForm = ({ setLoading }) => {
     },
     validationSchema: Yup.object({
       email: Yup.string()
-        .matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,7}$/i, 'Invalid email address')
-        .required('Required'),
+        .matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,7}$/i, content.errors.email)
+        .required(content.errors.required),
       password: Yup.string()
-        .min(8, 'Must be 8 characters or more')
-        .max(30, 'Must be 30 characters or less')
-        .matches(/^[^#%&?+\\]{1,}$/, "Can't contain characters #%&?+\\")
-        .required('Required'),
+        .min(8, content.errors.min8)
+        .max(30, content.errors.max30)
+        .matches(/^[^#%&?+\\]{1,}$/, content.errors.specificChars)
+        .required(content.errors.required),
       username: Yup.string()
-        .min(3, 'Must be 3 characters or more')
-        .max(16, 'Must be 16 characters or less')
-        .matches(/^[^A-Z]{1,}$/, "Can't contain uppercase characters")
-        .matches(/^[a-z0-9]{3,16}$/, "Can't contain special characters")
-        .required('Required'),
+        .min(3, content.errors.min3)
+        .max(16, content.errors.max16)
+        .matches(/^[^A-Z]{1,}$/, content.errors.uppercase)
+        .matches(/^[a-z0-9]{3,16}$/, content.errors.special)
+        .required(content.errors.required),
     }),
     onSubmit: async values => {
       setLoading(true);
@@ -77,19 +78,19 @@ const OrderLoginForm = ({ setLoading }) => {
       <form onSubmit={formik.handleSubmit} noValidate autoComplete="off" className={classes.form}>
         <FormikInput
           formik={formik}
-          label="Email"
+          label={content.email}
           name="email"
           type="email"
           autoComplete="username"
         />
         <FormikInput
           formik={formik}
-          label="Password"
+          label={content.password}
           name="password"
           type="password"
           autoComplete="current-password"
         />
-        <FormikInput formik={formik} label="Server Login Username" name="username" />
+        <FormikInput formik={formik} label={content.username} name="username" />
         <FormControlLabel
           control={
             <Checkbox
@@ -99,14 +100,14 @@ const OrderLoginForm = ({ setLoading }) => {
               checked={formik.values.emailmarketing}
             />
           }
-          label="Receive Service related emails and offers"
+          label={content.accept}
         />
         <BtnContainer>
           <Button component={Link} to="/order/package" variant="contained" color="primary">
-            BACK
+            {content.back}
           </Button>
           <Button variant="contained" color="primary" type="submit">
-            CONTINUE
+            {content.continue}
           </Button>
         </BtnContainer>
       </form>

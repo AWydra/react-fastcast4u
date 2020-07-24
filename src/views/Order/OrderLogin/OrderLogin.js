@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, lazy, Suspense } from 'react';
+import { useSelector } from 'react-redux';
 
 import { Link, CircularProgress, useMediaQuery, useTheme } from '@material-ui/core';
 import FullContainer from 'components/atoms/FullContainer/FullContainer';
@@ -13,30 +14,26 @@ import OrderAccessController from 'utils/OrderAccessController';
 const TosModal = lazy(() => import('components/organisms/Modals/TosModal'));
 
 const OrderLogin = () => {
+  const content = useSelector(state => state.language.orderLogin);
+  const steps = useSelector(state => state.language.order.stepper);
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.up('sm'));
+  const matches = useMediaQuery(theme.breakpoints.up('md'));
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
 
   return (
     <FullContainer center centerX>
       <OrderAccessController currentStep={2} />
-      {matches && (
-        <Stepper
-          steps={['Create your Server Package', 'Create Account', 'Payment & Setup']}
-          activeStep={1}
-          mb={6}
-        />
-      )}
+      {matches && <Stepper steps={steps} activeStep={1} mb={6} />}
       <ColumnForm loading={loading}>
         <BoxTitle variant="h5" component="h1" mb={2}>
-          Create Account or Sign In
+          {content.title}
         </BoxTitle>
         <LoginForm setLoading={setLoading} />
         <Text component="p" variant="caption" align="center" mt={2.5}>
-          By clicking the ‘Continue’ button you accept the{' '}
+          {content.note}{' '}
           <Link component="button" onClick={() => setOpen(true)}>
-            Terms Of Service
+            {content.tos}
           </Link>
         </Text>
       </ColumnForm>

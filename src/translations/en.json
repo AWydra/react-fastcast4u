@@ -137,6 +137,28 @@
       "continue": "Continue"
     }
   },
+  "orderLogin": {
+    "title": "Create Account or Sign In",
+    "email": "Email",
+    "password": "Password",
+    "username": "Server Login Username",
+    "accept": "Receive Service related emails and offers",
+    "back": "Back",
+    "continue": "Continue",
+    "note": "By clicking the ‘Continue’ button you accept the",
+    "tos": "Terms of Service",
+    "errors": {
+      "required": "Required",
+      "email": "Invalid email address",
+      "min8": "Must be 8 characters or more",
+      "max30": "Must be 30 characters or less",
+      "specificChars": "Can't contain characters #%&?+\\",
+      "min3": "Must be 3 characters or more",
+      "max16": "Must be 16 characters or less",
+      "uppercase": "Can't contain uppercase characters",
+      "special": "Can't contain special characters"
+    }
+  },
   "footer": {
     "items": [
       {
