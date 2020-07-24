@@ -159,6 +159,13 @@
       "special": "Can't contain special characters"
     }
   },
+  "orderPayment": {
+    "title": "Payment Checkout",
+    "secure": "Secure Server",
+    "debit": "Debit / Credit Card",
+    "methods": "+120 methods",
+    "back": "Back"
+  },
   "footer": {
     "items": [
       {

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
 import PadlockIcon from 'assets/svg/PadlockIcon';
@@ -17,11 +18,12 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const SecureMessage = () => {
+  const content = useSelector(state => state.language.orderPayment.secure);
   const classes = useStyles();
 
   return (
     <Text variant="caption" className={classes.text}>
-      Secure Server <PadlockIcon className={classes.icon} />
+      {content} <PadlockIcon className={classes.icon} />
     </Text>
   );
 };

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import orderServices from 'services/order';
 
@@ -50,6 +51,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const OrderPayment = () => {
+  const steps = useSelector(state => state.language.order.stepper);
+  const content = useSelector(state => state.language.orderPayment);
   const classes = useStyles();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
@@ -72,21 +75,15 @@ const OrderPayment = () => {
   return (
     <FullContainer center centerX>
       <OrderAccessController currentStep={3} />
-      {matches && (
-        <Stepper
-          steps={['Create your Server Package', 'Create Account', 'Payment & Setup']}
-          activeStep={2}
-          mb={6}
-        />
-      )}
+      {matches && <Stepper steps={steps} activeStep={2} mb={6} />}
       <ColumnForm loading={loading}>
         <BoxTitle variant="h5" component="h1" mb={2}>
-          Payment Checkout
+          {content.title}
         </BoxTitle>
         <SecureMessage />
         <Box mb={4}>
           <PaymentButton onClick={() => handleClick('fasterpay')}>
-            Debit / Credit Card
+            {content.debit}
             <Box display="flex" alignItems="center" ml={1}>
               <VisaIcon className={`${classes.paymethod} ${classes.icon}`} />
               <MastercardIcon className={`${classes.paymethod} ${classes.icon}`} />
@@ -99,7 +96,7 @@ const OrderPayment = () => {
             </Box>
           </PaymentButton>
           <PaymentButton onClick={() => handleClick('paymentwall')}>
-            +120 methods
+            {content.methods}
             <Box display="flex" alignItems="center" ml={1}>
               <Box className={`${classes.paymethod} ${classes.image}`}>
                 <Image src={bankTransfer} />
@@ -114,7 +111,7 @@ const OrderPayment = () => {
           </PaymentButton>
         </Box>
         <Button component={Link} to="/order/login" variant="contained" color="primary">
-          Back
+          {content.back}
         </Button>
       </ColumnForm>
     </FullContainer>
