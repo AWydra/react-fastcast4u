@@ -15,6 +15,7 @@ import CookieConsent from 'components/organisms/CookieConsent/CookieConsent';
 import MainThemeProvider from 'theme/MainThemeProvider';
 import ErrorHandler from 'templates/ErrorHandler';
 import ThirdPartyResources from 'utils/ThirdPartyResources';
+import ServiceWorkerHandler from 'utils/ServiceWorkerHandler';
 
 const MainTemplate = ({ children }) => (
   <ErrorHandler>
@@ -29,9 +30,10 @@ const MainTemplate = ({ children }) => (
           <Box mb={8}>{children}</Box>
           <PageNavigation />
           <Footer />
-          <ThirdPartyResources />
           <CookieConsent />
           <PromoNotification />
+          <ThirdPartyResources />
+          <ServiceWorkerHandler />
         </StylesProvider>
       </MainThemeProvider>
     </NoSsr>
