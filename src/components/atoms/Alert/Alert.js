@@ -27,6 +27,7 @@ const Alert = () => {
     <Snackbar
       className={classes.snackbar}
       autoHideDuration={6000}
+      ClickAwayListenerProps={{ mouseEvent: false }}
       anchorOrigin={{ vertical: 'bottom', horizontal: matches ? 'center' : 'left' }}
       open={reduxAlert.open}
       onClose={() => alert.hide()}
