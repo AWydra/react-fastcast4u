@@ -2,6 +2,13 @@
   "language": "English",
   "code": "en",
   "components": {
+    "dropzone": {
+      "upload": "Upload file",
+      "dragzone": "Drag and drop a file here or click",
+      "preview": "Preview:",
+      "add": "Add",
+      "cancel": "Cancel"
+    },
     "modals": {
       "call": {
         "title": "Prefer phone contact?",
@@ -10,6 +17,9 @@
         "privacy": "Privacy Policy",
         "label": "Request a call"
       }
+    },
+    "phoneInput": {
+      "label": "Phone Number (optional)"
     },
     "status": {
       "available": "Available",
@@ -224,6 +234,25 @@
       "content": "Just leave your number. We will call back as soon as possible",
       "label": "REQUEST CALL"
     }
+  },
+  "ticket": {
+    "title": "Send us a message",
+    "name": "Full Name",
+    "email": "Email",
+    "subject": "Subject",
+    "attachments": "Attachments (optional)",
+    "addFiles": "Add Files",
+    "message": "Message",
+    "submitting": "By submitting a message you agree on processing the provided data according to our",
+    "privacy": "Privacy Policy",
+    "submit": "Submit",
+    "errors": {
+      "required": "Required",
+      "min3": "Must be 3 characters or more",
+      "email": "Invalid email address",
+      "min10": "Must be 10 characters or more"
+    },
+    "success": "Thank you, we have received your message! Our Support Team will respond as soon as possible."
   },
   "footer": {
     "items": [

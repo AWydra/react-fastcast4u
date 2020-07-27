@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 // @ts-nocheck
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import generalServices from 'services/general';
 
 import { useFormik } from 'formik';
@@ -33,6 +34,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const TicketForm = () => {
+  const content = useSelector(state => state.language.ticket);
   const classes = useStyles();
   const alert = useAlert();
   const [loading, setLoading] = useState(false);
@@ -58,25 +60,23 @@ const TicketForm = () => {
     },
     validationSchema: Yup.object({
       name: Yup.string()
-        .min(3, 'Must be 3 characters or more')
-        .required('Required'),
+        .min(3, content.errors.min3)
+        .required(content.errors.required),
       email: Yup.string()
-        .matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,7}$/i, 'Invalid email address')
-        .required('Required'),
+        .matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,7}$/i, content.errors.email)
+        .required(content.errors.required),
       subject: Yup.string()
-        .min(3, 'Must be 3 characters or more')
-        .required('Required'),
+        .min(3, content.errors.min3)
+        .required(content.errors.required),
       message: Yup.string()
-        .min(10, 'Must be 10 characters or more')
-        .required('Required'),
+        .min(10, content.errors.min10)
+        .required(content.errors.required),
     }),
     onSubmit: async values => {
       try {
         sendTicket(values);
         setLoading(false);
-        alert.success(
-          'Thank you, we have received your message! Our Support Team will respond as soon as possible.',
-        );
+        alert.success(content.success);
         formik.resetForm();
       } catch (err) {
         alert.error(err.response.data.error || err.response.statusText);
@@ -96,14 +96,20 @@ const TicketForm = () => {
       <Grid item xs={12} lg={4}>
         <FormikInput
           formik={formik}
-          label="Full Name"
+          label={content.name}
           name="name"
           type="text"
           autoComplete="name"
         />
       </Grid>
       <Grid item xs={12} lg={4}>
-        <FormikInput formik={formik} label="Email" name="email" type="email" autoComplete="email" />
+        <FormikInput
+          formik={formik}
+          label={content.email}
+          name="email"
+          type="email"
+          autoComplete="email"
+        />
       </Grid>
       <Grid item xs={12} lg={4}>
         <PhoneInput
@@ -116,18 +122,18 @@ const TicketForm = () => {
       <Grid item xs={12}>
         <FormikInput
           formik={formik}
-          label="Subject"
+          label={content.subject}
           name="subject"
           type="text"
           autoComplete="subject"
         />
       </Grid>
       <Grid item xs={12} style={{ paddingBottom: 0 }}>
-        <InputLabel>Attachments (optional)</InputLabel>
+        <InputLabel>{content.attachments}</InputLabel>
       </Grid>
       <Grid item xs={12} style={{ display: 'flex', alignItems: 'flex-start' }}>
         <Button variant="contained" size="large" color="primary" onClick={() => setOpen(true)}>
-          add files
+          {content.addFiles}
         </Button>
         <div className={classes.chip} style={{ flex: 1 }}>
           {formik.values.attachments.map(file => (
@@ -146,7 +152,7 @@ const TicketForm = () => {
       <Grid item xs={12}>
         <FormikInput
           formik={formik}
-          label="Message"
+          label={content.message}
           name="message"
           multiline
           rows={6}
@@ -156,14 +162,14 @@ const TicketForm = () => {
       </Grid>
 
       <Grid item xs={12} className={classes.buttonContainer}>
-        <Text style={{ textAlign: 'center', marginBottom: 12 }}>
-          By submitting a message you agree on processing the provided data according to our{' '}
+        <Text align="center" mb={1.5}>
+          {content.submitting}{' '}
           <Link href="/privacy" target="_blank">
-            Privacy Policy
+            {content.privacy}
           </Link>
         </Text>
         <CTAButton loading={loading} xlarge variant="contained" color="primary" type="submit">
-          Submit
+          {content.submit}
         </CTAButton>
       </Grid>
     </Grid>

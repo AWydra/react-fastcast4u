@@ -84,8 +84,9 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const PhoneInput = ({ value, label, ...props }) => {
+  const reduxLabel = useSelector(state => state.language.components.phoneInput.label);
   const country = useSelector(state => state.general.country);
-  const classes = useStyles({ label });
+  const classes = useStyles({ label: label || reduxLabel });
 
   return (
     <ReactPhoneInput
@@ -101,7 +102,7 @@ const PhoneInput = ({ value, label, ...props }) => {
 };
 
 PhoneInput.defaultProps = {
-  label: 'Phone Number (optional)',
+  label: '',
 };
 
 PhoneInput.propTypes = {
