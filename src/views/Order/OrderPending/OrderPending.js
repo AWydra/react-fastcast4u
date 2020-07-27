@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import orderActions from 'actions/orderActions';
 import { withCookies, Cookies } from 'react-cookie';
 import orderServices from 'services/order';
@@ -36,14 +36,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const messages = {
-  checking: 'Checking data validation',
-  creating: 'Creating account',
-  initializing: 'Preparing account',
-};
-
 const OrderPending = ({ cookies }) => {
-  const [message, setMessage] = useState(messages.checking);
+  const content = useSelector(state => state.language.orderPending);
+  const [message, setMessage] = useState(content.checking);
   const [checking, setChecking] = useState(null);
   const [creating, setCreating] = useState(null);
   const [url, setURL] = useState(null);
@@ -65,7 +60,7 @@ const OrderPending = ({ cookies }) => {
         await orderServices.checkFinalCompatibility();
         clearInterval(interval);
         setCreating(true);
-        setMessage(messages.creating);
+        setMessage(content.creating);
       } catch (error) {
         return null;
       }
@@ -89,7 +84,7 @@ const OrderPending = ({ cookies }) => {
           });
         }
 
-        setMessage(messages.initializing);
+        setMessage(content.initializing);
         clearInterval(interval);
         setURL(response.data.url);
       } catch (error) {
@@ -126,15 +121,13 @@ const OrderPending = ({ cookies }) => {
       <FullContainer center>
         <ColumnForm className={classes.paper}>
           <BoxTitle variant="h4" component="h1" mb={3}>
-            Please Wait
+            {content.wait}
           </BoxTitle>
           <CircularProgress />
           <Text className={classes.status} component="h2" variant="h5" my={3}>
             <Chip className={classes.chip} label={message} color="primary" />
           </Text>
-          <Text className={classes.text}>
-            We are processing the payment and setting your server. This may take up to a few minutes
-          </Text>
+          <Text className={classes.text}>{content.processing}</Text>
         </ColumnForm>
       </FullContainer>
     </>

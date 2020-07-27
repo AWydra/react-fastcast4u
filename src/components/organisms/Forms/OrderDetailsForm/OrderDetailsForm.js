@@ -1,6 +1,7 @@
 // @ts-nocheck
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import { useCookies } from 'react-cookie';
 
 import styled from 'styled-components';
@@ -31,6 +32,7 @@ const BtnContainer = styled.div`
 `;
 
 const OrderDetailsForm = ({ independent, setLoading, additionalData, setHandler }) => {
+  const content = useSelector(state => state.language.orderDetails);
   const [cookies] = useCookies(['Fc4uOrder_Session']);
   const classes = useStyles();
   const alert = useAlert();
@@ -48,11 +50,11 @@ const OrderDetailsForm = ({ independent, setLoading, additionalData, setHandler 
     },
     validationSchema: Yup.object({
       firstname: Yup.string()
-        .min(3, 'Must be 3 characters or more')
-        .required('Required'),
+        .min(3, content.min3)
+        .required(content.required),
       lastname: Yup.string()
-        .min(3, 'Must be 3 characters or more')
-        .required('Required'),
+        .min(3, content.min3)
+        .required(content.required),
     }),
     onSubmit: async values => {
       try {
@@ -66,7 +68,7 @@ const OrderDetailsForm = ({ independent, setLoading, additionalData, setHandler 
           : orderServices.setStep6(data));
         !independent && history.replace('/order/pending');
         setHandler({
-          heading: 'Profile Successfuly Updated - Thank you',
+          heading: content.success,
           hide: true,
           redirect: '/',
         });
@@ -80,9 +82,9 @@ const OrderDetailsForm = ({ independent, setLoading, additionalData, setHandler 
   });
   return (
     <form onSubmit={formik.handleSubmit} noValidate autoComplete="off" className={classes.form}>
-      <FormikInput formik={formik} label="First Name" name="firstname" type="text" />
-      <FormikInput formik={formik} label="Last Name" name="lastname" type="text" />
-      <FormikInput formik={formik} label="Company (optional)" name="company" type="text" />
+      <FormikInput formik={formik} label={content.first} name="firstname" type="text" />
+      <FormikInput formik={formik} label={content.last} name="lastname" type="text" />
+      <FormikInput formik={formik} label={content.company} name="company" type="text" />
       <PhoneInput
         name="phone"
         onChange={number => formik.setFieldValue('phone', number)}
@@ -101,7 +103,7 @@ const OrderDetailsForm = ({ independent, setLoading, additionalData, setHandler 
       />
       <BtnContainer flexEnd>
         <Button variant="contained" color="primary" type="submit">
-          {independent ? 'Send' : 'FINISH'}
+          {independent ? content.send : content.finish}
         </Button>
       </BtnContainer>
     </form>

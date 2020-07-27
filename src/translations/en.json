@@ -166,6 +166,25 @@
     "methods": "+120 methods",
     "back": "Back"
   },
+  "orderDetails": {
+    "title": "Account Details",
+    "first": "First Name",
+    "last": "Last Name",
+    "company": "Company (optional)",
+    "sms": "Receive Service related SMS",
+    "success": "Profile Successfuly Updated - Thank you",
+    "send": "Send",
+    "finish": "Finish",
+    "min3": "Must be 3 characters or more",
+    "required": "Required"
+  },
+  "orderPending": {
+    "wait": "Please Wait",
+    "checking": "Checking data validation",
+    "creating": "Creating account",
+    "initializing": "Preparing account",
+    "processing": "We are processing the payment and setting your server. This may take up to a few minutes"
+  },
   "footer": {
     "items": [
       {
