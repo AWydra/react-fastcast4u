@@ -1,6 +1,7 @@
 // @ts-nocheck
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
 import generalServices from 'services/general';
 
@@ -62,6 +63,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const CallRequestModal = ({ onClose, ...props }) => {
+  const content = useSelector(state => state.language.components.modals.call);
   const classes = useStyles();
   const [number, setNumber] = useState('');
   const [submitted, setSubmitted] = useState(false);
@@ -105,19 +107,16 @@ const CallRequestModal = ({ onClose, ...props }) => {
       {...props}
     >
       <DialogTitle className={classes.title} id="modal-phone">
-        Prefer phone contact?
+        {content.title}
       </DialogTitle>
       <DialogContent className={classes.content}>
-        <DialogContentText className={classes.text}>
-          {message || 'Just leave your number. Our agent will call back as soon as possible.'}
-        </DialogContentText>
+        <DialogContentText className={classes.text}>{message || content.leave}</DialogContentText>
         {!submitted && (
           <>
             <DialogContentText className={classes.text}>
-              By submitting a phone number you agree on processing the provided data according to
-              our{' '}
+              {content.submitting}{' '}
               <Link href="/privacy" target="_blank">
-                Privacy Policy
+                {content.privacy}
               </Link>
             </DialogContentText>
             <Box component="form" onSubmit={handleSubmit} className={classes.box}>
@@ -140,7 +139,7 @@ const CallRequestModal = ({ onClose, ...props }) => {
                 disabled={disabled}
                 loading={loading}
               >
-                Request a call
+                {content.label}
               </CTAButton>
             </Box>
           </>

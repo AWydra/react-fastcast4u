@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
@@ -20,12 +21,13 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Status = ({ active }) => {
+  const content = useSelector(state => state.language.components.status);
   const classes = useStyles(active);
 
   return (
     <Text className={classes.text}>
       <FiberManualRecordIcon className={classes.icon} />
-      {active ? 'Available' : 'Not Available'}
+      {active ? content.available : content.notAvailable}
     </Text>
   );
 };

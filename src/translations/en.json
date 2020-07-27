@@ -1,6 +1,21 @@
 {
   "language": "English",
   "code": "en",
+  "components": {
+    "modals": {
+      "call": {
+        "title": "Prefer phone contact?",
+        "leave": "Just leave your number. Our agent will call back as soon as possible.",
+        "submitting": "By submitting a phone number you agree on processing the provided data according to our",
+        "privacy": "Privacy Policy",
+        "label": "Request a call"
+      }
+    },
+    "status": {
+      "available": "Available",
+      "notAvailable": "Not Available"
+    }
+  },
   "home": {
     "heroSection": {
       "heading": "Add your Online Radio Station to Alexa",
@@ -184,6 +199,31 @@
     "creating": "Creating account",
     "initializing": "Preparing account",
     "processing": "We are processing the payment and setting your server. This may take up to a few minutes"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Please select your preferred way to talk to us",
+    "features": [
+      {
+        "title": "Live Chat",
+        "desc": "Chat with a friendly Customer Service agent",
+        "label": "Open Chat"
+      },
+      {
+        "title": "Phone Support",
+        "numbers": ["USA Toll Free:", "UK local:", "USA local:"]
+      },
+      {
+        "title": "Message Us",
+        "desc": "All messages are answered on daily basis",
+        "label": "Leave Message"
+      }
+    ],
+    "call": {
+      "heading": "Would you like us to call you?",
+      "content": "Just leave your number. We will call back as soon as possible",
+      "label": "REQUEST CALL"
+    }
   },
   "footer": {
     "items": [

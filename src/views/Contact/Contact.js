@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useState, useEffect, lazy, Suspense } from 'react';
+import React, { useState, useEffect, useMemo, lazy, Suspense } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import generalActions from 'actions/generalActions';
 
@@ -12,29 +12,6 @@ import { Phone, Chat, Email } from '@material-ui/icons';
 import history from 'utils/history';
 
 const CallRequestModal = lazy(() => import('components/organisms/Modals/CallRequestModal'));
-
-const listData = [
-  {
-    heading: 'USA Toll Free:',
-    content: '+1 (844) 203-2278',
-    href: 'tel:+18442032278',
-  },
-  {
-    heading: 'UK local:',
-    content: '+44 16 2232 2278',
-    href: 'tel:+441622322278',
-  },
-  {
-    heading: 'USA local:',
-    content: '+1 (925) 204-2278',
-    href: 'tel:+19252042278',
-  },
-  {
-    heading: 'Skype:',
-    content: 'fastcast4u.com',
-    href: 'skype:fastcast4u.com?call',
-  },
-];
 
 const useStyles = makeStyles(theme => ({
   item: {
@@ -80,12 +57,39 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Contact = () => {
+  const content = useSelector(state => state.language.contact);
   const classes = useStyles();
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const chat = useSelector(state => state.general.chat);
   const phoneActive = useSelector(state => state.general.phoneActive);
+
+  const listData = useMemo(
+    () => [
+      {
+        heading: content.features[1].numbers[0],
+        content: '+1 (844) 203-2278',
+        href: 'tel:+18442032278',
+      },
+      {
+        heading: content.features[1].numbers[1],
+        content: '+44 16 2232 2278',
+        href: 'tel:+441622322278',
+      },
+      {
+        heading: content.features[1].numbers[2],
+        content: '+1 (925) 204-2278',
+        href: 'tel:+19252042278',
+      },
+      {
+        heading: 'Skype:',
+        content: 'fastcast4u.com',
+        href: 'skype:fastcast4u.com?call',
+      },
+    ],
+    [content],
+  );
 
   const Fallback = () => {
     useEffect(() => {
@@ -99,45 +103,46 @@ const Contact = () => {
 
   return (
     <FullContainer maxWidth="xl">
-      <HeadingBlock
-        title="Contact Us"
-        subtitle="Please select your preferred way to talk to us"
-        component="h1"
-      />
+      <HeadingBlock title={content.title} subtitle={content.subtitle} component="h1" />
       <Grid container spacing={4}>
         <Grid className={classes.chat} item>
           <ContactFeature
             icon={Chat}
-            title="Live Chat"
-            desc="Chat with a friendly Customer Service agent"
+            title={content.features[0].title}
+            desc={content.features[0].desc}
             active={chat.isOnline}
             button={{
-              label: 'Open Chat',
+              label: content.features[0].label,
               onClick: () => dispatch(generalActions.setChatDisplay(true)),
               disabled: !chat.isOnline,
             }}
           />
         </Grid>
         <Grid className={classes.phone} item>
-          <ContactFeature icon={Phone} title="Phone Support" list={listData} active={phoneActive} />
+          <ContactFeature
+            icon={Phone}
+            title={content.features[1].title}
+            list={listData}
+            active={phoneActive}
+          />
         </Grid>
         <Grid className={classes.message} item>
           <ContactFeature
             icon={Email}
-            title="Message Us"
-            desc="All messages are answered on daily basis"
+            title={content.features[2].title}
+            desc={content.features[2].desc}
             button={{
-              label: 'Leave Message',
+              label: content.features[2].label,
               onClick: () => history.push('/ticket'),
             }}
           />
         </Grid>
         <Grid className={classes.cta} item>
           <CTASection
-            heading="Would you like us to call you?"
-            content="Just leave your number. We will call back as soon as possible"
+            heading={content.call.heading}
+            content={content.call.content}
             button={{
-              label: 'REQUEST CALL',
+              label: content.call.label,
               onClick: () => setOpen(true),
               loading,
             }}
