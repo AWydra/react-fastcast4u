@@ -47,6 +47,7 @@ const FaqArticles = ({ categories }) => {
         <Accordion
           data={articles}
           summaryProps={{
+            component: 'h3',
             variant: 'subtitle1',
             fontWeight: 500,
           }}

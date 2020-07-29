@@ -61,6 +61,7 @@ const FaqTabs = ({ categories, loading }) => {
         >
           {categories.map(category => (
             <Tab
+              component="h2"
               key={category.id}
               value={`/faq${category.description}`}
               className={classes.tab}

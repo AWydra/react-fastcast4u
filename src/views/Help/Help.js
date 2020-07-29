@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { Grid } from '@material-ui/core';
 import Skeleton from '@material-ui/lab/Skeleton';
 import FullContainer from 'components/atoms/FullContainer/FullContainer';
@@ -11,6 +12,7 @@ import helpServices from 'services/help';
 import history from 'utils/history';
 
 const Help = () => {
+  const content = useSelector(state => state.language.help);
   const [categories, setCategories] = useState([]);
   const [articles, setArticles] = useState([]);
   const [activeId, setActiveId] = useState(0);
@@ -90,9 +92,9 @@ const Help = () => {
 
   return (
     <FullContainer maxWidth="xl">
-      <HeadingBlock title="How can we help you today?" component="h1" />
+      <HeadingBlock title={content.title} component="h1" />
       <SearchBar
-        placeholder="Have a question? Type search keywords to start search!"
+        placeholder={content.placeholder}
         mb={6}
         value={title}
         onChange={handleChange}

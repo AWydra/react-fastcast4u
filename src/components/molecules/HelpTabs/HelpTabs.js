@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
   Box,
@@ -46,6 +47,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const HelpTabs = ({ categories, activeId, loading, onClick }) => {
+  const content = useSelector(state => state.language.help);
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('md'));
   const classes = useStyles();
@@ -72,7 +74,7 @@ const HelpTabs = ({ categories, activeId, loading, onClick }) => {
       matches &&
       categories
         .concat({
-          name: 'HELP Show All',
+          name: `HELP ${content.showAll}`,
           id: 'all',
         })
         .map(category => (
@@ -91,7 +93,7 @@ const HelpTabs = ({ categories, activeId, loading, onClick }) => {
         ))
     );
     // eslint-disable-next-line
-  }, [categories, activeId, matches]);
+  }, [categories, activeId, matches, content]);
 
   return matches ? (
     <Box className={classes.tabsContainer} component="ul">

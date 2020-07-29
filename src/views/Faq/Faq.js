@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import faqServices from 'services/faq';
 import { Box, makeStyles } from '@material-ui/core';
 import FullContainer from 'components/atoms/FullContainer/FullContainer';
@@ -20,6 +21,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Faq = () => {
+  const content = useSelector(state => state.language.faq);
   const classes = useStyles();
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -33,11 +35,7 @@ const Faq = () => {
 
   return (
     <FullContainer maxWidth="xl">
-      <HeadingBlock
-        title="Frequently Asked Questions"
-        subtitle="We're always super happy to answer all your questions about our services, but you can also check for an answer there..."
-        component="h1"
-      />
+      <HeadingBlock title={content.title} subtitle={content.subtitle} component="h1" />
       <Box className={classes.container}>
         <FaqTabs categories={categories} loading={loading} />
         <FaqArticles categories={categories} />

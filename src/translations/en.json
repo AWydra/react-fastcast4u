@@ -254,6 +254,15 @@
     },
     "success": "Thank you, we have received your message! Our Support Team will respond as soon as possible."
   },
+  "help": {
+    "title": "How can we help you today?",
+    "placeholder": "Have a question? Type search keywords to start search!",
+    "showAll": "Show All"
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "We're always super happy to answer all your questions about our services, but you can also check for an answer here..."
+  },
   "footer": {
     "items": [
       {
