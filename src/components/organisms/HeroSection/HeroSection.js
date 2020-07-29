@@ -47,10 +47,12 @@ const useStyles = makeStyles(theme => ({
     },
   },
   heading: {
-    marginLeft: ({ left }) => left && theme.spacing(1),
     textAlign: 'inherit',
     color: 'white',
     lineHeight: ({ left }) => left && 1.5,
+    [theme.breakpoints.up('md')]: {
+      marginLeft: ({ left }) => left && theme.spacing(1),
+    },
   },
   buttonContainer: {
     display: 'flex',
@@ -114,7 +116,7 @@ HeroSection.defaultProps = {
 
 HeroSection.propTypes = {
   data: PropTypes.shape({
-    heading: PropTypes.string.isRequired,
+    heading: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
     pictures: PropTypes.shape({
       mobile: PropTypes.string,
       desktop: PropTypes.string,

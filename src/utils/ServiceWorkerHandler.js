@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 import * as serviceWorker from 'serviceWorker';
 
@@ -18,9 +18,10 @@ const ServiceWorkerHandler = () => {
         }
       },
     });
+    // eslint-disable-next-line
   }, []);
 
-  return <span />;
+  return null;
 };
 
 export default ServiceWorkerHandler;

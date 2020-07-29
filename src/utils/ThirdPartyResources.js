@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import generalActions from 'actions/generalActions';
 import generalServices from 'services/general';
@@ -87,7 +87,7 @@ const ThirdPartyResources = () => {
     getInitialData();
   }, [dispatch]);
 
-  return <span />;
+  return null;
 };
 
 export default ThirdPartyResources;
