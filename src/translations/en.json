@@ -21,6 +21,9 @@
     "phoneInput": {
       "label": "Phone Number (optional)"
     },
+    "searchBar": {
+      "label": "Search"
+    },
     "status": {
       "available": "Available",
       "notAvailable": "Not Available"
@@ -209,6 +212,20 @@
     "creating": "Creating account",
     "initializing": "Preparing account",
     "processing": "We are processing the payment and setting your server. This may take up to a few minutes"
+  },
+  "directory": {
+    "title": "Online Radio Directory",
+    "subtitle": "Listen, Share and Vote Up your favorite Internet Radio Stations",
+    "placeholder": "Search a radio...",
+    "tabs": {
+      "popular": "Popular",
+      "name": "Name",
+      "listeners": "Listeners"
+    },
+    "ad": {
+      "title": "Start Your Own Online Radio Station",
+      "label": "Start Now"
+    }
   },
   "contact": {
     "title": "Contact Us",

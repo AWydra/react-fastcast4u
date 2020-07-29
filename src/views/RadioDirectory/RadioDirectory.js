@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { Grid } from '@material-ui/core';
 import HeadingBlock from 'components/molecules/HeadingBlock/HeadingBlock';
@@ -17,23 +17,30 @@ import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import FontDownloadIcon from '@material-ui/icons/FontDownload';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 
-const data = [
-  { icon: <ThumbUpAltIcon />, label: 'Popular', value: 'popular' },
-  { icon: <FontDownloadIcon />, label: 'Name', value: 'name' },
-  { icon: <PeopleAltIcon />, label: 'Listeners', value: 'listeners' },
-];
-
-const ad = {
-  image: '//img.fastcast4u.com/react/radio-directory/directory-banner.png',
-  text: 'Start Your Own Online Radio Station',
-  label: 'Start Now',
-  to: '/order',
-};
-
 const RadioDirectory = () => {
+  const content = useSelector(state => state.language.directory);
   const showPlayer = useSelector(state => state.directory.player.show);
   const storeTitle = useSelector(state => state.directory.title);
   const [title, setTitle] = useState(storeTitle);
+
+  const tabsData = useMemo(
+    () => [
+      { icon: <ThumbUpAltIcon />, label: content.tabs.popular, value: 'popular' },
+      { icon: <FontDownloadIcon />, label: content.tabs.name, value: 'name' },
+      { icon: <PeopleAltIcon />, label: content.tabs.listeners, value: 'listeners' },
+    ],
+    [content],
+  );
+
+  const ad = useMemo(
+    () => ({
+      image: '//img.fastcast4u.com/react/radio-directory/directory-banner.png',
+      text: content.ad.title,
+      label: content.ad.label,
+      to: '/order',
+    }),
+    [content],
+  );
 
   useEffect(() => {
     setTitle(storeTitle);
@@ -61,13 +68,9 @@ const RadioDirectory = () => {
 
   return (
     <FullContainer maxWidth="xl" component="main">
-      <HeadingBlock
-        title="Online Radio Directory"
-        subtitle="Listen, Share and Vote Up your favorite Internet Radio Stations"
-        component="h1"
-      />
+      <HeadingBlock title={content.title} subtitle={content.subtitle} component="h1" />
       <SearchBar
-        placeholder="Search a radio..."
+        placeholder={content.placeholder}
         mb={6}
         value={title}
         onChange={handleChange}
@@ -76,7 +79,7 @@ const RadioDirectory = () => {
       />
       <Grid spacing={3} container>
         <Grid item xs={12} lg={8} component="section">
-          <DirectoryTabs data={data} />
+          <DirectoryTabs data={tabsData} />
           <DirectoryList />
           <DirectoryPagination />
         </Grid>

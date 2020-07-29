@@ -1,5 +1,6 @@
 // @ts-nocheck
 import React from 'react';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Box, Button, IconButton, InputBase, Paper, makeStyles } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
@@ -52,6 +53,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const SearchBar = ({ placeholder, value, onChange, onClear, onSubmit, ...props }) => {
+  const content = useSelector(state => state.language.components.searchBar);
   const classes = useStyles();
 
   return (
@@ -82,7 +84,7 @@ const SearchBar = ({ placeholder, value, onChange, onClear, onSubmit, ...props }
             variant="contained"
             type="submit"
           >
-            Search
+            {content.label}
           </Button>
         )}
       </Paper>
