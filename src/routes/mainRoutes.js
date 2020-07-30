@@ -4,6 +4,7 @@ import OrderRoutes from 'routes/orderRoutes';
 import DirectoryRoutes from 'routes/directoryRoutes';
 import HelpRoutes from 'routes/helpRoutes';
 import PageLoader from 'components/molecules/PageLoader/PageLoader';
+import lng from 'utils/languageRoute';
 
 const Home = lazy(() => import('views/Home/Home'));
 const App = lazy(() => import('views/App/App'));
@@ -21,19 +22,19 @@ const Routes = () => (
   <Suspense fallback={<PageLoader />}>
     <Switch>
       <Redirect from="/:url*(/+)" to={window.location.pathname.slice(0, -1)} />
-      <Route exact path="/" component={Home} />
-      <Route path="/order" component={OrderRoutes} />
-      <Route path="/radio-directory" component={DirectoryRoutes} />
-      <Route path="/app" component={App} />
-      <Route path="/alexa-skill" component={AlexaSkill} />
-      <Route path="/login" component={Login} />
-      <Route path="/ticket" component={Ticket} />
-      <Route path="/contact" component={Contact} />
-      <Route path="/help" component={HelpRoutes} />
-      <Route path="/faq" component={Faq} />
-      <Route path="/tos" component={ToS} />
-      <Route path="/privacy" component={Privacy} />
-      <Route path="/update-details" component={UpdateDetails} />
+      <Route exact path={`${lng}/`} component={Home} />
+      <Route path={`${lng}/order`} component={OrderRoutes} />
+      <Route path={`${lng}/radio-directory`} component={DirectoryRoutes} />
+      <Route path={`${lng}/app`} component={App} />
+      <Route path={`${lng}/alexa-skill`} component={AlexaSkill} />
+      <Route path={`${lng}/login`} component={Login} />
+      <Route path={`${lng}/ticket`} component={Ticket} />
+      <Route path={`${lng}/contact`} component={Contact} />
+      <Route path={`${lng}/help`} component={HelpRoutes} />
+      <Route path={`${lng}/faq`} component={Faq} />
+      <Route path={`${lng}/tos`} component={ToS} />
+      <Route path={`${lng}/privacy`} component={Privacy} />
+      <Route path={`${lng}/update-details`} component={UpdateDetails} />
       <Route component={NotFound} />
     </Switch>
   </Suspense>

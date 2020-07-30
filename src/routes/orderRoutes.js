@@ -1,6 +1,7 @@
 import React, { lazy, Suspense } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import PageLoader from 'components/molecules/PageLoader/PageLoader';
+import lng from 'utils/languageRoute';
 
 const OrderHome = lazy(() => import('views/Order/OrderHome/OrderHome'));
 const OrderPackage = lazy(() => import('views/Order/OrderPackage/OrderPackage'));
@@ -13,12 +14,12 @@ const NotFound = lazy(() => import('views/NotFound/NotFound'));
 const OrderRoutes = () => (
   <Suspense fallback={<PageLoader />}>
     <Switch>
-      <Route exact path="/order" component={OrderHome} />
-      <Route path="/order/package" component={OrderPackage} />
-      <Route path="/order/login" component={OrderLogin} />
-      <Route path="/order/payment" component={OrderPayment} />
-      <Route path="/order/details" component={OrderDetails} />
-      <Route path="/order/pending" component={OrderPending} />
+      <Route exact path={`${lng}/order`} component={OrderHome} />
+      <Route path={`${lng}/order/package`} component={OrderPackage} />
+      <Route path={`${lng}/order/login`} component={OrderLogin} />
+      <Route path={`${lng}/order/payment`} component={OrderPayment} />
+      <Route path={`${lng}/order/details`} component={OrderDetails} />
+      <Route path={`${lng}/order/pending`} component={OrderPending} />
       <Route component={NotFound} />
     </Switch>
   </Suspense>
