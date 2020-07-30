@@ -213,6 +213,74 @@
     "initializing": "Preparing account",
     "processing": "We are processing the payment and setting your server. This may take up to a few minutes"
   },
+  "alexa": {
+    "hero": {
+      "heading": "Alexa Skill for your Radio Station",
+      "buttons": ["SEE MORE", "TEST DEMO"]
+    },
+    "sections": [
+      {
+        "heading": "Why create your own Alexa Skill?",
+        "content": "There are over 100 million Alexa devices sold worldwide and still growing. There’s little doubt that voice control is the future, and Alexa is at the top. Create your own Alexa Skill and let users of Amazon Smart speakers easily tune in to your station.",
+        "label": "DEMO SKILL"
+      },
+      {
+        "heading": "Get your own Skill",
+        "content": "Get your Skill for Amazon Echo Smart Speakers with a custom voice command.",
+        "label": "GET NOW"
+      }
+    ],
+    "feature": {
+      "heading": "Handy commands to launch your radio",
+      "list": [
+        "Simple activation on Alexa devices by a voice command or through Amazon App",
+        "Easily launch and control radio stream with customizable voice commands",
+        "Whenever asked, Alexa tells the current track title, artist name or broadcast data"
+      ]
+    },
+    "pricing": {
+      "heading": "Alexa Skill Package",
+      "list": [
+        "Your custom invocation name",
+        "Start/play/launch radio stream",
+        "Publication on Amazon Store included",
+        "The current title information",
+        "Multilingual support",
+        "Compatible with Amazon Echo & Alexa Devices"
+      ],
+      "cycle": "ONE-TIME",
+      "label": "get now"
+    },
+    "accordions": [
+      {
+        "heading": "How does it work?",
+        "content": "Create a unique invocation that will bring up your radio stations on Amazon Echo Speakers (e.g. Alexa, play Top Hits Radio). Just fill-in one simple form to have your Alexa Skill created and published!"
+      },
+      {
+        "heading": "Skill publication",
+        "content": "Your Radio Skill will be officially published on the Amazon Store and available for Alexa Echo devices."
+      },
+      {
+        "heading": "How to create a good invocation?",
+        "content": [
+          "Your invocation name should be two or more words, and can contain only lower-case alphabetic characters, spaces between words, possessive apostrophes (for example, ”sam's online radio”). Abbreviations should be marked as periods, for example, FM is marked as ”f. m.”. All numbers must be spelled out, for example: ”radio twenty one”.",
+          "Invocation names cannot contain any of the Alexa launch phrases such as ”launch”, ”ask”, ”tell”, ”open”, ”load”, ”begin”, and ”enable”. Wake words including ”Alexa”, ”Amazon”, ”Echo”, ”Computer”, or the words ”skill” or ”app” are not allowed.",
+          "Learn more"
+        ]
+      },
+      {
+        "heading": "What languages are supported?",
+        "content": "Your Skill can be created in one of following languages: English, Spanish, French, Italian, German, Portuguese, Hindi and Japanese."
+      },
+      {
+        "heading": "Functionalities and voice commands",
+        "content": [
+          "You can ask Alexa to launch your station, by telling her:",
+          "Ask about the currently played track title:"
+        ]
+      }
+    ]
+  },
   "directory": {
     "title": "Online Radio Directory",
     "subtitle": "Listen, Share and Vote Up your favorite Internet Radio Stations",
