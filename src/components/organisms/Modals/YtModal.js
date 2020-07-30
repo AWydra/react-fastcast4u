@@ -1,24 +1,8 @@
 // @ts-nocheck
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
-
-import { Box, Modal } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-
-export const YTContainer = styled.div`
-  width: 100%;
-  height: 0;
-  padding-bottom: 56.25%; /* 16:9 */
-  position: relative;
-  & iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
-`;
+import { Box, Modal, makeStyles } from '@material-ui/core';
+import YTContainer from 'components/atoms/YTContainer/YTContainer';
 
 const useStyles = makeStyles({
   modal: {
