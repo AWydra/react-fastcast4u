@@ -38,12 +38,12 @@
       {
         "heading": "UNLIMITED Radio Server Package",
         "content": "Complete Radio Server Package",
-        "button": "Start Now 50% OFF"
+        "button": "Start Now"
       },
       {
         "heading": "Mobile App",
         "content": "Create Your Own Application for Android & iOS",
-        "button": "Get Now 50% OFF"
+        "button": "Get Now"
       },
       {
         "heading": "WebPlayer Page",
@@ -53,7 +53,7 @@
       {
         "heading": "Alexa Radio Skill",
         "content": "Add your radio stream to Alexa",
-        "button": "Get Now 50% OFF"
+        "button": "Get Now"
       }
     ],
     "faq": {
@@ -212,6 +212,154 @@
     "creating": "Creating account",
     "initializing": "Preparing account",
     "processing": "We are processing the payment and setting your server. This may take up to a few minutes"
+  },
+  "app": {
+    "hero": {
+      "heading": "New Mobile App for your Online Radio Station",
+      "buttons": ["Create Your App", "Watch App Video"]
+    },
+    "sections": [
+      {
+        "heading": "Your own Mobile App",
+        "content": "Create your own Mobile App with a customized look and content. Your Social Media and Website will be available in a built-in WebView."
+      },
+      {
+        "heading": "Online App Creator",
+        "content": "Design and Preview your App in the Creator. Absolutely no coding skills required!",
+        "label": "Open App Creator"
+      }
+    ],
+    "pricing": [
+      {
+        "title": "Android App",
+        "list": ["Android Smartphones", "Android Tablets"]
+      },
+      {
+        "title": "Android & iOS App",
+        "list": ["Android Smartphones & Tablets", "Apple iPhone & iPad"]
+      },
+      {
+        "title": "iOS App",
+        "list": ["Apple iPhone", "Apple iPad"]
+      }
+    ],
+    "promobar": {
+      "primary": "Your Mobile App for just $10 monthly with a New Radio Server Package",
+      "label": "GET NOW"
+    },
+    "delivery": {
+      "primary": "",
+      "data": [
+        {
+          "heading": "Android & iOS App Hosting",
+          "content": [
+            "Android App can be published and hosted for free on our",
+            "account or on your own Google Play account.",
+            "You need your own",
+            "Apple Developer Account",
+            "and Apple ID to have your iOS App submitted to Apple App Store."
+          ]
+        },
+        {
+          "heading": "Product Delivery time",
+          "content": "Every App is created individually by our App Development Team on be basis of the project you make in Online App Creator. The App delivery time is up to 30 days from the day we receive the project and all required details."
+        },
+        {
+          "heading": "Device Compatibility",
+          "content": [
+            "App is supported by Android 9.0 - Pie. It is also backward compatible with older Android builds, up till Android 4.1 JellyBean.",
+            "Apple iOS App requires iOS 12.1 and above."
+          ]
+        }
+      ]
+    },
+    "package": [
+      {
+        "name": "Push Notifications",
+        "description": "Improve interaction with your listeners by sending notifications through the App",
+        "cycle": "ONE TIME"
+      },
+      {
+        "name": "App Monetization",
+        "description": "Generate revenue from AdMob Ads displayed in your App",
+        "cycle": "ONE TIME"
+      }
+    ],
+    "specification": [
+      {
+        "heading": "Radio Stream, Live TV and Video",
+        "content": "The App supports Online Radio Streams (MP3, AAC or AAC+) Live TV Streams (.m3u8) and Video Streams (MP4). You can have multiple streams in one App!"
+      },
+      {
+        "heading": "Custom Design",
+        "content": "Easily design and preview your App with a free Online Mobile App Creator. Next, we create the App individually for your project. All Apps are released free from our branding."
+      },
+      {
+        "heading": "Social Network & Web",
+        "content": "Share your Social Media Pages and view the content of websites in WebView without any external web browsers."
+      },
+      {
+        "heading": "Podcasts",
+        "content": "Your broadcasts and shows from SoundCloud are listed and available on demand."
+      },
+      {
+        "heading": "Push Notifications",
+        "content": "Keep your listeners updated by sending them Push Notifications from an online OneSignal Panel. It’s a great way to notify about your live broadcasts and scheduled shows."
+      },
+      {
+        "heading": "Monetization",
+        "content": "Make money online on displaying Ads in your App. Ads are delivered by AdMob so you do not have to look for advertisers, we'll just hook up Apps with your AdMob account."
+      }
+    ],
+    "slider": [
+      {
+        "heading": "App for your Radio Station",
+        "content": "Easily Customize & Create your Own Mobile App"
+      },
+      {
+        "heading": "Radio Player",
+        "content": "Player for your Online Radio with track details and Cover Art display"
+      },
+      {
+        "heading": "Custom Design",
+        "content": "Build a unique App with your own logo, graphics and theme."
+      },
+      {
+        "heading": "Live TV/Video Player",
+        "content": "Play Live TV/Video stream in the in-bulit player."
+      },
+      {
+        "heading": "Facebook",
+        "content": "Display the social media profile of your Radio Station"
+      },
+      {
+        "heading": "Social Media Content",
+        "content": "Direct listeners to your Social Media"
+      },
+      {
+        "heading": "YouTube",
+        "content": "Link up your Social Media channels like YouTube"
+      },
+      {
+        "heading": "Your Website",
+        "content": "Present your own Website within the App in WebView"
+      },
+      {
+        "heading": "Ads & Monetization",
+        "content": "Display interstitial and banner Ads from your AdMob account."
+      },
+      {
+        "heading": "Background Mode",
+        "content": "App optimized for Listening while using other Apps."
+      },
+      {
+        "heading": "Push Notifications",
+        "content": "Send Push Notifications to App users."
+      }
+    ],
+    "download": {
+      "heading": "Download Demo App"
+    }
   },
   "alexa": {
     "hero": {
