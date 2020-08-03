@@ -21,7 +21,7 @@ const Logo = styled(Image)`
 const StyledButtonBase = styled(ButtonBase)`
   ${spacing}
   ${({ theme }) => css`
-    ${theme.breakpoints.up('md')} {
+    ${theme.breakpoints.up('lg')} {
       position: absolute;
       top: 50%;
       left: 50%;

@@ -43,7 +43,7 @@ const getSongMetadata = (url, servertype) => dispatch => {
     })
     .catch(err => {
       if (!axios.isCancel(err)) {
-        dispatch(generalActions.setAlert.error(err.message));
+        dispatch(generalActions.setAlert.error(err.response.data.message || err.message));
       }
     });
 
