@@ -9,6 +9,7 @@ import { AppBar, Toolbar, Tooltip, IconButton } from '@material-ui/core';
 import Logo from 'components/atoms/Logo/Logo';
 import NavButton from 'components/atoms/NavButton/NavButton';
 import SocialBar from 'components/molecules/SocialBar/SocialBar';
+import LanguageButton from 'components/molecules/LanguageButton/LanguageButton';
 import LightIcon from '@material-ui/icons/Brightness4';
 import DarkIcon from '@material-ui/icons/Brightness7';
 
@@ -45,6 +46,7 @@ const Header = () => {
         <SocialBar />
         <StyledToolbar>
           <Logo mr="auto" to="/" />
+          <LanguageButton />
           <Tooltip title="Toggle light/dark theme">
             <IconButton color="primary" aria-label="toggle dark theme" onClick={handleClick}>
               {theme === 'light' ? <LightIcon /> : <DarkIcon />}
