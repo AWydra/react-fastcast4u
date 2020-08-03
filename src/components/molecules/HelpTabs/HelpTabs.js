@@ -74,7 +74,7 @@ const HelpTabs = ({ categories, activeId, loading, onClick }) => {
       matches &&
       categories
         .concat({
-          name: `HELP ${content.showAll}`,
+          name: content.showAll,
           id: 'all',
         })
         .map(category => (
@@ -87,7 +87,7 @@ const HelpTabs = ({ categories, activeId, loading, onClick }) => {
               square
               onClick={() => onClick(category.id)}
             >
-              {category.name.slice(5).replace('&amp;', '&')}
+              {category.name.replace('&amp;', '&')}
             </Paper>
           </li>
         ))
