@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import languageActions from 'actions/languageActions';
 import languageServices from 'services/language';
@@ -14,7 +15,7 @@ import {
   useMediaQuery,
 } from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
-import TranslateIcon from '@material-ui/icons/Translate';
+import TranslateIcon from '@material-ui/icons/Public';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMoreRounded';
 import { modeSwitch } from 'utils/theme';
 
@@ -91,6 +92,7 @@ const LanguageButton = () => {
         <Menu id="language-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
           {langs.map(el => (
             <MenuItem
+              key={el.code}
               selected={el.code === code}
               onClick={() => handleMenuItemClick(el.name, el.code)}
             >
@@ -98,7 +100,9 @@ const LanguageButton = () => {
             </MenuItem>
           ))}
           <Divider className={classes.divider} />
-          <MenuItem onClick={handleClose}>View more languages</MenuItem>
+          <MenuItem component={Link} to="/language" onClick={handleClose}>
+            View more languages
+          </MenuItem>
         </Menu>
       )}
     </>
