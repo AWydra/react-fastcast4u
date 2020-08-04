@@ -15,8 +15,9 @@ const Ticket = lazy(() => import('views/Ticket/Ticket'));
 const Faq = lazy(() => import('views/Faq/Faq'));
 const ToS = lazy(() => import('views/ToS/ToS'));
 const Privacy = lazy(() => import('views/Privacy/Privacy'));
-const NotFound = lazy(() => import('views/NotFound/NotFound'));
 const UpdateDetails = lazy(() => import('views/UpdateDetails/UpdateDetails'));
+const Language = lazy(() => import('views/Language/Language'));
+const NotFound = lazy(() => import('views/NotFound/NotFound'));
 
 const Routes = () => (
   <Suspense fallback={<PageLoader />}>
@@ -35,6 +36,7 @@ const Routes = () => (
       <Route path={`${lng}/tos`} component={ToS} />
       <Route path={`${lng}/privacy`} component={Privacy} />
       <Route path={`${lng}/update-details`} component={UpdateDetails} />
+      <Route path={`${lng}/language`} component={Language} />
       <Route component={NotFound} />
     </Switch>
   </Suspense>
