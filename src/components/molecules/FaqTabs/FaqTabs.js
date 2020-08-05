@@ -14,6 +14,7 @@ import {
 } from '@material-ui/core';
 import Skeleton from '@material-ui/lab/Skeleton';
 import history from 'utils/history';
+import { useCurrentLanguage } from 'utils/customHooks';
 
 const useStyles = makeStyles(theme => ({
   tabs: {
@@ -35,6 +36,7 @@ const FaqTabs = ({ categories, loading }) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('md'));
   const classes = useStyles();
+  const lng = useCurrentLanguage();
 
   const handleChange = (event, newValue) => {
     location.pathname !== newValue && history.push(newValue);
@@ -63,7 +65,7 @@ const FaqTabs = ({ categories, loading }) => {
             <Tab
               component="h2"
               key={category.id}
-              value={`/faq${category.description}`}
+              value={`${lng}/faq${category.description}`}
               className={classes.tab}
               label={category.name.replace('&amp;', '&')}
             />

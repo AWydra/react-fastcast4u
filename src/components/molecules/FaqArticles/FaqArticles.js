@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useLocation, useParams } from 'react-router-dom';
 import faqServices from 'services/faq';
-import { useLocation } from 'react-router-dom';
 import { Box, LinearProgress, makeStyles } from '@material-ui/core';
 import Accordion from 'components/organisms/Accordion/Accordion';
 import history from 'utils/history';
+import { useCurrentLanguage } from 'utils/customHooks';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -17,25 +18,28 @@ const useStyles = makeStyles(theme => ({
 
 const FaqArticles = ({ categories }) => {
   const location = useLocation();
+  const params = useParams();
   const [articles, setArticles] = useState([]);
   const classes = useStyles();
   const [loading, setLoading] = useState(true);
+  const lng = useCurrentLanguage();
 
   useEffect(() => {
     if (!categories.length > 0) return;
     setLoading(true);
 
-    const currentCategory =
-      categories.find(({ description }) => description === location.pathname.substring(4)) || {};
+    const currentCategory = categories.find(({ description }) => {
+      return description === (params.category ? `/${params.category}` : '');
+    });
 
-    if (currentCategory.id) {
+    if (currentCategory) {
       const { id } = currentCategory;
       faqServices.getArticles(id).then(({ articles }) => {
         setArticles(articles);
         setLoading(false);
       });
     } else {
-      history.replace(`/faq${categories[0].description}`);
+      history.replace(`${lng}/faq${categories[0].description}`);
     }
   }, [location, categories]);
 
