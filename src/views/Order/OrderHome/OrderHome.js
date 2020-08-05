@@ -7,8 +7,9 @@ import HeadingBlock from 'components/molecules/HeadingBlock/HeadingBlock';
 import Features from 'components/organisms/Features/Features';
 import CTAButton from 'components/atoms/CTAButton/CTAButton';
 import orderServices from 'services/order';
-import { useAlert } from 'utils/customHooks';
+import { useAlert, useCurrentLanguage } from 'utils/customHooks';
 import history from 'utils/history';
+import { isOlderThan } from 'utils/date';
 
 import RocketIcon from 'assets/svg/RocketIcon';
 import MicrophoneIcon from 'assets/svg/MicrophoneIcon';
@@ -21,6 +22,7 @@ import RemoteIcon from 'assets/svg/RemoteIcon';
 const Order = () => {
   const [loading, setLoading] = useState(false);
   const content = useSelector(state => state.language.orderHome);
+  const lng = useCurrentLanguage();
   const alert = useAlert();
   const location = useLocation();
   const dispatch = useDispatch();
@@ -63,14 +65,18 @@ const Order = () => {
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
-    dispatch(orderActions.setPromocode(params.get('promo') || ''));
+    dispatch(
+      orderActions.setPromocode(
+        params.get('promo') || isOlderThan(Date.UTC(2020, 6, 31, 24)) ? 'summer40' : 'summer50',
+      ),
+    );
   }, [dispatch, location.search]);
 
   const handleClick = async () => {
     try {
       setLoading(true);
       await orderServices.setStep1();
-      history.push('order/package');
+      history.push(`${lng}/order/package`);
     } catch (err) {
       alert.error(err.message);
       setLoading(false);

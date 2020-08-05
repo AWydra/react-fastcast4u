@@ -11,7 +11,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Button, FormControlLabel, Checkbox, makeStyles } from '@material-ui/core';
 import FormikInput from 'components/atoms/FormikInput/FormikInput';
-import { useAlert } from 'utils/customHooks';
+import { useAlert, useCurrentLanguage } from 'utils/customHooks';
 import history from 'utils/history';
 
 const useStyles = makeStyles(theme => ({
@@ -35,6 +35,7 @@ const OrderLoginForm = ({ setLoading }) => {
   const content = useSelector(state => state.language.orderLogin);
   const { email, password, username, emailmarketing } = useSelector(state => state.order);
   const dispatch = useDispatch();
+  const lng = useCurrentLanguage();
   const classes = useStyles();
   const alert = useAlert();
 
@@ -66,7 +67,7 @@ const OrderLoginForm = ({ setLoading }) => {
       try {
         await orderServices.setStep3(values);
         dispatch(orderActions.setCredentials(values));
-        history.push('/order/payment');
+        history.push(`${lng}/order/payment`);
       } catch (err) {
         alert.error(err.response.data.errorMessage || err.response.statusText);
         setLoading(false);
@@ -103,7 +104,7 @@ const OrderLoginForm = ({ setLoading }) => {
           label={content.accept}
         />
         <BtnContainer>
-          <Button component={Link} to="/order/package" variant="contained" color="primary">
+          <Button component={Link} to={`${lng}/order/package`} variant="contained" color="primary">
             {content.back}
           </Button>
           <Button variant="contained" color="primary" type="submit">

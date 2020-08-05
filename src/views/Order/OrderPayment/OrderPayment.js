@@ -13,7 +13,7 @@ import ColumnForm from 'components/molecules/ColumnForm/ColumnForm';
 import Stepper from 'components/organisms/Stepper/Stepper';
 import OrderAccessController from 'utils/OrderAccessController';
 import generatePayment from 'utils/paymentGenerator';
-import { useAlert } from 'utils/customHooks';
+import { useAlert, useCurrentLanguage } from 'utils/customHooks';
 import history from 'utils/history';
 import { modeSwitch } from 'utils/theme';
 
@@ -57,6 +57,7 @@ const OrderPayment = () => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
   const alert = useAlert();
+  const lng = useCurrentLanguage();
   const [loading, setLoading] = useState(false);
 
   const handleClick = async method => {
@@ -64,7 +65,7 @@ const OrderPayment = () => {
       setLoading(true);
       const { data } = await orderServices.setPaymentMethod(method);
       if (data.invoice.status === 'error') throw Error(data.invoice.message);
-      if (data.invoice.total === '0.00') return history.push('/order/details');
+      if (data.invoice.total === '0.00') return history.push(`${lng}/order/details`);
       generatePayment(data.payment);
     } catch (err) {
       alert.error(err.response.data.errorMessage || err.message);
@@ -110,7 +111,7 @@ const OrderPayment = () => {
             </Box>
           </PaymentButton>
         </Box>
-        <Button component={Link} to="/order/login" variant="contained" color="primary">
+        <Button component={Link} to={`${lng}/order/login`} variant="contained" color="primary">
           {content.back}
         </Button>
       </ColumnForm>

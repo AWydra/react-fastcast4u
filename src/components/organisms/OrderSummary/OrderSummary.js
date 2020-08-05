@@ -13,6 +13,7 @@ import Text from 'components/atoms/Text/Text';
 import CTAButton from 'components/atoms/CTAButton/CTAButton';
 import { modeSwitch } from 'utils/theme';
 import history from 'utils/history';
+import { useCurrentLanguage } from 'utils/customHooks';
 
 const SummaryContainer = styled.div`
   ${({ theme }) => css`
@@ -48,6 +49,7 @@ const Continue = () => {
   const cycle = useSelector(state => state.order.cycle);
   const promocode = useSelector(state => state.order.promocode);
   const orderLoading = useSelector(state => state.order.loading);
+  const lng = useCurrentLanguage();
 
   const handleClick = async () => {
     setLoading(true);
@@ -66,7 +68,7 @@ const Continue = () => {
     } catch (err) {
       setLoading(false);
     }
-    history.push('/order/login');
+    history.push(`${lng}/order/login`);
   };
 
   return (

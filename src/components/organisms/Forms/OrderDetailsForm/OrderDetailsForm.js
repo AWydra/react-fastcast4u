@@ -11,7 +11,7 @@ import { Button, FormControlLabel, Checkbox, makeStyles } from '@material-ui/cor
 import FormikInput from 'components/atoms/FormikInput/FormikInput';
 import PhoneInput from 'components/atoms/PhoneInput/PhoneInput';
 import orderServices from 'services/order';
-import { useAlert } from 'utils/customHooks';
+import { useAlert, useCurrentLanguage } from 'utils/customHooks';
 import history from 'utils/history';
 
 const useStyles = makeStyles(theme => ({
@@ -33,6 +33,7 @@ const BtnContainer = styled.div`
 
 const OrderDetailsForm = ({ independent, setLoading, additionalData, setHandler }) => {
   const content = useSelector(state => state.language.orderDetails);
+  const lng = useCurrentLanguage();
   const [cookies] = useCookies(['Fc4uOrder_Session']);
   const classes = useStyles();
   const alert = useAlert();
@@ -66,7 +67,7 @@ const OrderDetailsForm = ({ independent, setLoading, additionalData, setHandler 
         await (independent
           ? orderServices.updateDetails({ ...data, ...additionalData })
           : orderServices.setStep6(data));
-        !independent && history.replace('/order/pending');
+        !independent && history.replace(`${lng}/order/pending`);
         setHandler({
           heading: content.success,
           hide: true,
