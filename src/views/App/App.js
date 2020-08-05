@@ -20,6 +20,7 @@ import AppDownloadSection from 'components/organisms/AppDownloadSection/AppDownl
 import PackageGrid from 'templates/PackageGrid';
 import PricingGrid from 'templates/PricingGrid';
 import { isOlderThan } from 'utils/date';
+import { useCurrentLanguage } from 'utils/customHooks';
 
 import AndroidIcon from '@material-ui/icons/Android';
 import AppleIcon from 'assets/svg/AppleIcon';
@@ -28,6 +29,7 @@ const specificationRef = React.createRef();
 
 const App = () => {
   const content = useSelector(state => state.language.app);
+  const lng = useCurrentLanguage();
 
   const heroData = useMemo(
     () => ({
@@ -116,9 +118,9 @@ const App = () => {
   const promobarData = useMemo(
     () => ({
       primary: content.promobar.primary,
-      button: { label: content.promobar.label, to: '/order' },
+      button: { label: content.promobar.label, to: `${lng}/order` },
     }),
-    [content],
+    [content, lng],
   );
 
   const deliveryAccordionsData = useMemo(
