@@ -10,6 +10,7 @@ import ContactFeature from 'components/molecules/ContactFeature/ContactFeature';
 import CTASection from 'components/organisms/CTASection/CTASection';
 import { Phone, Chat, Email } from '@material-ui/icons';
 import history from 'utils/history';
+import { useCurrentLanguage } from 'utils/customHooks';
 
 const CallRequestModal = lazy(() => import('components/organisms/Modals/CallRequestModal'));
 
@@ -64,6 +65,7 @@ const Contact = () => {
   const [loading, setLoading] = useState(false);
   const chat = useSelector(state => state.general.chat);
   const phoneActive = useSelector(state => state.general.phoneActive);
+  const lng = useCurrentLanguage();
 
   const listData = useMemo(
     () => [
@@ -133,7 +135,7 @@ const Contact = () => {
             desc={content.features[2].desc}
             button={{
               label: content.features[2].label,
-              onClick: () => history.push('/ticket'),
+              onClick: () => history.push(`${lng}/ticket`),
             }}
           />
         </Grid>

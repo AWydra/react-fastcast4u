@@ -13,7 +13,7 @@ import FormikInput from 'components/atoms/FormikInput/FormikInput';
 import PhoneInput from 'components/atoms/PhoneInput/PhoneInput';
 import Dropzone from 'components/organisms/Dropzone/Dropzone';
 import reCaptcha from 'utils/reCaptcha';
-import { useAlert } from 'utils/customHooks';
+import { useAlert, useCurrentLanguage } from 'utils/customHooks';
 
 const useStyles = makeStyles(theme => ({
   phone: {
@@ -39,6 +39,7 @@ const TicketForm = () => {
   const alert = useAlert();
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
+  const lng = useCurrentLanguage();
 
   const sendTicket = async values => {
     setLoading(true);
@@ -164,7 +165,7 @@ const TicketForm = () => {
       <Grid item xs={12} className={classes.buttonContainer}>
         <Text align="center" mb={1.5}>
           {content.submitting}{' '}
-          <Link href="/privacy" target="_blank">
+          <Link href={`${lng}/privacy`} target="_blank">
             {content.privacy}
           </Link>
         </Text>

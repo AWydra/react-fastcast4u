@@ -5,6 +5,7 @@ import Image from 'components/atoms/Image/Image';
 import PromotionBanner from 'components/organisms/PromotionBanner/PromotionBanner';
 import LoginForm from 'components/organisms/Forms/LoginForm/LoginForm';
 import { modeSwitch } from 'utils/theme';
+import { useCurrentLanguage } from 'utils/customHooks';
 import logo from 'assets/img/logo.png';
 
 const useStyles = makeStyles(theme => ({
@@ -57,11 +58,12 @@ const useStyles = makeStyles(theme => ({
 
 const Login = () => {
   const classes = useStyles();
+  const lng = useCurrentLanguage();
 
   return (
     <Grid className={classes.container} container>
       <Grid className={classes.login} item xs={12} md={6} lg={5} xl={4}>
-        <ButtonBase className={classes.logo} component={Link} to="/" centerRipple focusRipple>
+        <ButtonBase className={classes.logo} component={Link} to={lng} centerRipple focusRipple>
           <Image src={logo} />
         </ButtonBase>
         <Box className={classes.loginContainer}>
