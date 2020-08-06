@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { Paper, Tabs as MuiTabs, Tab, makeStyles } from '@material-ui/core';
 import directoryLinkParser from 'utils/directoryLinkParser';
 import history from 'utils/history';
+import { useCurrentLanguage } from 'utils/customHooks';
 
 const useStyles = makeStyles(theme => ({
   tabs: {
@@ -35,10 +36,11 @@ const useStyles = makeStyles(theme => ({
 const DirectoryTabs = ({ data }) => {
   const sort = useSelector(state => state.directory.sort);
   const classes = useStyles();
+  const lng = useCurrentLanguage();
 
   const handleChange = (ev, value) => {
     const currentPathname = window.location.pathname;
-    const destinationPathname = directoryLinkParser({ page: 1, sort: value });
+    const destinationPathname = directoryLinkParser({ page: 1, sort: value, lng });
     if (currentPathname === destinationPathname) {
       history.replace(destinationPathname);
     } else {

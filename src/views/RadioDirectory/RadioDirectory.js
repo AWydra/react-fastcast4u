@@ -12,6 +12,7 @@ import DirectoryList from 'components/organisms/DirectoryList/DirectoryList';
 import RadioPlayer from 'components/organisms/RadioPlayer/RadioPlayer';
 import history from 'utils/history';
 import directoryLinkParser from 'utils/directoryLinkParser';
+import { useCurrentLanguage } from 'utils/customHooks';
 
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import FontDownloadIcon from '@material-ui/icons/FontDownload';
@@ -22,6 +23,7 @@ const RadioDirectory = () => {
   const showPlayer = useSelector(state => state.directory.player.show);
   const storeTitle = useSelector(state => state.directory.title);
   const [title, setTitle] = useState(storeTitle);
+  const lng = useCurrentLanguage();
 
   const tabsData = useMemo(
     () => [
@@ -37,9 +39,9 @@ const RadioDirectory = () => {
       image: '//img.fastcast4u.com/react/radio-directory/directory-banner.png',
       text: content.ad.title,
       label: content.ad.label,
-      to: '/order',
+      to: `${lng}/order`,
     }),
-    [content],
+    [content, lng],
   );
 
   useEffect(() => {
@@ -48,7 +50,7 @@ const RadioDirectory = () => {
 
   const handleClear = () => {
     setTitle('');
-    history.push(`/radio-directory`);
+    history.push(`${lng}/radio-directory`);
   };
 
   const handleChange = ev => {
@@ -58,7 +60,7 @@ const RadioDirectory = () => {
   const handleSubmit = ev => {
     ev.preventDefault();
     const currentPathname = window.location.pathname;
-    const destinationPathname = directoryLinkParser({ page: 1, sort: 'popular', title });
+    const destinationPathname = directoryLinkParser({ page: 1, sort: 'popular', title, lng });
     if (currentPathname === destinationPathname) {
       history.replace(destinationPathname);
     } else {

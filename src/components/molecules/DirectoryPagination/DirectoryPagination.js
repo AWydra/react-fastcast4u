@@ -6,6 +6,7 @@ import { Pagination } from '@material-ui/lab';
 import { modeSwitch } from 'utils/theme';
 import directoryLinkParser from 'utils/directoryLinkParser';
 import history from 'utils/history';
+import { useCurrentLanguage } from 'utils/customHooks';
 
 const useStyles = makeStyles(theme => ({
   pagination: {
@@ -34,10 +35,11 @@ const DirectoryPagination = () => {
   const page = useSelector(state => state.directory.page);
   const pages = useSelector(state => state.directory.pages);
   const loading = useSelector(state => state.directory.loading);
+  const lng = useCurrentLanguage();
 
   const handleChange = (ev, value) => {
     const currentPathname = window.location.pathname;
-    const destinationPathname = directoryLinkParser({ page: value });
+    const destinationPathname = directoryLinkParser({ page: value, lng });
     if (currentPathname === destinationPathname) {
       history.replace(destinationPathname);
     } else {
