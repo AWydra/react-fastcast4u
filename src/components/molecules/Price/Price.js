@@ -72,7 +72,7 @@ const Price = ({ price, oldPrice }) => {
       {oldPrice && (
         <Chip
           className={classes.chip}
-          label={`SAVE ${currency}${oldPrice - price}`}
+          label={`SAVE ${currency}${(oldPrice - price).toFixed(2)}`}
           color="primary"
           variant="outlined"
         />

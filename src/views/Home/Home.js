@@ -8,69 +8,99 @@ import RowSection from 'components/organisms/RowSection/RowSection';
 import Accordion from 'components/organisms/Accordion/Accordion';
 import HeroSection from 'components/organisms/HeroSection/HeroSection';
 import history from 'utils/history';
+import { isOlderThan } from 'utils/date';
+import { useCurrentLanguage } from 'utils/customHooks';
 
 const Home = () => {
   const content = useSelector(state => state.language.home);
+  const lng = useCurrentLanguage();
 
   const heroData = useMemo(
     () => ({
-      heading: content.heroSection.heading,
+      heading: (
+        <>
+          <Text
+            component="span"
+            variant="h1"
+            style={{ textShadow: 'black 0px 0px 2px, black 0px 0px 7px' }}
+          >
+            Summer Sale
+          </Text>
+          <Text
+            display="block"
+            component="span"
+            variant="h3"
+            mt={2}
+            style={{ textShadow: 'black 0px 0px 2px, black 0px 0px 7px' }}
+          >
+            EVERYTHING {isOlderThan(Date.UTC(2020, 7, 6, 24)) ? 3 : 4}0% OFF
+          </Text>
+        </>
+      ),
       pictures: {
-        mobile: 'https://img.fastcast4u.com/react/home/home-bg-mobile',
-        desktop: 'https://img.fastcast4u.com/react/home/home-bg',
-        alt: 'Alexa on a desk',
+        mobile: 'https://img.fastcast4u.com/react/home/promo/summer',
+        alt: 'Summer promo',
       },
       buttons: [
         {
           label: content.heroSection.buttons[0],
-          onClick: () => history.push('/alexa-skill'),
+          onClick: () => history.push(`${lng}/order`),
           color: 'secondary',
         },
       ],
     }),
-    [content],
+    [content, lng],
   );
 
   const sections = useMemo(
     () => [
+      {
+        img: 'https://img.fastcast4u.com/react/home/promo/icecreams',
+        heading: 'Discounts melt every day!',
+        content: 'Grab the Best Summer Deal while they last!',
+        button: {
+          label: 'Buy Now',
+          to: '/order',
+        },
+      },
       {
         img: 'https://img.fastcast4u.com/react/home/device1',
         heading: content.rowSections[0].heading,
         content: content.rowSections[0].content,
         button: {
           label: content.rowSections[0].button,
-          to: '/order',
+          to: `${lng}/order`,
         },
       },
       {
-        img: 'https://img.fastcast4u.com/react/home/IPadIP',
+        img: 'https://img.fastcast4u.com/react/app/phon2',
         heading: content.rowSections[1].heading,
         content: content.rowSections[1].content,
         button: {
           label: content.rowSections[1].button,
-          to: '/order',
+          to: `${lng}/app`,
         },
       },
-      {
-        img: 'https://img.fastcast4u.com/react/home/wpdev1',
-        heading: content.rowSections[2].heading,
-        content: content.rowSections[2].content,
-        button: {
-          label: content.rowSections[2].button,
-          to: '/order',
-        },
-      },
+      // {
+      //   img: 'https://img.fastcast4u.com/react/home/wpdev1',
+      //   heading: content.rowSections[2].heading,
+      //   content: content.rowSections[2].content,
+      //   button: {
+      //     label: content.rowSections[2].button,
+      //     to: `${lng}/order`,
+      //   },
+      // },
       {
         img: 'https://img.fastcast4u.com/react/home/alexa',
         heading: content.rowSections[3].heading,
         content: content.rowSections[3].content,
         button: {
           label: content.rowSections[3].button,
-          to: '/alexa-skill',
+          to: `${lng}/alexa-skill`,
         },
       },
     ],
-    [content],
+    [content, lng],
   );
 
   const accordion = useMemo(
@@ -104,7 +134,7 @@ const Home = () => {
       <FullContainer maxWidth="xl" overflowHidden>
         {sections.map((props, i) => (
           <React.Fragment key={i}>
-            <RowSection {...props} reverse={i % 2 === 1} />
+            <RowSection {...props} long reverse={i % 2 === 0} />
             {i + 1 < sections.length && <Divider variant="middle" />}
           </React.Fragment>
         ))}

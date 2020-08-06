@@ -4,6 +4,7 @@ import { Box, IconButton, makeStyles, useTheme, useMediaQuery } from '@material-
 import Image from 'components/atoms/Image/Image';
 import Countdown from 'components/atoms/Countdown/Countdown';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import { isOlderThan } from 'utils/date';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -33,6 +34,7 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 600,
     color: 'white',
     textAlign: 'center',
+    whiteSpace: 'nowrap',
   },
 }));
 
@@ -56,12 +58,21 @@ const PromoNotification = ({ ...props }) => {
         >
           <HighlightOffIcon fontSize="inherit" />
         </IconButton>
-        <Link to="/order?promo=summer50">
+        <Link to="/order">
           <Image
             className={classes.img}
-            src="https://img.fastcast4u.com/react/home/promo/summer-popup.png"
+            src={`https://img.fastcast4u.com/react/home/promo/summer-popup-${
+              isOlderThan(Date.UTC(2020, 7, 6, 24)) ? '30' : '40'
+            }.png`}
           />
-          <Countdown className={classes.countdown} date={Date.UTC(2020, 6, 31)} />
+          <Countdown
+            className={classes.countdown}
+            date={
+              isOlderThan(Date.UTC(2020, 7, 6, 24))
+                ? Date.UTC(2020, 7, 13, 24)
+                : Date.UTC(2020, 7, 6, 24)
+            }
+          />
         </Link>
       </Box>
     )

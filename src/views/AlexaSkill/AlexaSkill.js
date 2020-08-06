@@ -15,6 +15,7 @@ import HeroSection from 'components/organisms/HeroSection/HeroSection';
 import FeatureSection from 'components/organisms/FeatureSection/FeatureSection';
 import Accordion from 'components/organisms/Accordion/Accordion';
 import PricingBlock from 'components/organisms/PricingBlock/PricingBlock';
+import { isOlderThan } from 'utils/date';
 
 const infoRef = React.createRef();
 const buyRef = React.createRef();
@@ -118,14 +119,16 @@ const AlexaSkill = () => {
       heading: content.pricing.heading,
       list: content.pricing.list,
       price: {
-        current: (49.5).toFixed(2),
+        current: isOlderThan(Date.UTC(2020, 7, 6, 24)) ? 69.3 : 49.5,
         old: 99,
       },
       cycle: content.pricing.cycle,
       button: {
         label: content.pricing.label,
         component: 'a',
-        href: 'https://fastcast4u.com/account/cart.php?a=add&pid=523&promocode=summer50',
+        href: `https://fastcast4u.com/account/cart.php?a=add&pid=523&promocode=summer${
+          isOlderThan(Date.UTC(2020, 7, 6, 24)) ? 3 : 4
+        }0`,
       },
     }),
     [content],

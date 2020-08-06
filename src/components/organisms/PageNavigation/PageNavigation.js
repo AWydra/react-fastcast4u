@@ -17,6 +17,7 @@ import {
 import { Chat, Help, Home, Radio, ShoppingCart } from '@material-ui/icons';
 import useOnlineStatus from '@rehooks/online-status';
 import { modeSwitch } from 'utils/theme';
+import { isOlderThan } from 'utils/date';
 
 const navigationData = [
   {
@@ -130,7 +131,14 @@ const PageNavigation = () => {
     matches &&
     !chat.isOpen && (
       <Box className={classes.root}>
-        <MobileCounterBar content="BUY NOW 50% OFF" date={Date.UTC(2020, 6, 31)} />
+        <MobileCounterBar
+          content={`BUY NOW ${isOlderThan(Date.UTC(2020, 7, 6, 24)) ? 3 : 4}0% OFF`}
+          date={
+            isOlderThan(Date.UTC(2020, 7, 6, 24))
+              ? Date.UTC(2020, 7, 13, 24)
+              : Date.UTC(2020, 7, 6, 24)
+          }
+        />
         <BottomNavigation component="nav" value={value} showLabels className={classes.navigation}>
           {navigationData.map(({ to, label, external, ...props }) => (
             <BottomNavigationAction
