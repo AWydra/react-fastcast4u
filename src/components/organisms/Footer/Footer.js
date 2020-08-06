@@ -19,7 +19,7 @@ const Footer = () => {
         title: content[0].title,
         content: [
           { heading: content[0].content[0], href: '/order' },
-          { heading: content[0].content[1], href: '/app', external: true },
+          { heading: content[0].content[1], href: '/app' },
           { heading: content[0].content[2], href: '/customize', external: true },
           { heading: content[0].content[3], href: '/alexa-skill' },
         ],
@@ -28,8 +28,8 @@ const Footer = () => {
         title: content[1].title,
         content: [
           { heading: content[1].content[0], href: '/radio-directory' },
-          { heading: content[1].content[1], href: '/help', external: true },
-          { heading: content[1].content[2], href: '/faq', external: true },
+          { heading: content[1].content[1], href: '/help' },
+          { heading: content[1].content[2], href: '/faq' },
           {
             heading: content[1].content[3],
             href: 'https://billing.fastcast4u.com/serverstatus.php',
