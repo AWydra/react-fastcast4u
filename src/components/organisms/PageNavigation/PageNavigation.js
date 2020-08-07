@@ -132,11 +132,11 @@ const PageNavigation = () => {
     !chat.isOpen && (
       <Box className={classes.root}>
         <MobileCounterBar
-          content={`BUY NOW ${isOlderThan(Date.UTC(2020, 7, 6, 24)) ? 3 : 4}0% OFF`}
+          content={`BUY NOW ${isOlderThan(Date.UTC(2020, 7, 13, 24)) ? 2 : 3}0% OFF`}
           date={
-            isOlderThan(Date.UTC(2020, 7, 6, 24))
-              ? Date.UTC(2020, 7, 13, 24)
-              : Date.UTC(2020, 7, 6, 24)
+            isOlderThan(Date.UTC(2020, 7, 13, 24))
+              ? Date.UTC(2020, 7, 20, 24)
+              : Date.UTC(2020, 7, 13, 24)
           }
         />
         <BottomNavigation component="nav" value={value} showLabels className={classes.navigation}>

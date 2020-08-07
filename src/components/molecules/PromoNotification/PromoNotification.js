@@ -62,15 +62,15 @@ const PromoNotification = ({ ...props }) => {
           <Image
             className={classes.img}
             src={`https://img.fastcast4u.com/react/home/promo/summer-popup-${
-              isOlderThan(Date.UTC(2020, 7, 6, 24)) ? '30' : '40'
+              isOlderThan(Date.UTC(2020, 7, 13, 24)) ? '20' : '30'
             }.png`}
           />
           <Countdown
             className={classes.countdown}
             date={
-              isOlderThan(Date.UTC(2020, 7, 6, 24))
-                ? Date.UTC(2020, 7, 13, 24)
-                : Date.UTC(2020, 7, 6, 24)
+              isOlderThan(Date.UTC(2020, 7, 13, 24))
+                ? Date.UTC(2020, 7, 20, 24)
+                : Date.UTC(2020, 7, 13, 24)
             }
           />
         </Link>

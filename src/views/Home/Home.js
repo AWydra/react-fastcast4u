@@ -33,7 +33,7 @@ const Home = () => {
             mt={2}
             style={{ textShadow: 'black 0px 0px 2px, black 0px 0px 7px' }}
           >
-            EVERYTHING {isOlderThan(Date.UTC(2020, 7, 6, 24)) ? 3 : 4}0% OFF
+            EVERYTHING {isOlderThan(Date.UTC(2020, 7, 13, 24)) ? 2 : 3}0% OFF
           </Text>
         </>
       ),
