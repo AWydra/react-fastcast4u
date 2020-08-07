@@ -57,12 +57,12 @@ const HelpTabs = ({ categories, activeId, loading, onClick }) => {
       !matches &&
       categories
         .concat({
-          name: 'HELP Show All',
+          name: 'Show All',
           id: 'all',
         })
         .map(category => (
           <option key={category.id} value={category.id}>
-            {category.name.slice(5).replace('&amp;', '&')}
+            {category.name.replace('&amp;', '&')}
           </option>
         ))
     );

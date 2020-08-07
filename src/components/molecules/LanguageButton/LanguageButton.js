@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, matchPath } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import languageActions from 'actions/languageActions';
 import languageServices from 'services/language';
@@ -18,6 +18,9 @@ import Text from 'components/atoms/Text/Text';
 import TranslateIcon from '@material-ui/icons/Public';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMoreRounded';
 import { modeSwitch } from 'utils/theme';
+import langRoute, { langList } from 'utils/languageRoute';
+import { useDidUpdate } from 'utils/customHooks';
+import history from 'utils/history';
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -49,17 +52,57 @@ const LanguageButton = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [langs, setLangs] = useState(null);
   const { language, code } = useSelector(state => state.language);
+  const location = useLocation();
   const dispatch = useDispatch();
 
   useEffect(() => {
     languageServices.getRecomendedLangs().then(el => setLangs(el.recommend));
   }, []);
 
+  useEffect(() => {
+    const { pathname } = location;
+    const {
+      params: { lng = 'en' },
+    } = matchPath(pathname, {
+      path: langRoute,
+    });
+
+    dispatch(languageActions.setLanguage({ code: lng }));
+
+    // eslint-disable-next-line
+  }, []);
+
+  useDidUpdate(() => {
+    const { pathname } = location;
+    const {
+      params: { lng = 'en' },
+    } = matchPath(pathname, {
+      path: langRoute,
+    });
+
+    !(lng === code) &&
+      history.replace(`${code === 'en' ? '' : `/${code}${pathname === '/' ? '' : pathname}`}`);
+
+    // eslint-disable-next-line
+  }, [location]);
+
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleMenuItemClick = (language, code) => {
+    const slug = location.pathname.split('/')[1];
+    if (langList.includes(slug)) {
+      const link = location.pathname
+        .split('/')
+        .slice(2)
+        .join('/');
+      history.replace(`${code === 'en' ? '' : `/${code}`}${link ? `/${link}` : ''}`);
+    } else {
+      history.replace(
+        `${code === 'en' ? '' : `/${code}`}${location.pathname === '/' ? '' : location.pathname}`,
+      );
+    }
     dispatch(languageActions.setLanguage({ language, code }));
     setAnchorEl(null);
   };

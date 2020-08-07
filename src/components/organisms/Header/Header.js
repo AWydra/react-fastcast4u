@@ -10,13 +10,17 @@ import Logo from 'components/atoms/Logo/Logo';
 import NavButton from 'components/atoms/NavButton/NavButton';
 import SocialBar from 'components/molecules/SocialBar/SocialBar';
 import LanguageButton from 'components/molecules/LanguageButton/LanguageButton';
+import { useCurrentLanguage } from 'utils/customHooks';
+import { isDev } from 'utils/nodeEnv';
+
 import LightIcon from '@material-ui/icons/Brightness4';
 import DarkIcon from '@material-ui/icons/Brightness7';
 
 const StyledAppBar = styled(AppBar)`
-  ${({ theme }) => css`
+  ${({ theme, hidden }) => css`
     padding: 0;
     background-color: ${theme.palette.background.paper};
+    display: ${hidden && 'none'};
   `}
 `;
 
@@ -32,30 +36,29 @@ const StyledToolbar = styled(Toolbar)`
 
 const Header = () => {
   const theme = useSelector(state => state.general.theme);
+  const lng = useCurrentLanguage();
   const dispatch = useDispatch();
   const location = useLocation();
-  const isHidden = location.pathname.startsWith('/login');
+  const isHidden = location.pathname.startsWith(`${lng}/login`);
 
   const handleClick = () => {
     dispatch(generalActions.toggleTheme());
   };
 
   return (
-    !isHidden && (
-      <StyledAppBar color="default" position="static">
-        <SocialBar />
-        <StyledToolbar>
-          <Logo mr="auto" to="/" />
-          <LanguageButton />
-          <Tooltip title="Toggle light/dark theme">
-            <IconButton color="primary" aria-label="toggle dark theme" onClick={handleClick}>
-              {theme === 'light' ? <LightIcon /> : <DarkIcon />}
-            </IconButton>
-          </Tooltip>
-          <NavButton to="/login">Login</NavButton>
-        </StyledToolbar>
-      </StyledAppBar>
-    )
+    <StyledAppBar color="default" position="static" hidden={isHidden}>
+      <SocialBar />
+      <StyledToolbar>
+        <Logo mr="auto" to={`${lng}`} />
+        {isDev() && <LanguageButton />}
+        <Tooltip title="Toggle light/dark theme">
+          <IconButton color="primary" aria-label="toggle dark theme" onClick={handleClick}>
+            {theme === 'light' ? <LightIcon /> : <DarkIcon />}
+          </IconButton>
+        </Tooltip>
+        <NavButton to={`${lng}/login`}>Login</NavButton>
+      </StyledToolbar>
+    </StyledAppBar>
   );
 };
 

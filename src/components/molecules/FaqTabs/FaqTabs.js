@@ -80,7 +80,7 @@ const FaqTabs = ({ categories, loading }) => {
       <InputLabel htmlFor="outlined-age-native-simple">Select category</InputLabel>
       <Select native value={value} onChange={handleSelectChange} label="Select category">
         {categories.map(category => (
-          <option key={category.id} value={`/faq${category.description}`}>
+          <option key={category.id} value={`${lng}/faq${category.description}`}>
             {category.name.replace('&amp;', '&')}
           </option>
         ))}

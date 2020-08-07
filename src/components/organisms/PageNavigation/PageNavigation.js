@@ -18,10 +18,11 @@ import { Chat, Help, Home, Radio, ShoppingCart } from '@material-ui/icons';
 import useOnlineStatus from '@rehooks/online-status';
 import { modeSwitch } from 'utils/theme';
 import { isOlderThan } from 'utils/date';
+import { useCurrentLanguage } from 'utils/customHooks';
 
 const navigationData = [
   {
-    to: '/',
+    to: '',
     label: 'Home',
     icon: <Home />,
   },
@@ -39,7 +40,6 @@ const navigationData = [
     to: '/faq',
     label: 'FAQ',
     icon: <Help />,
-    external: true,
   },
 ];
 
@@ -76,17 +76,19 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const normalizePathname = pathname => {
-  return `/${pathname.split('/')[1]}`;
+const normalizePathname = (lng, pathname) => {
+  const page = pathname.split('/')[lng ? 2 : 1];
+  return `${lng}${page ? `/${page}` : ''}`;
 };
 
 const PageNavigation = () => {
   const theme = useTheme();
   const classes = useStyles();
   const matches = useMediaQuery(theme.breakpoints.down('sm'));
+  const lng = useCurrentLanguage();
   const { pathname } = useLocation();
   const chat = useSelector(state => state.general.chat);
-  const [value, setValue] = useState(normalizePathname(pathname));
+  const [value, setValue] = useState(normalizePathname(lng, pathname));
   const isOnline = useOnlineStatus();
   const dispatch = useDispatch();
 
@@ -120,8 +122,8 @@ const PageNavigation = () => {
   }, [matches]);
 
   useEffect(() => {
-    setValue(normalizePathname(pathname));
-  }, [pathname]);
+    setValue(normalizePathname(lng, pathname));
+  }, [pathname, lng]);
 
   const handleClick = () => {
     dispatch(generalActions.setChatDisplay(true));
@@ -140,13 +142,12 @@ const PageNavigation = () => {
           }
         />
         <BottomNavigation component="nav" value={value} showLabels className={classes.navigation}>
-          {navigationData.map(({ to, label, external, ...props }) => (
+          {navigationData.map(({ to, label, ...props }) => (
             <BottomNavigationAction
-              component={external ? 'a' : Link}
-              to={to}
-              href={to}
+              component={Link}
+              to={`${lng}${to}`}
               className={classes.action}
-              value={to}
+              value={`${lng}${to}`}
               label={<StyledLabel>{label}</StyledLabel>}
               key={to}
               {...props}

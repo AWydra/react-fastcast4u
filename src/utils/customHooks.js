@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import generalActions from 'actions/generalActions';
 
 export const useAlert = () => {
@@ -26,6 +26,12 @@ export const useDidUpdate = (fn, conditions) => {
     return fn && fn();
     // eslint-disable-next-line
   }, conditions);
+};
+
+export const useCurrentLanguage = () => {
+  const currLng = useSelector(state => state.language.code);
+
+  return currLng === 'en' ? '' : `/${currLng}`;
 };
 
 export default { useAlert, useDidUpdate };

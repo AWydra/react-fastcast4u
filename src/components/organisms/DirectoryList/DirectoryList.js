@@ -13,16 +13,11 @@ const DirectoryList = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    let request;
     const getStationList = async () => {
-      request = await dispatch(directoryServices.getStationList(params));
+      await dispatch(directoryServices.getStationList(params));
     };
 
     getStationList();
-
-    return () => {
-      request.cancel();
-    };
     // eslint-disable-next-line
   }, [location.pathname]);
 

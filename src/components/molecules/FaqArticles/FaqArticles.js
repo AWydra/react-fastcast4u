@@ -41,7 +41,8 @@ const FaqArticles = ({ categories }) => {
     } else {
       history.replace(`${lng}/faq${categories[0].description}`);
     }
-  }, [location, categories]);
+    // eslint-disable-next-line
+  }, [location, categories, lng]);
 
   return (
     <Box className={classes.container}>

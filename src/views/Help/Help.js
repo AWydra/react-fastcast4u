@@ -10,9 +10,11 @@ import HelpTabs from 'components/molecules/HelpTabs/HelpTabs';
 import HelpBox from 'components/molecules/HelpBox/HelpBox';
 import helpServices from 'services/help';
 import history from 'utils/history';
+import { useCurrentLanguage } from 'utils/customHooks';
 
 const Help = () => {
   const content = useSelector(state => state.language.help);
+  const lng = useCurrentLanguage();
   const [categories, setCategories] = useState([]);
   const [articles, setArticles] = useState([]);
   const [activeId, setActiveId] = useState(0);
@@ -22,7 +24,8 @@ const Help = () => {
 
   useEffect(() => {
     const id = new URLSearchParams(location.search).get('id');
-    id && history.push(`/help/${id}`);
+    id && history.push(`${lng}/help/${id}`);
+    // eslint-disable-next-line
   }, [location]);
 
   const handleChange = ev => {
@@ -81,13 +84,13 @@ const Help = () => {
             <HelpBox
               title={article.helpTitle}
               description={article.helpDescription}
-              to={`/help/${article.id}/${article.slug}`}
+              to={`${lng}/help/${article.id}/${article.slug}`}
               iconClassName={article.icon}
             />
           </Grid>
         )),
     // eslint-disable-next-line
-    [articles, activeId, title],
+    [articles, activeId, title, lng],
   );
 
   return (

@@ -4,6 +4,7 @@ import helpServices from 'services/help';
 import styled, { css } from 'styled-components';
 import { Button, Container, LinearProgress } from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
+import { useCurrentLanguage } from 'utils/customHooks';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 const Article = styled.div`
@@ -52,6 +53,7 @@ const HelpArticle = () => {
   const { id } = useParams();
   const [response, setResponse] = useState({});
   const [loading, setLoading] = useState(true);
+  const lng = useCurrentLanguage();
 
   useEffect(() => {
     helpServices.getArticle(id).then(res => {
@@ -73,7 +75,7 @@ const HelpArticle = () => {
           <Button
             startIcon={<ArrowBackIcon />}
             component={Link}
-            to="/help"
+            to={`${lng}/help`}
             variant="contained"
             color="primary"
           >
