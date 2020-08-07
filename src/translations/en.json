@@ -21,6 +21,10 @@
     "phoneInput": {
       "label": "Phone Number (optional)"
     },
+    "price": {
+      "now": "Now",
+      "save": "SAVE"
+    },
     "searchBar": {
       "label": "Search"
     },
@@ -441,6 +445,21 @@
     "ad": {
       "title": "Start Your Own Online Radio Station",
       "label": "Start Now"
+    }
+  },
+  "login": {
+    "login": "Login",
+    "reset": "Reset Password",
+    "subtitle": "Sign In To Your Client Area Or Server",
+    "username": "Username or email",
+    "password": "Password",
+    "back": "Back to login",
+    "forgot": "Forgot password?",
+    "sent": "Link to reset your password was sent to your email",
+    "errors": {
+      "required": "Required",
+      "min3": "Must be 3 characters or more",
+      "max30": "Must be 30 characters or less"
     }
   },
   "contact": {

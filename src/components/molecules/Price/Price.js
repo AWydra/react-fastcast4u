@@ -54,12 +54,13 @@ const useStyles = makeStyles(theme => ({
 
 const Price = ({ price, oldPrice }) => {
   const currency = useSelector(state => state.general.currency);
+  const content = useSelector(state => state.language.components.price);
   const classes = useStyles();
 
   return (
     <Box className={classes.root}>
       <Box className={classes.container}>
-        {oldPrice && <Text>NOW</Text>}
+        {oldPrice && <Text>{content.now}</Text>}
         <Text className={classes.unit}>{currency}</Text>
         <Text className={classes.price}>{price}</Text>
         {oldPrice && (
@@ -72,7 +73,7 @@ const Price = ({ price, oldPrice }) => {
       {oldPrice && (
         <Chip
           className={classes.chip}
-          label={`SAVE ${currency}${(oldPrice - price).toFixed(2)}`}
+          label={`${content.save} ${currency}${(oldPrice - price).toFixed(2)}`}
           color="primary"
           variant="outlined"
         />

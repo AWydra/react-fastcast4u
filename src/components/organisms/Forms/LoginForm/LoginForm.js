@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 // @ts-nocheck
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import loginServices from 'services/login';
 
 import styled from 'styled-components';
@@ -44,6 +45,7 @@ const BtnContainer = styled.div`
 const LoginForm = () => {
   const classes = useStyles();
   const alert = useAlert();
+  const content = useSelector(state => state.language.login);
   const [forgot, setForgot] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -67,7 +69,7 @@ const LoginForm = () => {
       stage: 'one',
     });
     setLoading(false);
-    alert.success('Link to reset your password was sent to your email');
+    alert.success(content.sent);
   };
 
   const formik = useFormik({
@@ -77,14 +79,14 @@ const LoginForm = () => {
     },
     validationSchema: Yup.object({
       username: Yup.string()
-        .min(3, 'Must be 3 characters or more')
-        .required('Required'),
+        .min(3, content.errors.min3)
+        .required(content.errors.required),
       password:
         !forgot &&
         Yup.string()
-          .min(3, 'Must be 3 characters or more')
-          .max(30, 'Must be 30 characters or less')
-          .required('Required'),
+          .min(3, content.errors.min3)
+          .max(30, content.errors.max30)
+          .required(content.errors.required),
     }),
     onSubmit: async values => {
       try {
@@ -98,13 +100,13 @@ const LoginForm = () => {
   return (
     <>
       <Text component="h1" variant="h5" fontWeight={500}>
-        {forgot ? 'Reset your password' : 'Login'}
+        {forgot ? content.reset : content.login}
       </Text>
-      {!forgot && <Text className={classes.subtitle}>Sign In To Your Client Area Or Server</Text>}
+      {!forgot && <Text className={classes.subtitle}>{content.subtitle}</Text>}
       <form onSubmit={formik.handleSubmit} noValidate autoComplete="off" className={classes.form}>
         <FormikInput
           formik={formik}
-          label="Username or email"
+          label={content.username}
           name="username"
           type="text"
           autoComplete="username"
@@ -112,7 +114,7 @@ const LoginForm = () => {
         {!forgot && (
           <FormikInput
             formik={formik}
-            label="Password"
+            label={content.password}
             name="password"
             type="password"
             autoComplete="current-password"
@@ -125,7 +127,7 @@ const LoginForm = () => {
           onClick={() => setForgot(!forgot)}
           disabled={loading}
         >
-          {forgot ? 'Back to login' : 'Forgot password?'}
+          {forgot ? content.back : content.forgot}
         </Link>
         <BtnContainer>
           <CTAButton
@@ -135,7 +137,7 @@ const LoginForm = () => {
             color="primary"
             type="submit"
           >
-            {forgot ? 'Reset Password' : 'Login'}
+            {forgot ? content.reset : content.login}
           </CTAButton>
         </BtnContainer>
       </form>
