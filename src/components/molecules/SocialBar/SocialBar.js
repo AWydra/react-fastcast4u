@@ -81,6 +81,7 @@ const data = [
 ];
 
 const SocialBar = () => {
+  const content = useSelector(state => state.language.components.header);
   const [open, setOpen] = useState(false);
   const isChatOnline = useSelector(state => state.general.chat.isOnline);
   const theme = useTheme();
@@ -100,7 +101,7 @@ const SocialBar = () => {
       <Box className={classes.box}>
         <Container className={classes.container} maxWidth="xl">
           <Box className={classes.linkContainer}>
-            <Tooltip title="Request call">
+            <Tooltip title={content.request}>
               <Button
                 className={classes.btn}
                 startIcon={<Call />}
@@ -112,11 +113,11 @@ const SocialBar = () => {
             </Tooltip>
             {isChatOnline ? (
               <Button className={classes.btn} startIcon={<Chat />} onClick={handleChatClick}>
-                Open Chat
+                {content.open}
               </Button>
             ) : (
               <Button component={Link} to="/ticket" className={classes.btn} startIcon={<Chat />}>
-                Message Us
+                {content.message}
               </Button>
             )}
           </Box>

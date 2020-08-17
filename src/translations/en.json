@@ -9,6 +9,13 @@
       "add": "Add",
       "cancel": "Cancel"
     },
+    "header": {
+      "login": "Login",
+      "toggle": "Toggle light/dark theme",
+      "request": "Request call",
+      "open": "Open Chat",
+      "message": "Message Us"
+    },
     "modals": {
       "call": {
         "title": "Prefer phone contact?",

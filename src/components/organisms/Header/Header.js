@@ -35,6 +35,7 @@ const StyledToolbar = styled(Toolbar)`
 `;
 
 const Header = () => {
+  const content = useSelector(state => state.language.components.header);
   const theme = useSelector(state => state.general.theme);
   const lng = useCurrentLanguage();
   const dispatch = useDispatch();
@@ -51,12 +52,12 @@ const Header = () => {
       <StyledToolbar>
         <Logo mr="auto" to={`${lng}`} />
         {isDev() && <LanguageButton />}
-        <Tooltip title="Toggle light/dark theme">
+        <Tooltip title={content.toggle}>
           <IconButton color="primary" aria-label="toggle dark theme" onClick={handleClick}>
             {theme === 'light' ? <LightIcon /> : <DarkIcon />}
           </IconButton>
         </Tooltip>
-        <NavButton to={`${lng}/login`}>Login</NavButton>
+        <NavButton to={`${lng}/login`}>{content.login}</NavButton>
       </StyledToolbar>
     </StyledAppBar>
   );
