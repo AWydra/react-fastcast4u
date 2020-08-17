@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import languageActions from 'actions/languageActions';
 import languageServices from 'services/language';
 import { ButtonBase, Grid, LinearProgress, Paper, makeStyles } from '@material-ui/core';
 import FullContainer from 'components/atoms/FullContainer/FullContainer';
@@ -29,8 +28,9 @@ const Language = () => {
   }, []);
 
   const handleChangeLanguage = (name, code) => {
-    dispatch(languageActions.setLanguage({ language: name, code }));
-    history.push(`/${code}`);
+    dispatch(languageServices.getTranlations(code)).then(() => {
+      history.push(`/${code}`);
+    });
   };
 
   return (

@@ -13,6 +13,7 @@ export const langList = [
   'ca',
   'ceb',
   'zh',
+  'zh-TW',
   'co',
   'hr',
   'cs',

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, matchPath } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import languageActions from 'actions/languageActions';
 import languageServices from 'services/language';
 
 import {
@@ -67,7 +66,7 @@ const LanguageButton = () => {
       path: langRoute,
     });
 
-    dispatch(languageActions.setLanguage({ code: lng }));
+    code !== lng && dispatch(languageServices.getTranlations(lng));
 
     // eslint-disable-next-line
   }, []);
@@ -90,21 +89,23 @@ const LanguageButton = () => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleMenuItemClick = (language, code) => {
+  const handleMenuItemClick = (language, lng) => {
     const slug = location.pathname.split('/')[1];
-    if (langList.includes(slug)) {
-      const link = location.pathname
-        .split('/')
-        .slice(2)
-        .join('/');
-      history.replace(`${code === 'en' ? '' : `/${code}`}${link ? `/${link}` : ''}`);
-    } else {
-      history.replace(
-        `${code === 'en' ? '' : `/${code}`}${location.pathname === '/' ? '' : location.pathname}`,
-      );
-    }
-    dispatch(languageActions.setLanguage({ language, code }));
-    setAnchorEl(null);
+    code !== lng &&
+      dispatch(languageServices.getTranlations(lng)).then(() => {
+        if (langList.includes(slug)) {
+          const link = location.pathname
+            .split('/')
+            .slice(2)
+            .join('/');
+          history.replace(`${lng === 'en' ? '' : `/${lng}`}${link ? `/${link}` : ''}`);
+        } else {
+          history.replace(
+            `${lng === 'en' ? '' : `/${lng}`}${location.pathname === '/' ? '' : location.pathname}`,
+          );
+        }
+        setAnchorEl(null);
+      });
   };
 
   const handleClose = () => {
