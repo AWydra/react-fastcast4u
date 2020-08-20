@@ -82,33 +82,33 @@ const App = () => {
     () => [
       {
         title: content.pricing[0].title,
-        price: isOlderThan(Date.UTC(2020, 7, 13, 24)) ? 119.2 : 104.3,
+        price: isOlderThan(Date.UTC(2020, 7, 20, 24)) ? 134.1 : 119.2,
         oldPrice: 149,
         list: content.pricing[0].list,
         image: 'https://img.fastcast4u.com/react/app/android.png',
         link: `https://billing.fastcast4u.com/cart.php?a=add&pid=496&promocode=summer${
-          isOlderThan(Date.UTC(2020, 7, 13, 24)) ? 2 : 3
+          isOlderThan(Date.UTC(2020, 7, 20, 24)) ? 1 : 2
         }0`,
       },
       {
         title: content.pricing[1].title,
-        price: isOlderThan(Date.UTC(2020, 7, 13, 24)) ? 159.2 : 139.3,
+        price: isOlderThan(Date.UTC(2020, 7, 20, 24)) ? 179.1 : 159.2,
         oldPrice: 199,
         list: content.pricing[1].list,
         image: 'https://img.fastcast4u.com/react/app/IP&android.png',
         link: `https://billing.fastcast4u.com/cart.php?a=add&pid=498&promocode=summer${
-          isOlderThan(Date.UTC(2020, 7, 13, 24)) ? 2 : 3
+          isOlderThan(Date.UTC(2020, 7, 20, 24)) ? 1 : 2
         }0`,
         best: true,
       },
       {
         title: content.pricing[2].title,
-        price: isOlderThan(Date.UTC(2020, 7, 13, 24)) ? 119.2 : 104.3,
+        price: isOlderThan(Date.UTC(2020, 7, 20, 24)) ? 134.1 : 119.2,
         oldPrice: 149,
         list: content.pricing[2].list,
         image: 'https://img.fastcast4u.com/react/app/IP.png',
         link: `https://billing.fastcast4u.com/cart.php?a=add&pid=497&promocode=summer${
-          isOlderThan(Date.UTC(2020, 7, 13, 24)) ? 2 : 3
+          isOlderThan(Date.UTC(2020, 7, 20, 24)) ? 1 : 2
         }0`,
       },
     ],

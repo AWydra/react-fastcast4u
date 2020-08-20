@@ -41,7 +41,7 @@ const PromotionBanner = () => {
         <Image
           className={classes.image}
           src={`https://img.fastcast4u.com/react/login/o${
-            isOlderThan(Date.UTC(2020, 7, 13, 24)) ? 2 : 3
+            isOlderThan(Date.UTC(2020, 7, 20, 24)) ? 1 : 2
           }.png`}
         />
       </Link>

@@ -33,7 +33,7 @@ const Home = () => {
             mt={2}
             style={{ textShadow: 'black 0px 0px 2px, black 0px 0px 7px' }}
           >
-            EVERYTHING {isOlderThan(Date.UTC(2020, 7, 13, 24)) ? 2 : 3}0% OFF
+            EVERYTHING {isOlderThan(Date.UTC(2020, 7, 20, 24)) ? 1 : 2}0% OFF
           </Text>
         </>
       ),
@@ -55,15 +55,6 @@ const Home = () => {
   const sections = useMemo(
     () => [
       {
-        img: 'https://img.fastcast4u.com/react/home/promo/icecreams',
-        heading: 'Discounts melt every day!',
-        content: 'Grab the Best Summer Deal while they last!',
-        button: {
-          label: 'Buy Now',
-          to: '/order',
-        },
-      },
-      {
         img: 'https://img.fastcast4u.com/react/home/device1',
         heading: content.rowSections[0].heading,
         content: content.rowSections[0].content,
@@ -81,15 +72,15 @@ const Home = () => {
           to: `${lng}/app`,
         },
       },
-      // {
-      //   img: 'https://img.fastcast4u.com/react/home/wpdev1',
-      //   heading: content.rowSections[2].heading,
-      //   content: content.rowSections[2].content,
-      //   button: {
-      //     label: content.rowSections[2].button,
-      //     to: `${lng}/order`,
-      //   },
-      // },
+      {
+        img: 'https://img.fastcast4u.com/react/home/wpdev1',
+        heading: content.rowSections[2].heading,
+        content: content.rowSections[2].content,
+        button: {
+          label: content.rowSections[2].button,
+          to: `${lng}/order`,
+        },
+      },
       {
         img: 'https://img.fastcast4u.com/react/home/alexa',
         heading: content.rowSections[3].heading,
