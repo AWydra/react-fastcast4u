@@ -17,6 +17,7 @@ const ToS = lazy(() => import('views/ToS/ToS'));
 const Privacy = lazy(() => import('views/Privacy/Privacy'));
 const UpdateDetails = lazy(() => import('views/UpdateDetails/UpdateDetails'));
 const Language = lazy(() => import('views/Language/Language'));
+const AppPublication = lazy(() => import('views/AppPublication/AppPublication'));
 const NotFound = lazy(() => import('views/NotFound/NotFound'));
 
 const Routes = () => (
@@ -37,6 +38,7 @@ const Routes = () => (
       <Route path={`${lng}/privacy`} component={Privacy} />
       <Route path={`${lng}/update-details`} component={UpdateDetails} />
       <Route path={`${lng}/language`} component={Language} />
+      <Route path={`${lng}/app-publication`} component={AppPublication} />
       <Route component={NotFound} />
     </Switch>
   </Suspense>
