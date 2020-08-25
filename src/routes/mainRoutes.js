@@ -20,6 +20,7 @@ const Language = lazy(() => import('views/Language/Language'));
 const AppPublication = lazy(() => import('views/AppPublication/AppPublication'));
 const Ceo = lazy(() => import('views/Ceo/Ceo'));
 const Agata = lazy(() => import('views/Agata/Agata'));
+const Emil = lazy(() => import('views/Emil/Emil'));
 const NotFound = lazy(() => import('views/NotFound/NotFound'));
 
 const Routes = () => (
@@ -43,6 +44,7 @@ const Routes = () => (
       <Route path={`${lng}/app-publication`} component={AppPublication} />
       <Route path={`${lng}/ceo`} component={Ceo} />
       <Route path={`${lng}/agata`} component={Agata} />
+      <Route path={`${lng}/emil`} component={Emil} />
       <Route component={NotFound} />
     </Switch>
   </Suspense>
