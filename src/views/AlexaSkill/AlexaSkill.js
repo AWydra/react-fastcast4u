@@ -119,16 +119,16 @@ const AlexaSkill = () => {
       heading: content.pricing.heading,
       list: content.pricing.list,
       price: {
-        current: isOlderThan(Date.UTC(2020, 7, 20, 24)) ? 89.1 : 79.2,
+        current: isOlderThan(Date.UTC(2020, 7, 27, 24)) ? 99 : 89.1,
         old: 99,
       },
       cycle: content.pricing.cycle,
       button: {
         label: content.pricing.label,
         component: 'a',
-        href: `https://fastcast4u.com/account/cart.php?a=add&pid=523&promocode=summer${
-          isOlderThan(Date.UTC(2020, 7, 20, 24)) ? 1 : 2
-        }0`,
+        href: `https://fastcast4u.com/account/cart.php?a=add&pid=523${
+          isOlderThan(Date.UTC(2020, 7, 27, 24)) ? '' : '&promocode=summer10'
+        }`,
       },
     }),
     [content],

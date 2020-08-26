@@ -82,34 +82,34 @@ const App = () => {
     () => [
       {
         title: content.pricing[0].title,
-        price: isOlderThan(Date.UTC(2020, 7, 20, 24)) ? 134.1 : 119.2,
+        price: isOlderThan(Date.UTC(2020, 7, 27, 24)) ? 149 : 134.1,
         oldPrice: 149,
         list: content.pricing[0].list,
         image: 'https://img.fastcast4u.com/react/app/android.png',
-        link: `https://billing.fastcast4u.com/cart.php?a=add&pid=496&promocode=summer${
-          isOlderThan(Date.UTC(2020, 7, 20, 24)) ? 1 : 2
-        }0`,
+        link: `https://billing.fastcast4u.com/cart.php?a=add&pid=496${
+          isOlderThan(Date.UTC(2020, 7, 27, 24)) ? '' : '&promocode=summer10'
+        }`,
       },
       {
         title: content.pricing[1].title,
-        price: isOlderThan(Date.UTC(2020, 7, 20, 24)) ? 179.1 : 159.2,
+        price: isOlderThan(Date.UTC(2020, 7, 27, 24)) ? 199 : 179.1,
         oldPrice: 199,
         list: content.pricing[1].list,
         image: 'https://img.fastcast4u.com/react/app/IP&android.png',
-        link: `https://billing.fastcast4u.com/cart.php?a=add&pid=498&promocode=summer${
-          isOlderThan(Date.UTC(2020, 7, 20, 24)) ? 1 : 2
-        }0`,
+        link: `https://billing.fastcast4u.com/cart.php?a=add&pid=498${
+          isOlderThan(Date.UTC(2020, 7, 27, 24)) ? '' : '&promocode=summer10'
+        }`,
         best: true,
       },
       {
         title: content.pricing[2].title,
-        price: isOlderThan(Date.UTC(2020, 7, 20, 24)) ? 134.1 : 119.2,
+        price: isOlderThan(Date.UTC(2020, 7, 27, 24)) ? 149 : 134.1,
         oldPrice: 149,
         list: content.pricing[2].list,
         image: 'https://img.fastcast4u.com/react/app/IP.png',
-        link: `https://billing.fastcast4u.com/cart.php?a=add&pid=497&promocode=summer${
-          isOlderThan(Date.UTC(2020, 7, 20, 24)) ? 1 : 2
-        }0`,
+        link: `https://billing.fastcast4u.com/cart.php?a=add&pid=497${
+          isOlderThan(Date.UTC(2020, 7, 27, 24)) ? '' : '&promocode=summer10'
+        }`,
       },
     ],
     [content],

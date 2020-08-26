@@ -48,7 +48,8 @@ const PromoNotification = ({ ...props }) => {
 
   return (
     matches &&
-    open && (
+    open &&
+    !isOlderThan(Date.UTC(2020, 7, 27, 24)) && (
       <Box className={classes.root} {...props}>
         <IconButton
           className={classes.icon}

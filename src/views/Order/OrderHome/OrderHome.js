@@ -67,7 +67,7 @@ const Order = () => {
     const params = new URLSearchParams(location.search);
     dispatch(
       orderActions.setPromocode(
-        params.get('promo') || isOlderThan(Date.UTC(2020, 7, 20, 24)) ? 'summer10' : 'summer20',
+        params.get('promo') || isOlderThan(Date.UTC(2020, 7, 27, 24)) ? '' : 'summer10',
       ),
     );
   }, [dispatch, location.search]);

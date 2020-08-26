@@ -16,39 +16,56 @@ const Home = () => {
   const lng = useCurrentLanguage();
 
   const heroData = useMemo(
-    () => ({
-      heading: (
-        <>
-          <Text
-            component="span"
-            variant="h1"
-            style={{ textShadow: 'black 0px 0px 2px, black 0px 0px 7px' }}
-          >
-            Summer Sale
-          </Text>
-          <Text
-            display="block"
-            component="span"
-            variant="h3"
-            mt={2}
-            style={{ textShadow: 'black 0px 0px 2px, black 0px 0px 7px' }}
-          >
-            EVERYTHING {isOlderThan(Date.UTC(2020, 7, 20, 24)) ? 1 : 2}0% OFF
-          </Text>
-        </>
-      ),
-      pictures: {
-        mobile: 'https://img.fastcast4u.com/react/home/promo/summer',
-        alt: 'Summer promo',
-      },
-      buttons: [
-        {
-          label: content.heroSection.buttons[0],
-          onClick: () => history.push(`${lng}/order`),
-          color: 'secondary',
-        },
-      ],
-    }),
+    () =>
+      isOlderThan(Date.UTC(2020, 7, 27, 12))
+        ? {
+            heading: 'Add your Online Radio Station to Alexa',
+            pictures: {
+              mobile: 'https://img.fastcast4u.com/react/home/home-bg-mobile',
+              desktop: 'https://img.fastcast4u.com/react/home/home-bg',
+              alt: 'Alexa on a desk',
+            },
+            buttons: [
+              {
+                label: '\xa0GET NOW\xa0',
+                onClick: () => history.push('/alexa-skill'),
+                color: 'secondary',
+              },
+            ],
+          }
+        : {
+            heading: (
+              <>
+                <Text
+                  component="span"
+                  variant="h1"
+                  style={{ textShadow: 'black 0px 0px 2px, black 0px 0px 7px' }}
+                >
+                  Summer Sale
+                </Text>
+                <Text
+                  display="block"
+                  component="span"
+                  variant="h3"
+                  mt={2}
+                  style={{ textShadow: 'black 0px 0px 2px, black 0px 0px 7px' }}
+                >
+                  EVERYTHING {isOlderThan(Date.UTC(2020, 7, 20, 24)) ? 1 : 2}0% OFF
+                </Text>
+              </>
+            ),
+            pictures: {
+              mobile: 'https://img.fastcast4u.com/react/home/promo/summer',
+              alt: 'Summer promo',
+            },
+            buttons: [
+              {
+                label: content.heroSection.buttons[0],
+                onClick: () => history.push(`${lng}/order`),
+                color: 'secondary',
+              },
+            ],
+          },
     [content, lng],
   );
 
