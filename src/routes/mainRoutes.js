@@ -7,6 +7,7 @@ import PageLoader from 'components/molecules/PageLoader/PageLoader';
 import lng from 'utils/languageRoute';
 
 const Home = lazy(() => import('views/Home/Home'));
+const Start = lazy(() => import('views/Start/Start'));
 const App = lazy(() => import('views/App/App'));
 const AlexaSkill = lazy(() => import('views/AlexaSkill/AlexaSkill'));
 const Contact = lazy(() => import('views/Contact/Contact'));
@@ -29,6 +30,7 @@ const Routes = () => (
       <Redirect from="/:url*(/+)" to={window.location.pathname.slice(0, -1)} />
       <Route exact path={`${lng}/`} component={Home} />
       <Route path={`${lng}/order`} component={OrderRoutes} />
+      <Route path={`${lng}/start`} component={Start} />
       <Route path={`${lng}/radio-directory`} component={DirectoryRoutes} />
       <Route path={`${lng}/app`} component={App} />
       <Route path={`${lng}/alexa-skill`} component={AlexaSkill} />
