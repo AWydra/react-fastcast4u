@@ -60,17 +60,17 @@ const Price = ({ price, oldPrice }) => {
   return (
     <Box className={classes.root}>
       <Box className={classes.container}>
-        {oldPrice && <Text>{content.now}</Text>}
+        {oldPrice && price !== oldPrice && <Text>{content.now}</Text>}
         <Text className={classes.unit}>{currency}</Text>
         <Text className={classes.price}>{price}</Text>
-        {oldPrice && (
+        {oldPrice && price !== oldPrice && (
           <Text className={classes.old}>
             {currency}
             {oldPrice}
           </Text>
         )}
       </Box>
-      {oldPrice && (
+      {oldPrice && price !== oldPrice && (
         <Chip
           className={classes.chip}
           label={`${content.save} ${currency}${(oldPrice - price).toFixed(2)}`}

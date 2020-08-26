@@ -137,7 +137,7 @@ const PricingBlock = ({ data, ...props }) => {
                 {currency}
               </Text>
               {data.price.current}
-              {data.price.old && (
+              {data.price.old && data.price.old !== data.price.current && (
                 <Text component="small" className={classes.priceOld}>
                   {currency}
                   {data.price.old}
