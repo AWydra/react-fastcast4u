@@ -30,7 +30,7 @@ const Routes = () => (
       <Redirect from="/:url*(/+)" to={window.location.pathname.slice(0, -1)} />
       <Route exact path={`${lng}/`} component={Home} />
       <Route path={`${lng}/order`} component={OrderRoutes} />
-      <Route path={`${lng}/start`} component={Start} />
+      <Route path={`${lng}/start/:category?`} component={Start} />
       <Route path={`${lng}/radio-directory`} component={DirectoryRoutes} />
       <Route path={`${lng}/app`} component={App} />
       <Route path={`${lng}/alexa-skill`} component={AlexaSkill} />
