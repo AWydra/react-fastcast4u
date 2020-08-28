@@ -19,7 +19,6 @@ import AppDownloadSection from 'components/organisms/AppDownloadSection/AppDownl
 
 import PackageGrid from 'templates/PackageGrid';
 import PricingGrid from 'templates/PricingGrid';
-import { isOlderThan } from 'utils/date';
 import { useCurrentLanguage } from 'utils/customHooks';
 
 import AndroidIcon from '@material-ui/icons/Android';
@@ -82,34 +81,28 @@ const App = () => {
     () => [
       {
         title: content.pricing[0].title,
-        price: isOlderThan(Date.UTC(2020, 7, 27, 24)) ? 149 : 134.1,
+        price: 99,
         oldPrice: 149,
         list: content.pricing[0].list,
         image: 'https://img.fastcast4u.com/react/app/android.png',
-        link: `https://billing.fastcast4u.com/cart.php?a=add&pid=496${
-          isOlderThan(Date.UTC(2020, 7, 27, 24)) ? '' : '&promocode=summer10'
-        }`,
+        link: `https://billing.fastcast4u.com/cart.php?a=add&pid=496&promocode=summermobile`,
       },
       {
         title: content.pricing[1].title,
-        price: isOlderThan(Date.UTC(2020, 7, 27, 24)) ? 199 : 179.1,
+        price: 149,
         oldPrice: 199,
         list: content.pricing[1].list,
         image: 'https://img.fastcast4u.com/react/app/IP&android.png',
-        link: `https://billing.fastcast4u.com/cart.php?a=add&pid=498${
-          isOlderThan(Date.UTC(2020, 7, 27, 24)) ? '' : '&promocode=summer10'
-        }`,
+        link: `https://billing.fastcast4u.com/cart.php?a=add&pid=498&promocode=summermobile`,
         best: true,
       },
       {
         title: content.pricing[2].title,
-        price: isOlderThan(Date.UTC(2020, 7, 27, 24)) ? 149 : 134.1,
+        price: 99,
         oldPrice: 149,
         list: content.pricing[2].list,
         image: 'https://img.fastcast4u.com/react/app/IP.png',
-        link: `https://billing.fastcast4u.com/cart.php?a=add&pid=497${
-          isOlderThan(Date.UTC(2020, 7, 27, 24)) ? '' : '&promocode=summer10'
-        }`,
+        link: `https://billing.fastcast4u.com/cart.php?a=add&pid=497&promocode=summermobile`,
       },
     ],
     [content],
