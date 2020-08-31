@@ -3,7 +3,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import orderActions from 'actions/orderActions';
 import styled from 'styled-components';
-import { Radio, RadioGroup, FormControlLabel, Chip } from '@material-ui/core';
+import { Radio, RadioGroup, FormControlLabel } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Text from 'components/atoms/Text/Text';
 
@@ -87,12 +87,12 @@ const BillingCycle = () => {
             label={
               <>
                 {content.annually}
-                <Chip
+                {/* <Chip
                   className={classes.chip}
                   color="primary"
                   size="small"
                   label={content.months2}
-                />
+                /> */}
               </>
             }
           />
@@ -106,12 +106,12 @@ const BillingCycle = () => {
             label={
               <>
                 {content.biennially}
-                <Chip
+                {/* <Chip
                   className={classes.chip}
                   color="primary"
                   size="small"
                   label={content.months6}
-                />
+                /> */}
               </>
             }
           />
