@@ -2,15 +2,15 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import {
-  ExpansionPanel,
-  ExpansionPanelDetails,
-  ExpansionPanelSummary,
+  Accordion as MuiAccordion,
+  AccordionDetails,
+  AccordionSummary,
   makeStyles,
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Text from 'components/atoms/Text/Text';
 
-const StyledExpansionPanel = styled(ExpansionPanel)`
+const StyledAccordion = styled(MuiAccordion)`
   ${({ theme }) =>
     css`
       ${theme.palette.type !== 'dark' &&
@@ -64,11 +64,8 @@ const Accordion = ({ data, summaryProps, injectHTML, start }) => {
   useEffect(() => setExpanded(start), [data, start]);
 
   return data.map(({ heading, content }, i) => (
-    <StyledExpansionPanel key={i} expanded={expanded === i} onChange={handleChange(i)}>
-      <ExpansionPanelSummary
-        expandIcon={<ExpandMoreIcon />}
-        aria-controls={`panel${i + 1}bh-content`}
-      >
+    <StyledAccordion key={i} expanded={expanded === i} onChange={handleChange(i)}>
+      <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls={`panel${i + 1}bh-content`}>
         {React.isValidElement(heading) ? (
           heading
         ) : (
@@ -80,8 +77,8 @@ const Accordion = ({ data, summaryProps, injectHTML, start }) => {
             {...summaryProps}
           />
         )}
-      </ExpansionPanelSummary>
-      <ExpansionPanelDetails style={{ display: 'flex', flexDirection: 'column' }}>
+      </AccordionSummary>
+      <AccordionDetails style={{ display: 'flex', flexDirection: 'column' }}>
         {React.isValidElement(content) ? (
           content
         ) : (
@@ -92,8 +89,8 @@ const Accordion = ({ data, summaryProps, injectHTML, start }) => {
               : { children: content })}
           />
         )}
-      </ExpansionPanelDetails>
-    </StyledExpansionPanel>
+      </AccordionDetails>
+    </StyledAccordion>
   ));
 };
 

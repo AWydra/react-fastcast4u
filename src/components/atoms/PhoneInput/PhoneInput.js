@@ -14,7 +14,6 @@ const useStyles = makeStyles(theme => ({
     fontFamily: 'inherit !important',
     fontSize: '1rem',
     '& .flag-dropdown:before': {
-      content: ({ label }) => `"${label}" !important`,
       width: 'auto !important',
       backgroundColor: `${theme.palette.background.paper} !important`,
       color: theme.palette.text.secondary,
@@ -34,6 +33,9 @@ const useStyles = makeStyles(theme => ({
         `${theme.palette.grey[700]} !important`,
         `${theme.palette.grey[50]} !important`,
       ),
+    },
+    '& .special-label': {
+      left: `${theme.spacing(1.25)}px !important`,
     },
   },
   input: {
@@ -86,7 +88,7 @@ const useStyles = makeStyles(theme => ({
 const PhoneInput = ({ value, label, ...props }) => {
   const reduxLabel = useSelector(state => state.language.components.phoneInput.label);
   const country = useSelector(state => state.general.country);
-  const classes = useStyles({ label: label || reduxLabel });
+  const classes = useStyles();
 
   return (
     <ReactPhoneInput
@@ -96,6 +98,7 @@ const PhoneInput = ({ value, label, ...props }) => {
       inputClass={`form-control ${classes.input}`}
       searchClass={classes.search}
       dropdownClass={classes.dropdown}
+      specialLabel={label || reduxLabel}
       {...props}
     />
   );
