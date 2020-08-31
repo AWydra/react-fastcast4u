@@ -12,7 +12,9 @@ const ServiceWorkerHandler = () => {
           await registration.unregister();
           registration.waiting.postMessage({ type: 'SKIP_WAITING' });
           if (!cookies.sw_refreshed) {
-            setCookie('sw_refreshed', true);
+            setCookie('sw_refreshed', true, {
+              expires: new Date(Date.now() + 3600000),
+            });
             window.location.reload(true);
           }
         }
