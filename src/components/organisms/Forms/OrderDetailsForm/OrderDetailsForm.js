@@ -100,11 +100,11 @@ const OrderDetailsForm = ({ independent, setLoading, additionalData, setHandler 
             checked={formik.values.acceptedOffers}
           />
         }
-        label="Receive Service related SMS"
+        label="Receive Service related SMS and offers"
       />
       <BtnContainer flexEnd>
         <Button variant="contained" color="primary" type="submit">
-          {independent ? content.send : content.finish}
+          {independent ? content.update : content.finish}
         </Button>
       </BtnContainer>
     </form>

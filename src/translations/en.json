@@ -212,7 +212,7 @@
     "company": "Company (optional)",
     "sms": "Receive Service related SMS",
     "success": "Profile Successfuly Updated - Thank you",
-    "send": "Send",
+    "update": "Update",
     "finish": "Finish",
     "min3": "Must be 3 characters or more",
     "required": "Required"
