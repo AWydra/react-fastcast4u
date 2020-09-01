@@ -43,15 +43,15 @@ const MobileApp = () => {
           <Image src="https://img.fastcast4u.com/react/app/phon2.png" />
         </Grid>
         <Grid item xs={12} md={5}>
-          <Text variant="h4" fontWeight={600}>
+          <Text component="h2" variant="h4" fontWeight={500}>
             Mobile App for your Radio Station
           </Text>
           <Text color="textSecondary" variant="h6" my={2}>
             Easily listen to your online station on mobile devices
           </Text>
-          <List dense>
+          <List>
             {list.map(content => (
-              <ListItem disableGutters className={classes.item}>
+              <ListItem key={content} disableGutters className={classes.item}>
                 <ListItemIcon className={classes.listIcon}>
                   <CheckCircleIcon className={classes.icon} />
                 </ListItemIcon>
