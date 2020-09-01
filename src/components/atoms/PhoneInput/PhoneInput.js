@@ -36,6 +36,7 @@ const useStyles = makeStyles(theme => ({
     },
     '& .special-label': {
       left: `${theme.spacing(1.25)}px !important`,
+      backgroundColor: `${theme.palette.background.paper} !important`,
     },
   },
   input: {
