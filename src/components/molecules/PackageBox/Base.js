@@ -79,6 +79,7 @@ const useStyles = makeStyles(theme => ({
 const ProductBox = ({
   data,
   cycle,
+  cycleLabel,
   isActive,
   priceProp,
   priceBasicProp,
@@ -128,7 +129,7 @@ const ProductBox = ({
               </Text>
               {!!price && (
                 <Text className={classes.cycle} component="span">
-                  {cycle}
+                  {cycleLabel}
                 </Text>
               )}
             </Box>
@@ -147,6 +148,7 @@ ProductBox.propTypes = {
     description: PropTypes.string.isRequired,
   }).isRequired,
   cycle: PropTypes.string,
+  cycleLabel: PropTypes.string,
   isActive: PropTypes.bool,
   onClick: PropTypes.func,
   priceProp: PropTypes.number,
@@ -157,6 +159,7 @@ ProductBox.propTypes = {
 
 ProductBox.defaultProps = {
   cycle: '',
+  cycleLabel: '',
   isActive: false,
   onClick: () => {},
   priceProp: 0,

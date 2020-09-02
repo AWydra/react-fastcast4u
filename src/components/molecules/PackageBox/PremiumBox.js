@@ -12,6 +12,7 @@ const PremiumBox = () => {
   const content = useSelector(state => state.language.orderPackage.premium);
   const dispatch = useDispatch();
   const cycle = useSelector(state => state.order.cycle);
+  const cycles = useSelector(state => state.language.orderPackage.cycles);
   const plan = useSelector(state => state.order.plan);
   const activeProduct = useSelector(state => state.order.activeProduct);
   const products = useSelector(state => state.order.products);
@@ -37,7 +38,16 @@ const PremiumBox = () => {
     dispatch(orderActions.setPlan(plan === 'regular' ? 'premium' : 'regular'));
   };
 
-  return <Base data={data} onClick={handleClick} isActive={isActive} cycle={cycle} showPrice />;
+  return (
+    <Base
+      data={data}
+      onClick={handleClick}
+      isActive={isActive}
+      cycle={cycle}
+      cycleLabel={cycles[cycle]}
+      showPrice
+    />
+  );
 };
 
 export default PremiumBox;

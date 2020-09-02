@@ -174,6 +174,11 @@
       "apply": "Apply",
       "remove": "Remove",
       "continue": "Continue"
+    },
+    "cycles": {
+      "monthly": "monthly1",
+      "annually": "annually2",
+      "biennially": "biennially3"
     }
   },
   "orderLogin": {

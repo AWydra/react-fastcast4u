@@ -22,6 +22,7 @@ const Hide = ({ data, children }) => {
 const AddonBox = ({ data }) => {
   const dispatch = useDispatch();
   const cycle = useSelector(state => state.order.cycle);
+  const cycles = useSelector(state => state.language.orderPackage.cycles);
   const isActive = useSelector(state => state.order.activeAddons.find(id => id === data.relid));
 
   const handleClick = () => {
@@ -30,7 +31,14 @@ const AddonBox = ({ data }) => {
 
   return (
     <Hide data={data}>
-      <Base data={data} onClick={handleClick} isActive={!!isActive} cycle={cycle} showPrice />
+      <Base
+        data={data}
+        onClick={handleClick}
+        isActive={!!isActive}
+        cycle={cycle}
+        cycleLabel={cycles[cycle]}
+        showPrice
+      />
     </Hide>
   );
 };
