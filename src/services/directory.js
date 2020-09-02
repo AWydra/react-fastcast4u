@@ -19,6 +19,12 @@ const getStationList = params => dispatch => {
       },
     })
     .then(({ data }) => {
+      if (!data.data) {
+        dispatch(
+          generalActions.setAlert.error('No valid data - try again later or contact our support'),
+        );
+        return;
+      }
       dispatch(directoryActions.setPages(data.pages));
       dispatch(directoryActions.setStations(data.data));
     })
