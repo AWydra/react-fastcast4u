@@ -38,11 +38,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Promobar = ({ primary, secondary, button }) => {
+const Promobar = ({ primary, secondary, button, ...props }) => {
   const classes = useStyles();
 
   return (
-    <Box className={classes.box}>
+    <Box className={classes.box} {...props}>
       <Container className={classes.container} maxWidth="xl">
         <Box className={classes.content}>
           <Text component="h2" variant="h5" fontWeight={500}>
