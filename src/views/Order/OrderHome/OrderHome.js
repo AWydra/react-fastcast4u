@@ -9,7 +9,6 @@ import CTAButton from 'components/atoms/CTAButton/CTAButton';
 import orderServices from 'services/order';
 import { useAlert, useCurrentLanguage } from 'utils/customHooks';
 import history from 'utils/history';
-import { isOlderThan } from 'utils/date';
 
 import RocketIcon from 'assets/svg/RocketIcon';
 import MicrophoneIcon from 'assets/svg/MicrophoneIcon';
@@ -65,11 +64,7 @@ const Order = () => {
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
-    dispatch(
-      orderActions.setPromocode(
-        params.get('promo') || isOlderThan(Date.UTC(2020, 7, 27, 24)) ? '' : 'summer10',
-      ),
-    );
+    dispatch(orderActions.setPromocode(params.get('promo')));
   }, [dispatch, location.search]);
 
   const handleClick = async () => {
