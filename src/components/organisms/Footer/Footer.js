@@ -59,6 +59,16 @@ const Footer = () => {
             href: 'https://www.youtube.com/user/FastCast4u/videos/',
             external: true,
           },
+          {
+            heading: 'LinkedIn',
+            href: 'https://www.linkedin.com/company/fastcast4u',
+            external: true,
+          },
+          {
+            heading: 'Instagram',
+            href: 'https://www.instagram.com/fastcast4u/',
+            external: true,
+          },
         ],
       },
     ],

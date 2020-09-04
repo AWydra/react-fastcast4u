@@ -31,6 +31,9 @@ const orderReducer = (state = initialState, action) => {
         draftState.activeProduct = activeProduct;
         draftState.promocode = promocode || '';
         draftState.recurfor = recurfor;
+        draftState.activeAddons = draftState.activeAddons.length
+          ? draftState.activeAddons
+          : ['529'];
       });
     case 'PRICING_FETCH_FAIL':
       return produce(state, draftState => {
@@ -67,7 +70,7 @@ const orderReducer = (state = initialState, action) => {
       });
     case 'SET_PROMOCODE':
       return produce(state, draftState => {
-        draftState.promocode = action.payload;
+        draftState.promocode = action.payload || '';
       });
     case 'SET_CREDENTIALS':
       return produce(state, draftState => {

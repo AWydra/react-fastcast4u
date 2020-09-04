@@ -176,9 +176,9 @@
       "continue": "Continue"
     },
     "cycles": {
-      "monthly": "monthly1",
-      "annually": "annually2",
-      "biennially": "biennially3"
+      "monthly": "monthly",
+      "annually": "annually",
+      "biennially": "biennially"
     }
   },
   "orderLogin": {
