@@ -4,21 +4,48 @@ import { useSelector } from 'react-redux';
 import { Divider, Container } from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
 import FullContainer from 'components/atoms/FullContainer/FullContainer';
+import MarqueeBar from 'components/molecules/MarqueeBar/MarqueeBar';
+import ItemsLeftBar from 'components/molecules/ItemsLeftBar/ItemsLeftBar';
 import RowSection from 'components/organisms/RowSection/RowSection';
 import Accordion from 'components/organisms/Accordion/Accordion';
 import HeroSection from 'components/organisms/HeroSection/HeroSection';
 import history from 'utils/history';
-import { isOlderThan } from 'utils/date';
+import { isNowBetween } from 'utils/date';
 import { useCurrentLanguage } from 'utils/customHooks';
 
 const Home = () => {
   const content = useSelector(state => state.language.home);
+  const currency = useSelector(state => state.general.currency);
   const lng = useCurrentLanguage();
 
   const heroData = useMemo(
     () =>
-      isOlderThan(Date.UTC(2020, 7, 27, 12))
+      isNowBetween(Date.UTC(2020, 8, 7, 7), Date.UTC(2020, 8, 8, 7))
         ? {
+            heading: (
+              <>
+                <Text component="span" variant="h2">
+                  Alexa Radio Skill Package
+                </Text>
+                <Text display="block" component="span" variant="h3" mt={2}>
+                  Only {currency}29 <small>one-time</small>
+                </Text>
+              </>
+            ),
+            pictures: {
+              mobile: 'https://img.fastcast4u.com/react/home/home-bg-mobile',
+              desktop: 'https://img.fastcast4u.com/react/home/home-bg',
+              alt: 'Alexa on a desk',
+            },
+            buttons: [
+              {
+                label: content.heroSection.buttons[0],
+                onClick: () => history.push(`${lng}/alexa-skill`),
+                color: 'secondary',
+              },
+            ],
+          }
+        : {
             heading: 'Add your Online Radio Station to Alexa',
             pictures: {
               mobile: 'https://img.fastcast4u.com/react/home/home-bg-mobile',
@@ -29,39 +56,6 @@ const Home = () => {
               {
                 label: '\xa0GET NOW\xa0',
                 onClick: () => history.push('/alexa-skill'),
-                color: 'secondary',
-              },
-            ],
-          }
-        : {
-            heading: (
-              <>
-                <Text
-                  component="span"
-                  variant="h1"
-                  style={{ textShadow: 'black 0px 0px 2px, black 0px 0px 7px' }}
-                >
-                  Summer Sale
-                </Text>
-                <Text
-                  display="block"
-                  component="span"
-                  variant="h3"
-                  mt={2}
-                  style={{ textShadow: 'black 0px 0px 2px, black 0px 0px 7px' }}
-                >
-                  EVERYTHING {isOlderThan(Date.UTC(2020, 7, 20, 24)) ? 1 : 2}0% OFF
-                </Text>
-              </>
-            ),
-            pictures: {
-              mobile: 'https://img.fastcast4u.com/react/home/promo/summer',
-              alt: 'Summer promo',
-            },
-            buttons: [
-              {
-                label: content.heroSection.buttons[0],
-                onClick: () => history.push(`${lng}/order`),
                 color: 'secondary',
               },
             ],
@@ -138,7 +132,9 @@ const Home = () => {
           START NOW
         </CTAButton>
       </FullContainer> */}
+      {isNowBetween(Date.UTC(2020, 8, 7, 7), Date.UTC(2020, 8, 8, 7)) && <MarqueeBar />}
       <HeroSection left data={heroData} />
+      {isNowBetween(Date.UTC(2020, 8, 7, 7), Date.UTC(2020, 8, 8, 7)) && <ItemsLeftBar />}
       <FullContainer maxWidth="xl" overflowHidden>
         {sections.map((props, i) => (
           <React.Fragment key={i}>

@@ -6,3 +6,8 @@ export const getUTCTime = () => {
 };
 
 export const isOlderThan = date => date < getUTCTime();
+
+export const isNowBetween = (from, to) => {
+  const date = getUTCTime();
+  return from < date && to > date;
+};

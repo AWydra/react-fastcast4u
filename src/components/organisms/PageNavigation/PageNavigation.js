@@ -17,7 +17,7 @@ import {
 import { Chat, Help, Home, Radio, ShoppingCart } from '@material-ui/icons';
 import useOnlineStatus from '@rehooks/online-status';
 import { modeSwitch } from 'utils/theme';
-import { isOlderThan } from 'utils/date';
+import { isNowBetween } from 'utils/date';
 import { useCurrentLanguage } from 'utils/customHooks';
 
 const navigationData = [
@@ -89,6 +89,7 @@ const PageNavigation = () => {
   const { pathname } = useLocation();
   const chat = useSelector(state => state.general.chat);
   const [value, setValue] = useState(normalizePathname(lng, pathname));
+  const currency = useSelector(state => state.general.currency);
   const isOnline = useOnlineStatus();
   const dispatch = useDispatch();
 
@@ -133,14 +134,10 @@ const PageNavigation = () => {
     matches &&
     !chat.isOpen && (
       <Box className={classes.root}>
-        {!isOlderThan(Date.UTC(2020, 7, 27, 24)) && (
+        {isNowBetween(Date.UTC(2020, 8, 7, 7), Date.UTC(2020, 8, 8, 7)) && (
           <MobileCounterBar
-            content={`BUY NOW ${isOlderThan(Date.UTC(2020, 7, 20, 24)) ? 1 : 2}0% OFF`}
-            date={
-              isOlderThan(Date.UTC(2020, 7, 20, 24))
-                ? Date.UTC(2020, 7, 27, 24)
-                : Date.UTC(2020, 7, 20, 24)
-            }
+            content={`Alexa Skill for only ${currency}29`}
+            date={Date.UTC(2020, 8, 8, 7)}
           />
         )}
         <BottomNavigation component="nav" value={value} showLabels className={classes.navigation}>
