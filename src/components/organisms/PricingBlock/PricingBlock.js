@@ -12,6 +12,7 @@ import {
   Paper,
   makeStyles,
 } from '@material-ui/core';
+import Skeleton from '@material-ui/lab/Skeleton';
 import Text from 'components/atoms/Text/Text';
 import CTAButton from 'components/atoms/CTAButton/CTAButton';
 import { modeSwitch } from 'utils/theme';
@@ -136,12 +137,18 @@ const PricingBlock = ({ data, ...props }) => {
               <Text className={classes.priceUnit} component="span" fontSize={32}>
                 {currency}
               </Text>
-              {data.price.current}
-              {data.price.old && data.price.old !== data.price.current && (
-                <Text component="small" className={classes.priceOld}>
-                  {currency}
-                  {data.price.old}
-                </Text>
+              {data.price ? (
+                <>
+                  {data.price.current}
+                  {data.price.old && data.price.old !== data.price.current && (
+                    <Text component="small" className={classes.priceOld}>
+                      {currency}
+                      {data.price.old}
+                    </Text>
+                  )}
+                </>
+              ) : (
+                <Skeleton variant="text" width={60} />
               )}
             </Text>
             <Text mb={1.5} color="textSecondary">

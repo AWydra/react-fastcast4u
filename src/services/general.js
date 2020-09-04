@@ -53,6 +53,24 @@ const sendTicket = async data => {
   return response.data;
 };
 
+const getPrice = async (pid, promocode) => {
+  const response = await axios.get(`${baseUrl}/getpricing/getPricing.php`, {
+    params: { pid, promocode },
+    cancelToken: source.token,
+  });
+
+  return response.data;
+};
+
+const getItemsLeft = async promocode => {
+  const response = await axios.get(`${baseUrl}/getpricing/checkPromotion`, {
+    params: { promocode },
+    cancelToken: source.token,
+  });
+
+  return response.data;
+};
+
 const cancel = () => {
   source.cancel();
   source = axios.CancelToken.source();
@@ -64,5 +82,7 @@ export default {
   getTos,
   getPrivacyPolicy,
   sendTicket,
+  getPrice,
+  getItemsLeft,
   cancel,
 };

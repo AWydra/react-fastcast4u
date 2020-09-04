@@ -1,7 +1,9 @@
 /* eslint-disable react/no-unescaped-entities */
-import React, { Fragment, useMemo } from 'react';
+import React, { Fragment, useState, useEffect, useMemo } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
+import generalServices from 'services/general';
 import { Container, Divider, Link } from '@material-ui/core';
 import { AddCircle, PlayCircleFilled, Help } from '@material-ui/icons';
 
@@ -9,18 +11,23 @@ import FullContainer from 'components/atoms/FullContainer/FullContainer';
 import Text from 'components/atoms/Text/Text';
 import Cite from 'components/atoms/Cite/Cite';
 import YTContainer from 'components/atoms/YTContainer/YTContainer';
+import MarqueeBar from 'components/molecules/MarqueeBar/MarqueeBar';
+import ItemsLeftBar from 'components/molecules/ItemsLeftBar/ItemsLeftBar';
 
 import RowSection from 'components/organisms/RowSection/RowSection';
 import HeroSection from 'components/organisms/HeroSection/HeroSection';
 import FeatureSection from 'components/organisms/FeatureSection/FeatureSection';
 import Accordion from 'components/organisms/Accordion/Accordion';
 import PricingBlock from 'components/organisms/PricingBlock/PricingBlock';
+import { isNowBetween } from 'utils/date';
 
 const infoRef = React.createRef();
 const buyRef = React.createRef();
 
 const AlexaSkill = () => {
   const content = useSelector(state => state.language.alexa);
+  const [price, setPrice] = useState(null);
+  const location = useLocation();
 
   const heroData = useMemo(
     () => ({
@@ -117,18 +124,17 @@ const AlexaSkill = () => {
     () => ({
       heading: content.pricing.heading,
       list: content.pricing.list,
-      price: {
-        current: 60,
-        old: 99,
-      },
+      price,
       cycle: content.pricing.cycle,
       button: {
         label: content.pricing.label,
         component: 'a',
-        href: `https://fastcast4u.com/account/cart.php?a=add&pid=523&promocode=Alexa`,
+        href: `https://fastcast4u.com/account/cart.php?a=add&pid=523&promocode=${
+          isNowBetween(Date.UTC(2020, 8, 7, 7), Date.UTC(2020, 8, 8, 7)) ? 'alexa29' : 'Alexa'
+        }`,
       },
     }),
-    [content],
+    [content, price],
   );
 
   const accordionsData = useMemo(
@@ -187,8 +193,22 @@ const AlexaSkill = () => {
     [content],
   );
 
+  useEffect(() => {
+    const urlPromocode = new URLSearchParams(location.search).get('promo');
+    const promocode = isNowBetween(Date.UTC(2020, 8, 7, 7), Date.UTC(2020, 8, 8, 7))
+      ? 'alexa29'
+      : 'Alexa';
+    generalServices.getPrice(523, urlPromocode || promocode).then(res =>
+      setPrice({
+        current: res.current,
+        old: res.regular,
+      }),
+    );
+  }, []);
+
   return (
     <>
+      {isNowBetween(Date.UTC(2020, 8, 7, 7), Date.UTC(2020, 8, 8, 7)) && <MarqueeBar />}
       <HeroSection data={heroData} />
       <FullContainer maxWidth="xl" overflowHidden innerRef={infoRef}>
         {sectionsData.map((props, i) => (
@@ -200,6 +220,9 @@ const AlexaSkill = () => {
       </FullContainer>
       <FeatureSection data={featureData} />
       <PricingBlock data={pricingData} innerRef={buyRef} />
+      {isNowBetween(Date.UTC(2020, 8, 7, 7), Date.UTC(2020, 8, 8, 7)) && (
+        <ItemsLeftBar disableButton />
+      )}
       <Container maxWidth="xl">
         <Text component="h2" variant="h4" mt={4} mb={6} align="center" fontWeight={500}>
           Frequently Asked Questions
