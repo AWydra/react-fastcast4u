@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { Box, IconButton, makeStyles, useTheme, useMediaQuery } from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
+import Image from 'components/atoms/Image/Image';
 import Countdown from 'components/atoms/Countdown/Countdown';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import { isNowBetween } from 'utils/date';
@@ -10,7 +11,7 @@ import { isNowBetween } from 'utils/date';
 const Notification = styled(Link)`
   ${({ theme }) => css`
     width: 280px;
-    height: 140px;
+    padding: ${theme.spacing(2.5, 0)};
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -35,9 +36,13 @@ const useStyles = makeStyles(theme => ({
     top: -20,
     right: -10,
     filter: 'drop-shadow( 0px 0px 2px white)',
+    zIndex: 1,
   },
   img: {
-    width: theme.spacing(41),
+    paddingBottom: theme.spacing(2),
+    position: 'absolute',
+    top: 0,
+    transform: 'translateY(-100%)',
   },
   countdown: {
     display: 'block',
@@ -58,7 +63,7 @@ const PromoNotification = ({ ...props }) => {
   return (
     matches &&
     open &&
-    isNowBetween(Date.UTC(2020, 8, 7, 7), Date.UTC(2020, 8, 8, 7)) && (
+    isNowBetween(Date.UTC(2020, 8, 7, 5), Date.UTC(2020, 8, 8, 5)) && (
       <Box className={classes.root} {...props}>
         <IconButton
           className={classes.icon}
@@ -69,9 +74,7 @@ const PromoNotification = ({ ...props }) => {
           <HighlightOffIcon fontSize="inherit" />
         </IconButton>
         <Notification to="/alexa-skill">
-          <Text variant="h5" fontWeight={600} px={2}>
-            FLASH SALE
-          </Text>
+          <Image className={classes.img} src="https://img.fastcast4u.com/flash/flashsale.png" />
           <Text variant="h5" fontWeight={600} mb={1} px={2}>
             Alexa Radio Skill
           </Text>
