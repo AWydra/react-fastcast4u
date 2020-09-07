@@ -5,7 +5,7 @@ import { Divider, Container } from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
 import FullContainer from 'components/atoms/FullContainer/FullContainer';
 import MarqueeBar from 'components/molecules/MarqueeBar/MarqueeBar';
-import ItemsLeftBar from 'components/molecules/ItemsLeftBar/ItemsLeftBar';
+import ItemsLeftBar from 'components/organisms/ItemsLeftBar/ItemsLeftBar';
 import RowSection from 'components/organisms/RowSection/RowSection';
 import Accordion from 'components/organisms/Accordion/Accordion';
 import HeroSection from 'components/organisms/HeroSection/HeroSection';
@@ -20,7 +20,7 @@ const Home = () => {
 
   const heroData = useMemo(
     () =>
-      isNowBetween(Date.UTC(2020, 8, 7, 7), Date.UTC(2020, 8, 8, 7))
+      isNowBetween(Date.UTC(2020, 8, 7, 5), Date.UTC(2020, 8, 8, 5))
         ? {
             heading: (
               <>
@@ -132,9 +132,11 @@ const Home = () => {
           START NOW
         </CTAButton>
       </FullContainer> */}
-      {isNowBetween(Date.UTC(2020, 8, 7, 7), Date.UTC(2020, 8, 8, 7)) && <MarqueeBar />}
+      {isNowBetween(Date.UTC(2020, 8, 7, 5), Date.UTC(2020, 8, 8, 5)) && <MarqueeBar />}
       <HeroSection left data={heroData} />
-      {isNowBetween(Date.UTC(2020, 8, 7, 7), Date.UTC(2020, 8, 8, 7)) && <ItemsLeftBar />}
+      {isNowBetween(Date.UTC(2020, 8, 7, 5), Date.UTC(2020, 8, 8, 5)) && (
+        <ItemsLeftBar primary="LIMITED SUPPLY: {items} items left in stock" promocode="alexa29" />
+      )}
       <FullContainer maxWidth="xl" overflowHidden>
         {sections.map((props, i) => (
           <React.Fragment key={i}>

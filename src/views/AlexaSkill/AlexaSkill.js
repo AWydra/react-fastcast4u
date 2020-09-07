@@ -12,7 +12,7 @@ import Text from 'components/atoms/Text/Text';
 import Cite from 'components/atoms/Cite/Cite';
 import YTContainer from 'components/atoms/YTContainer/YTContainer';
 import MarqueeBar from 'components/molecules/MarqueeBar/MarqueeBar';
-import ItemsLeftBar from 'components/molecules/ItemsLeftBar/ItemsLeftBar';
+import ItemsLeftBar from 'components/organisms/ItemsLeftBar/ItemsLeftBar';
 
 import RowSection from 'components/organisms/RowSection/RowSection';
 import HeroSection from 'components/organisms/HeroSection/HeroSection';
@@ -130,7 +130,7 @@ const AlexaSkill = () => {
         label: content.pricing.label,
         component: 'a',
         href: `https://fastcast4u.com/account/cart.php?a=add&pid=523&promocode=${
-          isNowBetween(Date.UTC(2020, 8, 7, 7), Date.UTC(2020, 8, 8, 7)) ? 'alexa29' : 'Alexa'
+          isNowBetween(Date.UTC(2020, 8, 7, 5), Date.UTC(2020, 8, 8, 5)) ? 'alexa29' : 'Alexa'
         }`,
       },
     }),
@@ -195,7 +195,7 @@ const AlexaSkill = () => {
 
   useEffect(() => {
     const urlPromocode = new URLSearchParams(location.search).get('promo');
-    const promocode = isNowBetween(Date.UTC(2020, 8, 7, 7), Date.UTC(2020, 8, 8, 7))
+    const promocode = isNowBetween(Date.UTC(2020, 8, 7, 5), Date.UTC(2020, 8, 8, 5))
       ? 'alexa29'
       : 'Alexa';
     generalServices.getPrice(523, urlPromocode || promocode).then(res =>
@@ -208,7 +208,7 @@ const AlexaSkill = () => {
 
   return (
     <>
-      {isNowBetween(Date.UTC(2020, 8, 7, 7), Date.UTC(2020, 8, 8, 7)) && <MarqueeBar />}
+      {isNowBetween(Date.UTC(2020, 8, 7, 5), Date.UTC(2020, 8, 8, 5)) && <MarqueeBar />}
       <HeroSection data={heroData} />
       <FullContainer maxWidth="xl" overflowHidden innerRef={infoRef}>
         {sectionsData.map((props, i) => (
@@ -220,8 +220,8 @@ const AlexaSkill = () => {
       </FullContainer>
       <FeatureSection data={featureData} />
       <PricingBlock data={pricingData} innerRef={buyRef} />
-      {isNowBetween(Date.UTC(2020, 8, 7, 7), Date.UTC(2020, 8, 8, 7)) && (
-        <ItemsLeftBar disableButton />
+      {isNowBetween(Date.UTC(2020, 8, 7, 5), Date.UTC(2020, 8, 8, 5)) && (
+        <ItemsLeftBar primary="LIMITED SUPPLY: {items} items left in stock" promocode="alexa29" />
       )}
       <Container maxWidth="xl">
         <Text component="h2" variant="h4" mt={4} mb={6} align="center" fontWeight={500}>

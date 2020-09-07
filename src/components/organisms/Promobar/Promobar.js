@@ -50,17 +50,19 @@ const Promobar = ({ primary, secondary, button, ...props }) => {
           </Text>
           {secondary && <Text mt={2}>{secondary}</Text>}
         </Box>
-        <Box className={classes.buttonContainer}>
-          <Button
-            className={classes.button}
-            component={Link}
-            variant="outlined"
-            size="large"
-            {...button}
-          >
-            {button.label}
-          </Button>
-        </Box>
+        {button.label && (
+          <Box className={classes.buttonContainer}>
+            <Button
+              className={classes.button}
+              component={Link}
+              variant="outlined"
+              size="large"
+              {...button}
+            >
+              {button.label}
+            </Button>
+          </Box>
+        )}
       </Container>
     </Box>
   );
@@ -68,6 +70,7 @@ const Promobar = ({ primary, secondary, button, ...props }) => {
 
 Promobar.defaultProps = {
   secondary: '',
+  button: {},
 };
 
 Promobar.propTypes = {
@@ -75,7 +78,7 @@ Promobar.propTypes = {
   secondary: PropTypes.string,
   button: PropTypes.shape({
     label: PropTypes.string,
-  }).isRequired,
+  }),
 };
 
 export default Promobar;
