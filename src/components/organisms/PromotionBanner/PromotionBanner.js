@@ -1,10 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { Box, makeStyles } from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
 import Image from 'components/atoms/Image/Image';
 import CTAButton from 'components/atoms/CTAButton/CTAButton';
-import { isOlderThan } from 'utils/date';
+import { isNowBetween } from 'utils/date';
 
 const useStyles = makeStyles(theme => ({
   box: {
@@ -34,25 +34,25 @@ const PromotionBanner = () => {
 
   return (
     <Box className={classes.box}>
-      {isOlderThan(Date.UTC(2020, 7, 27, 24)) && (
+      {!isNowBetween(Date.UTC(2020, 8, 7, 5), Date.UTC(2020, 8, 8, 5)) && (
         <Text className={classes.heading} component="h2" variant="h4">
           Get Your Own Alexa Radio Skill
         </Text>
       )}
-      <Link to="/order">
+      <a href="https://fastcast4u.com/account/link.php?id=1001">
         <Image
           className={classes.image}
           src={
-            isOlderThan(Date.UTC(2020, 7, 27, 24))
-              ? 'https://fastcast4u.com/images/landing/alexa.png'
-              : `https://img.fastcast4u.com/react/login/o1.png`
+            isNowBetween(Date.UTC(2020, 8, 7, 5), Date.UTC(2020, 8, 8, 5))
+              ? 'https://img.fastcast4u.com/flash/alexa29b.png'
+              : 'https://fastcast4u.com/images/landing/alexa.png'
           }
         />
-      </Link>
-      {isOlderThan(Date.UTC(2020, 7, 27, 24)) && (
+      </a>
+      {!isNowBetween(Date.UTC(2020, 8, 7, 5), Date.UTC(2020, 8, 8, 5)) && (
         <CTAButton
-          component={Link}
-          to="/alexa-skill"
+          component="a"
+          href="https://fastcast4u.com/account/link.php?id=1001"
           className={classes.button}
           xlarge
           color="secondary"
