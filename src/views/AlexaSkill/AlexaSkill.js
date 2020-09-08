@@ -25,9 +25,27 @@ const infoRef = React.createRef();
 const buyRef = React.createRef();
 
 const AlexaSkill = () => {
+  const [promocode, setPromocode] = useState('');
   const content = useSelector(state => state.language.alexa);
   const [price, setPrice] = useState(null);
   const location = useLocation();
+
+  useEffect(() => {
+    const urlPromocode = new URLSearchParams(location.search).get('promo');
+    setPromocode(urlPromocode || 'alexasept');
+
+    // eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    if (!promocode) return;
+    generalServices.getPrice({ pid: 523, promocode }).then(res =>
+      setPrice({
+        current: res.current,
+        old: res.regular,
+      }),
+    );
+  }, [promocode]);
 
   const heroData = useMemo(
     () => ({
@@ -129,11 +147,10 @@ const AlexaSkill = () => {
       button: {
         label: content.pricing.label,
         component: 'a',
-        href: `https://fastcast4u.com/account/cart.php?a=add&pid=523&promocode=${
-          isNowBetween(Date.UTC(2020, 8, 7, 5), Date.UTC(2020, 8, 8, 5)) ? 'alexa29' : 'Alexa'
-        }`,
+        href: `https://fastcast4u.com/account/cart.php?a=add&pid=523&promocode=${promocode}`,
       },
     }),
+    // eslint-disable-next-line
     [content, price],
   );
 
@@ -192,19 +209,6 @@ const AlexaSkill = () => {
     ],
     [content],
   );
-
-  useEffect(() => {
-    const urlPromocode = new URLSearchParams(location.search).get('promo');
-    const promocode = isNowBetween(Date.UTC(2020, 8, 7, 5), Date.UTC(2020, 8, 8, 5))
-      ? 'alexa29'
-      : 'Alexa';
-    generalServices.getPrice(523, urlPromocode || promocode).then(res =>
-      setPrice({
-        current: res.current,
-        old: res.regular,
-      }),
-    );
-  }, []);
 
   return (
     <>
