@@ -1,5 +1,7 @@
-import React, { Fragment, useMemo } from 'react';
+import React, { Fragment, useState, useEffect, useMemo } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import generalServices from 'services/general';
 import { Divider, Link } from '@material-ui/core';
 
 import FullContainer from 'components/atoms/FullContainer/FullContainer';
@@ -27,8 +29,29 @@ import AppleIcon from 'assets/svg/AppleIcon';
 const specificationRef = React.createRef();
 
 const App = () => {
+  const [promocode, setPromocode] = useState('');
+  const [prices, setPrices] = useState([]);
   const content = useSelector(state => state.language.app);
   const lng = useCurrentLanguage();
+  const location = useLocation();
+
+  useEffect(() => {
+    const urlPromocode = new URLSearchParams(location.search).get('promo');
+    setPromocode(urlPromocode || 'summermobile');
+
+    // eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    if (!promocode) return;
+    Promise.all([
+      generalServices.getPrice({ pid: 496, promocode }),
+      generalServices.getPrice({ pid: 498, promocode }),
+      generalServices.getPrice({ pid: 497, promocode }),
+      generalServices.getPrice({ aid: 13, promocode }),
+      generalServices.getPrice({ aid: 14, promocode }),
+    ]).then(res => setPrices(res));
+  }, [promocode]);
 
   const heroData = useMemo(
     () => ({
@@ -81,31 +104,28 @@ const App = () => {
     () => [
       {
         title: content.pricing[0].title,
-        price: 99,
-        oldPrice: 149,
         list: content.pricing[0].list,
         image: 'https://img.fastcast4u.com/react/app/android.png',
-        link: `https://billing.fastcast4u.com/cart.php?a=add&pid=496&promocode=summermobile`,
+        link: `https://billing.fastcast4u.com/cart.php?a=add&pid=496&promocode=${promocode}`,
+        ...prices[0],
       },
       {
         title: content.pricing[1].title,
-        price: 149,
-        oldPrice: 199,
         list: content.pricing[1].list,
         image: 'https://img.fastcast4u.com/react/app/IP&android.png',
-        link: `https://billing.fastcast4u.com/cart.php?a=add&pid=498&promocode=summermobile`,
+        link: `https://billing.fastcast4u.com/cart.php?a=add&pid=498&promocode=${promocode}`,
         best: true,
+        ...prices[1],
       },
       {
         title: content.pricing[2].title,
-        price: 99,
-        oldPrice: 149,
         list: content.pricing[2].list,
         image: 'https://img.fastcast4u.com/react/app/IP.png',
-        link: `https://billing.fastcast4u.com/cart.php?a=add&pid=497&promocode=summermobile`,
+        link: `https://billing.fastcast4u.com/cart.php?a=add&pid=497&promocode=${promocode}`,
+        ...prices[2],
       },
     ],
-    [content],
+    [content, prices, promocode],
   );
 
   const promobarData = useMemo(
@@ -181,7 +201,7 @@ const App = () => {
           description: content.package[0].description,
         },
         cycle: content.package[0].cycle,
-        price: 10,
+        price: prices[3] || {},
       },
       {
         data: {
@@ -190,10 +210,10 @@ const App = () => {
           description: content.package[1].description,
         },
         cycle: content.package[1].cycle,
-        price: 20,
+        price: prices[4] || {},
       },
     ],
-    [content],
+    [content, prices],
   );
 
   return (
@@ -226,8 +246,8 @@ const App = () => {
               key={data.id}
               data={data}
               cycle={cycle}
-              priceProp={price}
-              priceBasicProp={price}
+              priceProp={price.current}
+              priceBasicProp={price.regular}
               showPrice
               hideCheckbox
               disabled

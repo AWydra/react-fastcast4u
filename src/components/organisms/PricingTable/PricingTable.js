@@ -67,7 +67,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const PricingTable = ({ title, price, oldPrice, list, image, link, best }) => {
+const PricingTable = ({ title, current, regular, list, image, link, best }) => {
   const classes = useStyles({ best });
 
   return (
@@ -85,7 +85,7 @@ const PricingTable = ({ title, price, oldPrice, list, image, link, best }) => {
           {title}
         </Text>
         <Divider className={classes.divider} />
-        <Price price={price} oldPrice={oldPrice} />
+        <Price current={current} regular={regular} />
         <List className={classes.list}>
           {list.map(content => (
             <ListItem key={content}>
@@ -110,14 +110,15 @@ const PricingTable = ({ title, price, oldPrice, list, image, link, best }) => {
 };
 
 PricingTable.defaultProps = {
-  oldPrice: false,
+  current: false,
+  regular: false,
   best: false,
 };
 
 PricingTable.propTypes = {
   title: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  oldPrice: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
+  current: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
+  regular: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
   list: PropTypes.arrayOf(PropTypes.string).isRequired,
   image: PropTypes.string.isRequired,
   link: PropTypes.string.isRequired,
