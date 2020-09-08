@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Box, makeStyles, Chip } from '@material-ui/core';
+import Skeleton from '@material-ui/lab/Skeleton';
 import Text from 'components/atoms/Text/Text';
 import { modeSwitch } from 'utils/theme';
 
@@ -52,7 +53,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Price = ({ price, oldPrice }) => {
+const Price = ({ current, regular }) => {
   const currency = useSelector(state => state.general.currency);
   const content = useSelector(state => state.language.components.price);
   const classes = useStyles();
@@ -60,20 +61,22 @@ const Price = ({ price, oldPrice }) => {
   return (
     <Box className={classes.root}>
       <Box className={classes.container}>
-        {oldPrice && price !== oldPrice && <Text>{content.now}</Text>}
+        {regular && current !== regular && <Text>{content.now}</Text>}
         <Text className={classes.unit}>{currency}</Text>
-        <Text className={classes.price}>{price}</Text>
-        {oldPrice && price !== oldPrice && (
+        <Text className={classes.price}>
+          {current === false ? <Skeleton variant="text" width={100} /> : current}
+        </Text>
+        {regular && current !== regular && (
           <Text className={classes.old}>
             {currency}
-            {oldPrice}
+            {regular}
           </Text>
         )}
       </Box>
-      {oldPrice && price !== oldPrice && (
+      {regular && current !== regular && (
         <Chip
           className={classes.chip}
-          label={`${content.save} ${currency}${(oldPrice - price).toFixed(2)}`}
+          label={`${content.save} ${currency}${(regular - current).toFixed(2)}`}
           color="primary"
           variant="outlined"
         />
@@ -83,12 +86,13 @@ const Price = ({ price, oldPrice }) => {
 };
 
 Price.defaultProps = {
-  oldPrice: false,
+  current: false,
+  regular: false,
 };
 
 Price.propTypes = {
-  price: PropTypes.number.isRequired,
-  oldPrice: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
+  current: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
+  regular: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
 };
 
 export default Price;
