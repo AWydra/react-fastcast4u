@@ -21,7 +21,7 @@ const orderReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'SET_PRICES':
       return produce(state, draftState => {
-        const { currency, products, addons, promocode, recurfor } = action.payload;
+        const { currency, products, addons, promocode, recurfor, activeAddons } = action.payload;
         const activeProduct = draftState.activeProduct ? draftState.activeProduct : products[0].id;
 
         draftState.loading = false;
@@ -31,9 +31,7 @@ const orderReducer = (state = initialState, action) => {
         draftState.activeProduct = activeProduct;
         draftState.promocode = promocode || '';
         draftState.recurfor = recurfor;
-        draftState.activeAddons = draftState.activeAddons.length
-          ? draftState.activeAddons
-          : ['529'];
+        draftState.activeAddons = activeAddons || draftState.activeAddons;
       });
     case 'PRICING_FETCH_FAIL':
       return produce(state, draftState => {
