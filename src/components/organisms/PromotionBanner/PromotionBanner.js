@@ -34,22 +34,22 @@ const PromotionBanner = () => {
 
   return (
     <Box className={classes.box}>
-      {!isNowBetween(Date.UTC(2020, 8, 7, 5), Date.UTC(2020, 8, 8, 5)) && (
+      {!isNowBetween(Date.UTC(2020, 8, 10, 7), Date.UTC(2020, 8, 11, 7)) && (
         <Text className={classes.heading} component="h2" variant="h4">
           Get Your Own Alexa Radio Skill
         </Text>
       )}
-      <a href="https://fastcast4u.com/account/link.php?id=1001">
+      <a href="https://fastcast4u.com/order">
         <Image
           className={classes.image}
           src={
-            isNowBetween(Date.UTC(2020, 8, 7, 5), Date.UTC(2020, 8, 8, 5))
-              ? 'https://img.fastcast4u.com/flash/alexa29b.png'
+            isNowBetween(Date.UTC(2020, 8, 10, 7), Date.UTC(2020, 8, 11, 7))
+              ? 'https://img.fastcast4u.com/flash/freeapp.png'
               : 'https://fastcast4u.com/images/landing/alexa.png'
           }
         />
       </a>
-      {!isNowBetween(Date.UTC(2020, 8, 7, 5), Date.UTC(2020, 8, 8, 5)) && (
+      {!isNowBetween(Date.UTC(2020, 8, 10, 7), Date.UTC(2020, 8, 11, 7)) && (
         <CTAButton
           component="a"
           href="https://fastcast4u.com/account/link.php?id=1001"

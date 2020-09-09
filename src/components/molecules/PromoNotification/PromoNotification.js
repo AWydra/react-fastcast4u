@@ -63,7 +63,7 @@ const PromoNotification = ({ ...props }) => {
   return (
     matches &&
     open &&
-    isNowBetween(Date.UTC(2020, 8, 7, 5), Date.UTC(2020, 8, 8, 5)) && (
+    isNowBetween(Date.UTC(2020, 8, 10, 7), Date.UTC(2020, 8, 11, 7)) && (
       <Box className={classes.root} {...props}>
         <IconButton
           className={classes.icon}
@@ -76,9 +76,9 @@ const PromoNotification = ({ ...props }) => {
         <Notification to="/alexa-skill">
           <Image className={classes.img} src="https://img.fastcast4u.com/flash/flashsale.png" />
           <Text variant="h5" fontWeight={600} mb={1} px={2}>
-            Alexa Radio Skill
+            UNLIMITED Package + FREE Mobile App
           </Text>
-          <Countdown className={classes.countdown} date={Date.UTC(2020, 8, 8, 7)} />
+          <Countdown className={classes.countdown} date={Date.UTC(2020, 8, 11, 7)} />
         </Notification>
       </Box>
     )

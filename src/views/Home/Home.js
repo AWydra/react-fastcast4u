@@ -4,31 +4,29 @@ import { useSelector } from 'react-redux';
 import { Divider, Container } from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
 import FullContainer from 'components/atoms/FullContainer/FullContainer';
-import MarqueeBar from 'components/molecules/MarqueeBar/MarqueeBar';
 import ItemsLeftBar from 'components/organisms/ItemsLeftBar/ItemsLeftBar';
+import HeroSection from 'components/organisms/HeroSection/HeroSection';
 import RowSection from 'components/organisms/RowSection/RowSection';
 import Accordion from 'components/organisms/Accordion/Accordion';
-import HeroSection from 'components/organisms/HeroSection/HeroSection';
 import history from 'utils/history';
 import { isNowBetween } from 'utils/date';
 import { useCurrentLanguage } from 'utils/customHooks';
 
 const Home = () => {
   const content = useSelector(state => state.language.home);
-  const currency = useSelector(state => state.general.currency);
   const lng = useCurrentLanguage();
 
   const heroData = useMemo(
     () =>
-      isNowBetween(Date.UTC(2020, 8, 7, 5), Date.UTC(2020, 8, 8, 5))
+      isNowBetween(Date.UTC(2020, 8, 10, 7), Date.UTC(2020, 8, 11, 7))
         ? {
             heading: (
               <>
                 <Text component="span" variant="h2">
-                  Alexa Radio Skill Package
+                  UNLIMITED Radio Server Package
                 </Text>
                 <Text display="block" component="span" variant="h3" mt={2}>
-                  Only {currency}29 <small>one-time</small>
+                  + FREE Mobile App for Android &amp; iOS
                 </Text>
               </>
             ),
@@ -40,7 +38,7 @@ const Home = () => {
             buttons: [
               {
                 label: content.heroSection.buttons[0],
-                onClick: () => history.push(`${lng}/alexa-skill`),
+                onClick: () => history.push(`${lng}/order`),
                 color: 'secondary',
               },
             ],
@@ -132,10 +130,12 @@ const Home = () => {
           START NOW
         </CTAButton>
       </FullContainer> */}
-      {isNowBetween(Date.UTC(2020, 8, 7, 5), Date.UTC(2020, 8, 8, 5)) && <MarqueeBar />}
-      <HeroSection left data={heroData} />
-      {isNowBetween(Date.UTC(2020, 8, 7, 5), Date.UTC(2020, 8, 8, 5)) && (
-        <ItemsLeftBar primary="LIMITED SUPPLY: {items} items left in stock" promocode="alexa29" />
+      <HeroSection left={false} data={heroData} />
+      {isNowBetween(Date.UTC(2020, 8, 10, 7), Date.UTC(2020, 8, 11, 7)) && (
+        <ItemsLeftBar
+          primary="LIMITED SUPPLY: {items} items left in stock"
+          promocode="flashsaleapp"
+        />
       )}
       <FullContainer maxWidth="xl" overflowHidden>
         {sections.map((props, i) => (

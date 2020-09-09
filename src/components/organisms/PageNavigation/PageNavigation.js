@@ -89,7 +89,6 @@ const PageNavigation = () => {
   const { pathname } = useLocation();
   const chat = useSelector(state => state.general.chat);
   const [value, setValue] = useState(normalizePathname(lng, pathname));
-  const currency = useSelector(state => state.general.currency);
   const isOnline = useOnlineStatus();
   const dispatch = useDispatch();
 
@@ -134,11 +133,8 @@ const PageNavigation = () => {
     matches &&
     !chat.isOpen && (
       <Box className={classes.root}>
-        {isNowBetween(Date.UTC(2020, 8, 7, 7), Date.UTC(2020, 8, 8, 7)) && (
-          <MobileCounterBar
-            content={`Alexa Skill for only ${currency}29`}
-            date={Date.UTC(2020, 8, 8, 7)}
-          />
+        {isNowBetween(Date.UTC(2020, 8, 10, 7), Date.UTC(2020, 8, 11, 7)) && (
+          <MobileCounterBar content="FLASH SALE ends:" date={Date.UTC(2020, 8, 11, 7)} />
         )}
         <BottomNavigation component="nav" value={value} showLabels className={classes.navigation}>
           {navigationData.map(({ to, label, ...props }) => (

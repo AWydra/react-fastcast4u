@@ -11,15 +11,12 @@ import FullContainer from 'components/atoms/FullContainer/FullContainer';
 import Text from 'components/atoms/Text/Text';
 import Cite from 'components/atoms/Cite/Cite';
 import YTContainer from 'components/atoms/YTContainer/YTContainer';
-import MarqueeBar from 'components/molecules/MarqueeBar/MarqueeBar';
-import ItemsLeftBar from 'components/organisms/ItemsLeftBar/ItemsLeftBar';
 
 import RowSection from 'components/organisms/RowSection/RowSection';
 import HeroSection from 'components/organisms/HeroSection/HeroSection';
 import FeatureSection from 'components/organisms/FeatureSection/FeatureSection';
 import Accordion from 'components/organisms/Accordion/Accordion';
 import PricingBlock from 'components/organisms/PricingBlock/PricingBlock';
-import { isNowBetween } from 'utils/date';
 
 const infoRef = React.createRef();
 const buyRef = React.createRef();
@@ -212,7 +209,6 @@ const AlexaSkill = () => {
 
   return (
     <>
-      {isNowBetween(Date.UTC(2020, 8, 7, 5), Date.UTC(2020, 8, 8, 5)) && <MarqueeBar />}
       <HeroSection data={heroData} />
       <FullContainer maxWidth="xl" overflowHidden innerRef={infoRef}>
         {sectionsData.map((props, i) => (
@@ -224,9 +220,6 @@ const AlexaSkill = () => {
       </FullContainer>
       <FeatureSection data={featureData} />
       <PricingBlock data={pricingData} innerRef={buyRef} />
-      {isNowBetween(Date.UTC(2020, 8, 7, 5), Date.UTC(2020, 8, 8, 5)) && (
-        <ItemsLeftBar primary="LIMITED SUPPLY: {items} items left in stock" promocode="alexa29" />
-      )}
       <Container maxWidth="xl">
         <Text component="h2" variant="h4" mt={4} mb={6} align="center" fontWeight={500}>
           Frequently Asked Questions

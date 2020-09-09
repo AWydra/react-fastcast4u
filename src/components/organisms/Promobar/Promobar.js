@@ -23,6 +23,7 @@ const useStyles = makeStyles(theme => ({
     paddingRight: theme.spacing(2),
     flexGrow: 1,
     [theme.breakpoints.down('xs')]: {
+      padding: theme.spacing(0, 1),
       textAlign: 'center',
     },
   },
@@ -38,11 +39,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Promobar = ({ primary, secondary, button, ...props }) => {
+const Promobar = ({ className, primary, secondary, button, ...props }) => {
   const classes = useStyles();
 
   return (
-    <Box className={classes.box} {...props}>
+    <Box className={`${classes.box} ${className}`} {...props}>
       <Container className={classes.container} maxWidth="xl">
         <Box className={classes.content}>
           <Text component="h2" variant="h5" fontWeight={500}>
@@ -69,11 +70,13 @@ const Promobar = ({ primary, secondary, button, ...props }) => {
 };
 
 Promobar.defaultProps = {
+  className: '',
   secondary: '',
   button: {},
 };
 
 Promobar.propTypes = {
+  className: PropTypes.string,
   primary: PropTypes.string.isRequired,
   secondary: PropTypes.string,
   button: PropTypes.shape({
