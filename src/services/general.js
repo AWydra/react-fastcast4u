@@ -53,9 +53,9 @@ const sendTicket = async data => {
   return response.data;
 };
 
-const getPrice = async (pid, promocode) => {
+const getPrice = async params => {
   const response = await axios.get(`${baseUrl}/getpricing/getPricing.php`, {
-    params: { pid, promocode },
+    params,
     cancelToken: source.token,
   });
 
@@ -63,7 +63,7 @@ const getPrice = async (pid, promocode) => {
 };
 
 const getItemsLeft = async promocode => {
-  const response = await axios.get(`${baseUrl}/getpricing/checkPromotion`, {
+  const response = await axios.get(`${baseUrl}/getpricing/checkPromotion.php`, {
     params: { promocode },
     cancelToken: source.token,
   });

@@ -1,13 +1,13 @@
 /* eslint-disable import/prefer-default-export */
 
-export const getUTCTime = () => {
+export const getTime = () => {
   const tmLoc = new Date();
-  return tmLoc.getTime() + tmLoc.getTimezoneOffset() * 60000;
+  return tmLoc.getTime();
 };
 
-export const isOlderThan = date => date < getUTCTime();
+export const isOlderThan = date => date < getTime();
 
 export const isNowBetween = (from, to) => {
-  const date = getUTCTime();
+  const date = getTime();
   return from < date && to > date;
 };

@@ -54,6 +54,12 @@ const useStyles = makeStyles(theme => ({
       marginLeft: ({ left }) => left && theme.spacing(1),
     },
   },
+  content: {
+    maxWidth: 800,
+    margin: theme.spacing(5, 0, 0),
+    textAlign: 'inherit',
+    color: 'white',
+  },
   buttonContainer: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -67,12 +73,12 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const HeroSection = ({ data, left, youtube, ...props }) => {
+const HeroSection = ({ className, data, left, youtube, ...props }) => {
   const classes = useStyles({ left });
   const [open, setOpen] = useState(false);
 
   return (
-    <Box className={classes.box} component="section" {...props}>
+    <Box className={`${classes.box} ${className}`} component="section" {...props}>
       <Picture
         className={classes.picture}
         desktop={data.pictures.desktop}
@@ -83,6 +89,11 @@ const HeroSection = ({ data, left, youtube, ...props }) => {
         <Text className={classes.heading} component="h1" variant="h2">
           {data.heading}
         </Text>
+        {data.content && (
+          <Text className={classes.content} variant="h4">
+            {data.content}
+          </Text>
+        )}
         {data.buttons && (
           <Box mt={4} display="flex" className={classes.buttonContainer}>
             {data.buttons.map(({ label, ...props }) => (
@@ -110,13 +121,16 @@ const HeroSection = ({ data, left, youtube, ...props }) => {
 };
 
 HeroSection.defaultProps = {
+  className: '',
   left: false,
   youtube: {},
 };
 
 HeroSection.propTypes = {
+  className: PropTypes.string,
   data: PropTypes.shape({
     heading: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
+    content: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
     pictures: PropTypes.shape({
       mobile: PropTypes.string,
       desktop: PropTypes.string,
