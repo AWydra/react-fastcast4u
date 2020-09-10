@@ -5,14 +5,16 @@ import { LinearProgress } from '@material-ui/core';
 const AlexaSkill = lazy(() => import('views/Start/AlexaSkill/AlexaSkill'));
 const MobileApp = lazy(() => import('views/Start/MobileApp/MobileApp'));
 const WebPlayer = lazy(() => import('views/Start/WebPlayer/WebPlayer'));
+const More = lazy(() => import('views/Start/More/More'));
 
 const StartRoutes = () => (
   <Suspense fallback={<LinearProgress />}>
     <Switch>
-      <Route path="/start/radio-control-panel">Radio Control Panel</Route>
+      <Route path="/start/control-panel">Radio Control Panel</Route>
       <Route path="/start/web-player" component={WebPlayer} />
       <Route path="/start/mobile-app" component={MobileApp} />
       <Route path="/start/alexa-skill" component={AlexaSkill} />
+      <Route path="/start/more" component={More} />
       <Route path="/start">Radio Server</Route>
     </Switch>
   </Suspense>

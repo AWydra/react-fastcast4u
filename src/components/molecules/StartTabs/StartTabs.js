@@ -43,10 +43,12 @@ const StartTabs = () => {
         scrollButtons="on"
       >
         <Tab value="" label="Radio Server" />
-        <Tab value="/radio-control-panel" label="Radio Control Panel" />
+        <Tab value="/control-panel" label="Control Panel" />
+        <Tab value="/social-media-stream" label="Social Media Stream" />
         <Tab value="/web-player" label="Web Player" />
         <Tab value="/mobile-app" label="Mobile App" />
         <Tab value="/alexa-skill" label="Alexa Skill" />
+        <Tab value="/more" label="More" />
       </Tabs>
     </Paper>
   );
