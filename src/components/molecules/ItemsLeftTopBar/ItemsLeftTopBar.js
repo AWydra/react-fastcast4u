@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import generalServices from 'services/general';
 import { Box, makeStyles } from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
+import { isNowBetween } from 'utils/date';
 
 const useStyles = makeStyles({
   text: {
@@ -11,7 +12,10 @@ const useStyles = makeStyles({
   },
 });
 
-const MarqueeBar = () => {
+const content =
+  'Flash Sale: UNLIMITED Package + FREE Mobile App | LIMITED SUPPLY: {items} items left in stock'; // prepared for CMS integration
+
+const ItemsLeftTopBar = () => {
   const [items, setItems] = useState('...');
   const classes = useStyles();
 
@@ -20,13 +24,14 @@ const MarqueeBar = () => {
   }, []);
 
   return (
-    <Box py={0.5} bgcolor="primary.main">
-      <Text className={classes.text} variant="h6">
-        Flash Sale: UNLIMITED Package + FREE Mobile App | LIMITED SUPPLY: {items} items left in
-        stock
-      </Text>
-    </Box>
+    isNowBetween(Date.UTC(2020, 8, 10, 7), Date.UTC(2020, 8, 11, 7)) && (
+      <Box py={0.5} bgcolor="primary.main">
+        <Text className={classes.text} variant="h6">
+          {content.replace('{items}', items)}
+        </Text>
+      </Box>
+    )
   );
 };
 
-export default MarqueeBar;
+export default ItemsLeftTopBar;

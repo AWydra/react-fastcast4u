@@ -10,10 +10,9 @@ import Logo from 'components/atoms/Logo/Logo';
 import NavButton from 'components/atoms/NavButton/NavButton';
 import SocialBar from 'components/molecules/SocialBar/SocialBar';
 import LanguageButton from 'components/molecules/LanguageButton/LanguageButton';
-import MarqueeBar from 'components/molecules/MarqueeBar/MarqueeBar';
+import ItemsLeftTopBar from 'components/molecules/ItemsLeftTopBar/ItemsLeftTopBar';
 import { useCurrentLanguage } from 'utils/customHooks';
 import { isDev } from 'utils/nodeEnv';
-import { isNowBetween } from 'utils/date';
 
 import LightIcon from '@material-ui/icons/Brightness4';
 import DarkIcon from '@material-ui/icons/Brightness7';
@@ -63,8 +62,7 @@ const Header = () => {
           <NavButton to={`${lng}/login`}>{content.login}</NavButton>
         </StyledToolbar>
       </StyledAppBar>
-
-      {isNowBetween(Date.UTC(2020, 8, 10, 7), Date.UTC(2020, 8, 11, 7)) && <MarqueeBar />}
+      <ItemsLeftTopBar />
     </>
   );
 };
