@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Grid } from '@material-ui/core';
 import Skeleton from '@material-ui/lab/Skeleton';
@@ -21,6 +21,7 @@ const Help = () => {
   const [title, setTitle] = useState('');
   const [loading, setLoading] = useState(true);
   const location = useLocation();
+  const params = useParams();
 
   useEffect(() => {
     const id = new URLSearchParams(location.search).get('id');
@@ -49,10 +50,12 @@ const Help = () => {
     };
 
     Promise.all([getCategories(), getArticles()]).then(values => {
+      const { id } =
+        values[0].find(category => category.description === `/${params.category}`) || {};
       setCategories(values[0]);
       setArticles(values[1]);
-      setActiveId(values[0][0].id);
       setLoading(false);
+      setActiveId(id || values[0][0].id);
     });
 
     return () => {
@@ -72,6 +75,16 @@ const Help = () => {
       article.helpDescription.toLowerCase().includes(title.toLowerCase()),
     // eslint-disable-next-line
     [articles, title],
+  );
+
+  const handleTabClick = useCallback(
+    id => {
+      setActiveId(id);
+      setTitle('');
+      location.pathname.includes('help/') && history.replace(`${lng}/help`);
+    },
+    // eslint-disable-next-line
+    [],
   );
 
   const memoizedArticles = useMemo(
@@ -106,10 +119,7 @@ const Help = () => {
       <HelpTabs
         categories={categories}
         activeId={activeId}
-        onClick={id => {
-          setActiveId(id);
-          setTitle('');
-        }}
+        onClick={handleTabClick}
         loading={loading}
       />
       <Grid container spacing={4}>
