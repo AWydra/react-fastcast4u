@@ -15,30 +15,30 @@ import { useCurrentLanguage } from 'utils/customHooks';
 const Home = () => {
   const content = useSelector(state => state.language.home);
   const lng = useCurrentLanguage();
+  const currency = useSelector(state => state.general.currency);
 
   const heroData = useMemo(
     () =>
-      isNowBetween(Date.UTC(2020, 8, 10, 7), Date.UTC(2020, 8, 11, 7))
+      isNowBetween(Date.UTC(2020, 8, 12, 7), Date.UTC(2020, 8, 13, 7))
         ? {
             heading: (
               <>
                 <Text component="span" variant="h2">
-                  UNLIMITED Radio Server Package
+                  Radio Directory Registration Package
                 </Text>
                 <Text display="block" component="span" variant="h3" mt={2}>
-                  + FREE Mobile App for Android &amp; iOS
+                  Only {currency}19 one-time
                 </Text>
               </>
             ),
             pictures: {
-              mobile: 'https://img.fastcast4u.com/react/home/home-bg-mobile',
-              desktop: 'https://img.fastcast4u.com/react/home/home-bg',
-              alt: 'Alexa on a desk',
+              mobile: 'https://img.fastcast4u.com/flash/flashpromo',
+              alt: 'Flash promotion',
             },
             buttons: [
               {
                 label: content.heroSection.buttons[0],
-                onClick: () => history.push(`${lng}/order`),
+                onClick: () => history.push(`${lng}/radio-promotion`),
                 color: 'secondary',
               },
             ],
@@ -131,10 +131,10 @@ const Home = () => {
         </CTAButton>
       </FullContainer> */}
       <HeroSection left={false} data={heroData} />
-      {isNowBetween(Date.UTC(2020, 8, 10, 7), Date.UTC(2020, 8, 11, 7)) && (
+      {isNowBetween(Date.UTC(2020, 8, 12, 7), Date.UTC(2020, 8, 13, 7)) && (
         <ItemsLeftBar
           primary="LIMITED SUPPLY: {items} items left in stock"
-          promocode="flashsaleapp"
+          promocode="flashsalepromo"
         />
       )}
       <FullContainer maxWidth="xl" overflowHidden>

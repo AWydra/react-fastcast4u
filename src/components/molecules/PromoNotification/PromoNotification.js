@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { Box, IconButton, makeStyles, useTheme, useMediaQuery } from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
@@ -57,13 +58,14 @@ const PromoNotification = ({ ...props }) => {
   const [open, setOpen] = useState(true);
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('md'));
+  const currency = useSelector(state => state.general.currency);
 
   const handleClick = () => setOpen(false);
 
   return (
     matches &&
     open &&
-    isNowBetween(Date.UTC(2020, 8, 10, 7), Date.UTC(2020, 8, 11, 7)) && (
+    isNowBetween(Date.UTC(2020, 8, 12, 7), Date.UTC(2020, 8, 13, 7)) && (
       <Box className={classes.root} {...props}>
         <IconButton
           className={classes.icon}
@@ -73,12 +75,12 @@ const PromoNotification = ({ ...props }) => {
         >
           <HighlightOffIcon fontSize="inherit" />
         </IconButton>
-        <Notification to="/alexa-skill">
+        <Notification to="/radio-promotion">
           <Image className={classes.img} src="https://img.fastcast4u.com/flash/flashsale.png" />
           <Text variant="h5" fontWeight={600} mb={1} px={2}>
-            UNLIMITED Package + FREE Mobile App
+            Radio Directory Registration Package for {currency}19
           </Text>
-          <Countdown className={classes.countdown} date={Date.UTC(2020, 8, 11, 7)} />
+          <Countdown className={classes.countdown} date={Date.UTC(2020, 8, 13, 7)} />
         </Notification>
       </Box>
     )
