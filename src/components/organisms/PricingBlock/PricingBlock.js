@@ -20,7 +20,7 @@ import { modeSwitch } from 'utils/theme';
 const useStyles = makeStyles(theme => ({
   container: {
     marginBottom: theme.spacing(10),
-    paddingTop: theme.spacing(4),
+    padding: theme.spacing(4, 0, 0),
   },
   paper: {
     boxShadow: theme.shadows[6],
@@ -103,7 +103,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const PricingBlock = ({ data, ...props }) => {
+const PricingBlock = ({ data, showNew, ...props }) => {
   const classes = useStyles();
   const currency = useSelector(state => state.general.currency);
 
@@ -130,7 +130,7 @@ const PricingBlock = ({ data, ...props }) => {
                 </Grid>
               ))}
             </Grid>
-            <Chip className={classes.chip} label="NEW" color="secondary" />
+            {showNew && <Chip className={classes.chip} label="NEW" color="secondary" />}
           </Grid>
           <Grid item xs={12} md={3} className={classes.pricing}>
             <Text fontSize={64} className={classes.price}>
@@ -164,6 +164,10 @@ const PricingBlock = ({ data, ...props }) => {
   );
 };
 
+PricingBlock.defaultProps = {
+  showNew: false,
+};
+
 PricingBlock.propTypes = {
   data: PropTypes.shape({
     heading: PropTypes.string,
@@ -177,6 +181,7 @@ PricingBlock.propTypes = {
       label: PropTypes.string,
     }),
   }).isRequired,
+  showNew: PropTypes.bool,
 };
 
 export default PricingBlock;

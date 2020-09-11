@@ -219,7 +219,7 @@ const AlexaSkill = () => {
         ))}
       </FullContainer>
       <FeatureSection data={featureData} />
-      <PricingBlock data={pricingData} innerRef={buyRef} />
+      <PricingBlock data={pricingData} innerRef={buyRef} showNew />
       <Container maxWidth="xl">
         <Text component="h2" variant="h4" mt={4} mb={6} align="center" fontWeight={500}>
           Frequently Asked Questions

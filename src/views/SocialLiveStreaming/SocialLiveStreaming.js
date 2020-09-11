@@ -95,7 +95,7 @@ const SocialLiveStreaming = () => {
 
   useEffect(() => {
     const urlPromocode = new URLSearchParams(location.search).get('promo');
-    setPromocode(urlPromocode || 'livenow');
+    setPromocode(urlPromocode || '');
 
     // eslint-disable-next-line
   }, []);
@@ -105,7 +105,7 @@ const SocialLiveStreaming = () => {
     generalServices.getPrice({ pid: 529, promocode }).then(res =>
       setPrice({
         current: res.current,
-        old: res.regular,
+        old: 49,
       }),
     );
   }, [promocode]);
@@ -126,7 +126,7 @@ const SocialLiveStreaming = () => {
       button: {
         label: 'Get Now',
         component: 'a',
-        href: `https://fastcast4u.com/account/cart.php?a=add&pid=529&billingcycle=monthly&promocode=${promocode}`,
+        href: `https://fastcast4u.com/account/cart.php?a=add&pid=529&billingcycle=monthly&skipconfig=1&promocode=${promocode}`,
       },
     }),
     [price, promocode],
@@ -143,7 +143,7 @@ const SocialLiveStreaming = () => {
           </Fragment>
         ))}
       </FullContainer>
-      <PricingBlock data={pricingData} />
+      <PricingBlock data={pricingData} showNew />
     </>
   );
 };

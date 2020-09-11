@@ -67,7 +67,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const PricingTable = ({ title, current, regular, list, image, link, best }) => {
+const PricingTable = ({ title, current, regular, list, image, link, best, ...props }) => {
   const classes = useStyles({ best });
 
   return (
@@ -79,6 +79,7 @@ const PricingTable = ({ title, current, regular, list, image, link, best }) => {
       sm={best ? 9 : 6}
       md={best && 6}
       lg={4}
+      {...props}
     >
       <Paper className={classes.box} variant="outlined">
         <Text className={classes.title} component="h4" variant="h6">
@@ -113,6 +114,7 @@ PricingTable.defaultProps = {
   current: false,
   regular: false,
   best: false,
+  image: '',
 };
 
 PricingTable.propTypes = {
@@ -120,7 +122,7 @@ PricingTable.propTypes = {
   current: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
   regular: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
   list: PropTypes.arrayOf(PropTypes.string).isRequired,
-  image: PropTypes.string.isRequired,
+  image: PropTypes.string,
   link: PropTypes.string.isRequired,
   best: PropTypes.bool,
 };
