@@ -11,6 +11,7 @@ const Start = lazy(() => import('views/Start/Start'));
 const App = lazy(() => import('views/App/App'));
 const AlexaSkill = lazy(() => import('views/AlexaSkill/AlexaSkill'));
 const SocialLiveStreaming = lazy(() => import('views/SocialLiveStreaming/SocialLiveStreaming'));
+const RadioPromotion = lazy(() => import('views/RadioPromotion/RadioPromotion'));
 const Contact = lazy(() => import('views/Contact/Contact'));
 const Login = lazy(() => import('views/Login/Login'));
 const Ticket = lazy(() => import('views/Ticket/Ticket'));
@@ -36,6 +37,7 @@ const Routes = () => (
       <Route path={`${lng}/app`} component={App} />
       <Route path={`${lng}/alexa-skill`} component={AlexaSkill} />
       <Route path={`${lng}/social-live-streaming`} component={SocialLiveStreaming} />
+      <Route path={`${lng}/radio-promotion`} component={RadioPromotion} />
       <Route path={`${lng}/login`} component={Login} />
       <Route path={`${lng}/ticket`} component={Ticket} />
       <Route path={`${lng}/contact`} component={Contact} />
