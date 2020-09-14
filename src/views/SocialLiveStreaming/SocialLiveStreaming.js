@@ -20,9 +20,8 @@ const heroData = {
   heading: 'Social Media Live Streaming',
   content: 'Reach new audience by sharing your Radio Stream in the top social media channels',
   pictures: {
-    mobile: 'https://img.fastcast4u.com/react/alexa/alexa-bg-mobile',
-    desktop: 'https://img.fastcast4u.com/react/alexa/alexa-bg',
-    alt: 'Alexa on a desk',
+    mobile: 'https://img.fastcast4u.com/flash/flashpromo',
+    alt: 'Microphone on a desk',
   },
 };
 
@@ -89,7 +88,7 @@ const sectionsData = [
 
 const SocialLiveStreaming = () => {
   const location = useLocation();
-  const [promocode, setPromocode] = useState('');
+  const [promocode, setPromocode] = useState(null);
   const [price, setPrice] = useState(null);
   const classes = useStyles();
 
@@ -101,7 +100,7 @@ const SocialLiveStreaming = () => {
   }, []);
 
   useEffect(() => {
-    if (!promocode) return;
+    if (promocode === null) return;
     generalServices.getPrice({ pid: 529, promocode }).then(res =>
       setPrice({
         current: res.current,
@@ -119,7 +118,6 @@ const SocialLiveStreaming = () => {
         'YouTube Live Streaming',
         'Custom Text and Track info',
         'Twitter Live Streaming though Periscope',
-        'Streaming on up to 3 channels simultaneously',
       ],
       price,
       cycle: 'Monthly',

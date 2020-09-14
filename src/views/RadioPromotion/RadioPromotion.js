@@ -5,7 +5,6 @@ import { Container, Grid, makeStyles } from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
 import HeadingBlock from 'components/molecules/HeadingBlock/HeadingBlock';
 import PricingTable from 'components/organisms/PricingTable/PricingTable';
-import { isNowBetween } from 'utils/date';
 
 const useStyles = makeStyles(theme => ({
   pricing: {
@@ -26,22 +25,20 @@ const useStyles = makeStyles(theme => ({
 
 const RadioPromotion = () => {
   const location = useLocation();
-  const [promocode, setPromocode] = useState('');
+  const [promocode, setPromocode] = useState(null);
   const [price, setPrice] = useState(null);
   const classes = useStyles();
 
   useEffect(() => {
     const urlPromocode = new URLSearchParams(location.search).get('promo');
-    const promocode = isNowBetween(Date.UTC(2020, 8, 12, 7), Date.UTC(2020, 8, 13, 7))
-      ? 'flashsalepromo'
-      : 'directoryRegPromo';
+    const promocode = 'directoryRegPromo';
     setPromocode(urlPromocode || promocode);
 
     // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
-    if (!promocode) return;
+    if (promocode === null) return;
     generalServices.getPrice({ pid: 479, promocode }).then(res =>
       setPrice({
         current: res.current,

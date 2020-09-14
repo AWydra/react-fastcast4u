@@ -22,7 +22,7 @@ const infoRef = React.createRef();
 const buyRef = React.createRef();
 
 const AlexaSkill = () => {
-  const [promocode, setPromocode] = useState('');
+  const [promocode, setPromocode] = useState(null);
   const content = useSelector(state => state.language.alexa);
   const [price, setPrice] = useState(null);
   const location = useLocation();
@@ -35,7 +35,7 @@ const AlexaSkill = () => {
   }, []);
 
   useEffect(() => {
-    if (!promocode) return;
+    if (promocode === null) return;
     generalServices.getPrice({ pid: 523, promocode }).then(res =>
       setPrice({
         current: res.current,

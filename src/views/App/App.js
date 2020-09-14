@@ -29,7 +29,7 @@ import AppleIcon from 'assets/svg/AppleIcon';
 const specificationRef = React.createRef();
 
 const App = () => {
-  const [promocode, setPromocode] = useState('');
+  const [promocode, setPromocode] = useState(null);
   const [prices, setPrices] = useState([]);
   const content = useSelector(state => state.language.app);
   const lng = useCurrentLanguage();
@@ -43,7 +43,7 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    if (!promocode) return;
+    if (promocode === null) return;
     Promise.all([
       generalServices.getPrice({ pid: 496, promocode }),
       generalServices.getPrice({ pid: 498, promocode }),
