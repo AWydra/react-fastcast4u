@@ -19,15 +19,15 @@ const Home = () => {
 
   const heroData = useMemo(
     () =>
-      isNowBetween(Date.UTC(2020, 8, 12, 7), Date.UTC(2020, 8, 13, 7))
+      isNowBetween(Date.UTC(2020, 8, 15, 7), Date.UTC(2020, 8, 16, 7))
         ? {
             heading: (
               <>
                 <Text component="span" variant="h2">
-                  Radio Directory Registration Package
+                  Unlimited Radio Server Package
                 </Text>
                 <Text display="block" component="span" variant="h3" mt={2}>
-                  Only {currency}19 one-time
+                  only {currency}9 monthly
                 </Text>
               </>
             ),
@@ -38,22 +38,22 @@ const Home = () => {
             buttons: [
               {
                 label: content.heroSection.buttons[0],
-                onClick: () => history.push(`${lng}/radio-promotion`),
+                onClick: () => history.push(`${lng}/order`),
                 color: 'secondary',
               },
             ],
           }
         : {
-            heading: 'Add your Online Radio Station to Alexa',
+            heading: 'Social Media Live Streaming',
+            content: 'Start Streaming Live to Facebook, YouTube and Twitter',
             pictures: {
-              mobile: 'https://img.fastcast4u.com/react/home/home-bg-mobile',
-              desktop: 'https://img.fastcast4u.com/react/home/home-bg',
-              alt: 'Alexa on a desk',
+              mobile: 'https://img.fastcast4u.com/flash/flashpromo',
+              alt: 'Microphone on a desk',
             },
             buttons: [
               {
-                label: '\xa0GET NOW\xa0',
-                onClick: () => history.push('/alexa-skill'),
+                label: '\xa0START NOW\xa0',
+                onClick: () => history.push(`${lng}/social-live-streaming`),
                 color: 'secondary',
               },
             ],
@@ -114,27 +114,11 @@ const Home = () => {
 
   return (
     <>
-      {/* <FullContainer center maxWidth="xl">
-        <Text component="h1" variant="h2" px={2} fontWeight={500} align="center" gutterBottom>
-          Create Your Own Internet Radio Station
-        </Text>
-        <CTAButton
-          color="primary"
-          size="large"
-          component={Link}
-          to="/order"
-          xlarge
-          endIcon={<RocketIcon />}
-          mt={4}
-        >
-          START NOW
-        </CTAButton>
-      </FullContainer> */}
-      <HeroSection left={false} data={heroData} />
-      {isNowBetween(Date.UTC(2020, 8, 12, 7), Date.UTC(2020, 8, 13, 7)) && (
+      <HeroSection data={heroData} />
+      {isNowBetween(Date.UTC(2020, 8, 15, 7), Date.UTC(2020, 8, 16, 7)) && (
         <ItemsLeftBar
           primary="LIMITED SUPPLY: {items} items left in stock"
-          promocode="flashsalepromo"
+          promocode="flashsalemonthly"
         />
       )}
       <FullContainer maxWidth="xl" overflowHidden>

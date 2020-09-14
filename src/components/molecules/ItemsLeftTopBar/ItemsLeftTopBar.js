@@ -14,7 +14,7 @@ const useStyles = makeStyles({
 });
 
 const content =
-  'Flash Sale: Radio Directory Registration Package for {currency}19 | LIMITED SUPPLY: {items} items left in stock'; // prepared for CMS integration
+  'Flash Sale: Unlimited Radio Server for {currency}9 monthly | LIMITED SUPPLY: {items} items left in stock'; // prepared for CMS integration
 
 const ItemsLeftTopBar = () => {
   const [items, setItems] = useState('...');
@@ -22,11 +22,11 @@ const ItemsLeftTopBar = () => {
   const classes = useStyles();
 
   useEffect(() => {
-    generalServices.getItemsLeft('flashsalepromo').then(res => setItems(res.uses));
+    generalServices.getItemsLeft('flashsalemonthly').then(res => setItems(res.uses));
   }, []);
 
   return (
-    isNowBetween(Date.UTC(2020, 8, 12, 7), Date.UTC(2020, 8, 13, 7)) && (
+    isNowBetween(Date.UTC(2020, 8, 15, 7), Date.UTC(2020, 8, 16, 7)) && (
       <Box py={0.5} bgcolor="primary.main">
         <Text className={classes.text} variant="h6">
           {content.replace('{items}', items).replace('{currency}', currency)}

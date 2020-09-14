@@ -27,8 +27,7 @@ const useStyles = makeStyles(theme => ({
       justifyContent: 'center',
       textAlign: 'center',
       [theme.breakpoints.up('lg')]: {
-        width: '50%',
-        maxWidth: theme.spacing(98),
+        maxWidth: '60%',
         marginLeft: '10%',
         textAlign: 'left',
       },
@@ -55,8 +54,8 @@ const useStyles = makeStyles(theme => ({
     },
   },
   content: {
-    maxWidth: 800,
-    margin: theme.spacing(5, 0, 0),
+    maxWidth: 1000,
+    margin: theme.spacing(5, 'auto', 0),
     textAlign: 'inherit',
     color: 'white',
   },

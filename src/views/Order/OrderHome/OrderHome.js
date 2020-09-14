@@ -64,7 +64,7 @@ const Order = () => {
 
   useEffect(() => {
     const urlPromocode = new URLSearchParams(location.search).get('promo');
-    const promocode = '';
+    const promocode = 'flashsalemonthly';
     dispatch(orderActions.setPromocode(urlPromocode || promocode));
   }, [dispatch, location.search]);
 
