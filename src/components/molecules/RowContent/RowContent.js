@@ -3,9 +3,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Box, Button, makeStyles } from '@material-ui/core';
+import {
+  Box,
+  Button,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  makeStyles,
+} from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
 import { modeSwitch } from 'utils/theme';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 const useStyles = makeStyles(theme => ({
   box: {
@@ -53,12 +62,25 @@ const useStyles = makeStyles(theme => ({
             fontSize: 19,
           },
         },
+  item: {
+    padding: 0,
+  },
+  listIcon: {
+    minWidth: theme.spacing(4),
+    color: theme.palette.primary.main,
+  },
+  icon: {
+    fontSize: 18,
+  },
+  itemText: {
+    fontSize: '1rem',
+  },
   btn: {
-    marginTop: theme.spacing(4),
+    marginTop: theme.spacing(3),
   },
 }));
 
-const RowContent = ({ heading, content, button, long }) => {
+const RowContent = ({ heading, content, button, list, long }) => {
   const classes = useStyles(long);
 
   return (
@@ -66,9 +88,23 @@ const RowContent = ({ heading, content, button, long }) => {
       <Text component="h3" variant="h3" mb={3} className={classes.heading}>
         {heading}
       </Text>
-      <Text component="p" variant="h5" mt={0} className={classes.content}>
-        {content}
-      </Text>
+      {content && (
+        <Text component="p" variant="h5" mt={0} className={classes.content}>
+          {content}
+        </Text>
+      )}
+      {!!list.length && (
+        <List>
+          {list.map(content => (
+            <ListItem key={content} disableGutters className={classes.item}>
+              <ListItemIcon className={classes.listIcon}>
+                <CheckCircleIcon className={classes.icon} />
+              </ListItemIcon>
+              <ListItemText className={classes.itemText} primary={content} />
+            </ListItem>
+          ))}
+        </List>
+      )}
       {button.label && (
         <Button
           className={classes.btn}
@@ -87,13 +123,16 @@ const RowContent = ({ heading, content, button, long }) => {
 };
 
 RowContent.defaultProps = {
+  content: '',
+  list: [],
   button: {},
   long: false,
 };
 
 RowContent.propTypes = {
   heading: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired,
+  content: PropTypes.string,
+  list: PropTypes.arrayOf(PropTypes.string),
   button: PropTypes.shape({
     label: PropTypes.string,
     to: PropTypes.string,
