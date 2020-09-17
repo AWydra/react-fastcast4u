@@ -53,12 +53,12 @@ const useStyles = makeStyles(theme => ({
       marginLeft: ({ left }) => left && theme.spacing(1),
     },
   },
-  content: {
+  content: ({ left }) => ({
     maxWidth: 1000,
-    margin: theme.spacing(5, 'auto', 0),
+    margin: theme.spacing(1, left ? 1 : 'auto', 0),
     textAlign: 'inherit',
     color: 'white',
-  },
+  }),
   buttonContainer: {
     display: 'flex',
     flexWrap: 'wrap',
