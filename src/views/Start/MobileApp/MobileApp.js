@@ -12,8 +12,8 @@ import {
 } from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
 import Image from 'components/atoms/Image/Image';
+import CTAButton from 'components/atoms/CTAButton/CTAButton';
 import PhoneSection from 'components/organisms/PhoneSection/PhoneSection';
-import Promobar from 'components/organisms/Promobar/Promobar';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 const list = [
@@ -40,14 +40,10 @@ const useStyles = makeStyles(theme => ({
   icon: {
     fontSize: 18,
   },
-  promobar: {
-    margin: theme.spacing(6, 0, -8),
-    padding: theme.spacing(4, 0),
-    backgroundColor: theme.palette.primary.main,
-    color: 'white',
-    [theme.breakpoints.up('sm')]: {
-      marginTop: theme.spacing(2),
-    },
+  button: {
+    marginTop: theme.spacing(2),
+    display: 'flex',
+    justifyContent: 'center',
   },
 }));
 
@@ -83,15 +79,18 @@ const MobileApp = () => {
         </Grid>
         <PhoneSection className={classes.phoneSection} data={content.slider} />
       </Container>
-      <Promobar
-        className={classes.promobar}
-        primary="Lorem ipsum dolor sit amet"
-        button={{
-          label: 'Learn More',
-          component: Link,
-          to: '/app',
-        }}
-      />
+      <Text variant="h4" fontWeight={500} align="center" mt={10}>
+        Create Your Own Customized Mobile App
+      </Text>
+      <CTAButton
+        className={classes.button}
+        component={Link}
+        to="/mobile-app"
+        xlarge
+        color="primary"
+      >
+        Get Now
+      </CTAButton>
     </>
   );
 };

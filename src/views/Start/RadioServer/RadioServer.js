@@ -8,7 +8,7 @@ import RowSection from 'components/organisms/RowSection/RowSection';
 
 const sections = [
   {
-    img: 'https://img.fastcast4u.com/react/home/device1',
+    img: 'https://img.fastcast4u.com/react/start/setup',
     heading: 'Broadcast live or use Auto DJ to stream online with no limits!',
     list: [
       'Unlimited Listeners',
@@ -24,7 +24,7 @@ const sections = [
       'Upload and manage your Music Library online! With Unlimited Auto DJ easily Schedule Playlists, Jingles, and Ads!',
   },
   {
-    img: 'https://img.fastcast4u.com/react/home/device1',
+    img: 'https://img.fastcast4u.com/react/start/dj',
     heading: 'Live DJs on air!',
     content:
       'Stream live from your computer and create your own broadcasts. Use your microphone, mixer or mixing software to create amazing live shows',
@@ -50,8 +50,8 @@ const RadioServer = () => {
           {i + 1 < sections.length && <Divider variant="middle" />}
         </React.Fragment>
       ))}
-      <Text variant="h3" fontWeight={500} align="center" mt={10}>
-        Lorem ipsum dolor sit amet
+      <Text variant="h4" fontWeight={500} align="center" mt={10}>
+        Create Your Radio Server Package and Start Broadcasting Online
       </Text>
       <CTAButton className={classes.button} component={Link} to="/order" xlarge color="primary">
         Start Now

@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
 import Image from 'components/atoms/Image/Image';
-import Promobar from 'components/organisms/Promobar/Promobar';
+import CTAButton from 'components/atoms/CTAButton/CTAButton';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 const devList = [
@@ -56,11 +56,10 @@ const useStyles = makeStyles(theme => ({
   itemText: {
     fontSize: '1rem',
   },
-  promobar: {
-    margin: theme.spacing(8, 0, -8),
-    padding: theme.spacing(4, 0),
-    backgroundColor: theme.palette.primary.main,
-    color: 'white',
+  button: {
+    marginTop: theme.spacing(2),
+    display: 'flex',
+    justifyContent: 'center',
   },
 }));
 
@@ -71,9 +70,6 @@ const WebPlayer = () => {
     <>
       <Container maxWidth="xl">
         <Grid className={classes.devSection} spacing={4} container>
-          <Grid item xs={12} md={6}>
-            <Image src="//img.fastcast4u.com/react/customize/wpdev.png" />
-          </Grid>
           <Grid item xs={12} md={6}>
             <Text component="h2" variant="h4" fontWeight={500}>
               FREE WebPlayer Page
@@ -96,6 +92,9 @@ const WebPlayer = () => {
               ))}
             </List>
           </Grid>
+          <Grid item xs={12} md={6}>
+            <Image src="//img.fastcast4u.com/react/customize/wpdev.png" />
+          </Grid>
         </Grid>
         <Grid spacing={4} container>
           <Grid item xs={12} md={7}>
@@ -110,8 +109,7 @@ const WebPlayer = () => {
               Radio Player website widget
             </Text>
             <Text color="textSecondary" variant="h6" my={2}>
-              Your Free Web Player Page will be set up automatically. It’s customizable and easy to
-              share online
+              Free Radio Player - easy application on your website
             </Text>
             <List>
               {playerList.map(content => (
@@ -123,19 +121,15 @@ const WebPlayer = () => {
                 </ListItem>
               ))}
             </List>
-            <Text variant="h6">Free Radio Player - easy application on your website</Text>
           </Grid>
         </Grid>
       </Container>
-      <Promobar
-        className={classes.promobar}
-        primary="Lorem ipsum dolor sit amet"
-        button={{
-          label: 'Learn More',
-          component: Link,
-          to: '/order',
-        }}
-      />
+      <Text variant="h4" fontWeight={500} align="center" mt={10}>
+        Get Web Player as Free Addon to your Server Package
+      </Text>
+      <CTAButton className={classes.button} component={Link} to="/order" xlarge color="primary">
+        Get Now
+      </CTAButton>
     </>
   );
 };

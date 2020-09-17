@@ -4,19 +4,16 @@ import { useSelector } from 'react-redux';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 
 import { Container, makeStyles } from '@material-ui/core';
+import Text from 'components/atoms/Text/Text';
+import CTAButton from 'components/atoms/CTAButton/CTAButton';
 import YTContainer from 'components/atoms/YTContainer/YTContainer';
 import RowSection from 'components/organisms/RowSection/RowSection';
-import Promobar from 'components/organisms/Promobar/Promobar';
 
 const useStyles = makeStyles(theme => ({
-  promobar: {
-    margin: theme.spacing(6, 0, -8),
-    padding: theme.spacing(4, 0),
-    backgroundColor: theme.palette.primary.main,
-    color: 'white',
-    [theme.breakpoints.up('sm')]: {
-      marginTop: theme.spacing(2),
-    },
+  button: {
+    marginTop: theme.spacing(2),
+    display: 'flex',
+    justifyContent: 'center',
   },
 }));
 
@@ -61,15 +58,18 @@ const AlexaSkill = () => {
           <RowSection key={i} long {...props} reverse={i % 2 === 0} />
         ))}
       </Container>
-      <Promobar
-        className={classes.promobar}
-        primary="Lorem ipsum dolor sit amet"
-        button={{
-          label: 'Learn More',
-          component: Link,
-          to: '/alexa-skill',
-        }}
-      />
+      <Text variant="h4" fontWeight={500} align="center" mt={10}>
+        Create Your Own Alexa Radio Skill
+      </Text>
+      <CTAButton
+        className={classes.button}
+        component={Link}
+        to="/alexa-skill"
+        xlarge
+        color="primary"
+      >
+        More
+      </CTAButton>
     </>
   );
 };

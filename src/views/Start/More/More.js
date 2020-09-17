@@ -1,9 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Container, Grid, makeStyles } from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
 import Image from 'components/atoms/Image/Image';
+import CTAButton from 'components/atoms/CTAButton/CTAButton';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   image: {
     maxHeight: 400,
   },
@@ -12,7 +14,12 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     justifyContent: 'center',
   },
-});
+  button: {
+    marginTop: theme.spacing(2),
+    display: 'flex',
+    justifyContent: 'center',
+  },
+}));
 
 const More = () => {
   const classes = useStyles();
@@ -38,6 +45,12 @@ const More = () => {
           </Text>
         </Grid>
       </Grid>
+      <Text variant="h4" fontWeight={500} align="center" mt={10}>
+        Get as Free Addon to Your Server Package
+      </Text>
+      <CTAButton className={classes.button} component={Link} to="/order" xlarge color="primary">
+        Get Now
+      </CTAButton>
     </Container>
   );
 };
