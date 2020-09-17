@@ -18,10 +18,12 @@ import Promobar from 'components/organisms/Promobar/Promobar';
 import PhoneSection from 'components/organisms/PhoneSection/PhoneSection';
 import Accordion from 'components/organisms/Accordion/Accordion';
 import AppDownloadSection from 'components/organisms/AppDownloadSection/AppDownloadSection';
+import ItemsLeftBar from 'components/organisms/ItemsLeftBar/ItemsLeftBar';
 
 import PackageGrid from 'templates/PackageGrid';
 import PricingGrid from 'templates/PricingGrid';
 import { useCurrentLanguage } from 'utils/customHooks';
+import { isNowBetween } from 'utils/date';
 
 import AndroidIcon from '@material-ui/icons/Android';
 import AppleIcon from 'assets/svg/AppleIcon';
@@ -37,7 +39,10 @@ const App = () => {
 
   useEffect(() => {
     const urlPromocode = new URLSearchParams(location.search).get('promo');
-    setPromocode(urlPromocode || 'summermobile');
+    const promocode = isNowBetween(Date.UTC(2020, 8, 18, 7), Date.UTC(2020, 8, 19, 7))
+      ? 'flashsalemobile'
+      : 'summermobile';
+    setPromocode(urlPromocode || promocode);
 
     // eslint-disable-next-line
   }, []);
@@ -230,6 +235,12 @@ const App = () => {
       <TitleSection>
         <PhoneSection data={content.slider} />
       </TitleSection>
+      {isNowBetween(Date.UTC(2020, 8, 18, 7), Date.UTC(2020, 8, 19, 7)) && (
+        <ItemsLeftBar
+          primary="LIMITED SUPPLY: {items} items left in stock"
+          promocode="flashsalemobile"
+        />
+      )}
       <PricingGrid>
         {pricingData.map((props, i) => (
           <PricingTable key={i} {...props} />
