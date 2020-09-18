@@ -10,6 +10,10 @@ import YTContainer from 'components/atoms/YTContainer/YTContainer';
 import RowSection from 'components/organisms/RowSection/RowSection';
 
 const useStyles = makeStyles(theme => ({
+  container: {
+    marginTop: theme.spacing(-8),
+    overflowX: 'hidden',
+  },
   button: {
     marginTop: theme.spacing(2),
     display: 'flex',
@@ -53,12 +57,12 @@ const AlexaSkill = () => {
 
   return (
     <>
-      <Container maxWidth="xl">
+      <Container className={classes.container} maxWidth="xl">
         {sectionsData.map((props, i) => (
           <RowSection key={i} long {...props} reverse={i % 2 === 0} />
         ))}
       </Container>
-      <Text variant="h4" fontWeight={500} align="center" mt={10}>
+      <Text variant="h4" fontWeight={500} align="center" mt={2}>
         Create Your Own Alexa Radio Skill
       </Text>
       <CTAButton

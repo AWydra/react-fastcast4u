@@ -15,7 +15,7 @@ import CTAButton from 'components/atoms/CTAButton/CTAButton';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 const devList = [
-  'FREE & Fully Customizable',
+  'Customizable Skins and Layout',
   'Compatible with Mobile Devices',
   'Automatic Page Setup',
   'Social Media Buttons',
@@ -78,8 +78,8 @@ const WebPlayer = () => {
               Get Listeners from Customizable WebPlayer Page!
             </Text>
             <Text>
-              Now you can easily set up a WebPlayer Page for your online station! You don&apos;t
-              need any webbuliding skills, domains or webhosting plans.
+              Free and customizable WebPlayer Page for your online station! No webbuliding skills,
+              domains or webhosting plans needed.
             </Text>
             <List>
               {devList.map(content => (
@@ -124,7 +124,7 @@ const WebPlayer = () => {
           </Grid>
         </Grid>
       </Container>
-      <Text variant="h4" fontWeight={500} align="center" mt={10}>
+      <Text variant="h4" fontWeight={500} align="center" mt={8}>
         Get Web Player as Free Addon to your Server Package
       </Text>
       <CTAButton className={classes.button} component={Link} to="/order" xlarge color="primary">

@@ -79,7 +79,7 @@ const MobileApp = () => {
         </Grid>
         <PhoneSection className={classes.phoneSection} data={content.slider} />
       </Container>
-      <Text variant="h4" fontWeight={500} align="center" mt={10}>
+      <Text variant="h4" fontWeight={500} align="center" mt={4}>
         Create Your Own Customized Mobile App
       </Text>
       <CTAButton

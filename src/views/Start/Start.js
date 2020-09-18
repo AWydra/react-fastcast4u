@@ -1,6 +1,6 @@
 import React from 'react';
 import StartRoutes from 'routes/startRoutes';
-import { Container } from '@material-ui/core';
+import { Box, Container } from '@material-ui/core';
 import HeadingBlock from 'components/molecules/HeadingBlock/HeadingBlock';
 import StartTabs from 'components/molecules/StartTabs/StartTabs';
 
@@ -14,7 +14,9 @@ const Start = () => {
         />
         <StartTabs />
       </Container>
-      <StartRoutes />
+      <Box minHeight="50vh">
+        <StartRoutes />
+      </Box>
     </>
   );
 };

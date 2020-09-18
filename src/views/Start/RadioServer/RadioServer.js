@@ -32,6 +32,9 @@ const sections = [
 ];
 
 const useStyles = makeStyles(theme => ({
+  container: {
+    marginTop: theme.spacing(-6),
+  },
   button: {
     marginTop: theme.spacing(2),
     display: 'flex',
@@ -43,14 +46,14 @@ const RadioServer = () => {
   const classes = useStyles();
 
   return (
-    <FullContainer maxWidth="xl" overflowHidden>
+    <FullContainer className={classes.container} maxWidth="xl" overflowHidden>
       {sections.map((props, i) => (
         <React.Fragment key={i}>
           <RowSection {...props} long reverse={i % 2 === 0} />
           {i + 1 < sections.length && <Divider variant="middle" />}
         </React.Fragment>
       ))}
-      <Text variant="h4" fontWeight={500} align="center" mt={10}>
+      <Text variant="h4" fontWeight={500} align="center" mt={2}>
         Create Your Radio Server Package and Start Broadcasting Online
       </Text>
       <CTAButton className={classes.button} component={Link} to="/order" xlarge color="primary">

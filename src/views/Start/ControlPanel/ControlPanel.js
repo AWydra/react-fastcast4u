@@ -18,7 +18,7 @@ const everestData = {
     'Basic Listener Reporting',
     'Proxy & HTTPS Stream link support',
     'Radio Widgets',
-    'Quick switch between SHOUTcast and Icecast Radio Server',
+    'Switch between SHOUTcast and Icecast Server',
   ],
 };
 
@@ -66,7 +66,7 @@ const ControlPanel = () => {
           <PanelComparision {...centovaData} />
         </Grid>
       </Grid>
-      <Text variant="h4" fontWeight={500} align="center" mt={10}>
+      <Text variant="h4" fontWeight={500} align="center" mt={8}>
         Create Your Server Package
       </Text>
       <CTAButton className={classes.button} component={Link} to="/order" xlarge color="primary">
