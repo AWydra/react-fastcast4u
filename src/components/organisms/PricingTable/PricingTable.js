@@ -55,12 +55,14 @@ const useStyles = makeStyles(theme => ({
       textAlign: 'center',
     },
   },
-  image: {
+  imageContainer: {
     height: theme.spacing(7),
     margin: ({ best }) => best && theme.spacing(2, 0),
     padding: theme.spacing(1),
-    backgroundColor: modeSwitch(false, 'white'),
-    borderRadius: theme.shape.borderRadius,
+  },
+  image: {
+    height: '100%',
+    filter: modeSwitch(false, 'brightness(0) invert(1)'),
   },
   btn: {
     marginTop: theme.spacing(4),
@@ -94,7 +96,9 @@ const PricingTable = ({ title, current, regular, list, image, link, best, ...pro
             </ListItem>
           ))}
         </List>
-        <Image className={classes.image} src={image} />
+        <div className={classes.imageContainer}>
+          {image && <Image className={classes.image} src={image} />}
+        </div>
         <Button
           className={classes.btn}
           component="a"
