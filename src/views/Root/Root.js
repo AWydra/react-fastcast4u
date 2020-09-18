@@ -9,7 +9,7 @@ import MainTemplate from 'templates/MainTemplate';
 import { CookiesProvider } from 'react-cookie';
 import history from 'utils/history';
 
-const banList = /(radio-directory\/|faq\/)/;
+const banList = /(radio-directory\/|faq\/|start\/)/;
 
 const Root = () => {
   useEffect(() => {
