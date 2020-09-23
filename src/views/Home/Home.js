@@ -15,33 +15,34 @@ import { useCurrentLanguage } from 'utils/customHooks';
 const Home = () => {
   const content = useSelector(state => state.language.home);
   const lng = useCurrentLanguage();
-  const currency = useSelector(state => state.general.currency);
+  // const currency = useSelector(state => state.general.currency);
 
   const heroData = useMemo(
     () =>
-      isNowBetween(Date.UTC(2020, 8, 18, 7), Date.UTC(2020, 8, 19, 7))
+      isNowBetween(Date.UTC(2020, 8, 23, 7), Date.UTC(2020, 8, 24, 7))
         ? {
             heading: (
               <>
                 <Text component="span" variant="h2">
-                  Mobile App Bundle
+                  Social Media Live Streaming
+                </Text>
+                <Text display="block" component="span" variant="h4">
+                  Start Streaming Live to Facebook, YouTube and Twitter
                 </Text>
                 <Text display="block" component="span" variant="h3" mt={2}>
-                  Android &amp; iOS
-                </Text>
-                <Text display="block" component="span" variant="h3" mt={2}>
-                  {currency}79 one-time
+                  NOW 50% OFF
                 </Text>
               </>
             ),
             pictures: {
-              mobile: '//img.fastcast4u.com/react/app/app-bg',
-              alt: 'Flash promotion',
+              mobile: 'https://img.fastcast4u.com/react/home/home-bg-mobile',
+              desktop: 'https://img.fastcast4u.com/react/home/home-bg',
+              alt: 'Alexa on a desk',
             },
             buttons: [
               {
-                label: content.heroSection.buttons[0],
-                onClick: () => history.push(`${lng}/app`),
+                label: 'Start now',
+                onClick: () => history.push(`${lng}/social-live-streaming`),
                 color: 'secondary',
               },
             ],
@@ -118,14 +119,22 @@ const Home = () => {
 
   return (
     <>
-      <HeroSection left data={heroData} />
-      {isNowBetween(Date.UTC(2020, 8, 18, 7), Date.UTC(2020, 8, 19, 7)) && (
+      <HeroSection
+        left
+        data={heroData}
+        style={
+          isNowBetween(Date.UTC(2020, 8, 23, 7), Date.UTC(2020, 8, 24, 7)) && {
+            backgroundColor: 'black',
+          }
+        }
+      />
+      {isNowBetween(Date.UTC(2020, 8, 23, 7), Date.UTC(2020, 8, 24, 7)) && (
         <ItemsLeftBar
           primary="LIMITED SUPPLY: {items} items left in stock"
-          promocode="flashsalemobile"
+          promocode="flashpromolive"
           button={{
             label: 'Get Now',
-            to: '/app',
+            to: '/social-live-streaming',
           }}
         />
       )}

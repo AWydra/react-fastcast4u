@@ -17,6 +17,8 @@ import HeroSection from 'components/organisms/HeroSection/HeroSection';
 import FeatureSection from 'components/organisms/FeatureSection/FeatureSection';
 import Accordion from 'components/organisms/Accordion/Accordion';
 import PricingBlock from 'components/organisms/PricingBlock/PricingBlock';
+import ItemsLeftBar from 'components/organisms/ItemsLeftBar/ItemsLeftBar';
+import { isNowBetween } from 'utils/date';
 
 const infoRef = React.createRef();
 const buyRef = React.createRef();
@@ -29,7 +31,10 @@ const AlexaSkill = () => {
 
   useEffect(() => {
     const urlPromocode = new URLSearchParams(location.search).get('promo');
-    setPromocode(urlPromocode || 'alexasept');
+    const promocode = isNowBetween(Date.UTC(2020, 8, 20, 7), Date.UTC(2020, 8, 22, 7))
+      ? 'flashalexa29'
+      : 'alexasept';
+    setPromocode(urlPromocode || promocode);
 
     // eslint-disable-next-line
   }, []);
@@ -220,6 +225,12 @@ const AlexaSkill = () => {
       </FullContainer>
       <FeatureSection data={featureData} />
       <PricingBlock data={pricingData} innerRef={buyRef} showNew />
+      {isNowBetween(Date.UTC(2020, 8, 20, 7), Date.UTC(2020, 8, 22, 7)) && (
+        <ItemsLeftBar
+          primary="LIMITED SUPPLY: {items} items left in stock"
+          promocode="flashalexa29"
+        />
+      )}
       <Container maxWidth="xl">
         <Text component="h2" variant="h4" mt={4} mb={6} align="center" fontWeight={500}>
           Frequently Asked Questions

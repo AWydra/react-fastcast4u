@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { Fragment, useState, useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
@@ -8,7 +9,9 @@ import FullContainer from 'components/atoms/FullContainer/FullContainer';
 import YTContainer from 'components/atoms/YTContainer/YTContainer';
 import HeroSection from 'components/organisms/HeroSection/HeroSection';
 import RowSection from 'components/organisms/RowSection/RowSection';
+import ItemsLeftBar from 'components/organisms/ItemsLeftBar/ItemsLeftBar';
 import PricingBlock from 'components/organisms/PricingBlock/PricingBlock';
+import { isNowBetween } from 'utils/date';
 
 const useStyles = makeStyles({
   hero: {
@@ -94,7 +97,10 @@ const SocialLiveStreaming = () => {
 
   useEffect(() => {
     const urlPromocode = new URLSearchParams(location.search).get('promo');
-    setPromocode(urlPromocode || '');
+    const promocode = isNowBetween(Date.UTC(2020, 8, 23, 7), Date.UTC(2020, 8, 24, 7))
+      ? 'flashpromolive'
+      : '';
+    setPromocode(urlPromocode || promocode);
 
     // eslint-disable-next-line
   }, []);
@@ -141,6 +147,16 @@ const SocialLiveStreaming = () => {
           </Fragment>
         ))}
       </FullContainer>
+      {isNowBetween(Date.UTC(2020, 8, 20, 7), Date.UTC(2020, 8, 24, 7)) && (
+        <ItemsLeftBar
+          primary="LIMITED SUPPLY: {items} items left in stock"
+          promocode="flashpromolive"
+          button={{
+            label: 'Get Now',
+            to: '/social-live-streaming',
+          }}
+        />
+      )}
       <PricingBlock data={pricingData} showNew />
     </>
   );

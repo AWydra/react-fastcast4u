@@ -133,8 +133,8 @@ const PageNavigation = () => {
     matches &&
     !chat.isOpen && (
       <Box className={classes.root}>
-        {isNowBetween(Date.UTC(2020, 8, 18, 7), Date.UTC(2020, 8, 16, 7)) && (
-          <MobileCounterBar content="FLASH SALE ends:" date={Date.UTC(2020, 8, 16, 7)} />
+        {isNowBetween(Date.UTC(2020, 8, 23, 7), Date.UTC(2020, 8, 24, 7)) && (
+          <MobileCounterBar content="FLASH SALE ends:" date={Date.UTC(2020, 8, 24, 7)} />
         )}
         <BottomNavigation component="nav" value={value} showLabels className={classes.navigation}>
           {navigationData.map(({ to, label, ...props }) => (

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { Box, IconButton, makeStyles, useTheme, useMediaQuery } from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
@@ -58,14 +58,14 @@ const PromoNotification = ({ ...props }) => {
   const [open, setOpen] = useState(true);
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('md'));
-  const currency = useSelector(state => state.general.currency);
+  // const currency = useSelector(state => state.general.currency);
 
   const handleClick = () => setOpen(false);
 
   return (
     matches &&
     open &&
-    isNowBetween(Date.UTC(2020, 8, 18, 7), Date.UTC(2020, 8, 19, 7)) && (
+    isNowBetween(Date.UTC(2020, 8, 23, 7), Date.UTC(2020, 8, 24, 7)) && (
       <Box className={classes.root} {...props}>
         <IconButton
           className={classes.icon}
@@ -75,12 +75,12 @@ const PromoNotification = ({ ...props }) => {
         >
           <HighlightOffIcon fontSize="inherit" />
         </IconButton>
-        <Notification to="/app">
+        <Notification to="/social-live-streaming">
           <Image className={classes.img} src="https://img.fastcast4u.com/flash/flashsale.png" />
           <Text variant="h5" fontWeight={600} mb={1} px={2}>
-            Mobile App Bundle for only {currency}79
+            Social Media Streaming Package 50% OFF
           </Text>
-          <Countdown className={classes.countdown} date={Date.UTC(2020, 8, 19, 7)} />
+          <Countdown className={classes.countdown} date={Date.UTC(2020, 8, 24, 7)} />
         </Notification>
       </Box>
     )

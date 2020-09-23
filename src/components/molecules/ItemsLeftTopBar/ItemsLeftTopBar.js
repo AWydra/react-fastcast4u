@@ -13,7 +13,8 @@ const useStyles = makeStyles({
   },
 });
 
-const content = 'Flash Sale: Mobile App Bundle | LIMITED SUPPLY: {items} items left in stock'; // prepared for CMS integration
+const content =
+  'Get Social Media Live Streaming Package 50% OFF | {items} discounted packages left'; // prepared for CMS integration
 
 const ItemsLeftTopBar = () => {
   const [items, setItems] = useState('...');
@@ -21,11 +22,11 @@ const ItemsLeftTopBar = () => {
   const classes = useStyles();
 
   useEffect(() => {
-    generalServices.getItemsLeft('flashsalemobile').then(res => setItems(res.uses));
+    generalServices.getItemsLeft('flashpromolive').then(res => setItems(res.uses));
   }, []);
 
   return (
-    isNowBetween(Date.UTC(2020, 8, 18, 7), Date.UTC(2020, 8, 19, 7)) && (
+    isNowBetween(Date.UTC(2020, 8, 23, 7), Date.UTC(2020, 8, 24, 7)) && (
       <Box py={0.5} bgcolor="primary.main">
         <Text className={classes.text} variant="h6">
           {content.replace('{items}', items).replace('{currency}', currency)}
