@@ -8,6 +8,7 @@ import Features from 'components/organisms/Features/Features';
 import CTAButton from 'components/atoms/CTAButton/CTAButton';
 import orderServices from 'services/order';
 import { useAlert, useCurrentLanguage } from 'utils/customHooks';
+import { isNowBetween } from 'utils/date';
 import history from 'utils/history';
 
 import RocketIcon from 'assets/svg/RocketIcon';
@@ -64,7 +65,9 @@ const Order = () => {
 
   useEffect(() => {
     const urlPromocode = new URLSearchParams(location.search).get('promo');
-    const promocode = '';
+    const promocode = isNowBetween(Date.UTC(2020, 8, 25, 7), Date.UTC(2020, 8, 26, 7))
+      ? 'flashsaledeal'
+      : '';
     dispatch(orderActions.setPromocode(urlPromocode || promocode));
   }, [dispatch, location.search]);
 
