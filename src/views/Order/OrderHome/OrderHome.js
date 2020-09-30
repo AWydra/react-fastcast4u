@@ -65,8 +65,8 @@ const Order = () => {
 
   useEffect(() => {
     const urlPromocode = new URLSearchParams(location.search).get('promo');
-    const promocode = isNowBetween(Date.UTC(2020, 8, 25, 7), Date.UTC(2020, 8, 26, 7))
-      ? 'flashsaledeal'
+    const promocode = isNowBetween(Date.UTC(2020, 8, 28, 7), Date.UTC(2020, 8, 29, 7))
+      ? 'flashsalebill'
       : '';
     dispatch(orderActions.setPromocode(urlPromocode || promocode));
   }, [dispatch, location.search]);

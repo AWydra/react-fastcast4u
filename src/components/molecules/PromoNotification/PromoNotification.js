@@ -65,7 +65,7 @@ const PromoNotification = ({ ...props }) => {
   return (
     matches &&
     open &&
-    isNowBetween(Date.UTC(2020, 8, 25, 7), Date.UTC(2020, 8, 26, 7)) && (
+    isNowBetween(Date.UTC(2020, 8, 28, 7), Date.UTC(2020, 8, 29, 7)) && (
       <Box className={classes.root} {...props}>
         <IconButton
           className={classes.icon}
@@ -78,9 +78,12 @@ const PromoNotification = ({ ...props }) => {
         <Notification to="/order">
           <Image className={classes.img} src="https://img.fastcast4u.com/flash/flashsale.png" />
           <Text variant="h5" fontWeight={600} mb={1} px={2}>
-            Unlimited Server + Mobile App + Alexa Bundle
+            Unlimited Server
           </Text>
-          <Countdown className={classes.countdown} date={Date.UTC(2020, 8, 26, 7)} />
+          <Text variant="h6" fontWeight={600} mb={1} px={2}>
+            billed annually and biennially
+          </Text>
+          <Countdown className={classes.countdown} date={Date.UTC(2020, 8, 29, 7)} />
         </Notification>
       </Box>
     )

@@ -48,7 +48,7 @@ const useStyles = makeStyles(theme => ({
   heading: {
     textAlign: 'inherit',
     color: 'white',
-    lineHeight: ({ left }) => left && 1.5,
+    lineHeight: 1,
     [theme.breakpoints.up('md')]: {
       marginLeft: ({ left }) => left && theme.spacing(1),
     },

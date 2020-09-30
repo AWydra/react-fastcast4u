@@ -15,30 +15,27 @@ import { useCurrentLanguage } from 'utils/customHooks';
 const Home = () => {
   const content = useSelector(state => state.language.home);
   const lng = useCurrentLanguage();
-  const currency = useSelector(state => state.general.currency);
+  // const currency = useSelector(state => state.general.currency);
 
   const heroData = useMemo(
     () =>
-      isNowBetween(Date.UTC(2020, 8, 25, 7), Date.UTC(2020, 8, 26, 7))
+      isNowBetween(Date.UTC(2020, 8, 28, 7), Date.UTC(2020, 8, 29, 7))
         ? {
             heading: (
               <>
-                <Text component="span" variant="h2">
-                  UNLIMITED Server Package
+                <Text component="span" variant="h3">
+                  New Unlimited Radio Server Package
                 </Text>
-                <Text display="block" component="span" variant="h3">
-                  + Mobile App
+                <Text display="block" component="span" variant="h2" mt={2}>
+                  50% OFF
                 </Text>
-                <Text display="block" component="span" variant="h3" mt={2}>
-                  + Alexa Radio Skill
-                </Text>
-                <Text display="block" component="span" variant="h3" mt={2}>
-                  Today {currency} 19 monthly
+                <Text display="block" component="span" variant="h4" mt={2}>
+                  billed annually and biennially
                 </Text>
               </>
             ),
             pictures: {
-              mobile: 'https://img.fastcast4u.com/react/home/promo/bundle_tlo',
+              mobile: 'https://img.fastcast4u.com/flash/flashpromo',
               alt: 'Alexa on a desk',
             },
             buttons: [
@@ -122,10 +119,10 @@ const Home = () => {
   return (
     <>
       <HeroSection left data={heroData} />
-      {isNowBetween(Date.UTC(2020, 8, 25, 7), Date.UTC(2020, 8, 26, 7)) && (
+      {isNowBetween(Date.UTC(2020, 8, 28, 7), Date.UTC(2020, 8, 29, 7)) && (
         <ItemsLeftBar
           primary="LIMITED SUPPLY: {items} items left in stock"
-          promocode="flashsaledeal"
+          promocode="flashsalebill"
           button={{
             label: 'Start Now',
             to: '/order',
