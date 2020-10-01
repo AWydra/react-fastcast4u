@@ -8,6 +8,7 @@ import generalReducer from 'reducers/generalReducer';
 import orderReducer from 'reducers/orderReducer';
 import directoryReducer from 'reducers/directoryReducer';
 import languageReducer from 'reducers/languageReducer';
+import cmsReducer from 'reducers/cmsReducer';
 
 const generalPersistConfig = {
   key: 'general',
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
   order: persistReducer(orderPersistConfig, orderReducer),
   directory: directoryReducer,
   language: languageReducer,
+  cms: cmsReducer,
 });
 
 export const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
