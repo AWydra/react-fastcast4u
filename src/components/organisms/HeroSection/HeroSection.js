@@ -19,19 +19,18 @@ const useStyles = makeStyles(theme => ({
     textAlign: 'center',
     overflow: 'hidden',
   },
-  left: ({ left }) =>
-    left && {
-      width: '100%',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      textAlign: 'center',
-      [theme.breakpoints.up('lg')]: {
-        maxWidth: '60%',
-        marginLeft: '10%',
-        textAlign: 'left',
-      },
+  left: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    textAlign: 'center',
+    [theme.breakpoints.up('lg')]: {
+      maxWidth: '60%',
+      marginLeft: '10%',
+      textAlign: 'left',
     },
+  },
   picture: {
     width: '100%',
     height: '100%',
@@ -51,6 +50,10 @@ const useStyles = makeStyles(theme => ({
     lineHeight: 1,
     [theme.breakpoints.up('md')]: {
       marginLeft: ({ left }) => left && theme.spacing(1),
+    },
+    '& > span': {
+      display: 'flex',
+      flexDirection: 'column',
     },
   },
   content: ({ left }) => ({
@@ -74,6 +77,7 @@ const useStyles = makeStyles(theme => ({
 
 const HeroSection = ({ className, data, left, youtube, ...props }) => {
   const classes = useStyles({ left });
+  console.log(left);
   const [open, setOpen] = useState(false);
 
   return (
@@ -84,7 +88,7 @@ const HeroSection = ({ className, data, left, youtube, ...props }) => {
         mobile={data.pictures.mobile}
         alt={data.pictures.alt}
       />
-      <Box className={classes.left}>
+      <Box className={left ? classes.left : ''}>
         <Text className={classes.heading} component="h1" variant="h2">
           {data.heading}
         </Text>

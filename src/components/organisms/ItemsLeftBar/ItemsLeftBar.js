@@ -15,7 +15,7 @@ const ItemsLeftBar = ({ primary, promocode, ...props }) => {
   const classes = useStyles();
 
   useEffect(() => {
-    generalServices.getItemsLeft(promocode).then(res => setItems(res.uses));
+    promocode && generalServices.getItemsLeft(promocode).then(res => setItems(res.uses));
   }, [promocode]);
 
   return (

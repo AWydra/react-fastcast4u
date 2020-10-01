@@ -1,6 +1,9 @@
+/* eslint-disable react/no-danger */
 // @ts-nocheck
-import React, { useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import cmsActions from 'actions/cmsActions';
+import cmsServices from 'services/cms';
 import { Divider, Container } from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
 import FullContainer from 'components/atoms/FullContainer/FullContainer';
@@ -8,61 +11,42 @@ import ItemsLeftBar from 'components/organisms/ItemsLeftBar/ItemsLeftBar';
 import HeroSection from 'components/organisms/HeroSection/HeroSection';
 import RowSection from 'components/organisms/RowSection/RowSection';
 import Accordion from 'components/organisms/Accordion/Accordion';
-import history from 'utils/history';
-import { isNowBetween } from 'utils/date';
+import { handleExternal } from 'utils/urls';
 import { useCurrentLanguage } from 'utils/customHooks';
 
 const Home = () => {
   const content = useSelector(state => state.language.home);
+  const hero = useSelector(state => state.cms.home.hero);
+  const bar = useSelector(state => state.cms.home.bar);
   const lng = useCurrentLanguage();
-  // const currency = useSelector(state => state.general.currency);
+  const currency = useSelector(state => state.general.currency);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    !hero.title &&
+      cmsServices.getHomeData().then(el => {
+        dispatch(cmsActions.setHomeData(el));
+      });
+  }, [dispatch]);
 
   const heroData = useMemo(
-    () =>
-      isNowBetween(Date.UTC(2020, 8, 28, 7), Date.UTC(2020, 8, 29, 7))
-        ? {
-            heading: (
-              <>
-                <Text component="span" variant="h3">
-                  New Unlimited Radio Server Package
-                </Text>
-                <Text display="block" component="span" variant="h2" mt={2}>
-                  50% OFF
-                </Text>
-                <Text display="block" component="span" variant="h4" mt={2}>
-                  billed annually and biennially
-                </Text>
-              </>
-            ),
-            pictures: {
-              mobile: 'https://img.fastcast4u.com/flash/flashpromo',
-              alt: 'Alexa on a desk',
-            },
-            buttons: [
-              {
-                label: 'Start now',
-                onClick: () => history.push(`${lng}/order`),
-                color: 'secondary',
-              },
-            ],
-          }
-        : {
-            heading: 'Social Media Live Streaming',
-            content: 'Start Streaming Live to Facebook, YouTube and Twitter',
-            pictures: {
-              mobile: 'https://img.fastcast4u.com/flash/flashpromo',
-              alt: 'Microphone on a desk',
-            },
-            buttons: [
-              {
-                label: '\xa0START NOW\xa0',
-                onClick: () => history.push(`${lng}/social-live-streaming`),
-                color: 'secondary',
-              },
-            ],
-          },
+    () => ({
+      heading: (
+        <span dangerouslySetInnerHTML={{ __html: hero.title.replace('{currency}', currency) }} />
+      ),
+      content: hero.content.replace('{currency}', currency),
+      pictures: {
+        mobile: 'https://img.fastcast4u.com/flash/flashpromo',
+        alt: 'Microphone on a desk',
+      },
+      buttons: hero.buttons.map(button => ({
+        label: button.Button,
+        onClick: () => handleExternal(button.To, lng),
+        color: 'secondary',
+      })),
+    }),
     // eslint-disable-next-line
-    [content, lng],
+    [content, hero, lng],
   );
 
   const sections = useMemo(
@@ -118,15 +102,17 @@ const Home = () => {
 
   return (
     <>
-      <HeroSection left data={heroData} />
-      {isNowBetween(Date.UTC(2020, 8, 28, 7), Date.UTC(2020, 8, 29, 7)) && (
+      <HeroSection left={hero.left || false} data={heroData} />
+      {bar.isActive && (
         <ItemsLeftBar
-          primary="LIMITED SUPPLY: {items} items left in stock"
-          promocode="flashsalebill"
-          button={{
-            label: 'Start Now',
-            to: '/order',
-          }}
+          primary={bar.content}
+          promocode={bar.promocode}
+          button={
+            bar.buttonEnabled && {
+              label: bar.button,
+              to: bar.to,
+            }
+          }
         />
       )}
       <FullContainer maxWidth="xl" overflowHidden>
