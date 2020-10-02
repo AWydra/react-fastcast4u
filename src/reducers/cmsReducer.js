@@ -17,6 +17,14 @@ const initialState = {
     },
     bar: {},
   },
+  alexa: {
+    hero: {
+      title: '',
+      content: '',
+      buttons: [],
+    },
+    bar: {},
+  },
 };
 
 const generalReducer = (state = initialState, action) => {
@@ -28,6 +36,10 @@ const generalReducer = (state = initialState, action) => {
     case 'SET_APP_DATA':
       return produce(state, draftState => {
         draftState.app = action.payload;
+      });
+    case 'SET_ALEXA_DATA':
+      return produce(state, draftState => {
+        draftState.alexa = action.payload;
       });
     default:
       return state;

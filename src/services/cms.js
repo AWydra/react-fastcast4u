@@ -24,6 +24,13 @@ const getAppData = async () => {
   return { bar: response.data.bar, hero: response.data.hero, promocode: response.data.promocode };
 };
 
+const getAlexaData = async () => {
+  const response = await axios.get(`${baseUrl}alexa`, {
+    cancelToken: source.token,
+  });
+  return { bar: response.data.bar, hero: response.data.hero, promocode: response.data.promocode };
+};
+
 const cancel = () => {
   source.cancel();
   source = axios.CancelToken.source();
@@ -33,5 +40,6 @@ export default {
   getTopBarData,
   getHomeData,
   getAppData,
+  getAlexaData,
   cancel,
 };

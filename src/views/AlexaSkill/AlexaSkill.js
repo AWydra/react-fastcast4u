@@ -1,9 +1,11 @@
 /* eslint-disable react/no-unescaped-entities */
 import React, { Fragment, useState, useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import cmsActions from 'actions/cmsActions';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import generalServices from 'services/general';
+import cmsServices from 'services/cms';
 import { Container, Divider, Link } from '@material-ui/core';
 import { AddCircle, PlayCircleFilled, Help } from '@material-ui/icons';
 
@@ -18,7 +20,8 @@ import FeatureSection from 'components/organisms/FeatureSection/FeatureSection';
 import Accordion from 'components/organisms/Accordion/Accordion';
 import PricingBlock from 'components/organisms/PricingBlock/PricingBlock';
 import ItemsLeftBar from 'components/organisms/ItemsLeftBar/ItemsLeftBar';
-import { isNowBetween } from 'utils/date';
+
+import { handleExternal } from 'utils/urls';
 
 const infoRef = React.createRef();
 const buyRef = React.createRef();
@@ -26,15 +29,20 @@ const buyRef = React.createRef();
 const AlexaSkill = () => {
   const [promocode, setPromocode] = useState(null);
   const content = useSelector(state => state.language.alexa);
+  const hero = useSelector(state => state.cms.alexa.hero);
+  const bar = useSelector(state => state.cms.alexa.bar);
   const [price, setPrice] = useState(null);
   const location = useLocation();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const urlPromocode = new URLSearchParams(location.search).get('promo');
-    const promocode = isNowBetween(Date.UTC(2020, 8, 20, 7), Date.UTC(2020, 8, 22, 7))
-      ? 'flashalexa29'
-      : 'alexasept';
-    setPromocode(urlPromocode || promocode);
+    !hero.title &&
+      cmsServices.getAlexaData().then(res => {
+        dispatch(cmsActions.setAlexaData(res));
+        console.log('res', res);
+        setPromocode(urlPromocode || res.promocode);
+      });
 
     // eslint-disable-next-line
   }, []);
@@ -51,28 +59,26 @@ const AlexaSkill = () => {
 
   const heroData = useMemo(
     () => ({
-      heading: content.hero.heading,
+      heading: hero.title,
+      content: hero.content,
       pictures: {
         mobile: 'https://img.fastcast4u.com/react/alexa/alexa-bg-mobile',
         desktop: 'https://img.fastcast4u.com/react/alexa/alexa-bg',
         alt: 'Alexa on a desk',
       },
-      buttons: [
-        {
+      buttons: hero.buttons
+        .map(button => ({
+          label: button.Button,
+          onClick: () => handleExternal(button.To),
+          color: 'secondary',
+        }))
+        .concat({
           label: `\xa0${content.hero.buttons[0]}\xa0`,
           onClick: () => infoRef.current.scrollIntoView({ behavior: 'smooth' }),
           color: 'primary',
-        },
-        {
-          label: content.hero.buttons[1],
-          color: 'secondary',
-          component: 'a',
-          href: 'https://www.amazon.com/dp/B08B8RN7Y6/',
-          target: '_blank',
-        },
-      ],
+        }),
     }),
-    [content],
+    [content, hero],
   );
 
   const sectionsData = useMemo(
@@ -214,7 +220,7 @@ const AlexaSkill = () => {
 
   return (
     <>
-      <HeroSection data={heroData} />
+      <HeroSection left={hero.left || false} data={heroData} />
       <FullContainer maxWidth="xl" overflowHidden innerRef={infoRef}>
         {sectionsData.map((props, i) => (
           <Fragment key={i}>
@@ -225,10 +231,16 @@ const AlexaSkill = () => {
       </FullContainer>
       <FeatureSection data={featureData} />
       <PricingBlock data={pricingData} innerRef={buyRef} showNew />
-      {isNowBetween(Date.UTC(2020, 8, 20, 7), Date.UTC(2020, 8, 22, 7)) && (
+      {bar.isActive && (
         <ItemsLeftBar
-          primary="LIMITED SUPPLY: {items} items left in stock"
-          promocode="flashalexa29"
+          primary={bar.content}
+          promocode={bar.promocode}
+          button={
+            bar.buttonEnabled && {
+              label: bar.button,
+              to: bar.to,
+            }
+          }
         />
       )}
       <Container maxWidth="xl">

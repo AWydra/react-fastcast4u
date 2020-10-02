@@ -227,7 +227,7 @@ const App = () => {
 
   return (
     <>
-      <HeroSection left data={heroData} youtube={heroData.youtube} />
+      <HeroSection left={hero.left || false} data={heroData} youtube={heroData.youtube} />
       <FullContainer maxWidth="xl" overflowHidden>
         {sectionsData.map((props, i) => (
           <Fragment key={i}>

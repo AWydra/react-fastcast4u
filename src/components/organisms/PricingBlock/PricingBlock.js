@@ -19,7 +19,7 @@ import { modeSwitch } from 'utils/theme';
 
 const useStyles = makeStyles(theme => ({
   container: {
-    marginBottom: theme.spacing(10),
+    marginBottom: theme.spacing(8),
     padding: theme.spacing(4, 0, 0),
   },
   paper: {

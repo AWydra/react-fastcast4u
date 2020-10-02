@@ -8,7 +8,13 @@ const setAppData = data => ({
   payload: data,
 });
 
+const setAlexaData = data => ({
+  type: 'SET_ALEXA_DATA',
+  payload: data,
+});
+
 export default {
   setHomeData,
   setAppData,
+  setAlexaData,
 };
