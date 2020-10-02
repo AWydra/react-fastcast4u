@@ -10,6 +10,20 @@ const getTopBarData = async () => {
   return { bar: response.data.bar };
 };
 
+const getHomeData = async () => {
+  const response = await axios.get(`${baseUrl}home`, {
+    cancelToken: source.token,
+  });
+  return { bar: response.data.bar, hero: response.data.hero };
+};
+
+const getAppData = async () => {
+  const response = await axios.get(`${baseUrl}app`, {
+    cancelToken: source.token,
+  });
+  return { bar: response.data.bar, hero: response.data.hero, promocode: response.data.promocode };
+};
+
 const cancel = () => {
   source.cancel();
   source = axios.CancelToken.source();
@@ -17,5 +31,7 @@ const cancel = () => {
 
 export default {
   getTopBarData,
+  getHomeData,
+  getAppData,
   cancel,
 };

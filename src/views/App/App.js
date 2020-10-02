@@ -1,7 +1,9 @@
 import React, { Fragment, useState, useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import cmsActions from 'actions/cmsActions';
 import generalServices from 'services/general';
+import cmsServices from 'services/cms';
 import { Divider, Link } from '@material-ui/core';
 
 import FullContainer from 'components/atoms/FullContainer/FullContainer';
@@ -23,7 +25,7 @@ import ItemsLeftBar from 'components/organisms/ItemsLeftBar/ItemsLeftBar';
 import PackageGrid from 'templates/PackageGrid';
 import PricingGrid from 'templates/PricingGrid';
 import { useCurrentLanguage } from 'utils/customHooks';
-import { isNowBetween } from 'utils/date';
+import { handleExternal } from 'utils/urls';
 
 import AndroidIcon from '@material-ui/icons/Android';
 import AppleIcon from 'assets/svg/AppleIcon';
@@ -34,15 +36,20 @@ const App = () => {
   const [promocode, setPromocode] = useState(null);
   const [prices, setPrices] = useState([]);
   const content = useSelector(state => state.language.app);
+  const hero = useSelector(state => state.cms.app.hero);
+  const bar = useSelector(state => state.cms.app.bar);
   const lng = useCurrentLanguage();
   const location = useLocation();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const urlPromocode = new URLSearchParams(location.search).get('promo');
-    const promocode = isNowBetween(Date.UTC(2020, 8, 18, 7), Date.UTC(2020, 8, 19, 7))
-      ? 'flashsalemobile'
-      : 'summermobile';
-    setPromocode(urlPromocode || promocode);
+    !hero.title &&
+      cmsServices.getAppData().then(res => {
+        dispatch(cmsActions.setAppData(res));
+        console.log('res', res);
+        setPromocode(urlPromocode || res.promocode);
+      });
 
     // eslint-disable-next-line
   }, []);
@@ -60,27 +67,24 @@ const App = () => {
 
   const heroData = useMemo(
     () => ({
-      heading: content.hero.heading,
+      heading: hero.title,
+      content: hero.content,
       pictures: {
         mobile: 'https://img.fastcast4u.com/react/app/app-bg-mobile',
         desktop: 'https://img.fastcast4u.com/react/app/app-bg',
         alt: 'Phone in a hand',
       },
-      buttons: [
-        {
-          color: 'primary',
-          label: content.hero.buttons[0],
-          component: 'a',
-          href: 'https://billing.fastcast4u.com/link.php?id=873',
-          target: '_blank',
-        },
-      ],
+      buttons: hero.buttons.map(button => ({
+        label: button.Button,
+        onClick: () => handleExternal(button.To, lng),
+        color: 'primary',
+      })),
       youtube: {
         label: content.hero.buttons[1],
         url: 'https://www.youtube-nocookie.com/embed/NkfmJ2lPXIc',
       },
     }),
-    [content],
+    [content, hero],
   );
 
   const sectionsData = useMemo(
@@ -235,10 +239,16 @@ const App = () => {
       <TitleSection>
         <PhoneSection data={content.slider} />
       </TitleSection>
-      {isNowBetween(Date.UTC(2020, 8, 18, 7), Date.UTC(2020, 8, 19, 7)) && (
+      {bar.isActive && (
         <ItemsLeftBar
-          primary="LIMITED SUPPLY: {items} items left in stock"
-          promocode="flashsalemobile"
+          primary={bar.content}
+          promocode={bar.promocode}
+          button={
+            bar.buttonEnabled && {
+              label: bar.button,
+              to: bar.to,
+            }
+          }
         />
       )}
       <PricingGrid>
