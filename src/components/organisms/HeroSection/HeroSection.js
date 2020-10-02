@@ -77,7 +77,6 @@ const useStyles = makeStyles(theme => ({
 
 const HeroSection = ({ className, data, left, youtube, ...props }) => {
   const classes = useStyles({ left });
-  console.log(left);
   const [open, setOpen] = useState(false);
 
   return (

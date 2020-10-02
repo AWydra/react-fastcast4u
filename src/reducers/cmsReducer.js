@@ -29,6 +29,10 @@ const initialState = {
     heading: '',
     button: {},
   },
+  order: {
+    promocode: '',
+    cycle: '',
+  },
 };
 
 const generalReducer = (state = initialState, action) => {
@@ -48,6 +52,10 @@ const generalReducer = (state = initialState, action) => {
     case 'SET_LOGIN_DATA':
       return produce(state, draftState => {
         draftState.login = action.payload;
+      });
+    case 'SET_ORDER_DATA':
+      return produce(state, draftState => {
+        draftState.order = action.payload;
       });
     default:
       return state;

@@ -2,13 +2,14 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import orderActions from 'actions/orderActions';
+import cmsActions from 'actions/cmsActions';
+import cmsServices from 'services/cms';
 import FullContainer from 'components/atoms/FullContainer/FullContainer';
 import HeadingBlock from 'components/molecules/HeadingBlock/HeadingBlock';
 import Features from 'components/organisms/Features/Features';
 import CTAButton from 'components/atoms/CTAButton/CTAButton';
 import orderServices from 'services/order';
 import { useAlert, useCurrentLanguage } from 'utils/customHooks';
-import { isNowBetween } from 'utils/date';
 import history from 'utils/history';
 
 import RocketIcon from 'assets/svg/RocketIcon';
@@ -21,6 +22,7 @@ import RemoteIcon from 'assets/svg/RemoteIcon';
 
 const Order = () => {
   const [loading, setLoading] = useState(false);
+  const cycle = useSelector(state => state.cms.order.cycle);
   const content = useSelector(state => state.language.orderHome);
   const lng = useCurrentLanguage();
   const alert = useAlert();
@@ -65,10 +67,15 @@ const Order = () => {
 
   useEffect(() => {
     const urlPromocode = new URLSearchParams(location.search).get('promo');
-    const promocode = isNowBetween(Date.UTC(2020, 8, 28, 7), Date.UTC(2020, 8, 29, 7))
-      ? 'flashsalebill'
-      : '';
-    dispatch(orderActions.setPromocode(urlPromocode || promocode));
+    if (cycle) return;
+    setLoading(true);
+    cmsServices.getOrderData().then(res => {
+      dispatch(cmsActions.setOrderData(res));
+      dispatch(orderActions.setPromocode(urlPromocode || res.promocode));
+      dispatch(orderActions.setCycle(res.cycle));
+
+      setLoading(false);
+    });
   }, [dispatch, location.search]);
 
   const handleClick = async () => {
