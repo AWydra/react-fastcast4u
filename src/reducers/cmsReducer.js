@@ -33,6 +33,14 @@ const initialState = {
     promocode: '',
     cycle: '',
   },
+  sls: {
+    hero: {
+      title: '',
+      content: '',
+      buttons: [],
+    },
+    bar: {},
+  },
 };
 
 const generalReducer = (state = initialState, action) => {
@@ -56,6 +64,10 @@ const generalReducer = (state = initialState, action) => {
     case 'SET_ORDER_DATA':
       return produce(state, draftState => {
         draftState.order = action.payload;
+      });
+    case 'SET_SLS_DATA':
+      return produce(state, draftState => {
+        draftState.sls = action.payload;
       });
     default:
       return state;

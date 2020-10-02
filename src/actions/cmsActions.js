@@ -23,10 +23,16 @@ const setOrderData = data => ({
   payload: data,
 });
 
+const setSLSData = data => ({
+  type: 'SET_SLS_DATA',
+  payload: data,
+});
+
 export default {
   setHomeData,
   setAppData,
   setAlexaData,
   setLoginData,
   setOrderData,
+  setSLSData,
 };

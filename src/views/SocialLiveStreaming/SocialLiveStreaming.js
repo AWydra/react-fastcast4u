@@ -1,8 +1,11 @@
 // @ts-nocheck
 import React, { Fragment, useState, useEffect, useMemo } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import cmsActions from 'actions/cmsActions';
 import { useLocation } from 'react-router-dom';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import generalServices from 'services/general';
+import cmsServices from 'services/cms';
 
 import { Divider, makeStyles } from '@material-ui/core';
 import FullContainer from 'components/atoms/FullContainer/FullContainer';
@@ -11,22 +14,13 @@ import HeroSection from 'components/organisms/HeroSection/HeroSection';
 import RowSection from 'components/organisms/RowSection/RowSection';
 import ItemsLeftBar from 'components/organisms/ItemsLeftBar/ItemsLeftBar';
 import PricingBlock from 'components/organisms/PricingBlock/PricingBlock';
-import { isNowBetween } from 'utils/date';
+import { handleExternal } from 'utils/urls';
 
 const useStyles = makeStyles({
   hero: {
     backgroundColor: 'black',
   },
 });
-
-const heroData = {
-  heading: 'Social Media Live Streaming',
-  content: 'Reach new audience by sharing your Radio Stream in the top social media channels',
-  pictures: {
-    mobile: 'https://img.fastcast4u.com/flash/flashpromo',
-    alt: 'Microphone on a desk',
-  },
-};
 
 const sectionsData = [
   {
@@ -93,14 +87,19 @@ const SocialLiveStreaming = () => {
   const location = useLocation();
   const [promocode, setPromocode] = useState(null);
   const [price, setPrice] = useState(null);
+  const hero = useSelector(state => state.cms.sls.hero);
+  const bar = useSelector(state => state.cms.sls.bar);
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const urlPromocode = new URLSearchParams(location.search).get('promo');
-    const promocode = isNowBetween(Date.UTC(2020, 8, 23, 7), Date.UTC(2020, 8, 24, 7))
-      ? 'flashpromolive'
-      : '';
-    setPromocode(urlPromocode || promocode);
+
+    !hero.title &&
+      cmsServices.getSLSData().then(res => {
+        dispatch(cmsActions.setSLSData(res));
+        setPromocode(urlPromocode || res.promocode);
+      });
 
     // eslint-disable-next-line
   }, []);
@@ -114,6 +113,23 @@ const SocialLiveStreaming = () => {
       }),
     );
   }, [promocode]);
+
+  const heroData = useMemo(
+    () => ({
+      heading: hero.title,
+      content: hero.content,
+      pictures: {
+        mobile: 'https://img.fastcast4u.com/flash/flashpromo',
+        alt: 'Microphone on a desk',
+      },
+      buttons: hero.buttons.map(button => ({
+        label: button.Button,
+        onClick: () => handleExternal(button.To),
+        color: 'primary',
+      })),
+    }),
+    [hero],
+  );
 
   const pricingData = useMemo(
     () => ({
@@ -138,7 +154,7 @@ const SocialLiveStreaming = () => {
 
   return (
     <>
-      <HeroSection className={classes.hero} data={heroData} />
+      <HeroSection left={hero.left || false} className={classes.hero} data={heroData} />
       <FullContainer maxWidth="xl">
         {sectionsData.map((props, i) => (
           <Fragment key={i}>
@@ -147,14 +163,16 @@ const SocialLiveStreaming = () => {
           </Fragment>
         ))}
       </FullContainer>
-      {isNowBetween(Date.UTC(2020, 8, 20, 7), Date.UTC(2020, 8, 24, 7)) && (
+      {bar.isActive && (
         <ItemsLeftBar
-          primary="LIMITED SUPPLY: {items} items left in stock"
-          promocode="flashpromolive"
-          button={{
-            label: 'Get Now',
-            to: '/social-live-streaming',
-          }}
+          primary={bar.content}
+          promocode={bar.promocode}
+          button={
+            bar.buttonEnabled && {
+              label: bar.button,
+              to: bar.to,
+            }
+          }
         />
       )}
       <PricingBlock data={pricingData} showNew />

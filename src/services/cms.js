@@ -51,6 +51,17 @@ const getOrderData = async () => {
   };
 };
 
+const getSLSData = async () => {
+  const response = await axios.get(`${baseUrl}social-live-streaming`, {
+    cancelToken: source.token,
+  });
+  return {
+    promocode: response.data.promocode,
+    hero: response.data.hero,
+    bar: response.data.bar,
+  };
+};
+
 const cancel = () => {
   source.cancel();
   source = axios.CancelToken.source();
@@ -63,5 +74,6 @@ export default {
   getAlexaData,
   getLoginData,
   getOrderData,
+  getSLSData,
   cancel,
 };
