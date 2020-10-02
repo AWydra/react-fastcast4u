@@ -13,8 +13,14 @@ const setAlexaData = data => ({
   payload: data,
 });
 
+const setLoginData = data => ({
+  type: 'SET_LOGIN_DATA',
+  payload: data,
+});
+
 export default {
   setHomeData,
   setAppData,
   setAlexaData,
+  setLoginData,
 };

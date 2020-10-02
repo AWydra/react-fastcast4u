@@ -25,6 +25,10 @@ const initialState = {
     },
     bar: {},
   },
+  login: {
+    heading: '',
+    button: {},
+  },
 };
 
 const generalReducer = (state = initialState, action) => {
@@ -40,6 +44,10 @@ const generalReducer = (state = initialState, action) => {
     case 'SET_ALEXA_DATA':
       return produce(state, draftState => {
         draftState.alexa = action.payload;
+      });
+    case 'SET_LOGIN_DATA':
+      return produce(state, draftState => {
+        draftState.login = action.payload;
       });
     default:
       return state;

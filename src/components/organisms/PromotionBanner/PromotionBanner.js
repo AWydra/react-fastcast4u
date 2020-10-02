@@ -1,10 +1,12 @@
-import React from 'react';
-// import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import cmsActions from 'actions/cmsActions';
+import cmsServices from 'services/cms';
 import { Box, makeStyles } from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
 import Image from 'components/atoms/Image/Image';
 import CTAButton from 'components/atoms/CTAButton/CTAButton';
-import { isNowBetween } from 'utils/date';
 
 const useStyles = makeStyles(theme => ({
   box: {
@@ -31,39 +33,33 @@ const useStyles = makeStyles(theme => ({
 
 const PromotionBanner = () => {
   const classes = useStyles();
+  const content = useSelector(state => state.cms.login);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    !content.heading &&
+      cmsServices.getLoginData().then(res => {
+        dispatch(cmsActions.setLoginData(res));
+      });
+  }, [dispatch]);
 
   return (
     <Box className={classes.box}>
-      {!isNowBetween(Date.UTC(2020, 8, 18, 7), Date.UTC(2020, 8, 19, 7)) && (
-        <Text className={classes.heading} component="h2" variant="h4">
-          Get Your Own Alexa Radio Skill
-        </Text>
-      )}
-      <a
-        href={
-          isNowBetween(Date.UTC(2020, 8, 18, 7), Date.UTC(2020, 8, 19, 7))
-            ? 'https://fastcast4u.com/app'
-            : 'https://fastcast4u.com/alexa-skill'
-        }
-      >
-        <Image
-          className={classes.image}
-          src={
-            isNowBetween(Date.UTC(2020, 8, 18, 7), Date.UTC(2020, 8, 19, 7))
-              ? 'https://fastcast4u.com/img/flash/mobileappv.png'
-              : 'https://fastcast4u.com/images/landing/alexa.png'
-          }
-        />
-      </a>
-      {!isNowBetween(Date.UTC(2020, 8, 18, 7), Date.UTC(2020, 8, 19, 7)) && (
+      <Text className={classes.heading} component="h2" variant="h4">
+        {content.heading}
+      </Text>
+      <Link to={content.button.To}>
+        <Image className={classes.image} src="https://fastcast4u.com/images/landing/alexa.png" />
+      </Link>
+      {content.button.Button && (
         <CTAButton
-          component="a"
-          href="https://fastcast4u.com/account/link.php?id=1001"
+          component={Link}
+          to={content.button.To}
           className={classes.button}
           xlarge
           color="secondary"
         >
-          Get Now
+          {content.button.Button}
         </CTAButton>
       )}
     </Box>
