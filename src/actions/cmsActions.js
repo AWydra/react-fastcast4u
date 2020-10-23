@@ -28,6 +28,11 @@ const setSLSData = data => ({
   payload: data,
 });
 
+const setNotificationData = data => ({
+  type: 'SET_NOTIFICATION_DATA',
+  payload: data,
+});
+
 export default {
   setHomeData,
   setAppData,
@@ -35,4 +40,5 @@ export default {
   setLoginData,
   setOrderData,
   setSLSData,
+  setNotificationData,
 };

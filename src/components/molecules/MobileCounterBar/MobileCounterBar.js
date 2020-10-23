@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Countdown from 'components/atoms/Countdown/Countdown';
 import Text from 'components/atoms/Text/Text';
@@ -13,11 +14,15 @@ const Bar = styled.div`
 `;
 
 const MobileCounterBar = ({ content, date, ...props }) => {
+  const currency = useSelector(state => state.general.currency);
+  const data = useSelector(state => state.cms.notification);
   return (
-    <Bar {...props}>
-      <Text>{content}</Text>
-      <Countdown date={date} />
-    </Bar>
+    data.active && (
+      <Bar {...props}>
+        <Text>{data.mobile.replace('{currency}', currency)}</Text>
+        <Countdown date={new Date(data.date)} />
+      </Bar>
+    )
   );
 };
 

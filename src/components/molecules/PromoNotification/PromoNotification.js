@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-// import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import cmsActions from 'actions/cmsActions';
+import cmsServices from 'services/cms';
 import styled, { css } from 'styled-components';
+
 import { Box, IconButton, makeStyles, useTheme, useMediaQuery } from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
 import Image from 'components/atoms/Image/Image';
 import Countdown from 'components/atoms/Countdown/Countdown';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-import { isNowBetween } from 'utils/date';
 
 const Notification = styled(Link)`
   ${({ theme }) => css`
@@ -43,6 +45,7 @@ const useStyles = makeStyles(theme => ({
     paddingBottom: theme.spacing(2),
     position: 'absolute',
     top: 0,
+    left: 0,
     transform: 'translateY(-100%)',
   },
   countdown: {
@@ -58,14 +61,24 @@ const PromoNotification = ({ ...props }) => {
   const [open, setOpen] = useState(true);
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('md'));
-  // const currency = useSelector(state => state.general.currency);
+  const currency = useSelector(state => state.general.currency);
+  const data = useSelector(state => state.cms.notification);
+  const dispatch = useDispatch();
 
   const handleClick = () => setOpen(false);
 
+  useEffect(() => {
+    !data.content &&
+      cmsServices.getNotificationData().then(res => {
+        console.log(res);
+        dispatch(cmsActions.setNotificationData(res));
+      });
+  }, [data]);
+
   return (
+    data.active &&
     matches &&
-    open &&
-    isNowBetween(Date.UTC(2020, 8, 28, 7), Date.UTC(2020, 8, 29, 7)) && (
+    open && (
       <Box className={classes.root} {...props}>
         <IconButton
           className={classes.icon}
@@ -75,15 +88,16 @@ const PromoNotification = ({ ...props }) => {
         >
           <HighlightOffIcon fontSize="inherit" />
         </IconButton>
-        <Notification to="/order">
-          <Image className={classes.img} src="https://img.fastcast4u.com/flash/flashsale.png" />
-          <Text variant="h5" fontWeight={600} mb={1} px={2}>
-            Unlimited Server
-          </Text>
-          <Text variant="h6" fontWeight={600} mb={1} px={2}>
-            billed annually and biennially
-          </Text>
-          <Countdown className={classes.countdown} date={Date.UTC(2020, 8, 29, 7)} />
+        <Notification to={data.link}>
+          <Image className={classes.img} src={`https://fastciast-cms.herokuapp.com${data.image}`} />
+          <Text
+            variant="h5"
+            fontWeight={600}
+            mb={1}
+            px={2}
+            dangerouslySetInnerHTML={{ __html: data.content.replace('{currency}', currency) }}
+          />
+          <Countdown className={classes.countdown} date={new Date(data.date)} />
         </Notification>
       </Box>
     )

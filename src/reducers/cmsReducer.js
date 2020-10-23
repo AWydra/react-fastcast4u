@@ -41,6 +41,14 @@ const initialState = {
     },
     bar: {},
   },
+  notification: {
+    active: false,
+    content: '',
+    date: '',
+    image: '',
+    mobile: '',
+    link: '',
+  },
 };
 
 const generalReducer = (state = initialState, action) => {
@@ -68,6 +76,10 @@ const generalReducer = (state = initialState, action) => {
     case 'SET_SLS_DATA':
       return produce(state, draftState => {
         draftState.sls = action.payload;
+      });
+    case 'SET_NOTIFICATION_DATA':
+      return produce(state, draftState => {
+        draftState.notification = action.payload;
       });
     default:
       return state;

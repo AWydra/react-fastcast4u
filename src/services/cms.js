@@ -62,6 +62,20 @@ const getSLSData = async () => {
   };
 };
 
+const getNotificationData = async () => {
+  const response = await axios.get(`${baseUrl}promo-notification`, {
+    cancelToken: source.token,
+  });
+  return {
+    active: response.data.active,
+    content: response.data.content,
+    date: response.data.date,
+    image: response.data.image.url,
+    mobile: response.data.mobile,
+    link: response.data.link,
+  };
+};
+
 const cancel = () => {
   source.cancel();
   source = axios.CancelToken.source();
@@ -75,5 +89,6 @@ export default {
   getLoginData,
   getOrderData,
   getSLSData,
+  getNotificationData,
   cancel,
 };
