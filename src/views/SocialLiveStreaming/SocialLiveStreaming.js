@@ -22,73 +22,13 @@ const useStyles = makeStyles({
   },
 });
 
-const sectionsData = [
-  {
-    img: (
-      <LazyLoadComponent>
-        <YTContainer>
-          <iframe
-            title="alexa-movie"
-            width="560"
-            height="315"
-            src="https://www.youtube.com/embed/_L2wmoWztAc"
-            frameBorder="0"
-            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
-        </YTContainer>
-      </LazyLoadComponent>
-    ),
-    heading: 'Facebook Live Streaming',
-    content:
-      'Make your Online Radio Stream available on your Facebook Fanpage, private account or groups.',
-  },
-  {
-    img: (
-      <LazyLoadComponent>
-        <YTContainer>
-          <iframe
-            title="alexa-movie"
-            width="560"
-            height="315"
-            src="https://www.youtube.com/embed/0VqeyGGfUu0"
-            frameBorder="0"
-            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
-        </YTContainer>
-      </LazyLoadComponent>
-    ),
-    heading: 'YouTube Live Streaming',
-    content: 'Set up a Radio Live Stream to YouTube and get even more listeners!',
-  },
-  {
-    img: (
-      <LazyLoadComponent>
-        <YTContainer>
-          <iframe
-            title="alexa-movie"
-            width="560"
-            height="315"
-            src="https://www.youtube.com/embed/-vRHhcM9NR4"
-            frameBorder="0"
-            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
-        </YTContainer>
-      </LazyLoadComponent>
-    ),
-    heading: 'Twitter Live Streaming',
-    content: 'Re-broadcast your Radio Stream on Twitter though Pericope',
-  },
-];
-
 const SocialLiveStreaming = () => {
   const location = useLocation();
   const [promocode, setPromocode] = useState(null);
   const [price, setPrice] = useState(null);
   const hero = useSelector(state => state.cms.sls.hero);
   const bar = useSelector(state => state.cms.sls.bar);
+  const content = useSelector(state => state.language.sls);
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -131,23 +71,77 @@ const SocialLiveStreaming = () => {
     [hero],
   );
 
+  const sectionsData = useMemo(
+    () => [
+      {
+        img: (
+          <LazyLoadComponent>
+            <YTContainer>
+              <iframe
+                title="alexa-movie"
+                width="560"
+                height="315"
+                src="https://www.youtube.com/embed/_L2wmoWztAc"
+                frameBorder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </YTContainer>
+          </LazyLoadComponent>
+        ),
+        heading: content.sections[0].heading,
+        content: content.sections[0].content,
+      },
+      {
+        img: (
+          <LazyLoadComponent>
+            <YTContainer>
+              <iframe
+                title="alexa-movie"
+                width="560"
+                height="315"
+                src="https://www.youtube.com/embed/0VqeyGGfUu0"
+                frameBorder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </YTContainer>
+          </LazyLoadComponent>
+        ),
+        heading: content.sections[1].heading,
+        content: content.sections[1].content,
+      },
+      {
+        img: (
+          <LazyLoadComponent>
+            <YTContainer>
+              <iframe
+                title="alexa-movie"
+                width="560"
+                height="315"
+                src="https://www.youtube.com/embed/-vRHhcM9NR4"
+                frameBorder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </YTContainer>
+          </LazyLoadComponent>
+        ),
+        heading: content.sections[2].heading,
+        content: content.sections[2].content,
+      },
+    ],
+    [content],
+  );
+
   const pricingData = useMemo(
     () => ({
-      heading: 'Social Media Live Streaming Package ',
-      list: [
-        'Facebook Live Streaming',
-        'Custom Cover Video Clip or Image',
-        'YouTube Live Streaming',
-        'Custom Text and Track info',
-        'Twitter Live Streaming though Periscope',
-      ],
       price,
-      cycle: 'Monthly',
       button: {
-        label: 'Get Now',
         component: 'a',
         href: `https://fastcast4u.com/account/cart.php?a=add&pid=529&billingcycle=monthly&skipconfig=1&promocode=${promocode}`,
       },
+      ...content.pricing,
     }),
     [price, promocode],
   );
