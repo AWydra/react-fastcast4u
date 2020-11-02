@@ -35,6 +35,15 @@
     "searchBar": {
       "label": "Search"
     },
+    "startTabs": {
+      "server": "Radio Server",
+      "panel": "Control Panel",
+      "app": "Mobile App",
+      "player": "Web Player",
+      "alexa": "Alexa Skill",
+      "sms": "Social Media Stream",
+      "more": "More"
+    },
     "status": {
       "available": "Available",
       "notAvailable": "Not Available"
@@ -550,5 +559,197 @@
     "reserved": "All Rights Reserved by FastCast DWC-LLC",
     "tos": "Terms of Service",
     "privacy": "Privacy Policy"
+  },
+  "sls": {
+    "sections": [
+      {
+        "heading": "Facebook Live Streaming",
+        "content": "Make your Online Radio Stream available on your Facebook Fanpage, private account or groups."
+      },
+      {
+        "heading": "YouTube Live Streaming",
+        "content": "Set up a Radio Live Stream to YouTube and get even more listeners!"
+      },
+      {
+        "heading": "Twitter Live Streaming",
+        "content": "Re-broadcast your Radio Stream on Twitter though Pericope"
+      }
+    ],
+    "pricing": {
+      "heading": "Social Media Live Streaming Package ",
+      "list": [
+        "Facebook Live Streaming",
+        "Custom Cover Video Clip or Image",
+        "YouTube Live Streaming",
+        "Custom Text and Track info",
+        "Twitter Live Streaming though Periscope"
+      ],
+      "cycle": "Monthly",
+      "button": {
+        "label": "Get Now"
+      }
+    }
+  },
+  "start": {
+    "alexa": {
+      "cta": { "heading": "Create Your Own Alexa Radio Skill", "label": "More" }
+    },
+    "control": {
+      "heading": {
+        "title": "Choose your Online Radio Control Panel",
+        "subtitle": "Online Radio Panel lets you easily manage your Radio Station. Set up your stream, control AutoDJ & Playlist Schedule, manage LiveDJs, track Listener Statistics and more..."
+      },
+      "centova": {
+        "heading": "CentovaCast",
+        "content": "Radio Server Control Panel trusted by thousands of stations worldwide",
+        "list": [
+          "AutoDJ with basic Playlist Schedule",
+          "Live DJ accounts",
+          "Basic Music Library manager",
+          "Listener Stats and Map",
+          "Advanced Listener Reporting",
+          "Proxy & HTTPS Stream link support",
+          "Radio Widgets",
+          "SHOUTcast Server with Icecast available on demand"
+        ]
+      },
+      "everest": {
+        "heading": "Everest Cast",
+        "content": "New, evolving Radio Server Control Panel with a user-friendly interface",
+        "list": [
+          "AutoDJ with a graphic scheduler",
+          "Live DJ accounts",
+          "Drag & Drop Music Library manager",
+          "Listener Statistics and Map",
+          "Basic Listener Reporting",
+          "Proxy & HTTPS Stream link support",
+          "Radio Widgets",
+          "Switch between SHOUTcast and Icecast Server"
+        ]
+      },
+      "cta": {
+        "heading": "Create Your Server Package",
+        "label": "Start Now"
+      }
+    },
+    "app": {
+      "section": {
+        "heading": "Mobile App for your Radio Station",
+        "content": "Easily listen to your online station on mobile devices",
+        "list": [
+          "Radio Stream Player",
+          "Your Custom Design",
+          "Social Media",
+          "Podcasts",
+          "WebView Page display",
+          "Push Notification",
+          "Monetization through Ads"
+        ]
+      },
+      "cta": {
+        "heading": "Create Your Own Customized Mobile App",
+        "label": "Get Now"
+      }
+    },
+    "more": {
+      "twitter": {
+        "title": "Twittercast addon",
+        "subtitle": "Use our FREE TwitterCast to automatically post info about your live broadcasts, currently played tracks and podcasts.",
+        "content": [
+          "Thanks to TwitterCast App, you can integrate your Internet Radio Server with a Twitteraccount within a few clicks! What distingues our TwitterCast from other solutions? It's extremely user friendly and quick to configure."
+        ]
+      },
+      "directory": {
+        "title": "Radio Directory Registration Package",
+        "subtitle": "Let us handle Online Promotion of your Radio Station",
+        "content": [
+          "Submit your Radio Station to world's most popular online Radio Station Directories, including Streema, SHOUTcast.com and many more…",
+          "Make your Radio Station available on new platforms, what makes it super easy to tune-in!"
+        ]
+      },
+      "cta": {
+        "heading": "Get as Free Addon to Your Server Package",
+        "label": "Get Now"
+      }
+    },
+    "radio": {
+      "sections": [
+        {
+          "heading": "Broadcast live or use Auto DJ to stream online with no limits!",
+          "list": [
+            "Unlimited Listeners",
+            "Unlimited Traffic (Bandwidth)",
+            "High audio quality - up to 320kbps",
+            "Unlimited AutoDJ disc space"
+          ]
+        },
+        {
+          "heading": "AutoDJ and Scheduler",
+          "content": "Upload and manage your Music Library online! With Unlimited Auto DJ easily Schedule Playlists, Jingles, and Ads!"
+        },
+        {
+          "heading": "Live DJs on air!",
+          "content": "Stream live from your computer and create your own broadcasts. Use your microphone, mixer or mixing software to create amazing live shows"
+        }
+      ],
+      "cta": {
+        "heading": "Create Your Radio Server Package and Start Broadcasting Online",
+        "label": "Start Now"
+      }
+    },
+    "sms": {
+      "heading": "Make your Online Radio Stream available on your Facebook Fanpage, private account or groups.",
+      "sections": [
+        {
+          "title": "Social Media Live Streaming",
+          "subtitle": "Get even more listeners by Streaming your Radio Live to Facebook, YouTube and Twitter.",
+          "list": [
+            "Facebook Radio Streaming",
+            "YouTube Radio Streaming",
+            "Twitter by Periscope Radio Streaming",
+            "One panel to control all streams",
+            "Custom Video or Thumbnail graphics",
+            "Over 100 configuration options",
+            "Light, HTML5 based & HTTPS compatible"
+          ]
+        }
+      ],
+      "cta": {
+        "heading": "Add to your Radio Server Package",
+        "label": "More"
+      }
+    },
+    "player": {
+      "sections": [
+        {
+          "title": "FREE WebPlayer Page",
+          "subtitle": "Get Listeners from Customizable WebPlayer Page!",
+          "content": "Free and customizable WebPlayer Page for your online station! No webbuliding skills, domains or webhosting plans needed.",
+          "list": [
+            "Customizable Skins and Layout",
+            "Compatible with Mobile Devices",
+            "Automatic Page Setup",
+            "Social Media Buttons",
+            "Put your ads or additional content",
+            "Over 100 configuration options",
+            "Light, HTML5 based & HTTPS compatible"
+          ]
+        },
+        {
+          "title": "Radio Player website widget",
+          "subtitle": "Free Radio Player - easy application on your website",
+          "list": [
+            "Custom Themes and skins",
+            "Cover Art",
+            "No hosting and complicated web building",
+            "Geoblocking TBA"
+          ]
+        }
+      ],
+      "cta": {
+        "heading": "Get Web Player as Free Addon to your Server Package",
+        "label": "Get Now"
+      }
+    }
   }
 }
