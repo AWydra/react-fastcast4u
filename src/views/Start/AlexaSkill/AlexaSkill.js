@@ -22,15 +22,16 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const AlexaSkill = () => {
-  const content = useSelector(state => state.language.alexa);
+  const alexaContent = useSelector(state => state.language.alexa);
+  const content = useSelector(state => state.language.start.alexa);
   const classes = useStyles();
 
   const sectionsData = useMemo(
     () => [
       {
         img: 'https://img.fastcast4u.com/react/alexa/alexa-front',
-        heading: content.sections[0].heading,
-        content: content.sections[0].content,
+        heading: alexaContent.sections[0].heading,
+        content: alexaContent.sections[0].content,
       },
       {
         img: (
@@ -48,11 +49,11 @@ const AlexaSkill = () => {
             </YTContainer>
           </LazyLoadComponent>
         ),
-        heading: content.sections[1].heading,
-        content: content.sections[1].content,
+        heading: alexaContent.sections[1].heading,
+        content: alexaContent.sections[1].content,
       },
     ],
-    [content],
+    [alexaContent],
   );
 
   return (
@@ -63,7 +64,7 @@ const AlexaSkill = () => {
         ))}
       </Container>
       <Text variant="h4" fontWeight={500} align="center" mt={2}>
-        Create Your Own Alexa Radio Skill
+        {content.cta.heading}
       </Text>
       <CTAButton
         className={classes.button}
@@ -72,7 +73,7 @@ const AlexaSkill = () => {
         xlarge
         color="primary"
       >
-        More
+        {content.cta.label}
       </CTAButton>
     </>
   );
