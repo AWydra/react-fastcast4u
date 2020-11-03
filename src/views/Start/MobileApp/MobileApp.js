@@ -16,16 +16,6 @@ import CTAButton from 'components/atoms/CTAButton/CTAButton';
 import PhoneSection from 'components/organisms/PhoneSection/PhoneSection';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
-const list = [
-  'Radio Stream Player',
-  'Your Custom Design',
-  'Social Media',
-  'Podcasts',
-  'WebView Page display',
-  'Push Notification',
-  'Monetization through Ads',
-];
-
 const useStyles = makeStyles(theme => ({
   phoneSection: {
     marginTop: theme.spacing(4),
@@ -49,7 +39,8 @@ const useStyles = makeStyles(theme => ({
 
 const MobileApp = () => {
   const classes = useStyles();
-  const content = useSelector(state => state.language.app);
+  const appContent = useSelector(state => state.language.app);
+  const content = useSelector(state => state.language.start.app);
 
   return (
     <>
@@ -60,13 +51,13 @@ const MobileApp = () => {
           </Grid>
           <Grid item xs={12} md={5}>
             <Text component="h2" variant="h4" fontWeight={500}>
-              Mobile App for your Radio Station
+              {content.section.heading}
             </Text>
             <Text color="textSecondary" variant="h6" my={2}>
-              Easily listen to your online station on mobile devices
+              {content.section.content}
             </Text>
             <List>
-              {list.map(content => (
+              {content.section.list.map(content => (
                 <ListItem key={content} disableGutters className={classes.item}>
                   <ListItemIcon className={classes.listIcon}>
                     <CheckCircleIcon className={classes.icon} />
@@ -77,10 +68,10 @@ const MobileApp = () => {
             </List>
           </Grid>
         </Grid>
-        <PhoneSection className={classes.phoneSection} data={content.slider} />
+        <PhoneSection className={classes.phoneSection} data={appContent.slider} />
       </Container>
       <Text variant="h4" fontWeight={500} align="center" mt={4}>
-        Create Your Own Customized Mobile App
+        {content.cta.heading}
       </Text>
       <CTAButton
         className={classes.button}
@@ -89,7 +80,7 @@ const MobileApp = () => {
         xlarge
         color="primary"
       >
-        Get Now
+        {content.cta.label}
       </CTAButton>
     </>
   );
