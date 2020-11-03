@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { Container, Grid, makeStyles } from '@material-ui/core';
 import Text from 'components/atoms/Text/Text';
 import Image from 'components/atoms/Image/Image';
@@ -23,6 +24,7 @@ const useStyles = makeStyles(theme => ({
 
 const More = () => {
   const classes = useStyles();
+  const content = useSelector(state => state.language.start.more);
 
   return (
     <Container maxWidth="xl">
@@ -32,43 +34,34 @@ const More = () => {
         </Grid>
         <Grid className={classes.content} item xs={12} md={8}>
           <Text component="h2" variant="h4" fontWeight={500}>
-            Twittercast addon
+            {content.twitter.title}
           </Text>
           <Text color="textSecondary" variant="h5" mt={3} mb={4}>
-            Use our FREE TwitterCast to automatically post info about your live broadcasts,
-            currently played tracks and podcasts.
+            {content.twitter.subtitle}
           </Text>
-          <Text fontSize={18}>
-            Thanks to TwitterCast App, you can integrate your Internet Radio Server with a Twitter
-            account within a few clicks! What distingues our TwitterCast from other solutions?
-            It&apos;s extremely user friendly and quick to configure.
-          </Text>
+          <Text fontSize={18}>{content.twitter.content[0]}</Text>
         </Grid>
       </Grid>
       <Grid spacing={4} container>
         <Grid className={classes.content} item xs={12} md={8}>
           <Text component="h2" variant="h4" fontWeight={500}>
-            Radio Directory Registration Package
+            {content.directory.title}
           </Text>
           <Text color="textSecondary" variant="h5" mt={3} mb={4}>
-            Let us handle Online Promotion of your Radio Station
+            {content.directory.subtitle}
           </Text>
-          <Text fontSize={18}>
-            Submit your Radio Station to world&apos;s most popular online Radio Station Directories,
-            including Streema, SHOUTcast.com and many more…
-            <br />
-            Make your Radio Station available on new platforms, what makes it super easy to tune-in!
-          </Text>
+          <Text fontSize={18}>{content.directory.content[0]}</Text>
+          <Text fontSize={18}>{content.directory.content[1]}</Text>
         </Grid>
         <Grid item xs={12} md={4}>
           <Image className={classes.image} src="//img.fastcast4u.com/react/start/megafontr.png" />
         </Grid>
       </Grid>
       <Text variant="h4" fontWeight={500} align="center" mt={10}>
-        Get as Free Addon to Your Server Package
+        {content.cta.heading}
       </Text>
       <CTAButton className={classes.button} component={Link} to="/order" xlarge color="primary">
-        Get Now
+        {content.cta.label}
       </CTAButton>
     </Container>
   );
